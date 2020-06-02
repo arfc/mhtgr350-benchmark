@@ -140,7 +140,7 @@ surf 143 cyl 0.0 0.0 340 -160 913
 cell 540 0 fill 13  -140
 cell 541 0 fill 4   -141
 cell 542 0 fill 4   -142
-cell 542 0 outside   143
+cell 543 0 outside   143
 
 /**********************************
 *            Materials            *
