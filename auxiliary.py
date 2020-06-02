@@ -42,5 +42,21 @@ def standard():
     plt.savefig("standard", dpi=300, bbox_inches="tight")
 
 
+def fullcore():
+    '''
+    Adds legend to fuel core geometry image:
+    'fullcore_geom1.png'.
+    '''
+    cwd = os.getcwd()
+    fname = get_sample_data('%s/fullcore_geom1.png' % (cwd))
+    im = plt.imread(fname)
+    plt.imshow(im)
+    plt.legend(handles=[matrix, block, helium])
+
+    plt.axis('off')
+    plt.savefig("fullcore", dpi=300, bbox_inches="tight")
+
+
 # compact()
-standard()
+# standard()
+fullcore()
