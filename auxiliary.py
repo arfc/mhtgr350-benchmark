@@ -42,5 +42,5 @@ def standard():
     plt.savefig("standard", dpi=300, bbox_inches="tight")
 
 
-compact()
+# compact()
 standard()
