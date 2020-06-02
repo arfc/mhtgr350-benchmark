@@ -124,8 +124,8 @@ lat 11 3 -18.0 -18.0 20 20 36.0
 
 surf 116 cyl 0.0 0.0 290 0.0 79.3
 
-cell 520 12 fill 11 -112
-cell 521 12 fill 4   112
+cell 520 12 fill 11 -116
+cell 521 12 fill 4   116
 
 % -- Core Lattice Stack
 lat 13 9 0.0 0.0 10
