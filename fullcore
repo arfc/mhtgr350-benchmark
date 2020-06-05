@@ -204,5 +204,11 @@ plot 1 1000 1000 0.0 0.0 216.0 -165.0 920.0
 mesh 3 1000 1000
 
 % --- Energy spectrum detector
-det EnergyDetector de MyEnergyGrid
 ene MyEnergyGrid 3 500 1e-11 2e1
+det EnergyDetector de MyEnergyGrid
+
+% --- Spatial flux detectors
+ene engrid 1 1e-11 0.625e-6 2e1
+det AxialBot n dm block dx 55.1 56.5 1 dy 105.6 107 1 dz -160 0 32 de engrid
+det AxialFuel n du 5 dx 55.1 56.5 1 dy 105.6 107 1 dz 0 793 80 de engrid
+det AxialTop n dm block dx 55.1 56.5 1 dy 105.6 107 1 dz 793 913 32 de engrid
