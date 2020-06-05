@@ -60,7 +60,7 @@ def fullcore():
 
 def plot_spectrum(data, name):
     """
-    Plots spectrum.
+    Plots spectrum normalized. The integral of the flux is 1.
     Parameters:
     -----------
     data: [serpenttools format]
