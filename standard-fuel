@@ -33,67 +33,69 @@ matrix
 **************************/
 
 surf 100 inf
+surf 101 inf
+surf 102 inf
+
 cell 500 2 matrix -100
-pbed 3 2 "particles79.inp"
+cell 501 3 helium -101
+cell 502 M block  -102
+
+pbed 5 2 "particles79.inp"
 
 % -- Fuel Channel
-surf 101 cyl 0.0 0.0 0.6223 0.0 79.3
-surf 102 cyl 0.0 0.0 0.635  0.0 79.3
+surf 110 cyl 0.0 0.0 0.6223 0.0 79.3
+surf 111 cyl 0.0 0.0 0.635  0.0 79.3
 
-cell 501 4 fill 3  -101
-cell 502 4 helium   101 -102
-cell 503 4 block    102
+cell 510 6 fill 5  -110
+cell 511 6 fill 3   110 -111
+cell 512 6 fill M   111
 
 % -- Small Coolant Channel
-surf 103 cyl 0.0 0.0 0.635 0.0 79.3
+surf 112 cyl 0.0 0.0 0.635 0.0 79.3
 
-cell 504 5 helium  -103
-cell 505 5 block    103
+cell 513 7 fill 3  -112
+cell 514 7 fill M   112
 
 % -- Large Coolant Channel
-surf 104 cyl 0.0 0.0 0.794 0.0 79.3
+surf 113 cyl 0.0 0.0 0.794 0.0 79.3
 
-cell 506 6 helium  -104
-cell 507 6 block    104
+cell 515 8 fill 3  -113
+cell 516 8 fill M   113
 
 % -- Hexagonal Lattice
-
-surf 105 inf
-cell 508 7 block -105
-
-lat 8 2 0.0 0.65 24 24 1.879
-7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
- 7 7 7 7 7 7 7 7 7 7 7 7 4 4 6 4 4 6 4 4 6 4 4 7
-  7 7 7 7 7 7 7 7 7 7 7 4 6 4 4 6 4 4 6 4 4 6 4 7
-   7 7 7 7 7 7 7 7 7 7 6 4 4 6 4 4 6 4 4 6 4 4 6 7
-    7 7 7 7 7 7 7 7 7 4 4 6 4 4 6 4 4 6 4 4 6 4 4 7
-     7 7 7 7 7 7 7 7 4 6 4 4 6 4 4 6 4 4 6 4 4 6 4 7
-      7 7 7 7 7 7 7 6 4 4 6 4 4 6 4 4 6 4 4 6 4 4 6 7
-       7 7 7 7 7 7 4 4 6 4 4 6 4 4 6 4 4 6 4 4 6 4 4 7
-        7 7 7 7 7 4 6 4 4 6 4 4 6 4 4 6 4 4 6 4 4 6 4 7
-         7 7 7 7 6 4 4 6 4 4 6 4 4 5 4 4 6 4 4 6 4 4 6 7
-          7 7 7 4 4 6 4 4 6 4 4 5 7 7 5 4 4 6 4 4 6 4 4 7
-           7 7 4 6 4 4 6 4 4 6 4 7 7 7 4 6 4 4 6 4 4 6 4 7
-            7 7 4 4 6 4 4 6 4 4 5 7 7 5 4 4 6 4 4 6 4 4 7 7
-             7 7 6 4 4 6 4 4 6 4 4 5 4 4 6 4 4 6 4 4 6 7 7 7
-              7 7 4 6 4 4 6 4 4 6 4 4 6 4 4 6 4 4 6 4 7 7 7 7
-               7 7 4 4 6 4 4 6 4 4 6 4 4 6 4 4 6 4 4 7 7 7 7 7
-                7 7 6 4 4 6 4 4 6 4 4 6 4 4 6 4 4 6 7 7 7 7 7 7
-                 7 7 4 6 4 4 6 4 4 6 4 4 6 4 4 6 4 7 7 7 7 7 7 7
-                  7 7 4 4 6 4 4 6 4 4 6 4 4 6 4 4 7 7 7 7 7 7 7 7
-                   7 7 6 4 4 6 4 4 6 4 4 6 4 4 6 7 7 7 7 7 7 7 7 7
-                    7 7 4 6 4 4 6 4 4 6 4 4 6 4 7 7 7 7 7 7 7 7 7 7
-                     7 7 4 4 6 4 4 6 4 4 6 4 4 7 7 7 7 7 7 7 7 7 7 7
-                      7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
-                       7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7 7
+lat 10 2 0.0 0.65 24 24 1.879
+M M M M M M M M M M M M M M M M M M M M M M M M
+ M M M M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 M
+  M M M M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 M
+   M M M M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M
+    M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
+     M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
+      M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 M
+       M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
+        M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
+         M M M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M
+          M M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M
+           M M 6 8 6 6 8 6 6 8 6 M M M 6 8 6 6 8 6 6 8 6 M
+            M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M M
+             M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M M M
+              M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M M M M
+               M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M M M M M
+                M M 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 M M M M M M
+                 M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M M M M M M M
+                  M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M M M M M M M M
+                   M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M M M M M M M M M
+                    M M 6 8 6 6 8 6 6 8 6 6 8 6 M M M M M M M M M M
+                     M M 6 6 8 6 6 8 6 6 8 6 6 M M M M M M M M M M M
+                      M M M M M M M M M M M M M M M M M M M M M M M M
+                       M M M M M M M M M M M M M M M M M M M M M M M M
 
 % -- Fuel Element Definition
-surf 106 cyl 0.0 0.0 1.75 52.9 79.3
-surf 107 hexyprism 0.0 0.0 18.0 0.0 79.3
+surf 114 cyl 0.0 0.0 1.75 52.9 79.3
+surf 115 hexyprism 0.0 0.0 18.0 0.0 79.3
 
-cell 509 0 helium   -106
-cell 510 0 fill 8    106 -107
-cell 511 0 outside   107
+cell 517 0 fill 3  -114
+cell 518 0 fill 10  114 -115
+cell 519 0 outside  115
 
 /**********************************
 *            Materials            *
@@ -142,8 +144,8 @@ therm grph gre7.00t
 % --- Cross section data library file path:
 set acelib "/home/roberto/Serpent2/xs/sss_jeff311u"
 
-% --- Reflective boundary condition:
-set bc 2
+% --- Periodic boundary condition:
+set bc 3
 
 % --- Neutron population and criticality cycles:
 set pop 5000 100 40
