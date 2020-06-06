@@ -1,8 +1,9 @@
 import os
+import numpy as np
 from matplotlib.cbook import get_sample_data
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-
+import serpentTools as st
 
 uco = mpatches.Patch(color=(1., 1., 0.), label='UCO')
 buffer = mpatches.Patch(color=(1., 0.5, 0.), label='Buffer')
@@ -57,6 +58,130 @@ def fullcore():
     plt.savefig("fullcore", dpi=300, bbox_inches="tight")
 
 
+def plot_spectrum(data, name):
+    """
+    Plots spectrum normalized. The integral of the flux is 1.
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    name: [string]
+    name of the detector
+    """
+    det = data.detectors[name]
+    val = det.tallies
+
+    E = [line[0] for line in det.grids['E']]
+    Emax = det.grids['E'][-1][1]
+
+    dE = np.roll(E, -1) - E
+    dE[-1] = Emax - E[-1]
+    inte = sum(val*dE)
+    val = val/inte
+
+    # relerr = det.errors
+    # abserrp = val + val * relerr
+    # abserrn = val - val * relerr
+
+    plt.figure()
+    plt.loglog(E, val)
+    plt.xlabel('E [MeV]')
+    plt.ylabel('Normalized flux')
+    plt.grid(True)
+    plt.savefig(name, dpi=300, bbox_inches="tight")
+
+
+def plot_detector(data, name, V=1):
+    """
+    Plots flux.
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    name: [string]
+    name of the detector
+    V: [float]
+    total volume where the detector is applied [cm3]
+    """
+    det = data.detectors[name]
+    z = [line[0] for line in det.grids['Z']]
+    val = det.tallies
+    vdetector = V/len(z)
+    val = val/vdetector
+
+    # relerr = det.errors
+    # abserr = val * relerr
+    # H = det.grids['Z'][-1][1] - det.grids['Z'][0][0]
+
+    plt.figure()
+    plt.step(z, val[0], where='post', label='thermal')
+    plt.step(z, val[1], where='post', label='fast')
+    plt.xlabel('z [cm]')
+    plt.ylabel(r'$\phi$')
+    plt.legend(loc="upper right")
+    plt.savefig(name, dpi=300, bbox_inches="tight")
+
+
+def plot_axial(data, vb, vc, vt):
+    """
+    Plots axial flux in bottom reflector, core, and top reflector.
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    vb: [float]
+    volume of the bottom reflector detector
+    vc: [float]
+    volume of the core reflector detector
+    vt: [float]
+    volume of the top reflector detector
+    """
+    name = 'AxialBot'
+    det = data.detectors[name]
+    zb = [line[0] for line in det.grids['Z']]
+    valb = det.tallies
+    vd1 = vb/len(zb)
+    valb /= vd1
+
+    name = 'AxialFuel'
+    det = data.detectors[name]
+    zf = [line[0] for line in det.grids['Z']]
+    valf = det.tallies
+    vd2 = vc/len(zf)
+    valf /= vd2
+
+    name = 'AxialTop'
+    det = data.detectors[name]
+    zt = [line[0] for line in det.grids['Z']]
+    valt = det.tallies
+    vd3 = vt/len(zt)
+    valt /= vd3
+
+    ther = np.concatenate([valb[0], valf[0], valt[0]])
+    fast = np.concatenate([valb[1], valf[1], valt[1]])
+    ztot = np.concatenate([zb, zf, zt])
+
+    plt.figure()
+    plt.step(ztot, ther, where='post', label='thermal')
+    plt.step(ztot, fast, where='post', label='fast')
+    plt.xlabel('z [cm]')
+    plt.ylabel(r'$\phi$')
+    plt.legend(loc="upper right")
+    plt.title('Axial flux.')
+    plt.savefig('axial1', dpi=300, bbox_inches="tight")
+
+
+# Adds legend to figures
 # compact()
 # standard()
-fullcore()
+# fullcore()
+# Plot detector output
+data = st.read('fullcoreB_det1b1.m', reader='det')
+# Plot spectrum
+# name = 'EnergyDetector'
+# plot_spectrum(data, name)
+# Plot flux
+Vbot = (56.5-55.1)*(107-105.6)*(0+160)
+Vfuel = np.pi*0.6223**2*793
+Vtop = (56.5-55.1)*(107-105.6)*(913-793)
+# name = 'AxialFuel'
+# plot_detector(data, name)
+# Plot axial flux of the MHTGR-350
+plot_axial(data, Vbot, Vfuel, Vtop)
