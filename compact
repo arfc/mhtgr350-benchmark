@@ -94,7 +94,7 @@ therm grph gre7.00t
 set acelib "/home/roberto/Serpent2/xs/sss_jeff311u"
 
 % --- Reflective boundary condition:
-set bc 2
+set bc 3
 
 % --- Neutron population and criticality cycles:
 set pop 5000 100 40
