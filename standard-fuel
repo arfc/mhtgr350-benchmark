@@ -38,9 +38,9 @@ surf 102 inf
 
 cell 500 2 matrix -100
 cell 501 3 helium -101
-cell 502 M block -102
+cell 502 M block  -102
 
-pbed 5 2 "particles4.inp"
+pbed 5 2 "particles79.inp"
 
 % -- Fuel Channel
 surf 110 cyl 0.0 0.0 0.6223 0.0 79.3
