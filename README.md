@@ -8,12 +8,5 @@ This repository holds the following serpent input files:
 * rsc-fuel: model of rsc fuel assembly.
 * standard fuel: model of the standard fuel assembly.
 
-bw/ folder contains:
-* fullcore: model of the full core. Reflector is defined as a block without the coolant channels.
-It changes the cross section libraries so it can be run on Blue Waters.
-
 'auliary.py' does the following:
 - Adds legends to serpent plots.
-- Plots energy spectrum.
-- Plots flux in a single detector.
-- Plots fluxes in bottom reflector, core, and top reflector.
