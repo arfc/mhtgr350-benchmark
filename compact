@@ -33,18 +33,24 @@ matrix
 **************************/
 
 surf 100 inf
+surf 101 inf
+surf 102 inf
+
 cell 500 2 matrix -100
-pbed 3 2 "particles4.inp"
+cell 501 3 helium -101
+cell 502 M block -102
+
+pbed 5 2 "particles4.inp"
 
 % -- Fuel Channel
-surf 101 cyl 0.0 0.0 0.6223 0.0 4.928
-surf 102 cyl 0.0 0.0 0.635  0.0 4.928
-surf 103 hexxprism 0.0 0.0 0.9395 0.0 4.928
+surf 110 cyl 0.0 0.0 0.6223 0.0 4.928
+surf 111 cyl 0.0 0.0 0.635  0.0 4.928
+surf 112 hexxprism 0.0 0.0 0.9395 0.0 4.928
 
-cell 501 0 fill 3  -101
-cell 502 0 helium   101 -102
-cell 503 0 block    102 -103
-cell 504 0 outside  103
+cell 510 0 fill 5  -110
+cell 511 0 fill 3   110 -111
+cell 512 0 fill M   111 -112
+cell 513 0 outside  112
 
 /**********************************
 *            Materials            *
@@ -93,12 +99,12 @@ therm grph gre7.00t
 % --- Cross section data library file path:
 set acelib "/home/roberto/Serpent2/xs/sss_jeff311u"
 
-% --- Reflective boundary condition:
-set bc 2
+% --- Periodic boundary condition:
+set bc 3
 
 % --- Neutron population and criticality cycles:
 set pop 5000 100 40
 
 % --- Geometry plot:
 plot 3 1000 1000 0.2 -1.1 1.1 -1.1 1.1
-plot 1 1000 1000 0.0 -2.3 2.3 0.0 4.6
+plot 1 1000 1000 0.0 -2.5 2.5 0.0 5.0
