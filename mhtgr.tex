@@ -37,6 +37,10 @@
 \usepackage[hang,flushmargin]{footmisc}
 \renewcommand*\footnoterule{}
 \usepackage{tikz}
+\usepackage{array}
+\usepackage{booktabs,mathptmx,siunitx}
+\sisetup{input-symbols = {()},  % do not treat "(" and ")" in any special way
+         group-digits  = false} % no grouping of digits
 
 \usetikzlibrary{shapes.geometric,arrows}
 \tikzstyle{process} = [rectangle, rounded corners, 
@@ -56,33 +60,36 @@ fill=blue!30]
 
 \section{Fuel Compact}
 
-	\begin{table}[]
-		\centering
-	    \caption{TRISO and Fuel Compact Characteristics.}
-	    \label{tab:compact}
-		\begin{tabular}{l|l}
-		\hline
-		Characteristic                   & Value                \\ \hline
-		Fuel                             & UC$_{0.5}$O$_{1.5}$  \\
-		Enrichment (average)             & 15.5 wt\%            \\
-		Kernel radius                    & 0.02125 cm           \\
-		Buffer radius                    & 0.03125 cm           \\
-		IPyC radius                      & 0.03475 cm           \\
-		SiC radius                       & 0.03825 cm           \\
-		OPyC radius                      & 0.04225 cm           \\
-    	Kernel density                   & 10.5 g/cm$^3$        \\
-		Buffer density                   & 1.0 g/cm$^3$         \\
-		IPyC density                     & 1.9 g/cm$^3$         \\
-		SiC density                      & 3.2 g/cm$^3$         \\
-		OPyC density                     & 1.9 g/cm$^3$         \\
-		Packing Fraction (average)       & 0.35                 \\
-		Compact radius                   & 0.6223 cm            \\
-		Compact Gap radius               & 0.635 cm             \\
-		Compact length                   & 4.928 cm             \\ 
-        Helium density           		 & 4.19 kg/m$^3$        \\
-        Block graphite density           & 1.85 g/cm$^3$        \\ \hline
+Table \ref{tab:compact} specifies details of the TRISO particle and fuel compact designs of the MHTGR-350.
 
-		\end{tabular}
+	\begin{table}
+	\centering
+	    \caption{TRISO and Fuel Compact Characteristics \cite{oecd_nea_benchmark_2017}.}
+	    \label{tab:compact}
+	  	\begin{tabular}{@{}l S[table-format=2.1] c}
+	    \toprule
+	    \multicolumn{1}{c}{Characteristic} & \multicolumn{1}{c@{}}{Value} & \multicolumn{1}{c@{}}{Units} \\
+	    \midrule
+		Fuel                             & UC$_{0.5}$O$_{1.5}$   & -        \\
+		Enrichment (average)             & 15.5                  & wt\%     \\
+		Kernel radius                    & 0.02125               & cm       \\
+		Buffer radius                    & 0.03125               & cm       \\
+		IPyC radius                      & 0.03475               & cm       \\
+		SiC radius                       & 0.03825               & cm       \\
+		OPyC radius                      & 0.04225               & cm       \\
+    	Kernel density                   & 10.50                 & g/cm$^3$ \\
+		Buffer density                   & 1.00                  & g/cm$^3$ \\
+		IPyC density                     & 1.90                  & g/cm$^3$ \\
+		SiC density                      & 3.20                  & g/cm$^3$ \\
+		OPyC density                     & 1.90                  & g/cm$^3$ \\
+		Packing Fraction (average)       & 0.35                  & -        \\
+		Compact radius                   & 0.6223                & cm       \\
+		Compact Gap radius               & 0.6350                & cm       \\
+		Compact length                   & 4.9280                & cm       \\
+        Helium density           		 & 4.19                  & $10^{-3}$ g/cm$^3$ \\
+        Block graphite density           & 1.85                  & g/cm$^3$ \\
+	    \bottomrule
+	  	\end{tabular}
 	\end{table}
 
 \pagebreak
