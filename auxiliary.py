@@ -9,7 +9,7 @@ buffer = mpatches.Patch(color=(1., 0.5, 0.), label='Buffer layer')
 pyc = mpatches.Patch(color=(1., 0., 0.), label='PyC')
 sic = mpatches.Patch(color=(0.6, 0.3, 0.), label='SiC')
 matrix = mpatches.Patch(color=(0.63, 0.63, 0.63), label='Compact matrix')
-block = mpatches.Patch(color=(0.61, 1., 0.91), label='Fuel Block')
+block = mpatches.Patch(color=(0.61, 1., 0.91), label='Graphite Fuel Block')
 helium = mpatches.Patch(color=(0.59, 0.41, 1.), label='He')
 
 
