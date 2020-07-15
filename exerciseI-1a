@@ -6,11 +6,8 @@
 * Cells: 500 to 600
 */
 
-/*************************
-*   Compact Definition   *
-* Radius 0.6223 cm       *
-* Length 4.928 cm        *
-* Packing Fraction 0.35  *
+/**************************
+*   Geometry Definition   *
 **************************/
 
 surf 100 inf
@@ -33,18 +30,6 @@ cell 513 0 outside  112
 
 /**********************************
 *            Materials            *
-* Kernel UCO Density (d) 10.5g/cc *
-* - U (e% = 15.5%) 1              *
-* - C 0.5                         *
-* - O 1.5                         *
-* Buffer d 1.0g/cc                *
-* - C 100%                        *
-* PyC d 1.9g/cc                   *
-* - C 100%                        *
-* SiC d 3.18g/cc                  *
-* - Si 70.05%                     *
-* - C  29.96%                     *
-* Matrix Graphite                 *
 **********************************/
 
 mat uco      -10.5        tmp 750                 rgb 255 255 0
@@ -73,6 +58,10 @@ mat block    -1.85        tmp 750 moder grph 6000 rgb 155 255 232
 
 mat helium   -0.0041881   tmp 750                 rgb 150 105 255
  2004.06c    -1.0
+
+/******************************
+*            Input            *
+******************************/
 
 % --- Thermal scattering data for graphite:
 therm grph 600 gr04.32t gr05.32t
