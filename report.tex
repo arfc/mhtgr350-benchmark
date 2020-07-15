@@ -54,8 +54,40 @@ fill=blue!30]
 %		\thispagestyle{empty}
 %	\end{titlepage}
 
-\section{Fuel Compact}
+\section{Exercise I-1a}
 
+Objective is to address the uncertainties due to double heterogeneity or self-shielding treatment.
+
+Figure \ref{fig:compact} shows the MHTGR fuel compact unit cell.
+This unit cell is derived from the fuel block hexagonal geometry, Figure \ref{fig:fuelblock}.
+
+Exercise I-1a specifies a homogeneous fuel region.
+Exercise I-1b specifies the TRISO fuel particles explicitly.
+
+The problem uses a reflective boundary condition.
+Two sub-cases : a Cold Zero Power (CZP) and Hot Full Power (HFP)
+
+	\begin{figure}[htbp!]
+		\centering
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{exerciseI-1-geo}
+			\caption{MHTGR fuel compact unit cell for Exercise I-1.}
+			\label{fig:compact}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.4\textwidth}
+			\centering
+			\includegraphics[width=\linewidth]{exerciseI-2-geo}
+			\caption{MHTGR fuel block for Exercise I-2.}
+			\label{fig:fuelblock}
+		\end{subfigure}
+		\hfill
+		\caption{MHTGR fuel compact unit cell for Exercise I-1. Image reproduced from \cite{strydom_results_2015}.}
+		\label{fig:fuel}
+	\end{figure}
+
+Differences to OECD MHTGR Benchmark
+Fuel compact outer radius: 0.6225
 
 
 
@@ -93,3 +125,27 @@ fill=blue!30]
 
 	% 	\end{tabular}
 	% \end{table}
+
+	% \begin{figure}[htbp!]
+	% 	\centering
+	% 	\begin{subfigure}[t]{0.4\textwidth}
+	% 		\centering
+	% 		\includegraphics[width=\linewidth]{figures/standard.png}
+	% 		\caption{XY-plane.}
+	% 	\end{subfigure}
+	% 	\begin{subfigure}[t]{0.4\textwidth}
+	% 		\centering
+	% 		\includegraphics[width=\linewidth]{figures/standard-column.png}
+	% 		\caption{YZ-plane.}
+	% 	\end{subfigure}
+	% 	\hfill
+	% 	\caption{Plot of \textit{standard-column}.}
+	% 	\label{fig:standardcolumn}
+	% \end{figure}
+
+	% \begin{figure}[htbp!]
+	% 	\centering
+	% 	\includegraphics[height=5cm]{figures/standard.png}
+	% 	\caption{Standard fuel assembly model.}
+	% 	\label{fig:standard}
+	% \end{figure}

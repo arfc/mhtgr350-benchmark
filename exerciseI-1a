@@ -6,25 +6,6 @@
 * Cells: 500 to 600
 */
 
-/******************************
-*      Particle Definition    *
-* Kernel radius 212.5e-6 m    *
-* Buffer radius 312.5e-6 m    *
-* IPyC radius   347.5e-6 m    *
-* SiC radius    382.5e-6 m    *
-* OPyC radius   422.5e-6 m    *
-* Matrix Graphite             *
-*******************************/
-% -- Coated Particle
-particle 1
-
-uco    0.02125
-buffer 0.03125
-pyc    0.03475
-sic    0.03825
-pyc    0.04225
-matrix
-
 /*************************
 *   Compact Definition   *
 * Radius 0.6223 cm       *
@@ -36,14 +17,12 @@ surf 100 inf
 surf 101 inf
 surf 102 inf
 
-cell 500 2 matrix -100
+cell 500 2 fuel   -100
 cell 501 3 helium -101
-cell 502 M block -102
-
-pbed 5 2 "particles4.inp"
+cell 502 M block  -102
 
 % -- Fuel Channel
-surf 110 cyl 0.0 0.0 0.6223 0.0 4.928
+surf 110 cyl 0.0 0.0 0.6225 0.0 4.928
 surf 111 cyl 0.0 0.0 0.635  0.0 4.928
 surf 112 hexxprism 0.0 0.0 0.9395 0.0 4.928
 
