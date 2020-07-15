@@ -57,7 +57,7 @@ therm grph 600 gr04.32t gr05.32t
 set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 
 % --- Periodic boundary condition:
-set bc 2 % or 2? periodic or reflective?
+set bc 3
 
 % --- Neutron population and criticality cycles:
 set pop 50000 100 40
