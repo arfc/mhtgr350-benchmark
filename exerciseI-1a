@@ -32,7 +32,7 @@ cell 513 0 outside  112
 *            Materials            *
 **********************************/
 
-mat fuel     sum          tmp 600                 rgb 255 255 0
+mat fuel     sum          tmp 1200 moder grph2 6000 rgb 255 255 0
  92235.06c   1.58e-4
  92238.06c   8.47e-4
   8016.06c   1.51e-3
@@ -41,23 +41,25 @@ mat fuel     sum          tmp 600                 rgb 255 255 0
  14029.06c   1.40e-4
  14030.06c   8.96e-5
 
-mat helium   sum          tmp 600                 rgb 150 105 255
+mat helium   sum          tmp 1200                 rgb 150 105 255
  2004.06c    2.46e-5
 
-mat block    sum          tmp 600 moder grph 6000 rgb 155 255 232
- 6000.06c    9.28e-2
+mat block    sum          tmp 1000 moder grph1 6000 rgb 155 255 232
+ 6000.05c    9.28e-2
 
 /******************************
 *            Input            *
 ******************************/
+
 % --- Thermal scattering data for graphite:
-therm grph 600 gr04.32t gr05.32t
+therm grph1 gr06.32t  % 1000K
+therm grph2 gr07.32t  % 1200K
 
 % --- Cross section data library file path:
 set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 
 % --- Periodic boundary condition:
-set bc 2 % or 2? periodic or reflective?
+set bc 3
 
 % --- Neutron population and criticality cycles:
 set pop 50000 100 40

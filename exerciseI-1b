@@ -8,14 +8,7 @@
 
 /******************************
 *      Particle Definition    *
-* Kernel radius 212.5e-6 m    *
-* Buffer radius 312.5e-6 m    *
-* IPyC radius   347.5e-6 m    *
-* SiC radius    382.5e-6 m    *
-* OPyC radius   422.5e-6 m    *
-* Matrix Graphite             *
-*******************************/
-% -- Coated Particle
+******************************/
 particle 1
 
 uco    0.02125
@@ -26,11 +19,8 @@ pyc    0.04225
 matrix
 
 /*************************
-*   Compact Definition   *
-* Radius 0.6223 cm       *
-* Length 4.928 cm        *
-* Packing Fraction 0.35  *
-**************************/
+*        Geometry        *
+*************************/
 
 surf 100 inf
 surf 101 inf
