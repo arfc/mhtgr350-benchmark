@@ -1,12 +1,9 @@
 # mhtgr350-benchmark
 
-* exerciseI-1a2: uses reflective BCs
+* exerciseI-1a: uses periodic BCs
 	- Homogenized fuel
-	- Cold Zero Power (CZP)
-* exerciseI-1a3: uses periodic BCs
-	- Homogenized fuel
-	- CZP
+	- Hot Full Power (HFP)
 
 * exerciseI-1b:
 	- Explicit and random
-	- CZP
+	- HFP

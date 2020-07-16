@@ -97,9 +97,15 @@ Differences to OECD MHTGR Benchmark.
 		\label{fig:fuel}
 	\end{figure}
 
+HFP:
+ExerciseI-1a. 43.8 sec. MPI = 8, OMP = 16. 128 cores.
+keff = 1.19085 +/- 0.00047
 
+% OMP: OpenMP threads = number of available processor cores.
+% MPI: Amount of processes.
 
-
+% Ex: 2 sockets (2 physical CPUs) with 12 cores (total 24 cores): OMP = 24.
+% Ex: 2 Computers with 2 sockets and 12 cores/socket (total 48 cores): MPI = 2, OMP = 24.
 
 
 \pagebreak
