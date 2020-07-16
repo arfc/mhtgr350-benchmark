@@ -1,16 +1,21 @@
 # mhtgr350-benchmark
 
-* exerciseI-1a:
+* crp-exI-1a:
 	- Fuel compact
 	- Homogenized fuel
 	- Hot Full Power (HFP)
 
-* exerciseI-1b:
+* crp-exI-1b:
 	- Fuel compact
 	- Explicit and random
 	- HFP
 
-* exerciseI-2a:
+* crp-exI-2a:
 	- Fuel element
+	- Explicit and random
+	- HFP
+
+* oecd-exI-1b:
+	- Fuel compact
 	- Explicit and random
 	- HFP
