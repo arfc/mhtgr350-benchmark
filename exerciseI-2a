@@ -161,7 +161,7 @@ set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 set bc 1
 
 % --- Neutron population and criticality cycles:
-set pop 50000 100 40
+set pop 200000 500 50
 
 % --- Geometry plot:
 plot 3 1000 1000 0.2
