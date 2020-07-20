@@ -36,19 +36,19 @@ surf 100 inf
 surf 101 inf
 surf 102 inf
 
-cell 500 2 matrix -100
-cell 501 3 helium -101
-cell 502 M block -102
+cell 500 cm matrix -100 % cm: compact matrix
+cell 501 C helium  -101 % C: Coolant
+cell 502 M block   -102 % M: Moderator
 
-pbed 5 2 "particles4.inp"
+pbed F cm "particles4.inp" % F: Fuel
 
 % -- Fuel Channel
 surf 110 cyl 0.0 0.0 0.6223 0.0 4.928
 surf 111 cyl 0.0 0.0 0.635  0.0 4.928
 surf 112 hexxprism 0.0 0.0 0.9395 0.0 4.928
 
-cell 510 0 fill 5  -110
-cell 511 0 fill 3   110 -111
+cell 510 0 fill F  -110
+cell 511 0 fill C   110 -111
 cell 512 0 fill M   111 -112
 cell 513 0 outside  112
 
