@@ -38,3 +38,15 @@
 	- Explicit and random
 	- HFP
 	- oecd material composition from Benchmark Phase III
+
+* standard-column
+	- fuel column
+	- Explicit and random
+	- HFP
+	- oecd material composition from Benchmark Phase III
+
+* fullcore
+	- fuel column
+	- Explicit and random
+	- HFP
+	- oecd material composition from Benchmark Phase III
