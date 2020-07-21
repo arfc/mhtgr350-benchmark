@@ -157,6 +157,3 @@ plot 1 1000 1000
 
 % --- Neutron population and criticality cycles:
 set pop 100000 500 50
-
-% --- Periodic boundary condition:
-set bc 3
