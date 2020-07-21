@@ -15,7 +15,7 @@ uco    0.02125
 buffer 0.03125
 pyc    0.03525
 sic    0.03875
-pyc    0.04275
+pyc    0.04225
 matrix
 
 particle 2
@@ -37,11 +37,11 @@ cell 500 3 matrix -100
 cell 501 4 helium -101
 cell 502 M block -102
 
-pbed F 3 "crp4"
+pbed F 3 "oecd4"
 pbed B 3 "crpP"
 
 % -- Fuel Channel
-surf 110 cyl 0.0 0.0 0.6225 0.0 4.928
+surf 110 cyl 0.0 0.0 0.6223 0.0 4.928
 surf 111 cyl 0.0 0.0 0.6350 0.0 4.928
 
 cell 510 6 fill F  -110
@@ -60,7 +60,7 @@ surf 113 cyl 0.0 0.0 0.7940 0.0 4.928
 cell 515 8 fill 4  -113
 cell 516 8 fill M   113
 
-% -- Fuel Channel
+% -- Lumped burnable poison
 surf 114 cyl 0.0 0.0 0.5715 0.0 4.928
 surf 115 cyl 0.0 0.0 0.6350 0.0 4.928
 
@@ -146,10 +146,6 @@ mat helium   sum          tmp 1200                  rgb 150 105 255
 mat block    sum          tmp 1000 moder grph1 6000 rgb 155 255 232
  6000.10c    9.28e-2
 
-/******************************
-*            Input            *
-******************************/
-
 % --- Thermal scattering data for graphite:
 therm grph1 gr06.32t  % 1000K
 therm grph2 gr07.32t  % 1200K
@@ -157,12 +153,16 @@ therm grph2 gr07.32t  % 1200K
 % --- Cross section data library file path:
 set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 
+/******************************
+*            Input            *
+******************************/
+
 % --- Periodic boundary condition:
 set bc 3
-
-% --- Neutron population and criticality cycles:
-set pop 200000 500 50
 
 % --- Geometry plot:
 plot 3 1000 1000 0.2
 % plot 1 1000 1000 19. -2 2 0 4
+
+% --- Neutron population and criticality cycles:
+set pop 200000 500 50
