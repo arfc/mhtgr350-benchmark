@@ -26,3 +26,9 @@
 	- Explicit and random
 	- HFP
 	- uses same material compositon as CRP
+
+* oecd-exI-1b2:
+	- Fuel compact
+	- Explicit and random
+	- HFP
+	- oecd material composition from Benchmark Phase III

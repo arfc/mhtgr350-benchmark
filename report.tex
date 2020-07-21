@@ -62,6 +62,21 @@ HTGR reactors require core simulation techniques not typically utilized in Light
 
 \cite{bostelmann_criticality_2016}.
 
+A major challenge for neutronics modeling is the double heterogenity present in \glspl{HTGR}.
+
+The issue of double heterogeneity arises from the introduction of the TRISO fuel particles into the reactor design.
+These TRISO particles form the first level of heterogeneity, as they consist of four layers.
+The second level of heterogeneity arises from the fuel elements themselves.
+The TRISO particles are packed into fuel compacts, which are contained within fuel assemblies that are heterogeneous with the coolant, moderator, and reflector regions.
+
+The computational time required to explicitly model individual TRISO particles in the reactor makes this approach time consuming, costly, and impractical for the majority of applications.
+Applying a simple volume homogenization has proven to be insufficient for TRISO particle, due to the resonant self-shielding effect of the kernel and coated layers.
+
+SERPENT is a continuous energy Monte Carlo reactor physics burnup calculation code, developed by VTT Technical Research Centre of Finland and distributed by RSICC in the United States.
+SERPENT allows for the explicit modeling of TRISO fuel particles.
+
+\cite{rahnema_whitepaper_2015}.
+
 \section{CRP Exercise I-1}
 
 Objective is to address the uncertainties due to double heterogeneity or self-shielding treatment.
@@ -114,10 +129,17 @@ ExerciseI-1b.
 4.04 min. MPI = 8, OMP = 8: 64 cores.
 six_ff_keff = 1.25411 +/- 0.00020
 
+Although ExerciseI-1b runs a 30\% slower K$_{eff}$ changes considerably.
+
 \section{CRP Exercise I-2}
 
 Exercise I-2a: fresh single block, Figure \ref{fig:fuelblock}.
 Exercise I-2b: depleted block, similar to Figure \ref{fig:fuelblock} but without the LBP compacts.
+
+Exercise I-2a:
+200000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
+1.28 h. MPI = 8, OMP = 16: 128 cores.
+six_ff_keff = 1.06523 +/- 0.00011
 
 \section{OECD Exercise I}
 
@@ -130,8 +152,14 @@ six_ff_keff = 1.25205 +/- 0.00019
 oecd-exI-1b2:
 same material composition as CRP
 
-six_ff_keff = 1.24339 +/- 0.00019
-4 min MPI = 8, OMP = 16
+six_ff_keff = 1.24348 +/- 0.00020
+4.01 min MPI = 8, OMP = 16
+
+oecd-exI-1b3:
+same material composition as OECD MHTGR 350 - Phase III
+
+six_ff_keff = 1.24872 +/- 0.00020
+4.01 min MPI = 8, OMP = 16
 
 \pagebreak
 \bibliographystyle{plain}

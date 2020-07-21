@@ -15,10 +15,10 @@ wc12 = 0.5*12/Mtot
 # print(wo16)
 # print(wc12)
 
-# print(wu235 * 10.5/235 * Na)
-# print(wu238 * 10.5/238 * Na)
-# print(wo16 * 10.5/16 * Na)
-# print(wc12 * 10.5/12 * Na)
+print(wu235 * 10.5/235 * Na)
+print(wu238 * 10.5/238 * Na)
+print(wo16 * 10.5/16 * Na)
+print(wc12 * 10.5/12 * Na)
 
 '''
     Buffer
