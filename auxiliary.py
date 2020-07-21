@@ -38,14 +38,15 @@ def standard():
     fname = get_sample_data('%s/standard-fuel_geom1.png' % (cwd))
     im = plt.imread(fname)
     plt.imshow(im)
-    plt.legend(handles=[matrix, block, helium])
+    plt.legend(handles=[matrix, block, helium],
+               loc="upper right", bbox_to_anchor=(1., 0.0), fancybox=True)
 
     plt.axis('off')
     plt.savefig("standard", dpi=300, bbox_inches="tight")
 
 
 def main():
-    compact()
+    # compact()
     standard()
 
 

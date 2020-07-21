@@ -36,56 +36,56 @@ surf 100 inf
 surf 101 inf
 surf 102 inf
 
-cell 500 2 matrix -100
-cell 501 3 helium -101
-cell 502 M block  -102
+cell 500 cm matrix -100 % cm: compact matrix
+cell 501 C helium  -101 % C: Coolant
+cell 502 M block   -102 % M: Moderator
 
-pbed 5 2 "particles79.inp"
+pbed F cm "particles79.inp"
 
 % -- Fuel Channel
 surf 110 cyl 0.0 0.0 0.6223 0.0 79.3
 surf 111 cyl 0.0 0.0 0.635  0.0 79.3
 
-cell 510 6 fill 5  -110
-cell 511 6 fill 3   110 -111
-cell 512 6 fill M   111
+cell 510 2 fill F  -110
+cell 511 2 fill C   110 -111
+cell 512 2 fill M   111
 
 % -- Small Coolant Channel
 surf 112 cyl 0.0 0.0 0.635 0.0 79.3
 
-cell 513 7 fill 3  -112
-cell 514 7 fill M   112
+cell 513 3 fill C  -112
+cell 514 3 fill M   112
 
 % -- Large Coolant Channel
 surf 113 cyl 0.0 0.0 0.794 0.0 79.3
 
-cell 515 8 fill 3  -113
-cell 516 8 fill M   113
+cell 515 4 fill C  -113
+cell 516 4 fill M   113
 
 % -- Hexagonal Lattice
 lat 10 2 0.0 0.65 24 24 1.879
 M M M M M M M M M M M M M M M M M M M M M M M M
- M M M M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 M
-  M M M M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 M
-   M M M M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M
-    M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
-     M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
-      M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 M
-       M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
-        M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
-         M M M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M
-          M M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M
-           M M 6 8 6 6 8 6 6 8 6 M M M 6 8 6 6 8 6 6 8 6 M
-            M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M M
-             M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M M M
-              M M 6 8 6 6 8 6 6 M M M M 6 6 8 6 6 8 6 M M M M
-               M M 6 6 8 6 6 8 M M M M M 8 6 6 8 6 6 M M M M M
-                M M 8 6 6 8 6 M M M M M M 6 8 6 6 8 M M M M M M
-                 M M 6 8 6 6 M M M M M M M 6 6 8 6 M M M M M M M
-                  M M 6 6 8 6 M M M M M M 6 8 6 6 M M M M M M M M
-                   M M 8 6 6 8 M M M M M 8 6 6 8 M M M M M M M M M
-                    M M 6 8 6 6 M M M M 6 6 8 6 M M M M M M M M M M
-                     M M 6 6 8 6 6 7 6 6 8 6 6 M M M M M M M M M M M
+ M M M M M M M M M M M M 2 2 4 2 2 4 2 2 4 2 2 M
+  M M M M M M M M M M M 2 4 2 2 4 2 2 4 2 2 4 2 M
+   M M M M M M M M M M 4 2 2 4 2 2 4 2 2 4 2 2 4 M
+    M M M M M M M M M 2 2 4 2 2 4 2 2 4 2 2 4 2 2 M
+     M M M M M M M M 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 M
+      M M M M M M M 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 M
+       M M M M M M 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 M
+        M M M M M 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 M
+         M M M M 4 2 2 4 2 2 4 2 2 3 2 2 4 2 2 4 2 2 4 M
+          M M M 2 2 4 2 2 4 2 2 3 M M 3 2 2 4 2 2 4 2 2 M
+           M M 2 4 2 2 4 2 2 4 2 M M M 2 4 2 2 4 2 2 4 2 M
+            M M 2 2 4 2 2 4 2 2 3 M M 3 2 2 4 2 2 4 2 2 M M
+             M M 4 2 2 4 2 2 4 2 2 3 2 2 4 2 2 4 2 2 4 M M M
+              M M 2 4 2 2 4 2 2 M M M M 2 2 4 2 2 4 2 M M M M
+               M M 2 2 4 2 2 4 M M M M M 4 2 2 4 2 2 M M M M M
+                M M 4 2 2 4 2 M M M M M M 2 4 2 2 4 M M M M M M
+                 M M 2 4 2 2 M M M M M M M 2 2 4 2 M M M M M M M
+                  M M 2 2 4 2 M M M M M M 2 4 2 2 M M M M M M M M
+                   M M 4 2 2 4 M M M M M 4 2 2 4 M M M M M M M M M
+                    M M 2 4 2 2 M M M M 2 2 4 2 M M M M M M M M M M
+                     M M 2 2 4 2 2 3 2 2 4 2 2 M M M M M M M M M M M
                       M M M M M M M M M M M M M M M M M M M M M M M M
                        M M M M M M M M M M M M M M M M M M M M M M M M
 
@@ -94,8 +94,8 @@ surf 114 cyl 0.0 0.0 1.75 52.9 79.3
 surf 115 cyl 0.0 9.756 4.762 0.0 79.3
 surf 116 hexyprism 0.0 0.0 18.0 0.0 79.3
 
-cell 517 0 fill 3   -114
-cell 518 0 fill 3   -115
+cell 517 0 fill C   -114
+cell 518 0 fill C   -115
 cell 519 0 fill 10   114 115 -116
 cell 520 0 outside   116
 
