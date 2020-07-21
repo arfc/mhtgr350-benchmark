@@ -32,3 +32,9 @@
 	- Explicit and random
 	- HFP
 	- oecd material composition from Benchmark Phase III
+
+* oecd-exI-2a:
+	- Fuel element
+	- Explicit and random
+	- HFP
+	- oecd material composition from Benchmark Phase III
