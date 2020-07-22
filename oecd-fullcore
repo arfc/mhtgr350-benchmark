@@ -81,7 +81,7 @@ cell 519 L fill M   115
 % -- Standard Fuel lattice
 lat 10 2 0.0 0.65 24 24 1.879
 M M M M M M M M M M M M M M M M M M M M M M M M
- M M M M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 M
+ M M M M M M M M M M M M L 6 8 6 6 8 6 6 8 6 L M
   M M M M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 M
    M M M M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M
     M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
@@ -91,7 +91,7 @@ M M M M M M M M M M M M M M M M M M M M M M M M
         M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
          M M M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M
           M M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M
-           M M 6 8 6 6 8 6 6 8 6 M M M 6 8 6 6 8 6 6 8 6 M
+           M M L 8 6 6 8 6 6 8 6 M M M 6 8 6 6 8 6 6 8 L M
             M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M M
              M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M M M
               M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M M M M
@@ -101,7 +101,7 @@ M M M M M M M M M M M M M M M M M M M M M M M M
                   M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M M M M M M M M
                    M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M M M M M M M M M
                     M M 6 8 6 6 8 6 6 8 6 6 8 6 M M M M M M M M M M
-                     M M 6 6 8 6 6 8 6 6 8 6 6 M M M M M M M M M M M
+                     M M L 6 8 6 6 8 6 6 8 6 L M M M M M M M M M M M
                       M M M M M M M M M M M M M M M M M M M M M M M M
                        M M M M M M M M M M M M M M M M M M M M M M M M
 
