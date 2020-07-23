@@ -34,18 +34,34 @@
 	- oecd material composition from Benchmark Phase III
 
 * oecd-exI-2a:
+	- H = 4.928
 	- Fuel element
 	- Explicit and random
 	- HFP
 	- oecd material composition from Benchmark Phase III
 
-* standard-column
+* oecd-exI-2a:
+	- H = 79.3
+	- Fuel element
+	- Explicit and random
+	- HFP
+	- oecd material composition from Benchmark Phase III
+
+* oecd-standard-column
 	- fuel column
 	- Explicit and random
 	- HFP
 	- oecd material composition from Benchmark Phase III
 
-* fullcore
+* oecd-standard-column2
+	- not sure of what I've changed from 'oecd-standard-column'
+	to this one.
+	- fuel column
+	- Explicit and random
+	- HFP
+	- oecd material composition from Benchmark Phase III
+
+* oecd-fullcore
 	- fuel column
 	- Explicit and random
 	- HFP
