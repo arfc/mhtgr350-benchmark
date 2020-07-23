@@ -42,7 +42,7 @@ cell 503 B block  -103
 cell 504 T block  -104
 
 pbed 4 cm "oecd79"
-pbed 5 cm "crpP"
+pbed 5 cm "crpP2"
 
 % -- Fuel Channel
 surf 110 cyl 0.0 0.0 0.6223 0.0 79.3

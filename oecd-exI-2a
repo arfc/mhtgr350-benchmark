@@ -158,7 +158,7 @@ set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 ******************************/
 
 % --- Periodic boundary condition:
-set bc 1
+set bc 3
 
 % --- Geometry plot:
 plot 3 1000 1000 0.2
