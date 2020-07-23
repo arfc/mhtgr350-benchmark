@@ -38,7 +38,7 @@ cell 501 4 helium -101
 cell 502 M block -102
 
 pbed F 3 "oecd79"
-pbed B 3 "crpP"
+pbed B 3 "crpP2"
 
 % -- Fuel Channel
 surf 110 cyl 0.0 0.0 0.6223 0.0 79.3

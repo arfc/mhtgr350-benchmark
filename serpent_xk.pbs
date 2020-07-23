@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l nodes=8:ppn=16:xk
-#PBS -l walltime=05:00:00
+#PBS -l walltime=20:00:00
 #PBS -N testing_serp_dep_uq
 #PBS -j oe 
 #PBS -q normal 
@@ -15,10 +15,5 @@ cd $PBS_O_WORKDIR
 module swap PrgEnv-cray PrgEnv-gnu
 export OMP_NUM_THREADS=16
 
-#aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 oecd-exI-1b
-#aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 oecd-exI-1b2
-#aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 oecd-exI-1b3
-#aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 oecd-exI-2a2
-aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 oecd-standard-column
-#aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 oecd-fullcore
+aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 oecd-fullcore
 
