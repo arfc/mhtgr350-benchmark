@@ -10,6 +10,12 @@
 	- Explicit and random
 	- HFP
 
+* crp-exI-1bE:
+	- Fuel compact
+	- Explicit and random
+	- HFP
+	- uses ENDF
+
 * crp-exI-2a:
 	- Fuel element
 	- Explicit and random
