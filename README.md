@@ -40,13 +40,6 @@
 	- HFP
 	- oecd material composition from Benchmark Phase III
 
-* oecd-exI-2a2:
-	- H = 79.3
-	- Fuel element
-	- Explicit and random
-	- HFP
-	- oecd material composition from Benchmark Phase III
-
 * oecd-standard-column
 	- fuel column
 	- Explicit and random
