@@ -29,10 +29,6 @@ def compact():
     plt.savefig("compact", dpi=300, bbox_inches="tight")
 
 
-<<<<<<< HEAD
-def main():
-    compact()
-=======
 def standard():
     '''
     Adds legend to standard fuel assembly geometry image:
@@ -50,9 +46,8 @@ def standard():
 
 
 def main():
-    # compact()
+    compact()
     standard()
->>>>>>> edf32b3e2fe7c1f5ac2cec3fdc95dc20af715b26
 
 
 if __name__ == "__main__":
