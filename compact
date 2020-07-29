@@ -110,7 +110,3 @@ plot 1 1000 1000 0.0 -2.5 2.5 0.0 5.0
 
 % --- Neutron population and criticality cycles:
 set pop 50000 500 50
-<<<<<<< HEAD
-
-=======
->>>>>>> edf32b3e2fe7c1f5ac2cec3fdc95dc20af715b26
