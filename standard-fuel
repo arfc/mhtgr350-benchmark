@@ -1,4 +1,4 @@
-/*This input file defines a hexagonal elementary cell for the fuel compact.*/
+/*This input file defines a hexagonal standard fuel assembly.*/
 
 /* Numbering:
 * Universes: 1 to 10
@@ -26,9 +26,9 @@ pyc    0.04225
 matrix
 
 /*************************
-*   Compact Definition   *
+*     Fuel column        *
 * Radius 0.6223 cm       *
-* Length 4.928 cm        *
+* Length 79.3 cm         *
 * Packing Fraction 0.35  *
 **************************/
 
@@ -40,17 +40,62 @@ cell 500 cm matrix -100 % cm: compact matrix
 cell 501 C helium  -101 % C: Coolant
 cell 502 M block   -102 % M: Moderator
 
-pbed F cm "particles4.inp" % F: Fuel
+pbed F cm "particles79.inp"
 
 % -- Fuel Channel
-surf 110 cyl 0.0 0.0 0.6223 0.0 4.928
-surf 111 cyl 0.0 0.0 0.635  0.0 4.928
-surf 112 hexxprism 0.0 0.0 0.9395 0.0 4.928
+surf 110 cyl 0.0 0.0 0.6223 0.0 79.3
+surf 111 cyl 0.0 0.0 0.6350 0.0 79.3
 
-cell 510 0 fill F  -110
-cell 511 0 fill C   110 -111
-cell 512 0 fill M   111 -112
-cell 513 0 outside  112
+cell 510 2 fill F  -110
+cell 511 2 fill C   110 -111
+cell 512 2 fill M   111
+
+% -- Small Coolant Channel
+surf 112 cyl 0.0 0.0 0.635 0.0 79.3
+
+cell 513 3 fill C  -112
+cell 514 3 fill M   112
+
+% -- Large Coolant Channel
+surf 113 cyl 0.0 0.0 0.794 0.0 79.3
+
+cell 515 4 fill C  -113
+cell 516 4 fill M   113
+
+% -- Hexagonal Lattice
+lat 10 2 0.0 0.65 24 24 1.879
+M M M M M M M M M M M M M M M M M M M M M M M M
+ M M M M M M M M M M M M 2 2 4 2 2 4 2 2 4 2 2 M
+  M M M M M M M M M M M 2 4 2 2 4 2 2 4 2 2 4 2 M
+   M M M M M M M M M M 4 2 2 4 2 2 4 2 2 4 2 2 4 M
+    M M M M M M M M M 2 2 4 2 2 4 2 2 4 2 2 4 2 2 M
+     M M M M M M M M 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 M
+      M M M M M M M 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 M
+       M M M M M M 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 M
+        M M M M M 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 M
+         M M M M 4 2 2 4 2 2 4 2 2 3 2 2 4 2 2 4 2 2 4 M
+          M M M 2 2 4 2 2 4 2 2 3 M M 3 2 2 4 2 2 4 2 2 M
+           M M 2 4 2 2 4 2 2 4 2 M M M 2 4 2 2 4 2 2 4 2 M
+            M M 2 2 4 2 2 4 2 2 3 M M 3 2 2 4 2 2 4 2 2 M M
+             M M 4 2 2 4 2 2 4 2 2 3 2 2 4 2 2 4 2 2 4 M M M
+              M M 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 M M M M
+               M M 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 M M M M M
+                M M 4 2 2 4 2 2 4 2 2 4 2 2 4 2 2 4 M M M M M M
+                 M M 2 4 2 2 4 2 2 4 2 2 4 2 2 4 2 M M M M M M M
+                  M M 2 2 4 2 2 4 2 2 4 2 2 4 2 2 M M M M M M M M
+                   M M 4 2 2 4 2 2 4 2 2 4 2 2 4 M M M M M M M M M
+                    M M 2 4 2 2 4 2 2 4 2 2 4 2 M M M M M M M M M M
+                     M M 2 2 4 2 2 4 2 2 4 2 2 M M M M M M M M M M M
+                      M M M M M M M M M M M M M M M M M M M M M M M M
+                       M M M M M M M M M M M M M M M M M M M M M M M M
+
+% -- Fuel Element Definition
+surf 114 cyl 0.0 0.0 1.75 52.9 79.3
+surf 115 hexyprism 0.0 0.0 18.0 0.0 79.3
+
+cell 517 0 fill C  -114
+cell 518 0 fill 10  114 -115
+cell 519 0 outside  115
 
 /**********************************
 *            Materials            *
@@ -105,12 +150,8 @@ set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 set bc 3
 
 % --- Geometry plot:
-plot 3 1000 1000 0.2 -1.1 1.1 -1.1 1.1
-plot 1 1000 1000 0.0 -2.5 2.5 0.0 5.0
+plot 3 1000 1000
+plot 1 1000 1000
 
 % --- Neutron population and criticality cycles:
-set pop 50000 500 50
-<<<<<<< HEAD
-
-=======
->>>>>>> edf32b3e2fe7c1f5ac2cec3fdc95dc20af715b26
+set pop 100000 500 50

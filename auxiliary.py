@@ -29,8 +29,30 @@ def compact():
     plt.savefig("compact", dpi=300, bbox_inches="tight")
 
 
+<<<<<<< HEAD
 def main():
     compact()
+=======
+def standard():
+    '''
+    Adds legend to standard fuel assembly geometry image:
+    'standard-fuel_geom1.png'.
+    '''
+    cwd = os.getcwd()
+    fname = get_sample_data('%s/standard-fuel_geom1.png' % (cwd))
+    im = plt.imread(fname)
+    plt.imshow(im)
+    plt.legend(handles=[matrix, block, helium],
+               loc="upper right", bbox_to_anchor=(1., 0.0), fancybox=True)
+
+    plt.axis('off')
+    plt.savefig("standard", dpi=300, bbox_inches="tight")
+
+
+def main():
+    # compact()
+    standard()
+>>>>>>> edf32b3e2fe7c1f5ac2cec3fdc95dc20af715b26
 
 
 if __name__ == "__main__":
