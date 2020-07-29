@@ -151,7 +151,7 @@ set bc 3
 
 % --- Geometry plot:
 plot 3 1000 1000
-plot 1 1000 1000
+% plot 1 1000 1000
 
 % --- Neutron population and criticality cycles:
 set pop 100000 500 50
