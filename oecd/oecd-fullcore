@@ -239,22 +239,17 @@ det Radial2 n dn 1 0 300 300 0 2 1 396.5 475.8 1 de engrid
 det Radial3 n dn 1 0 300 300 30 32 1 396.5 475.8 1 de engrid
 
 % --- Cross-sections homogenization
-% 5: Fuel compact, 3: Helium, M: Moderator,
-% B: Bottom reflector, T: Top reflector, 9: Fuel assembly
-% I: Inner reflector, O: Outer reflector
-% set gcu 5 3 M B T 9 I O
-% set gcu 9 I O B T
-% set nfg 2 0.625E-6
+set gcu 9 I O B T
+set nfg 2 0.625E-6
 
-% branch fuel0
-% stp uco       -10.5       750
-% stp buffer     -1.0       750 grph gr04.32t gr05.32t
-% stp pyc        -1.9       750 grph gr04.32t gr05.32t
-% stp sic        -3.2       750 grph gr04.32t gr05.32t
-% stp matrix     -1.75      750 grph gr04.32t gr05.32t
-% stp block      -1.75      750 grph gr04.32t gr05.32t
-% stp helium     -0.0041881 750
+branch fuel0
+stp uco       sum       1200
+stp buffer    sum       1200 grph2 gr07.32t gr08.32t
+stp pyc       sum       1200 grph2 gr07.32t gr08.32t
+stp sic       sum       1200 grph2 gr07.32t gr08.32t
+stp matrix    sum       1200 grph2 gr07.32t gr08.32t
+stp helium    sum       1200
+stp block     sum       1000 grph1 gr06.32t gr07.32t
 
-% coef 1
-% 0
-% 1 fuel0
+coef 1 0
+1 fuel0
