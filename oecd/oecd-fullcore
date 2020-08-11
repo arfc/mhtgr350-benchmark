@@ -51,7 +51,7 @@ pbed 4 cm "oecd79"
 pbed 5 cm "crpP2"
 
 % -- Fuel Channel:
-surf 110 cyl 0.0 0.0 0.6223 0.0 79.3
+surf 110 cyl 0.0 0.0 0.6225 0.0 79.3
 surf 111 cyl 0.0 0.0 0.6350  0.0 79.3
 
 cell 510 6 fill 4  -110

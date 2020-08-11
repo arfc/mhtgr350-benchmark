@@ -41,7 +41,7 @@ pbed F 3 "oecd4"
 pbed B 3 "crpP"
 
 % -- Fuel Channel
-surf 110 cyl 0.0 0.0 0.6223 0.0 4.928
+surf 110 cyl 0.0 0.0 0.6225 0.0 4.928
 surf 111 cyl 0.0 0.0 0.6350 0.0 4.928
 
 cell 510 6 fill F  -110

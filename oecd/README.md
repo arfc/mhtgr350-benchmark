@@ -4,7 +4,7 @@
 	- Fuel compact
 	- Explicit and random
 	- HFP
-	- oecd material composition (I had to calculate it from [3][4] I think)
+	- oecd material densities from Table I.4. [3]
 
 * oecd-exI-1b2:
 	- Fuel compact

@@ -39,7 +39,7 @@ cell 502 M block -102
 pbed 5 2 "oecd4"
 
 % -- Fuel Channel
-surf 110 cyl 0.0 0.0 0.6223 0.0 4.928
+surf 110 cyl 0.0 0.0 0.6225 0.0 4.928
 surf 111 cyl 0.0 0.0 0.6350 0.0 4.928
 surf 112 hexxprism 0.0 0.0 0.9395 0.0 4.928
 
