@@ -34,7 +34,8 @@
 	- Geometry definition from [3]
 	- 1) defines materials using sum and 1000 and 1200 K
 	- 2) defines materials using sum and 1200 K
-	- 3) defines materials
+	- 3) defines materials using density and 1000 and 1200 K
+	- 4) defines materials using density and 1200 K
 
 * oecd-fullcore
 	- fuel column
@@ -74,8 +75,22 @@ six_ff_keff = 1.07065 +/- 0.00011
 
 oecd-standard-column:
 500000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-4.24 h MPI = 8, OMP = 16: 128 cores
-six_ff_keff = 1.07201 +/- 0.00007
+4.23 h MPI = 8, OMP = 16: 128 cores
+six_ff_keff = 1.07186 +/- 0.00007
+
+oecd-standard-column2:
+500000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
+4.33 h MPI = 8, OMP = 16: 128 cores
+six_ff_keff = 1.06636 +/- 0.00007
+
+oecd-standard-column4:
+500000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
+4.23 h MPI = 8, OMP = 16: 128 cores
+six_ff_keff = 1.06897 +/- 0.00007
+
+
+
+
 
 oecd-fullcore:
 800000 neutrons/cycle, 500 active cycles, 50 inactive cycles.

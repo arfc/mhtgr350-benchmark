@@ -190,21 +190,21 @@ set power 5303030 % 350MW / 66 = 5.303 MW
 ene engrid 1 1e-11 0.625e-6 2e1
 det Axial n du 0 dz -160 913 200 de engrid
 
-% set gcu 11 B T
-% set nfg 2 0.625E-6
+set gcu 11 B T
+set nfg 2 0.625E-6
 
-% branch fuel0
-% stp uco       sum       1200
-% stp buffer    sum       1200 grph2 gr07.32t gr08.32t
-% stp pyc       sum       1200 grph2 gr07.32t gr08.32t
-% stp sic       sum       1200 grph2 gr07.32t gr08.32t
-% stp matrix    sum       1200 grph2 gr07.32t gr08.32t
-% stp bkrnl     sum       1200 grph2 gr07.32t gr08.32t
-% stp buffr2    sum       1200 grph2 gr07.32t gr08.32t
-% stp pyc2      sum       1200 grph2 gr07.32t gr08.32t
-% stp matrix2   sum       1200 grph2 gr07.32t gr08.32t
-% stp helium    sum       1200
-% stp block     sum       1200 grph2 gr07.32t gr08.32t
+branch fuel0
+stp uco       sum       1200
+stp buffer    sum       1200 grph2 gr07.32t gr08.32t
+stp pyc       sum       1200 grph2 gr07.32t gr08.32t
+stp sic       sum       1200 grph2 gr07.32t gr08.32t
+stp matrix    sum       1200 grph2 gr07.32t gr08.32t
+stp bkrnl     sum       1200 grph2 gr07.32t gr08.32t
+stp buffr2    sum       1200 grph2 gr07.32t gr08.32t
+stp pyc2      sum       1200 grph2 gr07.32t gr08.32t
+stp matrix2   sum       1200 grph2 gr07.32t gr08.32t
+stp helium    sum       1200
+stp block     sum       1200 grph2 gr07.32t gr08.32t
 
-% coef 1 0
-% 1 fuel0
+coef 1 0
+1 fuel0

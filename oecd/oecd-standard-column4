@@ -144,28 +144,28 @@ mat sic      -3.2          tmp 1200 moder grph2 6000 rgb 153  76   0
 mat matrix   -1.75         tmp 1200 moder grph2 6000 rgb 160 160 160
  6000.12c    8.27e-2
 
-mat bkrnl    -2.47         tmp 1000 moder grph1 6000 rgb 255 192 203
+mat bkrnl    -2.47         tmp 1200 moder grph2 6000 rgb 255 192 203
  5010.10c    2.14e-2
  5011.10c    8.63e-2
  6000.10c    2.69e-2
 
-mat buffr2   -1.0          tmp 1000 moder grph1 6000 rgb 255 128   0
+mat buffr2   -1.0          tmp 1200 moder grph2 6000 rgb 255 128   0
  6000.10c    5.02e-2
 
-mat pyc2     -1.87         tmp 1000 moder grph1 6000 rgb 255   0   0
+mat pyc2     -1.87         tmp 1200 moder grph2 6000 rgb 255   0   0
  6000.10c    9.38e-2
 
-mat matrix2  -0.94         tmp 1000 moder grph1 6000 rgb 160 160 160
+mat matrix2  -0.94         tmp 1200 moder grph2 6000 rgb 160 160 160
  6000.10c    8.27e-2
 
 mat helium   -0.0025525    tmp 1200                  rgb 150 105 255
  2004.12c    2.46e-5
 
-mat block    -1.85         tmp 1000 moder grph1 6000 rgb 155 255 232
+mat block    -1.85         tmp 1200 moder grph2 6000 rgb 155 255 232
  6000.10c    9.28e-2
 
 % --- Thermal scattering data for graphite:
-therm grph1 gr06.32t  % 1000K
+% therm grph1 gr06.32t  % 1000K
 therm grph2 gr07.32t  % 1200K
 
 % --- Cross section data library file path:
@@ -193,18 +193,18 @@ det Axial n du 0 dz -160 913 200 de engrid
 set gcu 11 B T
 set nfg 2 0.625E-6
 
-% branch fuel0
-% stp uco       -10.5       1200
-% stp buffer     -1.0       1200 grph2 gr07.32t gr08.32t
-% stp pyc        -1.9       1200 grph2 gr07.32t gr08.32t
-% stp sic        -3.2       1200 grph2 gr07.32t gr08.32t
-% stp matrix     -1.75      1200 grph2 gr07.32t gr08.32t
-% stp bkrnl      -2.47      1200 grph2 gr07.32t gr08.32t
-% stp buffr2     -1.0       1200 grph2 gr07.32t gr08.32t
-% stp pyc2       -1.87      1200 grph2 gr07.32t gr08.32t
-% stp matrix2    -0.94      1200 grph2 gr07.32t gr08.32t
-% stp helium     -0.0025525 1200
-% stp block      -1.85      1200 grph2 gr07.32t gr08.32t
+branch fuel0
+stp uco       -10.5       1200
+stp buffer     -1.0       1200 grph2 gr07.32t gr08.32t
+stp pyc        -1.9       1200 grph2 gr07.32t gr08.32t
+stp sic        -3.2       1200 grph2 gr07.32t gr08.32t
+stp matrix     -1.75      1200 grph2 gr07.32t gr08.32t
+stp bkrnl      -2.47      1200 grph2 gr07.32t gr08.32t
+stp buffr2     -1.0       1200 grph2 gr07.32t gr08.32t
+stp pyc2       -1.87      1200 grph2 gr07.32t gr08.32t
+stp matrix2    -0.94      1200 grph2 gr07.32t gr08.32t
+stp helium     -0.0025525 1200
+stp block      -1.85      1200 grph2 gr07.32t gr08.32t
 
-% coef 1 0
-% 1 fuel0
+coef 1 0
+1 fuel0
