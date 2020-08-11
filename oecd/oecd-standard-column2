@@ -194,13 +194,13 @@ set gcu 11 B T
 set nfg 2 0.625E-6
 
 branch fuel0
-stp uco       sum       1200
-stp buffer    sum       1200 grph1 gr07.32t gr08.32t
-stp pyc       sum       1200 grph1 gr07.32t gr08.32t
-stp sic       sum       1200 grph1 gr07.32t gr08.32t
-stp matrix    sum       1200 grph1 gr07.32t gr08.32t
-stp helium    sum       1200
-stp block     sum       1000 grph2 gr06.32t gr07.32t
+stp uco       -10.5       1200
+stp buffer     -1.0       1200 grph1 gr07.32t gr08.32t
+stp pyc        -1.9       1200 grph1 gr07.32t gr08.32t
+stp sic        -3.2       1200 grph1 gr07.32t gr08.32t
+stp matrix     -1.75      1200 grph1 gr07.32t gr08.32t
+stp helium     -0.0025525 1200
+stp block      -1.85      1000 grph2 gr06.32t gr07.32t
 
 coef 1 0
 1 fuel0
