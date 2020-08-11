@@ -32,8 +32,9 @@
 	- HFP
 	- oecd material composition from Benchmark Phase III [2]
 	- Geometry definition from [3]
-	- 1) defines the stp using 'sum'
-	- 2) defines the stp using the mass density
+	- 1) defines materials using sum and 1000 and 1200 K
+	- 2) defines materials using sum and 1200 K
+	- 3) defines materials
 
 * oecd-fullcore
 	- fuel column
@@ -64,19 +65,19 @@ oecd-exI-1b3:
 3.98 min MPI = 8, OMP = 16: 128 cores
 six_ff_keff = 1.24927 +/- 0.00020
 
-
-
 oecd-exI-2a:
 200000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-six_ff_keff = 1.07006 +/- 0.00011
-1.29 h MPI = 8, OMP = 16
+six_ff_keff = 1.07065 +/- 0.00011
+1.25 h MPI = 8, OMP = 16
+
+
 
 oecd-standard-column:
 500000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
 4.24 h MPI = 8, OMP = 16: 128 cores
 six_ff_keff = 1.07201 +/- 0.00007
 
-oecd-standard-column:
+oecd-fullcore:
 800000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
 10.6 h MPI = 8, OMP = 16: 128 cores
 six_ff_keff = 1.06284 +/- 0.00006
