@@ -154,7 +154,7 @@ plot 3 1000 1000
 plot 1 1000 1000 0.0 -100 100.0 -165.0 920.0
 
 % --- Neutron population and criticality cycles:
-set pop 350000 350 50
+set pop 350000 320 50
 
 set power 5303030 % 350MW / 66 = 5.303 MW
 
