@@ -65,25 +65,20 @@ oecd-exI-1b3:
 3.98 min MPI = 8, OMP = 16: 128 cores
 six_ff_keff = 1.24927 +/- 0.00020
 
-
-
 oecd-exI-2a:
 200000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-six_ff_keff = 1.07065 +/- 0.00011
+six_ff_keff = 1.06975 +/- 0.00011
 1.25 h MPI = 8, OMP = 16
 
 oecd-standard-column:
 500000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-4.23 h MPI = 8, OMP = 16: 128 cores
-six_ff_keff = 1.07186 +/- 0.00007
+4.21 h MPI = 8, OMP = 16: 128 cores
+six_ff_keff = 1.07097 +/- 0.00007
 
 oecd-fullcore:
 800000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-10.6 h MPI = 8, OMP = 16: 128 cores
-six_ff_keff = 1.06284 +/- 0.00006
-
-
-
+12.2 h MPI = 8, OMP = 16: 128 cores
+six_ff_keff = 1.06135 +/- 0.00006
 
 References:
 -----------

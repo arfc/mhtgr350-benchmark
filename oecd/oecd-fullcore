@@ -228,7 +228,8 @@ ene MyEnergyGrid 3 500 1e-11 2e1
 det EnergyDetector de MyEnergyGrid
 
 % --- Spatial flux detectors
-ene engrid 1 1e-11 0.625e-6 2e1
+% ene engrid 1 1e-11 0.625e-6 2e1 % 2G
+ene engrid 1 1e-11 0.625e-6 1.83e-1 2e1 % 3G
 
 det Axial1 n dh 3  93.53 18.0 36 1 1 -160 913 80 de engrid
 det Axial2 n dh 3 124.71  0.0 36 1 1 -160 913 80 de engrid
@@ -239,27 +240,25 @@ det Radial2 n dn 1 0 300 300 0 2 1 396.5 475.8 1 de engrid
 det Radial3 n dn 1 0 300 300 30 32 1 396.5 475.8 1 de engrid
 
 % --- Power distribution detectors
-det power1  dr -8 void dh 3   0.0 108.0 36 1 1 0 793 1
-det power2  dr -8 void dh 3   0.0 144.0 36 1 1 0 793 1
-
-det power3  dr -8 void dh 3 31.177  90.0 36 1 1 0 793 1
-det power4  dr -8 void dh 3 31.177 126.0 36 1 1 0 793 1
-det power5  dr -8 void dh 3 31.177 162.0 36 1 1 0 793 1
-
-det power6  dr -8 void dh 3 62.354  72.0 36 1 1 0 793 1
-det power7  dr -8 void dh 3 62.354 108.0 36 1 1 0 793 1
-det power8  dr -8 void dh 3 62.354 144.0 36 1 1 0 793 1
-
-det power9  dr -8 void dh 3 93.531  54.0 36 1 1 0 793 1
-det power10 dr -8 void dh 3 93.531  90.0 36 1 1 0 793 1
-det power11 dr -8 void dh 3 93.531 126.0 36 1 1 0 793 1
-
-det power12 dr -8 void dh 3 124.708  72.0 36 1 1 0 793 1
-det power13 dr -8 void dh 3 124.708 108.0 36 1 1 0 793 1
+%det power1  dr -8 void dh 3   0.0 108.0 36 1 1 0 793 1
+%det power2  dr -8 void dh 3   0.0 144.0 36 1 1 0 793 1
+%det power3  dr -8 void dh 3 31.177  90.0 36 1 1 0 793 1
+%det power4  dr -8 void dh 3 31.177 126.0 36 1 1 0 793 1
+%det power5  dr -8 void dh 3 31.177 162.0 36 1 1 0 793 1
+%det power6  dr -8 void dh 3 62.354  72.0 36 1 1 0 793 1
+%det power7  dr -8 void dh 3 62.354 108.0 36 1 1 0 793 1
+%det power8  dr -8 void dh 3 62.354 144.0 36 1 1 0 793 1
+%det power9  dr -8 void dh 3 93.531  54.0 36 1 1 0 793 1
+%det power10 dr -8 void dh 3 93.531  90.0 36 1 1 0 793 1
+%det power11 dr -8 void dh 3 93.531 126.0 36 1 1 0 793 1
+%det power12 dr -8 void dh 3 124.708  72.0 36 1 1 0 793 1
+%det power13 dr -8 void dh 3 124.708 108.0 36 1 1 0 793 1
+det power  dr -8 void dh 3 62.35383 108.0 36 5 5 0 793 1
 
 % --- Cross-sections homogenization
 set gcu 9 I O B T
-set nfg 2 0.625E-6
+%set nfg 2 0.625E-6 %2G
+set nfg engrid
 
 branch fuel0
 stp uco       -10.5       1200

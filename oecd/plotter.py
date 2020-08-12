@@ -96,10 +96,9 @@ def plot_radial(data, name, piH=1):
     plt.savefig(name, dpi=300, bbox_inches="tight")
 
 
-def plot_hexagonal(data, name, p):
+def plot_hexagonal(data, name, p, x0, y0, ff):
     """
     Plots flux from curvilinear detector.
-
     Parameters:
     -----------
     data: [serpenttools format]
@@ -107,9 +106,15 @@ def plot_hexagonal(data, name, p):
         name of the detector
     p: [float]
         pitch. Distance between hexagon centers.
+    x0: [float]
+        center coordinate
+    y0: [float]
+        center coordinate
+    ff: [float]
+        assembly flat-to-flat distance
     """
     det = data.detectors[name]
-
+    plt.figure()
     # Dividies by detector volume
     # A = 3.2/np.cos(np.pi/6)  # cm length of face of the hexagon
     # Ah = 6. * (A * 3.2/2)    # Area of the hexagon
@@ -118,27 +123,28 @@ def plot_hexagonal(data, name, p):
     # val = val/vdetector  # I think this is not necessary
     det.tallies /= 1e3
 
-    det.pitch = 3.2
+    det.pitch = p
     det.hexType = 3
     ax = det.hexPlot(cbarLabel='Power [kW]')
     ax.set_aspect('equal')
 
-    s = 15./np.cos(np.pi/6)
-    plt.plot([s, 2*s], [0, 0], 'r-', lw=2)
-    plt.plot([s, 2*s], [30, 30], 'r-', lw=2)
-    plt.plot([s, s/2], [0, 15], 'r-', lw=2)
-    plt.plot([s/2, s], [15, 30], 'r-', lw=2)
-    plt.plot([2*s, 2*s+s/2], [0, 15], 'r-', lw=2)
-    plt.plot([2*s+s/2, 2*s], [15, 30], 'r-', lw=2)
+    # f = ff/2
+    # s = ff/2/np.cos(np.pi/6)
+    # plt.plot([x0-s/2, x0+s/2], [y0-f, y0-f], 'r-', lw=2)
+    # plt.plot([x0-s/2, x0+s/2], [y0+f, y0+f], 'r-', lw=2)
+    # plt.plot([x0-s/2, x0-s], [y0-f, y0], 'r-', lw=2)
+    # plt.plot([x0-s, x0-s/2], [y0, y0+f], 'r-', lw=2)
+    # plt.plot([x0+s/2, x0+s], [y0-f, y0], 'r-', lw=2)
+    # plt.plot([x0+s, x0+s/2], [y0, y0+f], 'r-', lw=2)
     plt.savefig(name, dpi=300, bbox_inches="tight")
 
 
 def plot_everything():
     '''
-    Plots the output of the detectors of the MMR
+    Plots the output of the detectors of the full core model.
     - Spectrum
     - 3 axial flux detectors
-    - 1 radial flux detector
+    - 3 radial flux detector
     - Pin power distribution
     '''
     data = st.read('oecd-fullcore_det0.m', reader='det')
@@ -165,5 +171,15 @@ def plot_everything():
     p = np.pi/180 * 2  # = 2 deg
     plot_radial(data, 'Radial3', p*H)
 
+    # Plots pin power distribution
+    # plot_hexagonal(data, 'power1', 36, 36*np.cos(np.pi/6), 0, 108)
 
-plot_everything()
+
+# plot_everything()
+# data = st.read('oecd-standard-column_det1b1.m', reader='det')
+
+# Plots axial fluxes
+A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
+Ah = 6. * (A * 18./2)   # Area of the hexagon
+V = Ah * (160 + 793 + 120)
+# plot_axial(data, 'Axial', V)
