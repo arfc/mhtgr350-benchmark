@@ -4,7 +4,7 @@
 	- Fuel compact
 	- Explicit and random
 	- HFP
-	- oecd material densities from Table I.4. [3]
+	- oecd material densities from Table I.4. and Table I.5. [3]
 
 * oecd-exI-1b2:
 	- Fuel compact
@@ -23,19 +23,18 @@
 	- Fuel element
 	- Explicit and random
 	- HFP
-	- oecd material composition from Benchmark Phase III [2]
+	- oecd material densities from Table I.4. and Table I.5. [3]
+	- The number densities are very close to the ones in [2]
 	- Geometry definition from [3]
 
 * oecd-standard-column
 	- fuel column
 	- Explicit and random
 	- HFP
-	- oecd material composition from Benchmark Phase III [2]
+	- oecd material densities from Table I.4. and Table I.5. [3]
 	- Geometry definition from [3]
-	- 1) defines materials using sum and 1000 and 1200 K
-	- 2) defines materials using sum and 1200 K
-	- 3) defines materials using density and 1000 and 1200 K
-	- 4) defines materials using density and 1200 K
+	- defines materials using density at 1000 and 1200 K
+	- I had to define the densities. I won't run the branch variations having the parameter 'sum'. And the densities in the branch need to have the same units as the densities in the materials card. I can't use sum in one and mass density in the other one.
 
 * oecd-fullcore
 	- fuel column
@@ -53,8 +52,8 @@ Results:
 --------
 oecd-exI-1b1:
 50000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-3.97 min. MPI = 8, OMP = 16: 128 cores
-six_ff_keff = 1.25205 +/- 0.00019
+3.99 min. MPI = 8, OMP = 16: 128 cores
+six_ff_keff = 1.25041 +/- 0.00019
 
 oecd-exI-1b2:
 50000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
@@ -66,36 +65,25 @@ oecd-exI-1b3:
 3.98 min MPI = 8, OMP = 16: 128 cores
 six_ff_keff = 1.24927 +/- 0.00020
 
+
+
 oecd-exI-2a:
 200000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
 six_ff_keff = 1.07065 +/- 0.00011
 1.25 h MPI = 8, OMP = 16
-
-
 
 oecd-standard-column:
 500000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
 4.23 h MPI = 8, OMP = 16: 128 cores
 six_ff_keff = 1.07186 +/- 0.00007
 
-oecd-standard-column2:
-500000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-4.33 h MPI = 8, OMP = 16: 128 cores
-six_ff_keff = 1.06636 +/- 0.00007
-
-oecd-standard-column4:
-500000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-4.23 h MPI = 8, OMP = 16: 128 cores
-six_ff_keff = 1.06897 +/- 0.00007
-
-
-
-
-
 oecd-fullcore:
 800000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
 10.6 h MPI = 8, OMP = 16: 128 cores
 six_ff_keff = 1.06284 +/- 0.00006
+
+
+
 
 References:
 -----------
