@@ -138,8 +138,8 @@ def plot_everything():
     - 3 radial flux detector
     - Pin power distribution
     '''
-    data = st.read('oecd-fullcore3G_det1b1.m', reader='det')
-    fig = 'oecd-fullcore3G'
+    data = st.read('oecd-fullcore6G_det1b1.m', reader='det')
+    fig = 'fullcore6G'
 
     # Plots energy spectrum
     plot_spectrum(data, 'EnergyDetector', fig)
