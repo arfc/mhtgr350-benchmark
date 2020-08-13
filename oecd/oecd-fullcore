@@ -229,7 +229,8 @@ det EnergyDetector de MyEnergyGrid
 
 % --- Spatial flux detectors
 % ene engrid 1 1e-11 0.625e-6 2e1 % 2G
-ene engrid 1 1e-11 0.625e-6 1.83e-1 2e1 % 3G
+% ene engrid 1 1e-11 0.625e-6 1.83e-1 2e1 % 3G
+ene engrid 1 1e-11 2e-8 0.65e-6 2.38e-6 1.301e-4 1.83e-1 2e1 % 6G
 
 det Axial1 n dh 3  93.53 18.0 36 1 1 -160 913 80 de engrid
 det Axial2 n dh 3 124.71  0.0 36 1 1 -160 913 80 de engrid
