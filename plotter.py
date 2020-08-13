@@ -1,11 +1,11 @@
-import os
+# import os
 import numpy as np
 import matplotlib.pyplot as plt
 import serpentTools as st
-from matplotlib.cbook import get_sample_data
+# from matplotlib.cbook import get_sample_data
 
 
-def plot_spectrum(data, name):
+def plot_spectrum(data, name, fig):
     """
     Plots spectrum normalized. The integral of the flux is 1.
 
@@ -14,13 +14,13 @@ def plot_spectrum(data, name):
     data: [serpenttools format]
     name: [string]
         name of the detector
+    fig: [string]
+        root name of the figure
     """
     det = data.detectors[name]
     val = det.tallies
-
     E = [line[0] for line in det.grids['E']]
     Emax = det.grids['E'][-1][1]
-
     dE = np.roll(E, -1) - E
     dE[-1] = Emax - E[-1]
     inte = sum(val*dE)
@@ -31,10 +31,10 @@ def plot_spectrum(data, name):
     plt.xlabel('E [MeV]')
     plt.ylabel('Normalized flux')
     plt.grid(True)
-    plt.savefig(name, dpi=300, bbox_inches="tight")
+    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
-def plot_axial(data, name, V=1, dire='Z'):
+def plot_axial(data, name, fig, V=1, dire='Z'):
     """
     Plots axial flux.
 
@@ -43,6 +43,8 @@ def plot_axial(data, name, V=1, dire='Z'):
     data: [serpenttools format]
     name: [string]
         name of the detector
+    fig: [string]
+        root name of the figure
     V: [float]
         total volume where the detector is applied [cm3]
     dire: [float]
@@ -55,17 +57,18 @@ def plot_axial(data, name, V=1, dire='Z'):
     val = val/vdetector
     # M = max(val[1])
     # val /= M
+    G = len(val)  # number of energy groups
 
     plt.figure()
-    plt.step(z, val[1], where='post', label='fast')
-    plt.step(z, val[0], where='post', label='thermal')
+    for i in range(G):
+        plt.step(z, val[G-1-i], where='post', label='g={0}'.format(i+1))
     plt.xlabel(dire+' [cm]')
     plt.ylabel(r'$\phi$')
-    plt.legend(loc="upper right")
-    plt.savefig(name, dpi=300, bbox_inches="tight")
+    plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
+    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
-def plot_radial(data, name, piH=1):
+def plot_radial(data, name, fig, piH=1):
     """
     Plots flux from curvilinear detector.
 
@@ -74,29 +77,31 @@ def plot_radial(data, name, piH=1):
     data: [serpenttools format]
     name: [string]
         name of the detector
+    fig: [string]
+        root name of the figure
     piH: [float]
         angle * total height of the detector [cm]
     """
     det = data.detectors[name]
     r = np.array([line[0] for line in det.grids['R']])
-
     vdetector = np.roll(r, -1)**2-r**2
     vdetector[-1] = det.grids['R'][-1][1]**2 - det.grids['R'][-1][0]**2
     vdetector *= piH/2
 
     val = det.tallies
     val = val/vdetector
+    G = len(val)  # number of energy groups
 
     plt.figure()
-    plt.step(r, val[1], where='post', label='fast')
-    plt.step(r, val[0], where='post', label='thermal')
+    for i in range(G):
+        plt.step(r, val[G-1-i], where='post', label='g={0}'.format(i+1))
     plt.xlabel('r [cm]')
     plt.ylabel(r'$\phi$')
-    plt.legend(loc="upper right")
-    plt.savefig(name, dpi=300, bbox_inches="tight")
+    plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
+    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
-def plot_hexagonal(data, name, p, x0, y0, ff):
+def plot_hexagonal(data, name, fig, p, x0, y0, ff):
     """
     Plots flux from curvilinear detector.
     Parameters:
@@ -104,6 +109,8 @@ def plot_hexagonal(data, name, p, x0, y0, ff):
     data: [serpenttools format]
     name: [string]
         name of the detector
+    fig: [string]
+        root name of the figure
     p: [float]
         pitch. Distance between hexagon centers.
     x0: [float]
@@ -115,28 +122,12 @@ def plot_hexagonal(data, name, p, x0, y0, ff):
     """
     det = data.detectors[name]
     plt.figure()
-    # Dividies by detector volume
-    # A = 3.2/np.cos(np.pi/6)  # cm length of face of the hexagon
-    # Ah = 6. * (A * 3.2/2)    # Area of the hexagon
-    # vdetector = Ah * 272
-    # val = det.tallies
-    # val = val/vdetector  # I think this is not necessary
-    det.tallies /= 1e3
-
+    det.tallies /= 1e6  # Values are in MW now
     det.pitch = p
     det.hexType = 3
-    ax = det.hexPlot(cbarLabel='Power [kW]')
+    ax = det.hexPlot(cbarLabel='Power [MW]')
     ax.set_aspect('equal')
-
-    # f = ff/2
-    # s = ff/2/np.cos(np.pi/6)
-    # plt.plot([x0-s/2, x0+s/2], [y0-f, y0-f], 'r-', lw=2)
-    # plt.plot([x0-s/2, x0+s/2], [y0+f, y0+f], 'r-', lw=2)
-    # plt.plot([x0-s/2, x0-s], [y0-f, y0], 'r-', lw=2)
-    # plt.plot([x0-s, x0-s/2], [y0, y0+f], 'r-', lw=2)
-    # plt.plot([x0+s/2, x0+s], [y0-f, y0], 'r-', lw=2)
-    # plt.plot([x0+s, x0+s/2], [y0, y0+f], 'r-', lw=2)
-    plt.savefig(name, dpi=300, bbox_inches="tight")
+    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
 def plot_everything():
@@ -147,32 +138,33 @@ def plot_everything():
     - 3 radial flux detector
     - Pin power distribution
     '''
-    data = st.read('oecd-fullcore_det0.m', reader='det')
+    data = st.read('oecd-fullcore3G_det1b1.m', reader='det')
+    fig = 'oecd-fullcore3G'
 
     # Plots energy spectrum
-    plot_spectrum(data, 'EnergyDetector')
+    plot_spectrum(data, 'EnergyDetector', fig)
 
     # Plots axial fluxes
     A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
     Ah = 6. * (A * 18./2)   # Area of the hexagon
     V = Ah * (160 + 793 + 120)
-    plot_axial(data, 'Axial1', V)
-    plot_axial(data, 'Axial2', V)
-    plot_axial(data, 'Axial3', V)
+    plot_axial(data, 'Axial1', fig, V)
+    plot_axial(data, 'Axial2', fig, V)
+    plot_axial(data, 'Axial3', fig, V)
 
     # Plots radial flux
     H = 793
     p = np.pi/180 * 360  # = 360 deg
-    plot_radial(data, 'Radial1', p*H)
+    plot_radial(data, 'Radial1', fig, p*H)
     H = 79.3
     p = np.pi/180 * 2  # = 2 deg
-    plot_radial(data, 'Radial2', p*H)
+    plot_radial(data, 'Radial2', fig, p*H)
     H = 79.3
     p = np.pi/180 * 2  # = 2 deg
-    plot_radial(data, 'Radial3', p*H)
+    plot_radial(data, 'Radial3', fig, p*H)
 
     # Plots pin power distribution
-    # plot_hexagonal(data, 'power1', 36, 36*np.cos(np.pi/6), 0, 108)
+    plot_hexagonal(data, 'power', fig, 36, 36*np.cos(np.pi/6), 62.35383, 108)
 
 
 def int_flux(data, name):
@@ -199,9 +191,9 @@ def int_flux(data, name):
     print('Int_G2: ', sum(val0))
 
 
-# plot_everything()
-data = st.read('standard-column2_det0.m', reader='det')
-A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
-Ah = 6. * (A * 18./2)   # Area of the hexagon
-V = Ah * (160 + 793 + 120)
-plot_axial(data, 'Axial', V)
+plot_everything()
+# data = st.read('standard-column3_det0.m', reader='det')
+# A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
+# Ah = 6. * (A * 18./2)   # Area of the hexagon
+# V = Ah * (160 + 793 + 120)
+# plot_axial(data, 'Axial', V)

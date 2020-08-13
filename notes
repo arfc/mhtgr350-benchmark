@@ -16,8 +16,12 @@ t = 31.9 m
 
 * standard-column3
   - temp 1200
-  - LBP
+  - 2 LBP
 
-* standard-column3
+* standard-column4
   - temp 750
-  - LBP
+  - 2 LBP
+
+* standard-column5
+  - temp 1200
+  - 6 LBP
