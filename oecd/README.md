@@ -2,26 +2,26 @@
 
 * oecd-exI-1b1:
 	- Fuel compact
-	- Explicit and random
+	- Explicit and random: oecd4
 	- HFP
 	- oecd material densities from Table I.4. and Table I.5. [3]
 
 * oecd-exI-1b2:
 	- Fuel compact
-	- Explicit and random
+	- Explicit and random: oecd4
 	- HFP
 	- uses same material compositon as CRP [1]
 
 * oecd-exI-1b3:
 	- Fuel compact
-	- Explicit and random
+	- Explicit and random: oecd4
 	- HFP
 	- oecd material composition from Benchmark Phase III [2]
 
 * oecd-exI-2a:
 	- H = 4.928
 	- Fuel element
-	- Explicit and random
+	- Explicit and random: oecd4, crpP
 	- HFP
 	- oecd material densities from Table I.4. and Table I.5. [3]
 	- The number densities are very close to the ones in [2]
@@ -29,7 +29,7 @@
 
 * oecd-standard-column
 	- fuel column
-	- Explicit and random
+	- Explicit and random: oecd79, crpP2
 	- HFP
 	- oecd material densities from Table I.4. and Table I.5. [3]
 	- Geometry definition from [3]
@@ -37,8 +37,8 @@
 	- I had to define the densities. I won't run the branch variations having the parameter 'sum'. And the densities in the branch need to have the same units as the densities in the materials card. I can't use sum in one and mass density in the other one.
 
 * oecd-fullcore
-	- fuel column
-	- Explicit and random
+	- full core
+	- Explicit and random: oecd79, crpP2
 	- HFP
 	- oecd material composition from Benchmark Phase III [2]
 	- Geometry definition from [3]

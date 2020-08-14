@@ -130,6 +130,30 @@ def plot_hexagonal(data, name, fig, p, x0, y0, ff):
     plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
+def int_flux(data, name):
+    """
+    Integrates flux in a domain.
+
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    name: [string]
+        name of the detector
+    """
+    det = data.detectors[name]
+    val = det.tallies
+    val0 = val[0]  # thermal flux
+    val1 = val[1]  # fast flux
+    # If I want to integrate between to values of R:
+    # r = det.grids['R'][:, 0]
+    # val0 = np.where(det.grids['R'][:, 0] > 80, val[0], 0)
+    # val0 = np.where(det.grids['R'][:, 0] < 180, val0, 0)
+    # val1 = np.where(det.grids['R'][:, 0] > 80, val[1], 0)
+    # val1 = np.where(det.grids['R'][:, 0] < 180, val1, 0)
+    print('Int_G1: ', sum(val1))
+    print('Int_G2: ', sum(val0))
+
+
 def plot_everything():
     '''
     Plots the output of the detectors of the full core model.
@@ -138,8 +162,8 @@ def plot_everything():
     - 3 radial flux detector
     - Pin power distribution
     '''
-    data = st.read('oecd-fullcore6G_det1b1.m', reader='det')
-    fig = 'fullcore6G'
+    data = st.read('oecd-fullcore26G_det1b1.m', reader='det')
+    fig = 'fullcore26G'
 
     # Plots energy spectrum
     plot_spectrum(data, 'EnergyDetector', fig)
@@ -167,33 +191,9 @@ def plot_everything():
     plot_hexagonal(data, 'power', fig, 36, 36*np.cos(np.pi/6), 62.35383, 108)
 
 
-def int_flux(data, name):
-    """
-    Integrates flux in a domain.
-
-    Parameters:
-    -----------
-    data: [serpenttools format]
-    name: [string]
-        name of the detector
-    """
-    det = data.detectors[name]
-    val = det.tallies
-    val0 = val[0]  # thermal flux
-    val1 = val[1]  # fast flux
-    # If I want to integrate between to values of R:
-    # r = det.grids['R'][:, 0]
-    # val0 = np.where(det.grids['R'][:, 0] > 80, val[0], 0)
-    # val0 = np.where(det.grids['R'][:, 0] < 180, val0, 0)
-    # val1 = np.where(det.grids['R'][:, 0] > 80, val[1], 0)
-    # val1 = np.where(det.grids['R'][:, 0] < 180, val1, 0)
-    print('Int_G1: ', sum(val1))
-    print('Int_G2: ', sum(val0))
-
-
-plot_everything()
-# data = st.read('standard-column3_det0.m', reader='det')
-# A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
-# Ah = 6. * (A * 18./2)   # Area of the hexagon
-# V = Ah * (160 + 793 + 120)
-# plot_axial(data, 'Axial', V)
+# plot_everything()
+data = st.read('standard-column6_det0.m', reader='det')
+A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
+Ah = 6. * (A * 18./2)   # Area of the hexagon
+V = Ah * (160 + 793 + 120)
+plot_axial(data, 'Axial', 'standard-column6', V)

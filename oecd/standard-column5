@@ -1,4 +1,4 @@
-/*This input file defines a hexagonal standard fuel assembly.*/
+/*This input file defines a standard fuel assembly column with bottom and top reflectors*/
 
 /* Numbering:
 * Universes: 1 to 10
@@ -8,7 +8,7 @@
 
 /******************************
 *      Particle Definition    *
-*******************************/
+******************************/
 particle 1
 
 uco    0.02125
@@ -41,13 +41,12 @@ cell 502 M block  -102
 cell 503 B block  -103
 cell 504 T block  -104
 
-%pbed 4 cm "particles79.inp"
 pbed 4 cm "oecd79"
 pbed 5 cm "crpP2"
 
 % -- Fuel Channel
 surf 110 cyl 0.0 0.0 0.6225 0.0 79.3
-surf 111 cyl 0.0 0.0 0.6350  0.0 79.3
+surf 111 cyl 0.0 0.0 0.6350 0.0 79.3
 
 cell 510 6 fill 4  -110
 cell 511 6 fill 3   110 -111
@@ -103,8 +102,8 @@ M M M M M M M M M M M M M M M M M M M M M M M M
 % -- Fuel Element Definition
 surf 120 hexyprism 0.0 0.0 18.0 0.0 79.3
 
-cell 520 9 fill 10  -120
-cell 521 9 fill M    120
+cell 520 9 fill 10 -120
+cell 521 9 fill M   120
 
 lat 11 9 0.0 0.0 10
    0.0 9  79.3 9 158.6 9 237.9 9 317.2 9
@@ -145,19 +144,19 @@ mat sic      -3.2         tmp 1200 moder grph2 6000 rgb 153  76   0
 mat matrix   -1.74        tmp 1200 moder grph2 6000 rgb 160 160 160
  6000.12c    -1.0
 
- mat bkrnl    -2.47       tmp 1000 moder grph1 6000 rgb 255 192 203
-  5010.10c    -0.14422
-  5011.10c    -0.63856
-  6000.10c    -0.21722
+mat bkrnl    -2.47        tmp 1000 moder grph1 6000 rgb 255 192 203
+ 5010.10c    -0.14422
+ 5011.10c    -0.63856
+ 6000.10c    -0.21722
 
- mat buffr2   -1.0        tmp 1000 moder grph1 6000 rgb 255 128   0
-  6000.10c    -1.0
+mat buffr2   -1.0         tmp 1000 moder grph1 6000 rgb 255 128   0
+ 6000.10c    -1.0
 
- mat pyc2     -1.87       tmp 1000 moder grph1 6000 rgb 255   0   0
-  6000.10c    -1.0
+mat pyc2     -1.87        tmp 1000 moder grph1 6000 rgb 255   0   0
+ 6000.10c    -1.0
 
- mat matrix2  -0.94       tmp 1000 moder grph1 6000 rgb 160 160 160
-  6000.10c    -1.0
+mat matrix2  -0.94        tmp 1000 moder grph1 6000 rgb 160 160 160
+ 6000.10c    -1.0
 
 mat helium   -0.0025525   tmp 1200                  rgb 150 105 255
  2004.12c    -1.0
