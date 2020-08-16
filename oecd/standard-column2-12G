@@ -187,21 +187,21 @@ stp block      -1.85      600 grph gr03.32t gr04.32t
 
 branch fuel1
 stp uco       -10.5       750
-stp buffer     -1.0       750 grph1 gr04.32t gr05.32t
-stp pyc        -1.9       750 grph1 gr04.32t gr05.32t
-stp sic        -3.2       750 grph1 gr04.32t gr05.32t
-stp matrix     -1.74      750 grph1 gr04.32t gr05.32t
+stp buffer     -1.0       750 grph gr04.32t gr05.32t
+stp pyc        -1.9       750 grph gr04.32t gr05.32t
+stp sic        -3.2       750 grph gr04.32t gr05.32t
+stp matrix     -1.74      750 grph gr04.32t gr05.32t
 stp helium     -0.0041881 750
-stp block      -1.85      750 grph1 gr04.32t gr05.32t
+stp block      -1.85      750 grph gr04.32t gr05.32t
 
 branch fuel2
 stp uco       -10.5       1200
-stp buffer     -1.0       1200 grph2 gr07.32t gr08.32t
-stp pyc        -1.9       1200 grph2 gr07.32t gr08.32t
-stp sic        -3.2       1200 grph2 gr07.32t gr08.32t
-stp matrix     -1.74      1200 grph2 gr07.32t gr08.32t
+stp buffer     -1.0       1200 grph gr07.32t gr08.32t
+stp pyc        -1.9       1200 grph gr07.32t gr08.32t
+stp sic        -3.2       1200 grph gr07.32t gr08.32t
+stp matrix     -1.74      1200 grph gr07.32t gr08.32t
 stp helium     -0.0025525 1200
-stp block      -1.85      1200 grph2 gr07.32t gr08.32t
+stp block      -1.85      1200 grph gr07.32t gr08.32t
 
 coef 1 0
 2 fuel0 fuel2
