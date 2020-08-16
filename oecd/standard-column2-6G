@@ -157,9 +157,9 @@ set pop 400000 360 40
 
 set power 5303030 % 350MW / 66 = 5.303 MW
 
-ene engrid 1 1e-11 0.625e-6 2e1 % 2G
+% ene engrid 1 1e-11 0.625e-6 2e1 % 2G
 % ene engrid 1 1e-11 0.625e-6 1.83e-1 2e1 % 3G
-% ene engrid 1 1e-11 2e-8 0.65e-6 2.38e-6 1.301e-4 1.83e-1 2e1 % 6G
+ene engrid 1 1e-11 2e-8 0.65e-6 2.38e-6 1.301e-4 1.83e-1 2e1 % 6G
 % ene engrid 1 1e-11 2e-8 6.5e-7 2.38e-6 1.370e-5 1.301e-4 2.754e-4 7.485e-4
 %             1.83e-1 2e1 % 9G
 % ene engrid 1 1.000e-11 2.000e-08 6.500e-07 2.380e-06 8.320e-06 1.370e-05
