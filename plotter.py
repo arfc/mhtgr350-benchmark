@@ -62,9 +62,13 @@ def plot_axial(data, name, fig, V=1, dire='Z'):
     plt.figure()
     for i in range(G):
         plt.step(z, val[G-1-i], where='post', label='g={0}'.format(i+1))
+
     plt.xlabel(dire+' [cm]')
     plt.ylabel(r'$\phi$')
-    plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
+    if G < 20:
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
+    else:
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True)
     plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
@@ -95,9 +99,13 @@ def plot_radial(data, name, fig, piH=1):
     plt.figure()
     for i in range(G):
         plt.step(r, val[G-1-i], where='post', label='g={0}'.format(i+1))
+
     plt.xlabel('r [cm]')
     plt.ylabel(r'$\phi$')
-    plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
+    if G < 20:
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
+    else:
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True)
     plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
@@ -154,7 +162,7 @@ def int_flux(data, name):
     print('Int_G2: ', sum(val0))
 
 
-def plot_everything():
+def plot_fullcore():
     '''
     Plots the output of the detectors of the full core model.
     - Spectrum
@@ -191,9 +199,25 @@ def plot_everything():
     plot_hexagonal(data, 'power', fig, 36, 36*np.cos(np.pi/6), 62.35383, 108)
 
 
-# plot_everything()
-data = st.read('standard-column6_det0.m', reader='det')
-A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
-Ah = 6. * (A * 18./2)   # Area of the hexagon
-V = Ah * (160 + 793 + 120)
-plot_axial(data, 'Axial', 'standard-column6', V)
+def plot_column():
+    '''
+    Plots the output of the detectors of the standard column model:
+    - 1 axial flux detector
+    '''
+    A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
+    Ah = 6. * (A * 18./2)   # Area of the hexagon
+    V = Ah * (160 + 793 + 120)
+
+    G = 26
+    data = st.read('standard-column2-' + str(G) + 'G_det1b1.m', reader='det')
+    plot_axial(data, 'Axial', 'column-noLBP-' + str(G) + 'G-600', V)
+    data = st.read('standard-column2-' + str(G) + 'G_det1b2.m', reader='det')
+    plot_axial(data, 'Axial', 'column-noLBP-' + str(G) + 'G-1200', V)
+    data = st.read('standard-column7-' + str(G) + 'G_det1b1.m', reader='det')
+    plot_axial(data, 'Axial', 'column-LBP-' + str(G) + 'G-600', V)
+    data = st.read('standard-column7-' + str(G) + 'G_det1b2.m', reader='det')
+    plot_axial(data, 'Axial', 'column-LBP-' + str(G) + 'G-1200', V)
+
+
+# plot_fullcore()
+plot_column()
