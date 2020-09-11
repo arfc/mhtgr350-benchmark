@@ -335,7 +335,7 @@ def plot_fullcore():
     - 3 radial flux detector
     - Pin power distribution
     '''
-    data = st.read('oecd-fullcore26G_det1b1.m', reader='det')
+    data = st.read('oecd-fullcore26G-600_det1b1.m', reader='det')
     lim26 = [4, 16, 26]  # from 26 to 3
     A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
     Ah = 6. * (A * 18./2)   # Area of the hexagon
@@ -441,5 +441,5 @@ def plot_radial_power_distribution():
 
 # plot_old_fullcore()
 # plot_column()
-# plot_fullcore()
+plot_fullcore()
 # plot_radial_power_distribution()
