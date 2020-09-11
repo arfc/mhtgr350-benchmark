@@ -39,6 +39,85 @@ def plot_spectrum(data, name, fig):
     plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
+def reagroup(E, val, E0):
+    '''
+    This function converts a fine energy grid spectrum into a
+    coarser one.
+
+    Parameters:
+    -----------
+    E: [array]
+    	contains energy group limits
+    val: [array]
+    	contains fluxes for each energy bins
+    E0: [array]
+    	contains new enegy group limist
+    '''
+
+    e = 1e-13
+    new_val = np.zeros(len(E0))
+    j = 0
+    for i in range(len(E)-1):
+        if j < len(E0)-2:
+            if E[i] >= E0[j]-e and E[i] < E0[j+1]+e:
+                new_val[j] += val[i]*(E[i+1]-E[i])/(E0[j+1]-E0[j])
+            else:
+                j += 1
+                continue
+        else:
+            if E[i] >= E0[j]-e:
+                new_val[j] += val[i]*(E[i+1]-E[i])/(E[-1]-E0[j])
+    
+    # this adds an additional point in the very beginning
+    new_val = np.roll(new_val, 1)
+    new_val[0] = new_val[1]
+    E = E0
+    val = new_val
+    return E, val
+
+
+def plot_serpent_coarse_spectrum():
+    '''
+    This function 
+    '''
+
+    data = st.read('oecd-fullcore26G_det1b1.m', reader='det')
+    save = 'serpent-fullcore-coarse-spectrum'
+    det = data.detectors['EnergyDetector']
+    val = det.tallies
+
+    E = [line[0] for line in det.grids['E']]
+    Emax = det.grids['E'][-1][1]
+
+    dE = np.roll(E, -1) - E
+    dE[-1] = Emax - E[-1]
+
+    # Integral is normalized to 1
+    inte = sum(val*dE)
+    val = val/inte
+
+    plt.figure()
+    plt.step(E, val)
+
+    # 15 groups
+    E15d = [1.49e+7, 3.68e+6, 1.11e+5, 7.485e+2, 1.301e+2,
+            2.9e+1, 8.32e0, 2.38e0, 6.5e-1, 3.5e-1,
+            2.0e-1, 8.0e-2, 5.0e-2, 2.0e-2, 1.0e-2,
+            1.0e-5]
+    E15d.reverse()
+    E15d = np.array(E15d)/1e6  # eV to MeV
+
+    E, val = reagroup(E, val, E15d)
+    plt.step(E, val)
+
+    plt.xscale('log')
+    plt.xlabel('E [MeV]')
+    plt.ylabel(r'Normalized flux [$\frac{n}{cm^2s}$]')
+    plt.grid(True)
+    plt.savefig(save, dpi=300, bbox_inches="tight")
+    plt.close()
+
+
 def plot_axial(data, name, fig, V=1, dire='Z'):
     """
     Plots axial flux.
