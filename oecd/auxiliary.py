@@ -163,8 +163,10 @@ def fullcore_detectors_thesis():
     # Radial 1
     x = 52
     y = 349
-    plt.plot([x, 495+x], [y, y], 'r-', lw=1.5, label='3- Radial')
-    plt.text(x=x+380, y=y-15, s='3', fontsize=24, color='black')
+    L = 495
+    #plt.plot([x, 495+x], [y, y], 'r-', lw=1.5, label='3- Radial')
+    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5, label='3- Radial')
+    plt.text(x=x+310, y=y-200, s='3', rotation=30, fontsize=24, color='black')
 
     plt.legend(loc='best')
     plt.savefig("oecd-fullcore-detectorsB", dpi=300, bbox_inches="tight")
