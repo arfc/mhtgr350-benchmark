@@ -15,3 +15,6 @@ This repository holds the following serpent input files:
 
 'auliary.py' does the following:
 - Adds legends to serpent geometry figures.
+- Plots energy spectrum.
+- Plots flux in a single detector.
+- Plots fluxes in bottom reflector, core, and top reflector.
