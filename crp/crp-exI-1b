@@ -82,9 +82,9 @@ therm grph1 gr06.32t  % 1000K
 therm grph2 gr07.32t  % 1200K
 
 % --- Cross section data library file path:
-set acelib "/home/roberto/Serpent2/xs/sss_endfb7u"
+% set acelib "/home/roberto/Serpent2/xs/sss_endfb7u"
 % set acelib "/home/roberto/Serpent2/xs/sss_jeff311u"
-% set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
+set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 
 % --- Periodic boundary condition:
 set bc 3
