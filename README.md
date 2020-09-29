@@ -11,7 +11,8 @@ This repository holds the following serpent input files:
 * particles4.inp: defines the particle locations in the fuel compact.
 * particles79.inp: defines the particle locations in the fuel assembly.
 * rsc-fuel: model of rsc fuel assembly.
-* standard fuel: model of the standard fuel assembly.
+* standard-column: model of the fuel column with bottom and top reflectors.
+* standard-fuel: model of the standard fuel assembly.
 
 'auliary.py' does the following:
 - Adds legends to serpent geometry figures.
