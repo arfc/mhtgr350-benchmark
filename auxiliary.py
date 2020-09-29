@@ -191,7 +191,6 @@ def main():
     standard()
     fullcore()
 
-    # Plot detector output
     data = st.read('fullcore_det1b1.m', reader='det')
     # Plot spectrum
     name = 'EnergyDetector'
