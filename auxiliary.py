@@ -181,81 +181,16 @@ def plot_detector(data, name, V=1):
     plt.savefig(name, dpi=300, bbox_inches="tight")
 
 
-def plot_radial(data, name, piH=1):
-    """
-    Plots flux from curvilinear detector.
-
-    Parameters:
-    -----------
-    data: [serpenttools format]
-    name: [string]
-    name of the detector
-    piH: [float]
-    angle * total height of the detector [cm]
-    """
-
-    det = data.detectors[name]
-    r = np.array([line[0] for line in det.grids['R']])
-
-    vdetector = np.roll(r, -1)**2-r**2
-    vdetector[-1] = det.grids['R'][-1][1]**2 - det.grids['R'][-1][0]**2
-    vdetector *= piH/2
-
-    val = det.tallies
-    val = val/vdetector
-
-    plt.figure()
-    plt.step(r, val[1], where='post', label='fast')
-    plt.step(r, val[0], where='post', label='thermal')
-    plt.xlabel('r [cm]')
-    plt.ylabel(r'$\phi$')
-    plt.legend(loc="upper right")
-    plt.savefig(name, dpi=300, bbox_inches="tight")
-
-
 def plots_standardcolum():
     '''
     Plots standard-column flux detector
     '''
 
-    data = st.read('bw/standard-column_det0.m', reader='det')
+    data = st.read('standard-column_det0.m', reader='det')
     A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
     Ah = 6. * (A * 18./2)  # Area of the hexagon
     V = Ah * (160 + 793 + 120)
     plot_detector(data, 'Axial', V)
-
-
-def plots_fullcore():
-    '''
-    Plots full-core flux detectors:
-    * Spectrum
-    * Axial1, Axial2, Axial3,
-    * Radial1, Radial2, Radial3
-    '''
-
-    # Plot spectrum
-    data = st.read('bw/fullcore_det0.m', reader='det')
-    name = 'EnergyDetector'
-    plot_spectrum(data, name)
-
-    A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
-    Ah = 6. * (A * 18./2)  # Area of the hexagon
-    V = Ah * (160 + 793 + 120)
-    plot_detector(data, 'Axial1', V)
-    plot_detector(data, 'Axial2', V)
-    plot_detector(data, 'Axial3', V)
-
-    H = 793
-    p = 2*np.pi  # = 360 deg
-    plot_radial(data, 'Radial1', p*H)
-
-    H = 79.3
-    p = np.pi/90  # = 2 deg
-    plot_radial(data, 'Radial2', p*H)
-
-    H = 79.3
-    p = np.pi/90  # = 2 deg
-    plot_radial(data, 'Radial3', p*H)
 
 
 def main():
