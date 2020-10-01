@@ -202,7 +202,7 @@ def plots_fullcore():
     '''
 
     # Plot spectrum
-    data = st.read('bw/fullcore_det0.m', reader='det')
+    data = st.read('bw/fullcore_det1b1.m', reader='det')
     name = 'EnergyDetector'
     plot_spectrum(data, name)
 
