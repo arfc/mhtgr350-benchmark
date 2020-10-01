@@ -103,6 +103,56 @@ def plot_spectrum(data, name):
     plt.savefig(name, dpi=300, bbox_inches="tight")
 
 
+def plot_axial(data, vb, vc, vt):
+    """
+    Plots axial flux in bottom reflector, core, and top reflector.
+
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    vb: [float]
+    volume of the bottom reflector detector
+    vc: [float]
+    volume of the core reflector detector
+    vt: [float]
+    volume of the top reflector detector
+    """
+
+    name = 'AxialBot'
+    det = data.detectors[name]
+    zb = [line[0] for line in det.grids['Z']]
+    valb = det.tallies
+    vd1 = vb/len(zb)
+    valb /= vd1
+
+    name = 'AxialFuel'
+    det = data.detectors[name]
+    zf = [line[0] for line in det.grids['Z']]
+    valf = det.tallies
+    vd2 = vc/len(zf)
+    valf /= vd2
+
+    name = 'AxialTop'
+    det = data.detectors[name]
+    zt = [line[0] for line in det.grids['Z']]
+    valt = det.tallies
+    vd3 = vt/len(zt)
+    valt /= vd3
+
+    ther = np.concatenate([valb[0], valf[0], valt[0]])
+    fast = np.concatenate([valb[1], valf[1], valt[1]])
+    ztot = np.concatenate([zb, zf, zt])
+
+    plt.figure()
+    plt.step(ztot, ther, where='post', label='thermal')
+    plt.step(ztot, fast, where='post', label='fast')
+    plt.xlabel('z [cm]')
+    plt.ylabel(r'$\phi$')
+    plt.legend(loc="upper right")
+    plt.title('Axial flux.')
+    plt.savefig('axial1', dpi=300, bbox_inches="tight")
+
+
 def plot_detector(data, name, V=1):
     """
     Plots flux in the axial direction 'Z'.
@@ -161,56 +211,6 @@ def plot_radial(data, name, piH=1):
     plt.ylabel(r'$\phi$')
     plt.legend(loc="upper right")
     plt.savefig(name, dpi=300, bbox_inches="tight")
-
-
-def plot_axial(data, vb, vc, vt):
-    """
-    Plots axial flux in bottom reflector, core, and top reflector.
-
-    Parameters:
-    -----------
-    data: [serpenttools format]
-    vb: [float]
-    volume of the bottom reflector detector
-    vc: [float]
-    volume of the core reflector detector
-    vt: [float]
-    volume of the top reflector detector
-    """
-
-    name = 'AxialBot'
-    det = data.detectors[name]
-    zb = [line[0] for line in det.grids['Z']]
-    valb = det.tallies
-    vd1 = vb/len(zb)
-    valb /= vd1
-
-    name = 'AxialFuel'
-    det = data.detectors[name]
-    zf = [line[0] for line in det.grids['Z']]
-    valf = det.tallies
-    vd2 = vc/len(zf)
-    valf /= vd2
-
-    name = 'AxialTop'
-    det = data.detectors[name]
-    zt = [line[0] for line in det.grids['Z']]
-    valt = det.tallies
-    vd3 = vt/len(zt)
-    valt /= vd3
-
-    ther = np.concatenate([valb[0], valf[0], valt[0]])
-    fast = np.concatenate([valb[1], valf[1], valt[1]])
-    ztot = np.concatenate([zb, zf, zt])
-
-    plt.figure()
-    plt.step(ztot, ther, where='post', label='thermal')
-    plt.step(ztot, fast, where='post', label='fast')
-    plt.xlabel('z [cm]')
-    plt.ylabel(r'$\phi$')
-    plt.legend(loc="upper right")
-    plt.title('Axial flux.')
-    plt.savefig('axial1', dpi=300, bbox_inches="tight")
 
 
 def plots_standardcolum():
