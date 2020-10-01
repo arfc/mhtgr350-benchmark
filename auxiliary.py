@@ -122,10 +122,6 @@ def plot_detector(data, name, V=1):
     vdetector = V/len(z)
     val = val/vdetector
 
-    # relerr = det.errors
-    # abserr = val * relerr
-    # H = det.grids['Z'][-1][1] - det.grids['Z'][0][0]
-
     plt.figure()
     plt.step(z, val[0], where='post', label='thermal')
     plt.step(z, val[1], where='post', label='fast')
