@@ -181,10 +181,10 @@ def plot_detector(data, name, V=1):
     plt.savefig(name, dpi=300, bbox_inches="tight")
 
 
-def plots_standardcolum():
-    '''
+def plots_standardcolumn():
+    """
     Plots standard-column flux detector
-    '''
+    """
 
     data = st.read('standard-column_det0.m', reader='det')
     A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
