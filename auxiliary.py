@@ -103,34 +103,6 @@ def plot_spectrum(data, name):
     plt.savefig(name, dpi=300, bbox_inches="tight")
 
 
-def plot_detector(data, name, V=1):
-    """
-    Plots flux in the axial direction 'Z'.
-
-    Parameters:
-    -----------
-    data: [serpenttools format]
-    name: [string]
-    name of the detector
-    V: [float]
-    total volume where the detector is applied [cm3]
-    """
-
-    det = data.detectors[name]
-    z = [line[0] for line in det.grids['Z']]
-    val = det.tallies
-    vdetector = V/len(z)
-    val = val/vdetector
-
-    plt.figure()
-    plt.step(z, val[0], where='post', label='thermal')
-    plt.step(z, val[1], where='post', label='fast')
-    plt.xlabel('z [cm]')
-    plt.ylabel(r'$\phi$')
-    plt.legend(loc="upper right")
-    plt.savefig(name, dpi=300, bbox_inches="tight")
-
-
 def plot_axial(data, vb, vc, vt):
     """
     Plots axial flux in bottom reflector, core, and top reflector.
@@ -179,6 +151,46 @@ def plot_axial(data, vb, vc, vt):
     plt.legend(loc="upper right")
     plt.title('Axial flux.')
     plt.savefig('axial1', dpi=300, bbox_inches="tight")
+
+
+def plot_detector(data, name, V=1):
+    """
+    Plots flux in the axial direction 'Z'.
+
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    name: [string]
+    name of the detector
+    V: [float]
+    total volume where the detector is applied [cm3]
+    """
+
+    det = data.detectors[name]
+    z = [line[0] for line in det.grids['Z']]
+    val = det.tallies
+    vdetector = V/len(z)
+    val = val/vdetector
+
+    plt.figure()
+    plt.step(z, val[0], where='post', label='thermal')
+    plt.step(z, val[1], where='post', label='fast')
+    plt.xlabel('z [cm]')
+    plt.ylabel(r'$\phi$')
+    plt.legend(loc="upper right")
+    plt.savefig(name, dpi=300, bbox_inches="tight")
+
+
+def plots_standardcolumn():
+    """
+    Plots standard-column flux detector
+    """
+
+    data = st.read('standard-column_det0.m', reader='det')
+    A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
+    Ah = 6. * (A * 18./2)  # Area of the hexagon
+    V = Ah * (160 + 793 + 120)
+    plot_detector(data, 'Axial', V)
 
 
 def main():
