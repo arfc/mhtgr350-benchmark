@@ -8,10 +8,14 @@ This repository holds the following serpent input files:
 
 * compact: serpent model of the fuel compact.
 * fullcore: model of the full core. Reflector is defined as a block without the coolant channels.
-* particles4.inp: defines the particle locations in the fuel compact.
-* particles79.inp: defines the particle locations in the fuel assembly.
+* particles4.inp: defines the TRISO particle locations in the fuel compact.
+* particles79.inp: defines the TRISO particle locations in the fuel assembly.
 * rsc-fuel: model of rsc fuel assembly.
+* standard-column: model of the fuel column with bottom and top reflectors.
 * standard-fuel: model of the standard fuel assembly.
 
 'auliary.py' does the following:
 - Adds legends to serpent geometry figures.
+- Plots energy spectrum.
+- Plots flux in a single detector.
+- Plots fluxes in bottom reflector, core, and top reflector.
