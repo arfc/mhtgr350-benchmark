@@ -19,7 +19,7 @@ This repository holds the following files:
 
 * docs/: holds the latex files
 
-'auliary.py' does the following:
+``auxiliary.py`` does the following:
 - Adds legends to serpent geometry figures.
 - Plots energy spectrum.
 - Plots flux in a single detector.
