@@ -1,6 +1,4 @@
-/* This input file defines the full MHTGR350 geometry. 
-*  Reflector is defined as a block, without the coolant channels.
-*/
+/*This input file defines a standard fuel column.*/
 
 /* Numbering:
 * Universes: 1 to 10
@@ -37,10 +35,14 @@ matrix
 surf 100 inf
 surf 101 inf
 surf 102 inf
+surf 103 inf
+surf 104 inf
 
 cell 500 2 matrix -100
 cell 501 3 helium -101
 cell 502 M block  -102
+cell 503 B block  -103
+cell 504 T block  -104
 
 pbed 5 2 "particles79.inp"
 
@@ -61,10 +63,10 @@ cell 514 7 fill M   112
 % -- Large Coolant Channel
 surf 113 cyl 0.0 0.0 0.794 0.0 79.3
 
-cell 515 8 fill 3 -113
-cell 516 8 fill M  113
+cell 515 8 fill 3  -113
+cell 516 8 fill M   113
 
-% -- Standard Fuel lattice
+% -- Hexagonal Lattice
 lat 10 2 0.0 0.65 24 24 1.879
 M M M M M M M M M M M M M M M M M M M M M M M M
  M M M M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 M
@@ -91,7 +93,7 @@ M M M M M M M M M M M M M M M M M M M M M M M M
                       M M M M M M M M M M M M M M M M M M M M M M M M
                        M M M M M M M M M M M M M M M M M M M M M M M M
 
-% -- Standard Fuel Element Definition
+% -- Fuel Element Definition
 surf 114 cyl 0.0 0.0 1.75 52.9 79.3
 surf 115 hexyprism 0.0 0.0 18.0 0.0 79.3
 
@@ -99,48 +101,19 @@ cell 517 9 fill 3  -114
 cell 518 9 fill 10  114 -115
 cell 519 9 fill M   115
 
-% -- Core Lattice
-lat 11 3 -18.0 -18.0 20 20 36.0
-M M M M M M M M M M M M M M M M M M M M
- M M M M M M M M M M M M M M M M M M M M
-  M M M M M M M M M M M M M M M M M M M M
-   M M M M M M M M M M M M M M M M M M M M
-    M M M M M M M M M M M M M M M M M M M M
-     M M M M M M M M M M M 9 9 9 9 M M M M M
-      M M M M M M M M M 9 9 9 9 9 9 9 M M M M
-       M M M M M M M M 9 9 9 9 9 9 9 9 M M M M
-        M M M M M M M 9 9 9 M M M 9 9 9 M M M M
-         M M M M M M 9 9 9 M M M M 9 9 9 M M M M
-          M M M M M M 9 9 M M M M M 9 9 M M M M M
-           M M M M M 9 9 9 M M M M 9 9 9 M M M M M
-            M M M M M 9 9 9 M M M 9 9 9 M M M M M M
-             M M M M M 9 9 9 9 9 9 9 9 M M M M M M M
-              M M M M M 9 9 9 9 9 9 9 M M M M M M M M
-               M M M M M M 9 9 9 9 M M M M M M M M M M
-                M M M M M M M M M M M M M M M M M M M M
-                 M M M M M M M M M M M M M M M M M M M M
-                  M M M M M M M M M M M M M M M M M M M M
-                   M M M M M M M M M M M M M M M M M M M M
+lat 11 9 0.0 0.0 10
+   0.0 9  79.3 9 158.6 9 237.9 9 317.2 9
+ 396.5 9 475.8 9 555.1 9 634.4 9 713.7 9
 
-surf 116 cyl 0.0 0.0 290 0.0 79.3
+surf 116 hexyprism 0.0 0.0 18.0 -160   0
+surf 117 hexyprism 0.0 0.0 18.0    0 793
+surf 118 hexyprism 0.0 0.0 18.0  793 913
+surf 119 hexyprism 0.0 0.0 18.0 -160 913
 
-cell 520 12 fill 11 -116
-cell 521 12 fill M   116
-
-% -- Core Lattice Stack
-lat 13 9 0.0 0.0 10
-   0.0 12  79.3 12 158.6 12 237.9 12 317.2 12
- 396.5 12 475.8 12 555.1 12 634.4 12 713.7 12
-
-surf 140 cyl 0.0 0.0 330    0 793
-surf 141 cyl 0.0 0.0 330 -160   0
-surf 142 cyl 0.0 0.0 330  793 913
-surf 143 cyl 0.0 0.0 330 -160 913
-
-cell 540 0 fill 13  -140
-cell 541 0 fill M   -141
-cell 542 0 fill M   -142
-cell 543 0 outside   143
+cell 520 0 fill B  -116
+cell 521 0 fill 11 -117
+cell 522 0 fill T  -118
+cell 523 0 outside  119
 
 /**********************************
 *            Materials            *
@@ -154,7 +127,7 @@ cell 543 0 outside   143
 * - C 100%                        *
 * SiC d 3.18g/cc                  *
 * - Si 70.05%                     *
-* - C  29.96%                     * 
+* - C  29.96%                     *
 * Matrix Graphite                 *
 **********************************/
 
@@ -193,24 +166,34 @@ mat helium   -0.0041881   tmp 750                 rgb 150 105 255
 therm grph 750 gr04.32t gr05.32t
 set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 
-% --- Vacuum boundary condition:
-set bc 1
-
-% --- Neutron population and criticality cycles:
-set pop 800000 500 100
+% --- Boundary conditions
+set bc 3 3 1
 
 % --- Geometry plot:
 plot 3 1000 1000
-plot 1 1000 1000 0.0 0.0 216.0 -165.0 920.0
+plot 1 1000 1000 0.5 -100 100.0 -165.0 920.0
 
-mesh 3 1000 1000
-
-% --- Energy spectrum detector
-ene MyEnergyGrid 3 500 1e-11 2e1
-det EnergyDetector de MyEnergyGrid
+% --- Neutron population and criticality cycles:
+set pop 500000 400 100
+set power 5303030 % 350MW / 66 = 5.303 MW
 
 % --- Spatial flux detectors
 ene engrid 1 1e-11 0.625e-6 2e1
-det AxialBot n dm block dx 55.1 56.5 1 dy 105.6 107 1 dz -160 0 32 de engrid
-det AxialFuel n du 5 dx 55.1 56.5 1 dy 105.6 107 1 dz 0 793 80 de engrid
-det AxialTop n dm block dx 55.1 56.5 1 dy 105.6 107 1 dz 793 913 32 de engrid
+det Axial n du 0 dz -160 913 200 de engrid
+
+% --- Group constant generation
+% 5: Fuel compact, 3: Helium, M: Moderator, B: Bottom reflector, T: Top reflector, 11: Fuel column
+set gcu 5 3 M B T 11
+set nfg 2 0.625E-6
+
+branch fuel0
+stp uco       -10.5       750
+stp buffer     -1.0       750 grph gr04.32t gr05.32t
+stp pyc        -1.9       750 grph gr04.32t gr05.32t
+stp sic        -3.2       750 grph gr04.32t gr05.32t
+stp matrix     -1.75      750 grph gr04.32t gr05.32t
+stp block      -1.75      750 grph gr04.32t gr05.32t
+stp helium     -0.0041881 750
+
+coef 1 0
+1 fuel0
