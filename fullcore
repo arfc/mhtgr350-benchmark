@@ -37,10 +37,19 @@ matrix
 surf 100 inf
 surf 101 inf
 surf 102 inf
+surf 103 inf
+surf 104 inf
+surf 105 inf
+surf 106 inf
 
+% M: moderator, B: bottom reflector, T: top reflector
 cell 500 2 matrix -100
 cell 501 3 helium -101
 cell 502 M block  -102
+cell 503 B block  -103
+cell 504 T block  -104
+cell 505 I block  -105
+cell 506 O block  -106
 
 pbed 5 2 "particles79.inp"
 
@@ -101,26 +110,26 @@ cell 519 9 fill M   115
 
 % -- Core Lattice
 lat 11 3 -18.0 -18.0 20 20 36.0
-M M M M M M M M M M M M M M M M M M M M
- M M M M M M M M M M M M M M M M M M M M
-  M M M M M M M M M M M M M M M M M M M M
-   M M M M M M M M M M M M M M M M M M M M
-    M M M M M M M M M M M M M M M M M M M M
-     M M M M M M M M M M M 9 9 9 9 M M M M M
-      M M M M M M M M M 9 9 9 9 9 9 9 M M M M
-       M M M M M M M M 9 9 9 9 9 9 9 9 M M M M
-        M M M M M M M 9 9 9 M M M 9 9 9 M M M M
-         M M M M M M 9 9 9 M M M M 9 9 9 M M M M
-          M M M M M M 9 9 M M M M M 9 9 M M M M M
-           M M M M M 9 9 9 M M M M 9 9 9 M M M M M
-            M M M M M 9 9 9 M M M 9 9 9 M M M M M M
-             M M M M M 9 9 9 9 9 9 9 9 M M M M M M M
-              M M M M M 9 9 9 9 9 9 9 M M M M M M M M
-               M M M M M M 9 9 9 9 M M M M M M M M M M
-                M M M M M M M M M M M M M M M M M M M M
-                 M M M M M M M M M M M M M M M M M M M M
-                  M M M M M M M M M M M M M M M M M M M M
-                   M M M M M M M M M M M M M M M M M M M M
+O O O O O O O O O O O O O O O O O O O O
+ O O O O O O O O O O O O O O O O O O O O
+  O O O O O O O O O O O O O O O O O O O O
+   O O O O O O O O O O O O O O O O O O O O
+    O O O O O O O O O O O O O O O O O O O O
+     O O O O O O O O O O O 9 9 9 9 O O O O O
+      O O O O O O O O O 9 9 9 9 9 9 9 O O O O
+       O O O O O O O O 9 9 9 9 9 9 9 9 O O O O
+        O O O O O O O 9 9 9 I I I 9 9 9 O O O O
+         O O O O O O 9 9 9 I I I I 9 9 9 O O O O
+          O O O O O O 9 9 I I I I I 9 9 O O O O O
+           O O O O O 9 9 9 I I I I 9 9 9 O O O O O
+            O O O O O 9 9 9 I I I 9 9 9 O O O O O O
+             O O O O O 9 9 9 9 9 9 9 9 O O O O O O O
+              O O O O O 9 9 9 9 9 9 9 O O O O O O O O
+               O O O O O O 9 9 9 9 O O O O O O O O O O
+                O O O O O O O O O O O O O O O O O O O O
+                 O O O O O O O O O O O O O O O O O O O O
+                  O O O O O O O O O O O O O O O O O O O O
+                   O O O O O O O O O O O O O O O O O O O O
 
 surf 116 cyl 0.0 0.0 290 0.0 79.3
 
@@ -138,8 +147,8 @@ surf 142 cyl 0.0 0.0 330  793 913
 surf 143 cyl 0.0 0.0 330 -160 913
 
 cell 540 0 fill 13  -140
-cell 541 0 fill M   -141
-cell 542 0 fill M   -142
+cell 541 0 fill B   -141
+cell 542 0 fill T   -142
 cell 543 0 outside   143
 
 /**********************************
@@ -198,6 +207,7 @@ set bc 1
 
 % --- Neutron population and criticality cycles:
 set pop 800000 500 100
+set power 350000000
 
 % --- Geometry plot:
 plot 3 1000 1000
@@ -211,6 +221,29 @@ det EnergyDetector de MyEnergyGrid
 
 % --- Spatial flux detectors
 ene engrid 1 1e-11 0.625e-6 2e1
-det AxialBot n dm block dx 55.1 56.5 1 dy 105.6 107 1 dz -160 0 32 de engrid
-det AxialFuel n du 5 dx 55.1 56.5 1 dy 105.6 107 1 dz 0 793 80 de engrid
-det AxialTop n dm block dx 55.1 56.5 1 dy 105.6 107 1 dz 793 913 32 de engrid
+det Axial1 n dh 3  93.53 18.0 36 1 1 -160 913 80 de engrid
+det Axial2 n dh 3 124.71  0.0 36 1 1 -160 913 80 de engrid
+det Axial3 n dh 3 155.88 18.0 36 1 1 -160 913 80 de engrid
+
+det Radial1 n dn 1 0 300 300 0 360 1 0 793 1 de engrid
+det Radial2 n dn 1 0 300 300 0 2 1 396.5 475.8 1 de engrid
+det Radial3 n dn 1 0 300 300 30 32 1 396.5 475.8 1 de engrid
+
+% --- Group constant generation
+% 5: Fuel compact, 3: Helium, M: Moderator,
+% B: Bottom reflector, T: Top reflector, 9: Fuel assembly
+% I: Inner reflector, O: Outer reflector
+set gcu 5 3 M B T 9 I O
+set nfg 2 0.625E-6
+
+branch fuel0
+stp uco       -10.5       750
+stp buffer     -1.0       750 grph gr04.32t gr05.32t
+stp pyc        -1.9       750 grph gr04.32t gr05.32t
+stp sic        -3.2       750 grph gr04.32t gr05.32t
+stp matrix     -1.75      750 grph gr04.32t gr05.32t
+stp block      -1.75      750 grph gr04.32t gr05.32t
+stp helium     -0.0041881 750
+
+coef 1 0
+1 fuel0
