@@ -1,0 +1,6371 @@
+----------------------------------------
+Begin Torque Prologue on nid27635
+at Wed Aug 12 14:39:21 CDT 2020
+Job Id:			11459093.bw
+Username:		froberto
+Group:			ILL_bbcc
+Job name:		testing_serp_dep_uq
+Requested resources:	nodes=8:ppn=16:xk,walltime=20:00:00,neednodes=8:ppn=16:xk
+Queue:			normal
+Account:		bbcc
+End Torque Prologue:  0.109 elapsed
+----------------------------------------
+
+
+
+
+
+  _                   .-=-.           .-=-.          .-==-.
+ { }      __        .' O o '.       .' O o '.       /  -<' )--<
+ { }    .' O'.     / o .-. O \     / o .-. O \     /  .---`
+ { }   / .-. o\   /O  /   \  o\   /O  /   \  o\   /O /
+  \ `-` /   \ O`-'o  /     \  O`-'o  /     \  O`-`o /
+   `-.-`     '.____.'       `._____.'       `.____.'
+
+Serpent 2 beta
+
+A Continuous-energy Monte Carlo Reactor Physics Burnup Calculation Code
+
+ - Version 2.1.31 (May 16, 2019) -- Contact: serpent@vtt.fi
+
+ - Reference: J. Leppanen, et al. "The Serpent Monte Carlo code: Status,
+              development and applications in 2013." Ann. Nucl. Energy,
+              82 (2015) 142-150.
+
+ - Compiled Feb  7 2020 12:43:54
+
+ - MPI Parallel calculation mode available
+
+ - OpenMP Parallel calculation mode available
+
+ - Geometry and mesh plotting not available
+
+ - Default data path not set
+
+Begin calculation on Wed Aug 12 14:39:27 2020
+
+Reading input file "standard-column2"...
+
+Checking duplicate input definitions...
+OK.
+
+Reading pebble bed type geometry:
+
+Reading data from file "oecd79"...
+
+Creating geometry...
+OK.
+
+Counting geometry zones...
+
+
+ ***** Warning: Universe M is used at multiple levels (5 and 4)
+
+The geometry consists of 7 levels:
+
+Level 0 size: max 4 zones
+Level 1 size: max 10 zones
+Level 2 size: max 2 zones
+Level 3 size: max 576 zones
+Level 4 size: max 3 zones
+Level 5 size: max 106956 zones
+Level 6 size: max 6 zones
+
+Processing cells...
+OK.
+
+Linking materials to geometry...
+OK.
+
+Counting cells...
+OK.
+
+Processing data for group constant generation:
+
+ - 70 energy groups in micro-group structure
+ - 2 energy groups in macro-group structure
+ - B1 fundamental mode calculation is not run
+ - Group constants generated in 1 universes
+ - Discontinuity factors are not calculated
+ - Pin-power distributions are not calculated
+ - Albedos are not calculated
+ - Poison cross sections are not calculated
+
+Reading ACE directory files...
+OK.
+
+Adding nuclides in material uco...
+
+Nuclide  92235.12c -- uranium 235 at 1200K (U-235)
+Nuclide  92238.12c -- uranium 238 at 1200K (U-238)
+Nuclide   8016.12c -- oxygen 16 at 1200K (O-16)
+Nuclide   6000.12c -- natural carbon at 1200K (C-nat)
+
+Adding nuclides in material buffer...
+
+Adding nuclides in material pyc...
+
+Adding nuclides in material sic...
+
+Nuclide  14028.12c -- silicon 28 at 1200K (Si-28)
+Nuclide  14029.12c -- silicon 29 at 1200K (Si-29)
+Nuclide  14030.12c -- silicon 30 at 1200K (Si-30)
+
+Adding nuclides in material matrix...
+
+Adding nuclides in material helium...
+
+Nuclide   2004.12c -- helium 4 at 1200K (He-4)
+
+Adding nuclides in material block...
+
+Nuclide   6000.10c -- natural carbon at 1000K (C-nat)
+
+Running Doppler-broadening preprocessor:
+
+
+Adding thermal scattering data...
+
+Nuclide   gr06.32t -- natural carbon at 1000K (C-nat)
+Nuclide   gr07.32t -- natural carbon at 1200K (C-nat)
+
+Checking data and printing output...
+OK.
+
+Sharing input data to MPI tasks...
+OK.
+
+Generating unionize energy grids...
+
+Adding points:
+
+  2004.12c -- Points added in neutron grid: 765
+  6000.12c -- Points added in neutron grid: 776
+  6000.10c -- Points added in neutron grid: 0
+  6000.12s -- Points added in neutron grid: 1192
+  6000.12s -- Points added in neutron grid: 0
+  6000.12s -- Points added in neutron grid: 0
+  6000.12s -- Points added in neutron grid: 0
+  6000.10s -- Points added in neutron grid: 14
+  8016.12c -- Points added in neutron grid: 2257
+ 14028.12c -- Points added in neutron grid: 8436
+ 14029.12c -- Points added in neutron grid: 835
+ 14030.12c -- Points added in neutron grid: 1578
+ 92235.12c -- Points added in neutron grid: 51262
+ 92238.12c -- Points added in neutron grid: 151254
+
+Generating unionized energy grid:
+
+ - Unionization performed without grid thinning
+   between 1.00E-11 and 20.0 MeV.
+
+ - Final neutron grid size: 218195 points.
+
+ - 9.99 Mb of memory allocated for grid data
+
+OK.
+
+Processing cross sections and ENDF reaction laws...
+
+Nuclide   2004.12c -- helium 4 at 1200K (He-4)
+Nuclide   6000.12c -- natural carbon at 1200K (C-nat)
+Nuclide   6000.10c -- natural carbon at 1000K (C-nat)
+Nuclide   6000.12s -- natural carbon at 1200K (C-nat)
+Nuclide   6000.12s -- natural carbon at 1200K (C-nat)
+Nuclide   6000.12s -- natural carbon at 1200K (C-nat)
+Nuclide   6000.12s -- natural carbon at 1200K (C-nat)
+Nuclide   6000.10s -- natural carbon at 1000K (C-nat)
+Nuclide   8016.12c -- oxygen 16 at 1200K (O-16)
+Nuclide  14028.12c -- silicon 28 at 1200K (Si-28)
+Nuclide  14029.12c -- silicon 29 at 1200K (Si-29)
+Nuclide  14030.12c -- silicon 30 at 1200K (Si-30)
+Nuclide  92235.12c -- uranium 235 at 1200K (U-235)
+Nuclide  92238.12c -- uranium 238 at 1200K (U-238)
+
+SUMMARY -- 14 nuclides included in calculation:
+
+ - 14 transport nuclides
+ - Neutron energy cut-offs at 1.00E-11 and 20.0 MeV
+ - 353 transport reactions
+ - 113 special reactions
+ - 148.23 Mb of memory allocated for data
+
+Normalizing compositions and processing mixtures...
+OK.
+
+Allocating memory for macroscopic cross section data...
+OK.
+
+Allocating memory for particle structures...
+OK.
+
+Calculating maximum densities...
+OK.
+
+Performing density cut-off...
+OK.
+
+Sorting material-wise reaction lists:
+
+   0% complete
+ 100% complete
+
+Calculating macroscopic cross sections:
+
+   0% complete
+ 100% complete
+
+Waiting for results from other MPI tasks...
+OK.
+
+Calculating DT neutron majorant cross section:
+
+   0% complete
+ 100% complete
+
+Clearing results and statistics...
+OK.
+
+Sampling initial source...
+OK.
+
+Inactive cycle   1 /  50: k-eff = 1.00000
+Inactive cycle   2 /  50: k-eff = 1.37257
+Inactive cycle   3 /  50: k-eff = 1.38117
+Inactive cycle   4 /  50: k-eff = 1.37195
+Inactive cycle   5 /  50: k-eff = 1.37236
+Inactive cycle   6 /  50: k-eff = 1.37082
+Inactive cycle   7 /  50: k-eff = 1.38834
+Inactive cycle   8 /  50: k-eff = 1.39367
+Inactive cycle   9 /  50: k-eff = 1.38570
+Inactive cycle  10 /  50: k-eff = 1.38193
+Inactive cycle  11 /  50: k-eff = 1.37356
+Inactive cycle  12 /  50: k-eff = 1.37444
+Inactive cycle  13 /  50: k-eff = 1.38239
+Inactive cycle  14 /  50: k-eff = 1.37756
+Inactive cycle  15 /  50: k-eff = 1.37101
+Inactive cycle  16 /  50: k-eff = 1.36903
+Inactive cycle  17 /  50: k-eff = 1.37851
+Inactive cycle  18 /  50: k-eff = 1.38135
+Inactive cycle  19 /  50: k-eff = 1.38552
+Inactive cycle  20 /  50: k-eff = 1.37738
+Inactive cycle  21 /  50: k-eff = 1.39186
+Inactive cycle  22 /  50: k-eff = 1.37774
+Inactive cycle  23 /  50: k-eff = 1.37821
+Inactive cycle  24 /  50: k-eff = 1.36580
+Inactive cycle  25 /  50: k-eff = 1.37579
+Inactive cycle  26 /  50: k-eff = 1.38689
+Inactive cycle  27 /  50: k-eff = 1.38064
+Inactive cycle  28 /  50: k-eff = 1.36938
+Inactive cycle  29 /  50: k-eff = 1.38180
+Inactive cycle  30 /  50: k-eff = 1.37867
+Inactive cycle  31 /  50: k-eff = 1.37820
+Inactive cycle  32 /  50: k-eff = 1.37795
+Inactive cycle  33 /  50: k-eff = 1.38538
+Inactive cycle  34 /  50: k-eff = 1.38082
+Inactive cycle  35 /  50: k-eff = 1.38843
+Inactive cycle  36 /  50: k-eff = 1.37894
+Inactive cycle  37 /  50: k-eff = 1.37683
+Inactive cycle  38 /  50: k-eff = 1.37302
+Inactive cycle  39 /  50: k-eff = 1.37490
+Inactive cycle  40 /  50: k-eff = 1.38867
+Inactive cycle  41 /  50: k-eff = 1.37829
+Inactive cycle  42 /  50: k-eff = 1.37539
+Inactive cycle  43 /  50: k-eff = 1.38303
+Inactive cycle  44 /  50: k-eff = 1.38297
+Inactive cycle  45 /  50: k-eff = 1.37497
+Inactive cycle  46 /  50: k-eff = 1.37400
+Inactive cycle  47 /  50: k-eff = 1.37431
+Inactive cycle  48 /  50: k-eff = 1.38216
+Inactive cycle  49 /  50: k-eff = 1.37047
+Inactive cycle  50 /  50: k-eff = 1.38338
+
+----- Begin active cycles -----
+
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    1 / 320  Source neutrons : 43843
+
+Running time :                  0:03:34
+Estimated running time :        0:32:10
+Estimated running time left :   0:28:35
+
+Estimated relative CPU usage :  1582.6%
+
+k-eff (analog)    = 1.38632 +/- 0.00000  [1.38632  1.38632]
+k-eff (implicit)  = 1.37440 +/- 0.00000  [1.37440  1.37440]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    2 / 320  Source neutrons : 43490
+
+Running time :                  0:03:39
+Estimated running time :        0:31:58
+Estimated running time left :   0:28:18
+
+Estimated relative CPU usage :  1583.2%
+
+k-eff (analog)    = 1.38220 +/- 0.00412  [1.37413  1.39027]
+k-eff (implicit)  = 1.37338 +/- 0.00102  [1.37139  1.37537]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    3 / 320  Source neutrons : 43562
+
+Running time :                  0:03:45
+Estimated running time :        0:31:55
+Estimated running time left :   0:28:10
+
+Estimated relative CPU usage :  1582.7%
+
+k-eff (analog)    = 1.37885 +/- 0.00411  [1.37081  1.38690]
+k-eff (implicit)  = 1.37448 +/- 0.00124  [1.37204  1.37692]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    4 / 320  Source neutrons : 43596
+
+Running time :                  0:03:50
+Estimated running time :        0:31:57
+Estimated running time left :   0:28:06
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37597 +/- 0.00409  [1.36796  1.38399]
+k-eff (implicit)  = 1.37633 +/- 0.00205  [1.37232  1.38034]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    5 / 320  Source neutrons : 44070
+
+Running time :                  0:03:55
+Estimated running time :        0:32:01
+Estimated running time left :   0:28:05
+
+Estimated relative CPU usage :  1585.6%
+
+k-eff (analog)    = 1.37624 +/- 0.00318  [1.37001  1.38248]
+k-eff (implicit)  = 1.37737 +/- 0.00190  [1.37365  1.38108]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    6 / 320  Source neutrons : 43975
+
+Running time :                  0:04:01
+Estimated running time :        0:32:04
+Estimated running time left :   0:28:02
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37761 +/- 0.00293  [1.37186  1.38335]
+k-eff (implicit)  = 1.37817 +/- 0.00174  [1.37475  1.38158]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    7 / 320  Source neutrons : 43550
+
+Running time :                  0:04:06
+Estimated running time :        0:32:04
+Estimated running time left :   0:27:57
+
+Estimated relative CPU usage :  1580.8%
+
+k-eff (analog)    = 1.37767 +/- 0.00248  [1.37282  1.38253]
+k-eff (implicit)  = 1.37837 +/- 0.00149  [1.37546  1.38128]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    8 / 320  Source neutrons : 43627
+
+Running time :                  0:04:12
+Estimated running time :        0:32:03
+Estimated running time left :   0:27:51
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37724 +/- 0.00219  [1.37295  1.38153]
+k-eff (implicit)  = 1.37969 +/- 0.00184  [1.37608  1.38330]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle    9 / 320  Source neutrons : 44126
+
+Running time :                  0:04:17
+Estimated running time :        0:32:05
+Estimated running time left :   0:27:48
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37822 +/- 0.00216  [1.37398  1.38246]
+k-eff (implicit)  = 1.37969 +/- 0.00163  [1.37651  1.38288]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   10 / 320  Source neutrons : 43637
+
+Running time :                  0:04:22
+Estimated running time :        0:32:04
+Estimated running time left :   0:27:41
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37864 +/- 0.00198  [1.37476  1.38252]
+k-eff (implicit)  = 1.38016 +/- 0.00153  [1.37717  1.38315]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   11 / 320  Source neutrons : 43733
+
+Running time :                  0:04:28
+Estimated running time :        0:32:03
+Estimated running time left :   0:27:35
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37894 +/- 0.00182  [1.37538  1.38250]
+k-eff (implicit)  = 1.37976 +/- 0.00144  [1.37694  1.38257]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   12 / 320  Source neutrons : 43567
+
+Running time :                  0:04:33
+Estimated running time :        0:32:02
+Estimated running time left :   0:27:28
+
+Estimated relative CPU usage :  1585.4%
+
+k-eff (analog)    = 1.37870 +/- 0.00167  [1.37542  1.38198]
+k-eff (implicit)  = 1.37963 +/- 0.00132  [1.37704  1.38221]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   13 / 320  Source neutrons : 44027
+
+Running time :                  0:04:38
+Estimated running time :        0:32:01
+Estimated running time left :   0:27:22
+
+Estimated relative CPU usage :  1584.5%
+
+k-eff (analog)    = 1.37917 +/- 0.00161  [1.37602  1.38233]
+k-eff (implicit)  = 1.37948 +/- 0.00122  [1.37708  1.38187]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   14 / 320  Source neutrons : 43571
+
+Running time :                  0:04:44
+Estimated running time :        0:32:00
+Estimated running time left :   0:27:16
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37917 +/- 0.00149  [1.37625  1.38210]
+k-eff (implicit)  = 1.37949 +/- 0.00113  [1.37727  1.38171]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   15 / 320  Source neutrons : 43692
+
+Running time :                  0:04:49
+Estimated running time :        0:32:00
+Estimated running time left :   0:27:10
+
+Estimated relative CPU usage :  1583.8%
+
+k-eff (analog)    = 1.37905 +/- 0.00139  [1.37632  1.38178]
+k-eff (implicit)  = 1.37965 +/- 0.00107  [1.37756  1.38174]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   16 / 320  Source neutrons : 43541
+
+Running time :                  0:04:54
+Estimated running time :        0:31:59
+Estimated running time left :   0:27:04
+
+Estimated relative CPU usage :  1581.5%
+
+k-eff (analog)    = 1.37853 +/- 0.00140  [1.37578  1.38128]
+k-eff (implicit)  = 1.37958 +/- 0.00100  [1.37762  1.38154]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   17 / 320  Source neutrons : 43881
+
+Running time :                  0:05:00
+Estimated running time :        0:32:00
+Estimated running time left :   0:26:59
+
+Estimated relative CPU usage :  1577.2%
+
+k-eff (analog)    = 1.37832 +/- 0.00134  [1.37570  1.38093]
+k-eff (implicit)  = 1.37954 +/- 0.00094  [1.37770  1.38138]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   18 / 320  Source neutrons : 43679
+
+Running time :                  0:05:05
+Estimated running time :        0:31:59
+Estimated running time left :   0:26:54
+
+Estimated relative CPU usage :  1584.5%
+
+k-eff (analog)    = 1.37800 +/- 0.00130  [1.37546  1.38055]
+k-eff (implicit)  = 1.37966 +/- 0.00089  [1.37791  1.38141]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   19 / 320  Source neutrons : 44311
+
+Running time :                  0:05:10
+Estimated running time :        0:32:00
+Estimated running time left :   0:26:50
+
+Estimated relative CPU usage :  1581.5%
+
+k-eff (analog)    = 1.37865 +/- 0.00139  [1.37593  1.38136]
+k-eff (implicit)  = 1.37951 +/- 0.00086  [1.37783  1.38119]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   20 / 320  Source neutrons : 43314
+
+Running time :                  0:05:16
+Estimated running time :        0:31:58
+Estimated running time left :   0:26:42
+
+Estimated relative CPU usage :  1581.2%
+
+k-eff (analog)    = 1.37853 +/- 0.00132  [1.37595  1.38112]
+k-eff (implicit)  = 1.37941 +/- 0.00082  [1.37781  1.38102]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   21 / 320  Source neutrons : 43770
+
+Running time :                  0:05:21
+Estimated running time :        0:31:58
+Estimated running time left :   0:26:37
+
+Estimated relative CPU usage :  1583.0%
+
+k-eff (analog)    = 1.37846 +/- 0.00126  [1.37599  1.38093]
+k-eff (implicit)  = 1.37930 +/- 0.00079  [1.37776  1.38084]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   22 / 320  Source neutrons : 43641
+
+Running time :                  0:05:26
+Estimated running time :        0:31:58
+Estimated running time left :   0:26:31
+
+Estimated relative CPU usage :  1584.6%
+
+k-eff (analog)    = 1.37824 +/- 0.00122  [1.37585  1.38063]
+k-eff (implicit)  = 1.37945 +/- 0.00077  [1.37795  1.38096]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   23 / 320  Source neutrons : 43844
+
+Running time :                  0:05:31
+Estimated running time :        0:31:57
+Estimated running time left :   0:26:25
+
+Estimated relative CPU usage :  1584.7%
+
+k-eff (analog)    = 1.37816 +/- 0.00117  [1.37588  1.38045]
+k-eff (implicit)  = 1.37956 +/- 0.00074  [1.37811  1.38101]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   24 / 320  Source neutrons : 44059
+
+Running time :                  0:05:37
+Estimated running time :        0:31:57
+Estimated running time left :   0:26:20
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37850 +/- 0.00117  [1.37621  1.38079]
+k-eff (implicit)  = 1.37952 +/- 0.00071  [1.37812  1.38091]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   25 / 320  Source neutrons : 43529
+
+Running time :                  0:05:42
+Estimated running time :        0:31:57
+Estimated running time left :   0:26:14
+
+Estimated relative CPU usage :  1584.6%
+
+k-eff (analog)    = 1.37853 +/- 0.00112  [1.37634  1.38073]
+k-eff (implicit)  = 1.37941 +/- 0.00069  [1.37806  1.38076]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   26 / 320  Source neutrons : 43602
+
+Running time :                  0:05:47
+Estimated running time :        0:31:57
+Estimated running time left :   0:26:09
+
+Estimated relative CPU usage :  1583.8%
+
+k-eff (analog)    = 1.37838 +/- 0.00109  [1.37625  1.38051]
+k-eff (implicit)  = 1.37946 +/- 0.00066  [1.37816  1.38076]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   27 / 320  Source neutrons : 44363
+
+Running time :                  0:05:53
+Estimated running time :        0:31:58
+Estimated running time left :   0:26:04
+
+Estimated relative CPU usage :  1584.4%
+
+k-eff (analog)    = 1.37895 +/- 0.00119  [1.37661  1.38129]
+k-eff (implicit)  = 1.37925 +/- 0.00067  [1.37793  1.38056]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   28 / 320  Source neutrons : 43095
+
+Running time :                  0:05:58
+Estimated running time :        0:31:56
+Estimated running time left :   0:25:58
+
+Estimated relative CPU usage :  1582.5%
+
+k-eff (analog)    = 1.37874 +/- 0.00117  [1.37645  1.38103]
+k-eff (implicit)  = 1.37931 +/- 0.00065  [1.37804  1.38059]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   29 / 320  Source neutrons : 44235
+
+Running time :                  0:06:03
+Estimated running time :        0:31:57
+Estimated running time left :   0:25:53
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37907 +/- 0.00117  [1.37676  1.38137]
+k-eff (implicit)  = 1.37925 +/- 0.00063  [1.37801  1.38049]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   30 / 320  Source neutrons : 43469
+
+Running time :                  0:06:09
+Estimated running time :        0:31:56
+Estimated running time left :   0:25:47
+
+Estimated relative CPU usage :  1581.9%
+
+k-eff (analog)    = 1.37907 +/- 0.00113  [1.37685  1.38130]
+k-eff (implicit)  = 1.37910 +/- 0.00063  [1.37787  1.38033]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   31 / 320  Source neutrons : 43710
+
+Running time :                  0:06:14
+Estimated running time :        0:31:55
+Estimated running time left :   0:25:41
+
+Estimated relative CPU usage :  1583.5%
+
+k-eff (analog)    = 1.37904 +/- 0.00110  [1.37689  1.38119]
+k-eff (implicit)  = 1.37924 +/- 0.00062  [1.37802  1.38046]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   32 / 320  Source neutrons : 43997
+
+Running time :                  0:06:19
+Estimated running time :        0:31:55
+Estimated running time left :   0:25:36
+
+Estimated relative CPU usage :  1583.4%
+
+k-eff (analog)    = 1.37925 +/- 0.00108  [1.37713  1.38137]
+k-eff (implicit)  = 1.37907 +/- 0.00063  [1.37784  1.38029]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   33 / 320  Source neutrons : 43415
+
+Running time :                  0:06:27
+Estimated running time :        0:32:15
+Estimated running time left :   0:25:48
+
+Estimated relative CPU usage :  1163.3%
+
+k-eff (analog)    = 1.37913 +/- 0.00106  [1.37705  1.38120]
+k-eff (implicit)  = 1.37907 +/- 0.00061  [1.37788  1.38026]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   34 / 320  Source neutrons : 43983
+
+Running time :                  0:06:32
+Estimated running time :        0:32:15
+Estimated running time left :   0:25:42
+
+Estimated relative CPU usage :  1580.3%
+
+k-eff (analog)    = 1.37923 +/- 0.00103  [1.37721  1.38125]
+k-eff (implicit)  = 1.37913 +/- 0.00059  [1.37797  1.38029]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   35 / 320  Source neutrons : 43617
+
+Running time :                  0:06:37
+Estimated running time :        0:32:14
+Estimated running time left :   0:25:36
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37920 +/- 0.00100  [1.37724  1.38116]
+k-eff (implicit)  = 1.37923 +/- 0.00058  [1.37809  1.38037]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   36 / 320  Source neutrons : 44032
+
+Running time :                  0:06:43
+Estimated running time :        0:32:14
+Estimated running time left :   0:25:30
+
+Estimated relative CPU usage :  1582.9%
+
+k-eff (analog)    = 1.37942 +/- 0.00100  [1.37747  1.38138]
+k-eff (implicit)  = 1.37912 +/- 0.00058  [1.37799  1.38025]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   37 / 320  Source neutrons : 43541
+
+Running time :                  0:06:48
+Estimated running time :        0:32:13
+Estimated running time left :   0:25:24
+
+Estimated relative CPU usage :  1584.7%
+
+k-eff (analog)    = 1.37945 +/- 0.00097  [1.37755  1.38136]
+k-eff (implicit)  = 1.37919 +/- 0.00057  [1.37808  1.38030]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   38 / 320  Source neutrons : 43584
+
+Running time :                  0:06:53
+Estimated running time :        0:32:12
+Estimated running time left :   0:25:18
+
+Estimated relative CPU usage :  1584.0%
+
+k-eff (analog)    = 1.37934 +/- 0.00095  [1.37748  1.38121]
+k-eff (implicit)  = 1.37921 +/- 0.00055  [1.37813  1.38029]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   39 / 320  Source neutrons : 43954
+
+Running time :                  0:06:59
+Estimated running time :        0:32:11
+Estimated running time left :   0:25:12
+
+Estimated relative CPU usage :  1577.8%
+
+k-eff (analog)    = 1.37941 +/- 0.00093  [1.37759  1.38123]
+k-eff (implicit)  = 1.37918 +/- 0.00054  [1.37813  1.38024]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   40 / 320  Source neutrons : 43626
+
+Running time :                  0:07:04
+Estimated running time :        0:32:11
+Estimated running time left :   0:25:06
+
+Estimated relative CPU usage :  1582.4%
+
+k-eff (analog)    = 1.37937 +/- 0.00091  [1.37759  1.38114]
+k-eff (implicit)  = 1.37925 +/- 0.00053  [1.37822  1.38028]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   41 / 320  Source neutrons : 44137
+
+Running time :                  0:07:09
+Estimated running time :        0:32:11
+Estimated running time left :   0:25:01
+
+Estimated relative CPU usage :  1582.7%
+
+k-eff (analog)    = 1.37963 +/- 0.00092  [1.37782  1.38143]
+k-eff (implicit)  = 1.37923 +/- 0.00052  [1.37822  1.38024]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   42 / 320  Source neutrons : 43298
+
+Running time :                  0:07:15
+Estimated running time :        0:32:10
+Estimated running time left :   0:24:55
+
+Estimated relative CPU usage :  1582.3%
+
+k-eff (analog)    = 1.37953 +/- 0.00090  [1.37776  1.38130]
+k-eff (implicit)  = 1.37922 +/- 0.00050  [1.37824  1.38021]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   43 / 320  Source neutrons : 43541
+
+Running time :                  0:07:20
+Estimated running time :        0:32:09
+Estimated running time left :   0:24:49
+
+Estimated relative CPU usage :  1584.5%
+
+k-eff (analog)    = 1.37929 +/- 0.00092  [1.37749  1.38108]
+k-eff (implicit)  = 1.37922 +/- 0.00049  [1.37825  1.38018]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   44 / 320  Source neutrons : 44101
+
+Running time :                  0:07:25
+Estimated running time :        0:32:09
+Estimated running time left :   0:24:44
+
+Estimated relative CPU usage :  1582.3%
+
+k-eff (analog)    = 1.37931 +/- 0.00089  [1.37755  1.38106]
+k-eff (implicit)  = 1.37936 +/- 0.00050  [1.37838  1.38035]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   45 / 320  Source neutrons : 43736
+
+Running time :                  0:07:31
+Estimated running time :        0:32:10
+Estimated running time left :   0:24:38
+
+Estimated relative CPU usage :  1581.3%
+
+k-eff (analog)    = 1.37931 +/- 0.00087  [1.37760  1.38103]
+k-eff (implicit)  = 1.37946 +/- 0.00050  [1.37848  1.38044]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   46 / 320  Source neutrons : 43910
+
+Running time :                  0:07:36
+Estimated running time :        0:32:10
+Estimated running time left :   0:24:33
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37943 +/- 0.00086  [1.37774  1.38112]
+k-eff (implicit)  = 1.37951 +/- 0.00049  [1.37855  1.38047]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   47 / 320  Source neutrons : 43736
+
+Running time :                  0:07:41
+Estimated running time :        0:32:09
+Estimated running time left :   0:24:27
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37953 +/- 0.00085  [1.37786  1.38120]
+k-eff (implicit)  = 1.37961 +/- 0.00049  [1.37865  1.38057]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   48 / 320  Source neutrons : 43436
+
+Running time :                  0:07:47
+Estimated running time :        0:32:09
+Estimated running time left :   0:24:22
+
+Estimated relative CPU usage :  1564.3%
+
+k-eff (analog)    = 1.37942 +/- 0.00084  [1.37778  1.38107]
+k-eff (implicit)  = 1.37958 +/- 0.00048  [1.37864  1.38053]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   49 / 320  Source neutrons : 44143
+
+Running time :                  0:07:52
+Estimated running time :        0:32:09
+Estimated running time left :   0:24:17
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37957 +/- 0.00084  [1.37793  1.38121]
+k-eff (implicit)  = 1.37959 +/- 0.00047  [1.37866  1.38051]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   50 / 320  Source neutrons : 43480
+
+Running time :                  0:07:57
+Estimated running time :        0:32:09
+Estimated running time left :   0:24:11
+
+Estimated relative CPU usage :  1584.2%
+
+k-eff (analog)    = 1.37954 +/- 0.00082  [1.37793  1.38115]
+k-eff (implicit)  = 1.37956 +/- 0.00046  [1.37866  1.38047]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   51 / 320  Source neutrons : 43647
+
+Running time :                  0:08:03
+Estimated running time :        0:32:09
+Estimated running time left :   0:24:06
+
+Estimated relative CPU usage :  1581.4%
+
+k-eff (analog)    = 1.37945 +/- 0.00081  [1.37786  1.38103]
+k-eff (implicit)  = 1.37961 +/- 0.00046  [1.37872  1.38051]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   52 / 320  Source neutrons : 44012
+
+Running time :                  0:08:08
+Estimated running time :        0:32:09
+Estimated running time left :   0:24:01
+
+Estimated relative CPU usage :  1584.7%
+
+k-eff (analog)    = 1.37952 +/- 0.00080  [1.37796  1.38108]
+k-eff (implicit)  = 1.37962 +/- 0.00045  [1.37874  1.38050]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   53 / 320  Source neutrons : 43671
+
+Running time :                  0:08:14
+Estimated running time :        0:32:09
+Estimated running time left :   0:23:55
+
+Estimated relative CPU usage :  1584.4%
+
+k-eff (analog)    = 1.37954 +/- 0.00078  [1.37801  1.38107]
+k-eff (implicit)  = 1.37953 +/- 0.00045  [1.37865  1.38041]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   54 / 320  Source neutrons : 43505
+
+Running time :                  0:08:19
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:49
+
+Estimated relative CPU usage :  1581.6%
+
+k-eff (analog)    = 1.37941 +/- 0.00078  [1.37789  1.38093]
+k-eff (implicit)  = 1.37953 +/- 0.00044  [1.37867  1.38040]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   55 / 320  Source neutrons : 43924
+
+Running time :                  0:08:24
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:44
+
+Estimated relative CPU usage :  1584.9%
+
+k-eff (analog)    = 1.37939 +/- 0.00076  [1.37790  1.38089]
+k-eff (implicit)  = 1.37945 +/- 0.00044  [1.37859  1.38031]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   56 / 320  Source neutrons : 43755
+
+Running time :                  0:08:30
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:38
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37938 +/- 0.00075  [1.37791  1.38084]
+k-eff (implicit)  = 1.37948 +/- 0.00043  [1.37863  1.38032]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   57 / 320  Source neutrons : 43838
+
+Running time :                  0:08:35
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:32
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37941 +/- 0.00074  [1.37797  1.38085]
+k-eff (implicit)  = 1.37949 +/- 0.00042  [1.37866  1.38032]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   58 / 320  Source neutrons : 44215
+
+Running time :                  0:08:40
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:28
+
+Estimated relative CPU usage :  1576.6%
+
+k-eff (analog)    = 1.37969 +/- 0.00078  [1.37817  1.38122]
+k-eff (implicit)  = 1.37942 +/- 0.00042  [1.37859  1.38025]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   59 / 320  Source neutrons : 43214
+
+Running time :                  0:08:46
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:22
+
+Estimated relative CPU usage :  1584.5%
+
+k-eff (analog)    = 1.37968 +/- 0.00076  [1.37818  1.38118]
+k-eff (implicit)  = 1.37935 +/- 0.00042  [1.37853  1.38018]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   60 / 320  Source neutrons : 43768
+
+Running time :                  0:08:51
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:16
+
+Estimated relative CPU usage :  1581.9%
+
+k-eff (analog)    = 1.37967 +/- 0.00075  [1.37820  1.38115]
+k-eff (implicit)  = 1.37927 +/- 0.00042  [1.37844  1.38010]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   61 / 320  Source neutrons : 43587
+
+Running time :                  0:08:56
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:11
+
+Estimated relative CPU usage :  1584.2%
+
+k-eff (analog)    = 1.37958 +/- 0.00074  [1.37813  1.38104]
+k-eff (implicit)  = 1.37927 +/- 0.00042  [1.37845  1.38009]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   62 / 320  Source neutrons : 43978
+
+Running time :                  0:09:02
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:06
+
+Estimated relative CPU usage :  1585.5%
+
+k-eff (analog)    = 1.37961 +/- 0.00073  [1.37818  1.38105]
+k-eff (implicit)  = 1.37927 +/- 0.00041  [1.37846  1.38007]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   63 / 320  Source neutrons : 43613
+
+Running time :                  0:09:07
+Estimated running time :        0:32:08
+Estimated running time left :   0:23:00
+
+Estimated relative CPU usage :  1580.4%
+
+k-eff (analog)    = 1.37957 +/- 0.00072  [1.37816  1.38099]
+k-eff (implicit)  = 1.37929 +/- 0.00040  [1.37850  1.38009]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   64 / 320  Source neutrons : 43879
+
+Running time :                  0:09:13
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:55
+
+Estimated relative CPU usage :  1581.6%
+
+k-eff (analog)    = 1.37960 +/- 0.00071  [1.37820  1.38099]
+k-eff (implicit)  = 1.37917 +/- 0.00042  [1.37836  1.37999]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   65 / 320  Source neutrons : 43239
+
+Running time :                  0:09:18
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:49
+
+Estimated relative CPU usage :  1585.4%
+
+k-eff (analog)    = 1.37937 +/- 0.00074  [1.37793  1.38081]
+k-eff (implicit)  = 1.37917 +/- 0.00041  [1.37837  1.37998]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   66 / 320  Source neutrons : 44430
+
+Running time :                  0:09:23
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:44
+
+Estimated relative CPU usage :  1585.3%
+
+k-eff (analog)    = 1.37948 +/- 0.00073  [1.37804  1.38091]
+k-eff (implicit)  = 1.37924 +/- 0.00041  [1.37844  1.38004]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   67 / 320  Source neutrons : 43524
+
+Running time :                  0:09:29
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:38
+
+Estimated relative CPU usage :  1580.1%
+
+k-eff (analog)    = 1.37947 +/- 0.00072  [1.37806  1.38088]
+k-eff (implicit)  = 1.37925 +/- 0.00040  [1.37846  1.38004]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   68 / 320  Source neutrons : 43674
+
+Running time :                  0:09:34
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:33
+
+Estimated relative CPU usage :  1584.4%
+
+k-eff (analog)    = 1.37943 +/- 0.00071  [1.37804  1.38082]
+k-eff (implicit)  = 1.37918 +/- 0.00040  [1.37839  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   69 / 320  Source neutrons : 43544
+
+Running time :                  0:09:39
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:28
+
+Estimated relative CPU usage :  1583.2%
+
+k-eff (analog)    = 1.37929 +/- 0.00071  [1.37790  1.38069]
+k-eff (implicit)  = 1.37923 +/- 0.00040  [1.37845  1.38002]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   70 / 320  Source neutrons : 44041
+
+Running time :                  0:09:45
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:23
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37929 +/- 0.00070  [1.37792  1.38067]
+k-eff (implicit)  = 1.37927 +/- 0.00040  [1.37850  1.38005]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   71 / 320  Source neutrons : 43809
+
+Running time :                  0:09:50
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:17
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37932 +/- 0.00069  [1.37796  1.38068]
+k-eff (implicit)  = 1.37920 +/- 0.00040  [1.37842  1.37998]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   72 / 320  Source neutrons : 43591
+
+Running time :                  0:09:56
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:12
+
+Estimated relative CPU usage :  1577.0%
+
+k-eff (analog)    = 1.37928 +/- 0.00069  [1.37793  1.38062]
+k-eff (implicit)  = 1.37933 +/- 0.00041  [1.37852  1.38014]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   73 / 320  Source neutrons : 43841
+
+Running time :                  0:10:01
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:07
+
+Estimated relative CPU usage :  1582.2%
+
+k-eff (analog)    = 1.37927 +/- 0.00068  [1.37795  1.38060]
+k-eff (implicit)  = 1.37940 +/- 0.00041  [1.37859  1.38021]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   74 / 320  Source neutrons : 43834
+
+Running time :                  0:10:06
+Estimated running time :        0:32:08
+Estimated running time left :   0:22:01
+
+Estimated relative CPU usage :  1585.3%
+
+k-eff (analog)    = 1.37930 +/- 0.00067  [1.37800  1.38061]
+k-eff (implicit)  = 1.37943 +/- 0.00041  [1.37863  1.38023]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   75 / 320  Source neutrons : 43770
+
+Running time :                  0:10:12
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:56
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37934 +/- 0.00066  [1.37805  1.38064]
+k-eff (implicit)  = 1.37941 +/- 0.00040  [1.37862  1.38020]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   76 / 320  Source neutrons : 43537
+
+Running time :                  0:10:17
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:51
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37929 +/- 0.00065  [1.37801  1.38057]
+k-eff (implicit)  = 1.37942 +/- 0.00040  [1.37864  1.38020]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   77 / 320  Source neutrons : 43939
+
+Running time :                  0:10:22
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:45
+
+Estimated relative CPU usage :  1581.0%
+
+k-eff (analog)    = 1.37932 +/- 0.00064  [1.37806  1.38059]
+k-eff (implicit)  = 1.37941 +/- 0.00039  [1.37864  1.38019]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   78 / 320  Source neutrons : 43645
+
+Running time :                  0:10:28
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:40
+
+Estimated relative CPU usage :  1581.0%
+
+k-eff (analog)    = 1.37931 +/- 0.00064  [1.37806  1.38056]
+k-eff (implicit)  = 1.37944 +/- 0.00039  [1.37867  1.38020]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   79 / 320  Source neutrons : 43714
+
+Running time :                  0:10:33
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:34
+
+Estimated relative CPU usage :  1582.9%
+
+k-eff (analog)    = 1.37928 +/- 0.00063  [1.37805  1.38051]
+k-eff (implicit)  = 1.37945 +/- 0.00038  [1.37869  1.38020]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   80 / 320  Source neutrons : 43821
+
+Running time :                  0:10:38
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:29
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37928 +/- 0.00062  [1.37806  1.38050]
+k-eff (implicit)  = 1.37943 +/- 0.00038  [1.37868  1.38017]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   81 / 320  Source neutrons : 43602
+
+Running time :                  0:10:44
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:23
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37922 +/- 0.00062  [1.37801  1.38043]
+k-eff (implicit)  = 1.37943 +/- 0.00038  [1.37869  1.38017]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   82 / 320  Source neutrons : 43731
+
+Running time :                  0:10:49
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:18
+
+Estimated relative CPU usage :  1583.9%
+
+k-eff (analog)    = 1.37916 +/- 0.00061  [1.37796  1.38036]
+k-eff (implicit)  = 1.37945 +/- 0.00037  [1.37872  1.38018]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   83 / 320  Source neutrons : 44034
+
+Running time :                  0:10:55
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:13
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37920 +/- 0.00061  [1.37801  1.38039]
+k-eff (implicit)  = 1.37947 +/- 0.00037  [1.37875  1.38019]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   84 / 320  Source neutrons : 43875
+
+Running time :                  0:11:00
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:07
+
+Estimated relative CPU usage :  1584.7%
+
+k-eff (analog)    = 1.37929 +/- 0.00061  [1.37811  1.38048]
+k-eff (implicit)  = 1.37943 +/- 0.00037  [1.37872  1.38015]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   85 / 320  Source neutrons : 43654
+
+Running time :                  0:11:05
+Estimated running time :        0:32:08
+Estimated running time left :   0:21:02
+
+Estimated relative CPU usage :  1585.3%
+
+k-eff (analog)    = 1.37935 +/- 0.00060  [1.37817  1.38053]
+k-eff (implicit)  = 1.37942 +/- 0.00036  [1.37871  1.38013]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   86 / 320  Source neutrons : 43592
+
+Running time :                  0:11:11
+Estimated running time :        0:32:08
+Estimated running time left :   0:20:57
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37934 +/- 0.00059  [1.37818  1.38051]
+k-eff (implicit)  = 1.37936 +/- 0.00036  [1.37865  1.38007]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   87 / 320  Source neutrons : 43538
+
+Running time :                  0:11:16
+Estimated running time :        0:32:07
+Estimated running time left :   0:20:51
+
+Estimated relative CPU usage :  1582.8%
+
+k-eff (analog)    = 1.37926 +/- 0.00059  [1.37810  1.38042]
+k-eff (implicit)  = 1.37932 +/- 0.00036  [1.37862  1.38003]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   88 / 320  Source neutrons : 43915
+
+Running time :                  0:11:21
+Estimated running time :        0:32:07
+Estimated running time left :   0:20:46
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37924 +/- 0.00059  [1.37809  1.38039]
+k-eff (implicit)  = 1.37928 +/- 0.00036  [1.37858  1.37998]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   89 / 320  Source neutrons : 43658
+
+Running time :                  0:11:27
+Estimated running time :        0:32:07
+Estimated running time left :   0:20:40
+
+Estimated relative CPU usage :  1584.5%
+
+k-eff (analog)    = 1.37918 +/- 0.00058  [1.37804  1.38033]
+k-eff (implicit)  = 1.37930 +/- 0.00035  [1.37861  1.38000]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   90 / 320  Source neutrons : 43554
+
+Running time :                  0:11:32
+Estimated running time :        0:32:07
+Estimated running time left :   0:20:35
+
+Estimated relative CPU usage :  1581.1%
+
+k-eff (analog)    = 1.37906 +/- 0.00059  [1.37791  1.38022]
+k-eff (implicit)  = 1.37928 +/- 0.00035  [1.37860  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   91 / 320  Source neutrons : 43902
+
+Running time :                  0:11:37
+Estimated running time :        0:32:08
+Estimated running time left :   0:20:30
+
+Estimated relative CPU usage :  1584.2%
+
+k-eff (analog)    = 1.37900 +/- 0.00059  [1.37785  1.38015]
+k-eff (implicit)  = 1.37932 +/- 0.00035  [1.37863  1.38000]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   92 / 320  Source neutrons : 44097
+
+Running time :                  0:11:43
+Estimated running time :        0:32:08
+Estimated running time left :   0:20:24
+
+Estimated relative CPU usage :  1579.9%
+
+k-eff (analog)    = 1.37905 +/- 0.00058  [1.37791  1.38019]
+k-eff (implicit)  = 1.37935 +/- 0.00035  [1.37867  1.38003]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   93 / 320  Source neutrons : 43381
+
+Running time :                  0:11:48
+Estimated running time :        0:32:07
+Estimated running time left :   0:20:19
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37898 +/- 0.00058  [1.37784  1.38011]
+k-eff (implicit)  = 1.37937 +/- 0.00034  [1.37869  1.38004]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   94 / 320  Source neutrons : 44013
+
+Running time :                  0:11:54
+Estimated running time :        0:32:07
+Estimated running time left :   0:20:13
+
+Estimated relative CPU usage :  1580.1%
+
+k-eff (analog)    = 1.37899 +/- 0.00057  [1.37787  1.38012]
+k-eff (implicit)  = 1.37933 +/- 0.00034  [1.37866  1.38000]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   95 / 320  Source neutrons : 43703
+
+Running time :                  0:11:59
+Estimated running time :        0:32:07
+Estimated running time left :   0:20:08
+
+Estimated relative CPU usage :  1581.0%
+
+k-eff (analog)    = 1.37899 +/- 0.00057  [1.37788  1.38011]
+k-eff (implicit)  = 1.37939 +/- 0.00034  [1.37872  1.38006]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   96 / 320  Source neutrons : 43707
+
+Running time :                  0:12:04
+Estimated running time :        0:32:07
+Estimated running time left :   0:20:02
+
+Estimated relative CPU usage :  1582.7%
+
+k-eff (analog)    = 1.37898 +/- 0.00056  [1.37788  1.38008]
+k-eff (implicit)  = 1.37938 +/- 0.00034  [1.37871  1.38004]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   97 / 320  Source neutrons : 43813
+
+Running time :                  0:12:10
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:57
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37899 +/- 0.00056  [1.37790  1.38008]
+k-eff (implicit)  = 1.37932 +/- 0.00034  [1.37865  1.37999]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   98 / 320  Source neutrons : 43644
+
+Running time :                  0:12:15
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:52
+
+Estimated relative CPU usage :  1582.4%
+
+k-eff (analog)    = 1.37896 +/- 0.00055  [1.37788  1.38004]
+k-eff (implicit)  = 1.37939 +/- 0.00035  [1.37871  1.38007]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle   99 / 320  Source neutrons : 44150
+
+Running time :                  0:12:20
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:46
+
+Estimated relative CPU usage :  1579.8%
+
+k-eff (analog)    = 1.37906 +/- 0.00056  [1.37797  1.38015]
+k-eff (implicit)  = 1.37943 +/- 0.00034  [1.37876  1.38011]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  100 / 320  Source neutrons : 43472
+
+Running time :                  0:12:26
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:41
+
+Estimated relative CPU usage :  1579.3%
+
+k-eff (analog)    = 1.37907 +/- 0.00055  [1.37799  1.38015]
+k-eff (implicit)  = 1.37940 +/- 0.00034  [1.37873  1.38007]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  101 / 320  Source neutrons : 43864
+
+Running time :                  0:12:31
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:36
+
+Estimated relative CPU usage :  1580.7%
+
+k-eff (analog)    = 1.37911 +/- 0.00055  [1.37804  1.38019]
+k-eff (implicit)  = 1.37939 +/- 0.00034  [1.37872  1.38005]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  102 / 320  Source neutrons : 43868
+
+Running time :                  0:12:36
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:30
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37920 +/- 0.00055  [1.37812  1.38027]
+k-eff (implicit)  = 1.37939 +/- 0.00034  [1.37873  1.38005]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  103 / 320  Source neutrons : 43586
+
+Running time :                  0:12:42
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:25
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37922 +/- 0.00054  [1.37816  1.38029]
+k-eff (implicit)  = 1.37937 +/- 0.00033  [1.37871  1.38002]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  104 / 320  Source neutrons : 43602
+
+Running time :                  0:12:47
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:19
+
+Estimated relative CPU usage :  1583.4%
+
+k-eff (analog)    = 1.37921 +/- 0.00054  [1.37816  1.38026]
+k-eff (implicit)  = 1.37936 +/- 0.00033  [1.37872  1.38001]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  105 / 320  Source neutrons : 43897
+
+Running time :                  0:12:52
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:14
+
+Estimated relative CPU usage :  1579.2%
+
+k-eff (analog)    = 1.37924 +/- 0.00053  [1.37819  1.38028]
+k-eff (implicit)  = 1.37938 +/- 0.00033  [1.37873  1.38002]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  106 / 320  Source neutrons : 43594
+
+Running time :                  0:12:58
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:08
+
+Estimated relative CPU usage :  1584.2%
+
+k-eff (analog)    = 1.37922 +/- 0.00053  [1.37818  1.38025]
+k-eff (implicit)  = 1.37936 +/- 0.00033  [1.37872  1.37999]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  107 / 320  Source neutrons : 43895
+
+Running time :                  0:13:03
+Estimated running time :        0:32:07
+Estimated running time left :   0:19:03
+
+Estimated relative CPU usage :  1578.6%
+
+k-eff (analog)    = 1.37924 +/- 0.00052  [1.37821  1.38027]
+k-eff (implicit)  = 1.37933 +/- 0.00032  [1.37870  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  108 / 320  Source neutrons : 43744
+
+Running time :                  0:13:09
+Estimated running time :        0:32:07
+Estimated running time left :   0:18:58
+
+Estimated relative CPU usage :  1575.7%
+
+k-eff (analog)    = 1.37926 +/- 0.00052  [1.37824  1.38028]
+k-eff (implicit)  = 1.37934 +/- 0.00032  [1.37871  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  109 / 320  Source neutrons : 43518
+
+Running time :                  0:13:14
+Estimated running time :        0:32:07
+Estimated running time left :   0:18:52
+
+Estimated relative CPU usage :  1574.4%
+
+k-eff (analog)    = 1.37922 +/- 0.00052  [1.37820  1.38023]
+k-eff (implicit)  = 1.37934 +/- 0.00032  [1.37872  1.37996]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  110 / 320  Source neutrons : 43933
+
+Running time :                  0:13:19
+Estimated running time :        0:32:07
+Estimated running time left :   0:18:47
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37922 +/- 0.00051  [1.37822  1.38023]
+k-eff (implicit)  = 1.37935 +/- 0.00031  [1.37873  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  111 / 320  Source neutrons : 43797
+
+Running time :                  0:13:25
+Estimated running time :        0:32:06
+Estimated running time left :   0:18:41
+
+Estimated relative CPU usage :  1584.0%
+
+k-eff (analog)    = 1.37924 +/- 0.00051  [1.37825  1.38024]
+k-eff (implicit)  = 1.37937 +/- 0.00031  [1.37876  1.37999]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  112 / 320  Source neutrons : 43670
+
+Running time :                  0:13:30
+Estimated running time :        0:32:06
+Estimated running time left :   0:18:36
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37924 +/- 0.00050  [1.37826  1.38023]
+k-eff (implicit)  = 1.37941 +/- 0.00031  [1.37880  1.38003]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  113 / 320  Source neutrons : 43875
+
+Running time :                  0:13:35
+Estimated running time :        0:32:06
+Estimated running time left :   0:18:31
+
+Estimated relative CPU usage :  1583.8%
+
+k-eff (analog)    = 1.37927 +/- 0.00050  [1.37829  1.38025]
+k-eff (implicit)  = 1.37942 +/- 0.00031  [1.37881  1.38002]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  114 / 320  Source neutrons : 43644
+
+Running time :                  0:13:41
+Estimated running time :        0:32:06
+Estimated running time left :   0:18:25
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37928 +/- 0.00050  [1.37831  1.38025]
+k-eff (implicit)  = 1.37938 +/- 0.00031  [1.37878  1.37999]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  115 / 320  Source neutrons : 43373
+
+Running time :                  0:13:46
+Estimated running time :        0:32:06
+Estimated running time left :   0:18:20
+
+Estimated relative CPU usage :  1571.7%
+
+k-eff (analog)    = 1.37918 +/- 0.00050  [1.37819  1.38016]
+k-eff (implicit)  = 1.37939 +/- 0.00031  [1.37879  1.37999]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  116 / 320  Source neutrons : 44069
+
+Running time :                  0:13:51
+Estimated running time :        0:32:06
+Estimated running time left :   0:18:14
+
+Estimated relative CPU usage :  1583.5%
+
+k-eff (analog)    = 1.37916 +/- 0.00050  [1.37819  1.38014]
+k-eff (implicit)  = 1.37934 +/- 0.00031  [1.37874  1.37994]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  117 / 320  Source neutrons : 43500
+
+Running time :                  0:13:57
+Estimated running time :        0:32:06
+Estimated running time left :   0:18:09
+
+Estimated relative CPU usage :  1582.1%
+
+k-eff (analog)    = 1.37908 +/- 0.00050  [1.37810  1.38006]
+k-eff (implicit)  = 1.37937 +/- 0.00031  [1.37877  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  118 / 320  Source neutrons : 44060
+
+Running time :                  0:14:02
+Estimated running time :        0:32:06
+Estimated running time left :   0:18:03
+
+Estimated relative CPU usage :  1584.4%
+
+k-eff (analog)    = 1.37909 +/- 0.00050  [1.37812  1.38006]
+k-eff (implicit)  = 1.37941 +/- 0.00031  [1.37881  1.38001]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  119 / 320  Source neutrons : 43833
+
+Running time :                  0:14:07
+Estimated running time :        0:32:06
+Estimated running time left :   0:17:58
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37911 +/- 0.00049  [1.37815  1.38007]
+k-eff (implicit)  = 1.37942 +/- 0.00030  [1.37882  1.38001]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  120 / 320  Source neutrons : 43744
+
+Running time :                  0:14:13
+Estimated running time :        0:32:06
+Estimated running time left :   0:17:53
+
+Estimated relative CPU usage :  1579.2%
+
+k-eff (analog)    = 1.37913 +/- 0.00049  [1.37818  1.38009]
+k-eff (implicit)  = 1.37944 +/- 0.00030  [1.37885  1.38004]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  121 / 320  Source neutrons : 43722
+
+Running time :                  0:14:18
+Estimated running time :        0:32:06
+Estimated running time left :   0:17:47
+
+Estimated relative CPU usage :  1580.1%
+
+k-eff (analog)    = 1.37915 +/- 0.00048  [1.37820  1.38010]
+k-eff (implicit)  = 1.37944 +/- 0.00030  [1.37885  1.38003]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  122 / 320  Source neutrons : 43724
+
+Running time :                  0:14:23
+Estimated running time :        0:32:06
+Estimated running time left :   0:17:42
+
+Estimated relative CPU usage :  1583.4%
+
+k-eff (analog)    = 1.37916 +/- 0.00048  [1.37822  1.38010]
+k-eff (implicit)  = 1.37942 +/- 0.00030  [1.37883  1.38000]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  123 / 320  Source neutrons : 43599
+
+Running time :                  0:14:29
+Estimated running time :        0:32:05
+Estimated running time left :   0:17:36
+
+Estimated relative CPU usage :  1584.0%
+
+k-eff (analog)    = 1.37913 +/- 0.00048  [1.37819  1.38006]
+k-eff (implicit)  = 1.37940 +/- 0.00030  [1.37882  1.37998]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  124 / 320  Source neutrons : 43738
+
+Running time :                  0:14:34
+Estimated running time :        0:32:05
+Estimated running time left :   0:17:31
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37910 +/- 0.00047  [1.37816  1.38003]
+k-eff (implicit)  = 1.37939 +/- 0.00029  [1.37882  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  125 / 320  Source neutrons : 43745
+
+Running time :                  0:14:39
+Estimated running time :        0:32:05
+Estimated running time left :   0:17:26
+
+Estimated relative CPU usage :  1578.3%
+
+k-eff (analog)    = 1.37906 +/- 0.00047  [1.37814  1.37999]
+k-eff (implicit)  = 1.37939 +/- 0.00029  [1.37881  1.37996]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  126 / 320  Source neutrons : 43897
+
+Running time :                  0:14:45
+Estimated running time :        0:32:05
+Estimated running time left :   0:17:20
+
+Estimated relative CPU usage :  1581.0%
+
+k-eff (analog)    = 1.37907 +/- 0.00047  [1.37815  1.37998]
+k-eff (implicit)  = 1.37938 +/- 0.00029  [1.37881  1.37995]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  127 / 320  Source neutrons : 43778
+
+Running time :                  0:14:50
+Estimated running time :        0:32:05
+Estimated running time left :   0:17:15
+
+Estimated relative CPU usage :  1581.2%
+
+k-eff (analog)    = 1.37908 +/- 0.00046  [1.37816  1.37999]
+k-eff (implicit)  = 1.37940 +/- 0.00029  [1.37884  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  128 / 320  Source neutrons : 43795
+
+Running time :                  0:14:55
+Estimated running time :        0:32:05
+Estimated running time left :   0:17:09
+
+Estimated relative CPU usage :  1585.4%
+
+k-eff (analog)    = 1.37910 +/- 0.00046  [1.37819  1.38000]
+k-eff (implicit)  = 1.37939 +/- 0.00029  [1.37882  1.37995]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  129 / 320  Source neutrons : 43692
+
+Running time :                  0:15:01
+Estimated running time :        0:32:05
+Estimated running time left :   0:17:04
+
+Estimated relative CPU usage :  1578.5%
+
+k-eff (analog)    = 1.37910 +/- 0.00046  [1.37821  1.38000]
+k-eff (implicit)  = 1.37939 +/- 0.00028  [1.37884  1.37995]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  130 / 320  Source neutrons : 43705
+
+Running time :                  0:15:06
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:59
+
+Estimated relative CPU usage :  1578.9%
+
+k-eff (analog)    = 1.37910 +/- 0.00045  [1.37821  1.37999]
+k-eff (implicit)  = 1.37939 +/- 0.00028  [1.37884  1.37995]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  131 / 320  Source neutrons : 43706
+
+Running time :                  0:15:11
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:53
+
+Estimated relative CPU usage :  1585.4%
+
+k-eff (analog)    = 1.37909 +/- 0.00045  [1.37820  1.37997]
+k-eff (implicit)  = 1.37942 +/- 0.00028  [1.37886  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  132 / 320  Source neutrons : 43819
+
+Running time :                  0:15:17
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:48
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37909 +/- 0.00045  [1.37821  1.37997]
+k-eff (implicit)  = 1.37943 +/- 0.00028  [1.37888  1.37997]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  133 / 320  Source neutrons : 43820
+
+Running time :                  0:15:22
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:43
+
+Estimated relative CPU usage :  1583.2%
+
+k-eff (analog)    = 1.37911 +/- 0.00044  [1.37823  1.37998]
+k-eff (implicit)  = 1.37942 +/- 0.00028  [1.37888  1.37996]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  134 / 320  Source neutrons : 43450
+
+Running time :                  0:15:27
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:37
+
+Estimated relative CPU usage :  1583.0%
+
+k-eff (analog)    = 1.37905 +/- 0.00044  [1.37818  1.37992]
+k-eff (implicit)  = 1.37941 +/- 0.00028  [1.37887  1.37995]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  135 / 320  Source neutrons : 43885
+
+Running time :                  0:15:33
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:32
+
+Estimated relative CPU usage :  1581.6%
+
+k-eff (analog)    = 1.37903 +/- 0.00044  [1.37817  1.37990]
+k-eff (implicit)  = 1.37940 +/- 0.00027  [1.37886  1.37994]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  136 / 320  Source neutrons : 43862
+
+Running time :                  0:15:38
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:26
+
+Estimated relative CPU usage :  1580.4%
+
+k-eff (analog)    = 1.37904 +/- 0.00044  [1.37818  1.37990]
+k-eff (implicit)  = 1.37940 +/- 0.00027  [1.37886  1.37993]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  137 / 320  Source neutrons : 43880
+
+Running time :                  0:15:43
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:21
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37907 +/- 0.00044  [1.37822  1.37993]
+k-eff (implicit)  = 1.37942 +/- 0.00027  [1.37889  1.37995]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  138 / 320  Source neutrons : 43987
+
+Running time :                  0:15:49
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:16
+
+Estimated relative CPU usage :  1584.9%
+
+k-eff (analog)    = 1.37916 +/- 0.00044  [1.37830  1.38003]
+k-eff (implicit)  = 1.37939 +/- 0.00027  [1.37886  1.37992]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  139 / 320  Source neutrons : 43286
+
+Running time :                  0:15:54
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:10
+
+Estimated relative CPU usage :  1583.3%
+
+k-eff (analog)    = 1.37915 +/- 0.00044  [1.37828  1.38001]
+k-eff (implicit)  = 1.37938 +/- 0.00027  [1.37885  1.37991]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  140 / 320  Source neutrons : 43943
+
+Running time :                  0:15:59
+Estimated running time :        0:32:05
+Estimated running time left :   0:16:05
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37917 +/- 0.00044  [1.37831  1.38003]
+k-eff (implicit)  = 1.37942 +/- 0.00027  [1.37889  1.37994]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  141 / 320  Source neutrons : 43531
+
+Running time :                  0:16:05
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:59
+
+Estimated relative CPU usage :  1582.0%
+
+k-eff (analog)    = 1.37915 +/- 0.00044  [1.37830  1.38000]
+k-eff (implicit)  = 1.37941 +/- 0.00027  [1.37889  1.37993]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  142 / 320  Source neutrons : 43946
+
+Running time :                  0:16:10
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:54
+
+Estimated relative CPU usage :  1583.8%
+
+k-eff (analog)    = 1.37917 +/- 0.00043  [1.37832  1.38002]
+k-eff (implicit)  = 1.37940 +/- 0.00027  [1.37888  1.37992]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  143 / 320  Source neutrons : 43486
+
+Running time :                  0:16:15
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:48
+
+Estimated relative CPU usage :  1580.7%
+
+k-eff (analog)    = 1.37913 +/- 0.00043  [1.37829  1.37998]
+k-eff (implicit)  = 1.37939 +/- 0.00026  [1.37887  1.37991]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  144 / 320  Source neutrons : 43912
+
+Running time :                  0:16:21
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:43
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37913 +/- 0.00043  [1.37829  1.37997]
+k-eff (implicit)  = 1.37942 +/- 0.00026  [1.37890  1.37993]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  145 / 320  Source neutrons : 43893
+
+Running time :                  0:16:26
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:38
+
+Estimated relative CPU usage :  1582.6%
+
+k-eff (analog)    = 1.37916 +/- 0.00043  [1.37832  1.37999]
+k-eff (implicit)  = 1.37944 +/- 0.00026  [1.37892  1.37995]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  146 / 320  Source neutrons : 43656
+
+Running time :                  0:16:31
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:32
+
+Estimated relative CPU usage :  1582.0%
+
+k-eff (analog)    = 1.37916 +/- 0.00042  [1.37833  1.37999]
+k-eff (implicit)  = 1.37942 +/- 0.00026  [1.37890  1.37993]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  147 / 320  Source neutrons : 43427
+
+Running time :                  0:16:37
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:27
+
+Estimated relative CPU usage :  1582.1%
+
+k-eff (analog)    = 1.37910 +/- 0.00042  [1.37827  1.37994]
+k-eff (implicit)  = 1.37939 +/- 0.00026  [1.37888  1.37990]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  148 / 320  Source neutrons : 44122
+
+Running time :                  0:16:42
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:22
+
+Estimated relative CPU usage :  1578.6%
+
+k-eff (analog)    = 1.37912 +/- 0.00042  [1.37829  1.37995]
+k-eff (implicit)  = 1.37941 +/- 0.00026  [1.37890  1.37992]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  149 / 320  Source neutrons : 43578
+
+Running time :                  0:16:47
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:16
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37910 +/- 0.00042  [1.37828  1.37992]
+k-eff (implicit)  = 1.37941 +/- 0.00026  [1.37891  1.37992]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  150 / 320  Source neutrons : 43784
+
+Running time :                  0:16:53
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:11
+
+Estimated relative CPU usage :  1581.1%
+
+k-eff (analog)    = 1.37909 +/- 0.00042  [1.37827  1.37991]
+k-eff (implicit)  = 1.37938 +/- 0.00026  [1.37888  1.37989]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  151 / 320  Source neutrons : 43719
+
+Running time :                  0:16:58
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:06
+
+Estimated relative CPU usage :  1582.2%
+
+k-eff (analog)    = 1.37907 +/- 0.00041  [1.37826  1.37989]
+k-eff (implicit)  = 1.37941 +/- 0.00026  [1.37891  1.37992]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  152 / 320  Source neutrons : 43792
+
+Running time :                  0:17:04
+Estimated running time :        0:32:04
+Estimated running time left :   0:15:00
+
+Estimated relative CPU usage :  1580.6%
+
+k-eff (analog)    = 1.37906 +/- 0.00041  [1.37825  1.37987]
+k-eff (implicit)  = 1.37941 +/- 0.00026  [1.37891  1.37991]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  153 / 320  Source neutrons : 43908
+
+Running time :                  0:17:09
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:55
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37909 +/- 0.00041  [1.37828  1.37989]
+k-eff (implicit)  = 1.37943 +/- 0.00026  [1.37893  1.37993]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  154 / 320  Source neutrons : 43810
+
+Running time :                  0:17:14
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:49
+
+Estimated relative CPU usage :  1581.4%
+
+k-eff (analog)    = 1.37912 +/- 0.00041  [1.37832  1.37992]
+k-eff (implicit)  = 1.37941 +/- 0.00025  [1.37891  1.37990]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  155 / 320  Source neutrons : 43123
+
+Running time :                  0:17:20
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:44
+
+Estimated relative CPU usage :  1583.2%
+
+k-eff (analog)    = 1.37903 +/- 0.00042  [1.37821  1.37985]
+k-eff (implicit)  = 1.37936 +/- 0.00026  [1.37886  1.37986]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  156 / 320  Source neutrons : 43984
+
+Running time :                  0:17:25
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:39
+
+Estimated relative CPU usage :  1581.8%
+
+k-eff (analog)    = 1.37898 +/- 0.00042  [1.37817  1.37980]
+k-eff (implicit)  = 1.37937 +/- 0.00026  [1.37887  1.37988]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  157 / 320  Source neutrons : 44239
+
+Running time :                  0:17:30
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:33
+
+Estimated relative CPU usage :  1581.2%
+
+k-eff (analog)    = 1.37904 +/- 0.00042  [1.37822  1.37986]
+k-eff (implicit)  = 1.37936 +/- 0.00025  [1.37886  1.37986]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  158 / 320  Source neutrons : 43398
+
+Running time :                  0:17:36
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:28
+
+Estimated relative CPU usage :  1581.5%
+
+k-eff (analog)    = 1.37902 +/- 0.00042  [1.37821  1.37983]
+k-eff (implicit)  = 1.37929 +/- 0.00026  [1.37878  1.37981]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  159 / 320  Source neutrons : 43337
+
+Running time :                  0:17:41
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:22
+
+Estimated relative CPU usage :  1579.1%
+
+k-eff (analog)    = 1.37892 +/- 0.00042  [1.37809  1.37975]
+k-eff (implicit)  = 1.37930 +/- 0.00026  [1.37879  1.37981]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  160 / 320  Source neutrons : 44336
+
+Running time :                  0:17:46
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:17
+
+Estimated relative CPU usage :  1576.8%
+
+k-eff (analog)    = 1.37894 +/- 0.00042  [1.37811  1.37976]
+k-eff (implicit)  = 1.37930 +/- 0.00026  [1.37880  1.37981]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  161 / 320  Source neutrons : 43671
+
+Running time :                  0:17:52
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:12
+
+Estimated relative CPU usage :  1584.7%
+
+k-eff (analog)    = 1.37894 +/- 0.00042  [1.37812  1.37976]
+k-eff (implicit)  = 1.37933 +/- 0.00026  [1.37883  1.37984]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  162 / 320  Source neutrons : 44117
+
+Running time :                  0:17:57
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:06
+
+Estimated relative CPU usage :  1583.7%
+
+k-eff (analog)    = 1.37901 +/- 0.00042  [1.37818  1.37984]
+k-eff (implicit)  = 1.37939 +/- 0.00026  [1.37888  1.37991]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  163 / 320  Source neutrons : 43847
+
+Running time :                  0:18:02
+Estimated running time :        0:32:04
+Estimated running time left :   0:14:01
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37910 +/- 0.00043  [1.37826  1.37994]
+k-eff (implicit)  = 1.37941 +/- 0.00026  [1.37890  1.37993]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  164 / 320  Source neutrons : 43352
+
+Running time :                  0:18:08
+Estimated running time :        0:32:04
+Estimated running time left :   0:13:55
+
+Estimated relative CPU usage :  1581.2%
+
+k-eff (analog)    = 1.37911 +/- 0.00043  [1.37827  1.37995]
+k-eff (implicit)  = 1.37936 +/- 0.00027  [1.37884  1.37988]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  165 / 320  Source neutrons : 43478
+
+Running time :                  0:18:13
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:50
+
+Estimated relative CPU usage :  1579.8%
+
+k-eff (analog)    = 1.37907 +/- 0.00043  [1.37823  1.37991]
+k-eff (implicit)  = 1.37938 +/- 0.00026  [1.37886  1.37990]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  166 / 320  Source neutrons : 44264
+
+Running time :                  0:18:18
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:45
+
+Estimated relative CPU usage :  1583.8%
+
+k-eff (analog)    = 1.37913 +/- 0.00043  [1.37829  1.37997]
+k-eff (implicit)  = 1.37937 +/- 0.00026  [1.37885  1.37988]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  167 / 320  Source neutrons : 43369
+
+Running time :                  0:18:24
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:39
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37911 +/- 0.00043  [1.37828  1.37994]
+k-eff (implicit)  = 1.37938 +/- 0.00026  [1.37887  1.37989]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  168 / 320  Source neutrons : 43783
+
+Running time :                  0:18:29
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:34
+
+Estimated relative CPU usage :  1581.6%
+
+k-eff (analog)    = 1.37910 +/- 0.00042  [1.37827  1.37993]
+k-eff (implicit)  = 1.37935 +/- 0.00026  [1.37883  1.37986]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  169 / 320  Source neutrons : 43693
+
+Running time :                  0:18:34
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:29
+
+Estimated relative CPU usage :  1583.4%
+
+k-eff (analog)    = 1.37908 +/- 0.00042  [1.37825  1.37991]
+k-eff (implicit)  = 1.37932 +/- 0.00026  [1.37881  1.37984]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  170 / 320  Source neutrons : 43818
+
+Running time :                  0:18:39
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:23
+
+Estimated relative CPU usage :  1585.3%
+
+k-eff (analog)    = 1.37907 +/- 0.00042  [1.37825  1.37989]
+k-eff (implicit)  = 1.37934 +/- 0.00026  [1.37883  1.37986]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  171 / 320  Source neutrons : 43606
+
+Running time :                  0:18:45
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:18
+
+Estimated relative CPU usage :  1578.8%
+
+k-eff (analog)    = 1.37904 +/- 0.00042  [1.37822  1.37986]
+k-eff (implicit)  = 1.37933 +/- 0.00026  [1.37882  1.37984]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  172 / 320  Source neutrons : 43885
+
+Running time :                  0:18:50
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:12
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37903 +/- 0.00042  [1.37822  1.37984]
+k-eff (implicit)  = 1.37935 +/- 0.00026  [1.37884  1.37986]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  173 / 320  Source neutrons : 43907
+
+Running time :                  0:18:55
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:07
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37905 +/- 0.00041  [1.37824  1.37986]
+k-eff (implicit)  = 1.37933 +/- 0.00026  [1.37882  1.37984]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  174 / 320  Source neutrons : 43537
+
+Running time :                  0:19:01
+Estimated running time :        0:32:03
+Estimated running time left :   0:13:02
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37903 +/- 0.00041  [1.37822  1.37984]
+k-eff (implicit)  = 1.37929 +/- 0.00026  [1.37879  1.37980]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  175 / 320  Source neutrons : 43653
+
+Running time :                  0:19:06
+Estimated running time :        0:32:03
+Estimated running time left :   0:12:56
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37899 +/- 0.00041  [1.37819  1.37980]
+k-eff (implicit)  = 1.37927 +/- 0.00026  [1.37876  1.37978]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  176 / 320  Source neutrons : 43750
+
+Running time :                  0:19:11
+Estimated running time :        0:32:03
+Estimated running time left :   0:12:51
+
+Estimated relative CPU usage :  1580.2%
+
+k-eff (analog)    = 1.37896 +/- 0.00041  [1.37815  1.37976]
+k-eff (implicit)  = 1.37925 +/- 0.00026  [1.37875  1.37976]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  177 / 320  Source neutrons : 43763
+
+Running time :                  0:19:17
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:45
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37892 +/- 0.00041  [1.37812  1.37973]
+k-eff (implicit)  = 1.37926 +/- 0.00026  [1.37876  1.37977]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  178 / 320  Source neutrons : 44023
+
+Running time :                  0:19:22
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:40
+
+Estimated relative CPU usage :  1583.9%
+
+k-eff (analog)    = 1.37894 +/- 0.00041  [1.37814  1.37974]
+k-eff (implicit)  = 1.37927 +/- 0.00026  [1.37877  1.37977]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  179 / 320  Source neutrons : 43664
+
+Running time :                  0:19:27
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:35
+
+Estimated relative CPU usage :  1580.8%
+
+k-eff (analog)    = 1.37894 +/- 0.00040  [1.37815  1.37973]
+k-eff (implicit)  = 1.37927 +/- 0.00025  [1.37878  1.37977]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  180 / 320  Source neutrons : 43908
+
+Running time :                  0:19:33
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:29
+
+Estimated relative CPU usage :  1579.1%
+
+k-eff (analog)    = 1.37897 +/- 0.00040  [1.37818  1.37976]
+k-eff (implicit)  = 1.37927 +/- 0.00025  [1.37878  1.37977]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  181 / 320  Source neutrons : 43630
+
+Running time :                  0:19:38
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:24
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37897 +/- 0.00040  [1.37819  1.37976]
+k-eff (implicit)  = 1.37926 +/- 0.00025  [1.37876  1.37975]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  182 / 320  Source neutrons : 43623
+
+Running time :                  0:19:43
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:18
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37896 +/- 0.00040  [1.37818  1.37974]
+k-eff (implicit)  = 1.37928 +/- 0.00025  [1.37879  1.37978]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  183 / 320  Source neutrons : 44212
+
+Running time :                  0:19:49
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:13
+
+Estimated relative CPU usage :  1577.9%
+
+k-eff (analog)    = 1.37902 +/- 0.00040  [1.37823  1.37981]
+k-eff (implicit)  = 1.37925 +/- 0.00025  [1.37875  1.37974]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  184 / 320  Source neutrons : 43162
+
+Running time :                  0:19:54
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:08
+
+Estimated relative CPU usage :  1583.9%
+
+k-eff (analog)    = 1.37898 +/- 0.00040  [1.37820  1.37977]
+k-eff (implicit)  = 1.37925 +/- 0.00025  [1.37875  1.37974]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  185 / 320  Source neutrons : 43997
+
+Running time :                  0:19:59
+Estimated running time :        0:32:02
+Estimated running time left :   0:12:02
+
+Estimated relative CPU usage :  1580.6%
+
+k-eff (analog)    = 1.37899 +/- 0.00040  [1.37820  1.37977]
+k-eff (implicit)  = 1.37923 +/- 0.00025  [1.37873  1.37972]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  186 / 320  Source neutrons : 43884
+
+Running time :                  0:20:05
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:57
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37901 +/- 0.00040  [1.37823  1.37979]
+k-eff (implicit)  = 1.37921 +/- 0.00025  [1.37871  1.37970]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  187 / 320  Source neutrons : 43515
+
+Running time :                  0:20:10
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:52
+
+Estimated relative CPU usage :  1578.3%
+
+k-eff (analog)    = 1.37900 +/- 0.00040  [1.37822  1.37978]
+k-eff (implicit)  = 1.37921 +/- 0.00025  [1.37872  1.37969]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  188 / 320  Source neutrons : 43936
+
+Running time :                  0:20:15
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:46
+
+Estimated relative CPU usage :  1583.5%
+
+k-eff (analog)    = 1.37902 +/- 0.00039  [1.37824  1.37979]
+k-eff (implicit)  = 1.37919 +/- 0.00025  [1.37870  1.37967]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  189 / 320  Source neutrons : 43529
+
+Running time :                  0:20:21
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:41
+
+Estimated relative CPU usage :  1579.9%
+
+k-eff (analog)    = 1.37900 +/- 0.00039  [1.37823  1.37977]
+k-eff (implicit)  = 1.37920 +/- 0.00025  [1.37871  1.37968]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  190 / 320  Source neutrons : 43894
+
+Running time :                  0:20:26
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:35
+
+Estimated relative CPU usage :  1584.6%
+
+k-eff (analog)    = 1.37900 +/- 0.00039  [1.37824  1.37977]
+k-eff (implicit)  = 1.37920 +/- 0.00025  [1.37872  1.37969]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  191 / 320  Source neutrons : 43867
+
+Running time :                  0:20:31
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:30
+
+Estimated relative CPU usage :  1580.8%
+
+k-eff (analog)    = 1.37903 +/- 0.00039  [1.37826  1.37979]
+k-eff (implicit)  = 1.37917 +/- 0.00025  [1.37868  1.37965]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  192 / 320  Source neutrons : 43576
+
+Running time :                  0:20:37
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:25
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37902 +/- 0.00039  [1.37826  1.37978]
+k-eff (implicit)  = 1.37918 +/- 0.00025  [1.37870  1.37967]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  193 / 320  Source neutrons : 43512
+
+Running time :                  0:20:42
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:19
+
+Estimated relative CPU usage :  1582.8%
+
+k-eff (analog)    = 1.37898 +/- 0.00039  [1.37822  1.37974]
+k-eff (implicit)  = 1.37921 +/- 0.00025  [1.37873  1.37969]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  194 / 320  Source neutrons : 44335
+
+Running time :                  0:20:47
+Estimated running time :        0:32:02
+Estimated running time left :   0:11:14
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37903 +/- 0.00039  [1.37827  1.37979]
+k-eff (implicit)  = 1.37921 +/- 0.00025  [1.37873  1.37969]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  195 / 320  Source neutrons : 43457
+
+Running time :                  0:20:55
+Estimated running time :        0:32:05
+Estimated running time left :   0:11:10
+
+Estimated relative CPU usage :  1191.8%
+
+k-eff (analog)    = 1.37903 +/- 0.00039  [1.37827  1.37979]
+k-eff (implicit)  = 1.37921 +/- 0.00024  [1.37873  1.37969]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  196 / 320  Source neutrons : 43560
+
+Running time :                  0:21:00
+Estimated running time :        0:32:05
+Estimated running time left :   0:11:05
+
+Estimated relative CPU usage :  1582.8%
+
+k-eff (analog)    = 1.37900 +/- 0.00039  [1.37825  1.37976]
+k-eff (implicit)  = 1.37922 +/- 0.00024  [1.37874  1.37970]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  197 / 320  Source neutrons : 43798
+
+Running time :                  0:21:05
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:59
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37898 +/- 0.00039  [1.37823  1.37974]
+k-eff (implicit)  = 1.37926 +/- 0.00024  [1.37878  1.37974]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  198 / 320  Source neutrons : 44225
+
+Running time :                  0:21:11
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:54
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37904 +/- 0.00039  [1.37828  1.37980]
+k-eff (implicit)  = 1.37927 +/- 0.00024  [1.37879  1.37975]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  199 / 320  Source neutrons : 43061
+
+Running time :                  0:21:16
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:48
+
+Estimated relative CPU usage :  1581.3%
+
+k-eff (analog)    = 1.37899 +/- 0.00039  [1.37822  1.37975]
+k-eff (implicit)  = 1.37926 +/- 0.00024  [1.37878  1.37973]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  200 / 320  Source neutrons : 43970
+
+Running time :                  0:21:21
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:43
+
+Estimated relative CPU usage :  1579.0%
+
+k-eff (analog)    = 1.37897 +/- 0.00039  [1.37821  1.37973]
+k-eff (implicit)  = 1.37925 +/- 0.00024  [1.37877  1.37972]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  201 / 320  Source neutrons : 43733
+
+Running time :                  0:21:27
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:38
+
+Estimated relative CPU usage :  1580.3%
+
+k-eff (analog)    = 1.37894 +/- 0.00039  [1.37819  1.37970]
+k-eff (implicit)  = 1.37925 +/- 0.00024  [1.37878  1.37972]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  202 / 320  Source neutrons : 43789
+
+Running time :                  0:21:32
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:32
+
+Estimated relative CPU usage :  1584.6%
+
+k-eff (analog)    = 1.37893 +/- 0.00038  [1.37817  1.37968]
+k-eff (implicit)  = 1.37925 +/- 0.00024  [1.37878  1.37972]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  203 / 320  Source neutrons : 44076
+
+Running time :                  0:21:37
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:27
+
+Estimated relative CPU usage :  1583.7%
+
+k-eff (analog)    = 1.37896 +/- 0.00038  [1.37821  1.37972]
+k-eff (implicit)  = 1.37922 +/- 0.00024  [1.37875  1.37969]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  204 / 320  Source neutrons : 43434
+
+Running time :                  0:21:43
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:22
+
+Estimated relative CPU usage :  1582.8%
+
+k-eff (analog)    = 1.37895 +/- 0.00038  [1.37820  1.37970]
+k-eff (implicit)  = 1.37923 +/- 0.00024  [1.37876  1.37970]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  205 / 320  Source neutrons : 43964
+
+Running time :                  0:21:48
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:16
+
+Estimated relative CPU usage :  1583.2%
+
+k-eff (analog)    = 1.37897 +/- 0.00038  [1.37822  1.37971]
+k-eff (implicit)  = 1.37922 +/- 0.00024  [1.37875  1.37968]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  206 / 320  Source neutrons : 43328
+
+Running time :                  0:21:53
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:11
+
+Estimated relative CPU usage :  1584.9%
+
+k-eff (analog)    = 1.37892 +/- 0.00038  [1.37817  1.37967]
+k-eff (implicit)  = 1.37919 +/- 0.00024  [1.37872  1.37966]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  207 / 320  Source neutrons : 43596
+
+Running time :                  0:21:59
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:05
+
+Estimated relative CPU usage :  1573.4%
+
+k-eff (analog)    = 1.37885 +/- 0.00039  [1.37809  1.37961]
+k-eff (implicit)  = 1.37918 +/- 0.00024  [1.37871  1.37964]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  208 / 320  Source neutrons : 44276
+
+Running time :                  0:22:04
+Estimated running time :        0:32:05
+Estimated running time left :   0:10:00
+
+Estimated relative CPU usage :  1579.7%
+
+k-eff (analog)    = 1.37886 +/- 0.00039  [1.37810  1.37961]
+k-eff (implicit)  = 1.37916 +/- 0.00024  [1.37870  1.37963]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  209 / 320  Source neutrons : 43506
+
+Running time :                  0:22:09
+Estimated running time :        0:32:05
+Estimated running time left :   0:09:55
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37883 +/- 0.00038  [1.37808  1.37959]
+k-eff (implicit)  = 1.37917 +/- 0.00024  [1.37871  1.37963]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  210 / 320  Source neutrons : 43981
+
+Running time :                  0:22:15
+Estimated running time :        0:32:05
+Estimated running time left :   0:09:49
+
+Estimated relative CPU usage :  1584.5%
+
+k-eff (analog)    = 1.37884 +/- 0.00038  [1.37809  1.37959]
+k-eff (implicit)  = 1.37918 +/- 0.00024  [1.37872  1.37964]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  211 / 320  Source neutrons : 43385
+
+Running time :                  0:22:20
+Estimated running time :        0:32:05
+Estimated running time left :   0:09:44
+
+Estimated relative CPU usage :  1584.9%
+
+k-eff (analog)    = 1.37879 +/- 0.00038  [1.37804  1.37955]
+k-eff (implicit)  = 1.37917 +/- 0.00023  [1.37870  1.37963]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  212 / 320  Source neutrons : 43876
+
+Running time :                  0:22:25
+Estimated running time :        0:32:05
+Estimated running time left :   0:09:39
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37877 +/- 0.00038  [1.37802  1.37952]
+k-eff (implicit)  = 1.37918 +/- 0.00023  [1.37872  1.37964]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  213 / 320  Source neutrons : 44338
+
+Running time :                  0:22:31
+Estimated running time :        0:32:05
+Estimated running time left :   0:09:33
+
+Estimated relative CPU usage :  1575.8%
+
+k-eff (analog)    = 1.37883 +/- 0.00039  [1.37807  1.37958]
+k-eff (implicit)  = 1.37918 +/- 0.00023  [1.37873  1.37964]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  214 / 320  Source neutrons : 43487
+
+Running time :                  0:22:36
+Estimated running time :        0:32:05
+Estimated running time left :   0:09:28
+
+Estimated relative CPU usage :  1582.3%
+
+k-eff (analog)    = 1.37884 +/- 0.00038  [1.37809  1.37960]
+k-eff (implicit)  = 1.37918 +/- 0.00023  [1.37872  1.37963]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  215 / 320  Source neutrons : 43270
+
+Running time :                  0:22:41
+Estimated running time :        0:32:04
+Estimated running time left :   0:09:22
+
+Estimated relative CPU usage :  1583.3%
+
+k-eff (analog)    = 1.37879 +/- 0.00039  [1.37804  1.37955]
+k-eff (implicit)  = 1.37918 +/- 0.00023  [1.37872  1.37963]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  216 / 320  Source neutrons : 44255
+
+Running time :                  0:22:47
+Estimated running time :        0:32:05
+Estimated running time left :   0:09:17
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37882 +/- 0.00038  [1.37806  1.37957]
+k-eff (implicit)  = 1.37918 +/- 0.00023  [1.37873  1.37963]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  217 / 320  Source neutrons : 43737
+
+Running time :                  0:22:52
+Estimated running time :        0:32:05
+Estimated running time left :   0:09:12
+
+Estimated relative CPU usage :  1579.3%
+
+k-eff (analog)    = 1.37884 +/- 0.00038  [1.37808  1.37959]
+k-eff (implicit)  = 1.37916 +/- 0.00023  [1.37871  1.37961]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  218 / 320  Source neutrons : 43446
+
+Running time :                  0:22:58
+Estimated running time :        0:32:04
+Estimated running time left :   0:09:06
+
+Estimated relative CPU usage :  1583.7%
+
+k-eff (analog)    = 1.37881 +/- 0.00038  [1.37806  1.37956]
+k-eff (implicit)  = 1.37917 +/- 0.00023  [1.37872  1.37962]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  219 / 320  Source neutrons : 43868
+
+Running time :                  0:23:03
+Estimated running time :        0:32:04
+Estimated running time left :   0:09:01
+
+Estimated relative CPU usage :  1583.8%
+
+k-eff (analog)    = 1.37881 +/- 0.00038  [1.37806  1.37955]
+k-eff (implicit)  = 1.37915 +/- 0.00023  [1.37870  1.37960]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  220 / 320  Source neutrons : 43326
+
+Running time :                  0:23:08
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:56
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37874 +/- 0.00039  [1.37798  1.37949]
+k-eff (implicit)  = 1.37917 +/- 0.00023  [1.37872  1.37962]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  221 / 320  Source neutrons : 44385
+
+Running time :                  0:23:14
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:50
+
+Estimated relative CPU usage :  1582.9%
+
+k-eff (analog)    = 1.37876 +/- 0.00038  [1.37801  1.37951]
+k-eff (implicit)  = 1.37916 +/- 0.00023  [1.37872  1.37961]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  222 / 320  Source neutrons : 44006
+
+Running time :                  0:23:19
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:45
+
+Estimated relative CPU usage :  1580.5%
+
+k-eff (analog)    = 1.37882 +/- 0.00039  [1.37806  1.37958]
+k-eff (implicit)  = 1.37913 +/- 0.00023  [1.37868  1.37958]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  223 / 320  Source neutrons : 43162
+
+Running time :                  0:23:24
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:40
+
+Estimated relative CPU usage :  1580.8%
+
+k-eff (analog)    = 1.37879 +/- 0.00039  [1.37804  1.37955]
+k-eff (implicit)  = 1.37917 +/- 0.00023  [1.37871  1.37962]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  224 / 320  Source neutrons : 44399
+
+Running time :                  0:23:30
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:34
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37886 +/- 0.00039  [1.37810  1.37962]
+k-eff (implicit)  = 1.37916 +/- 0.00023  [1.37871  1.37961]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  225 / 320  Source neutrons : 43409
+
+Running time :                  0:23:35
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:29
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37888 +/- 0.00039  [1.37811  1.37964]
+k-eff (implicit)  = 1.37916 +/- 0.00023  [1.37871  1.37961]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  226 / 320  Source neutrons : 43512
+
+Running time :                  0:23:40
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:23
+
+Estimated relative CPU usage :  1578.8%
+
+k-eff (analog)    = 1.37886 +/- 0.00039  [1.37810  1.37962]
+k-eff (implicit)  = 1.37914 +/- 0.00023  [1.37869  1.37959]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  227 / 320  Source neutrons : 43781
+
+Running time :                  0:23:46
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:18
+
+Estimated relative CPU usage :  1584.2%
+
+k-eff (analog)    = 1.37885 +/- 0.00039  [1.37809  1.37960]
+k-eff (implicit)  = 1.37913 +/- 0.00023  [1.37869  1.37958]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  228 / 320  Source neutrons : 43977
+
+Running time :                  0:23:51
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:13
+
+Estimated relative CPU usage :  1580.8%
+
+k-eff (analog)    = 1.37887 +/- 0.00038  [1.37811  1.37962]
+k-eff (implicit)  = 1.37913 +/- 0.00023  [1.37868  1.37957]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  229 / 320  Source neutrons : 43637
+
+Running time :                  0:23:56
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:07
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37887 +/- 0.00038  [1.37812  1.37962]
+k-eff (implicit)  = 1.37914 +/- 0.00023  [1.37870  1.37958]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  230 / 320  Source neutrons : 43575
+
+Running time :                  0:24:02
+Estimated running time :        0:32:04
+Estimated running time left :   0:08:02
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37885 +/- 0.00038  [1.37810  1.37960]
+k-eff (implicit)  = 1.37911 +/- 0.00023  [1.37867  1.37956]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  231 / 320  Source neutrons : 44070
+
+Running time :                  0:24:07
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:57
+
+Estimated relative CPU usage :  1585.5%
+
+k-eff (analog)    = 1.37887 +/- 0.00038  [1.37813  1.37962]
+k-eff (implicit)  = 1.37913 +/- 0.00023  [1.37869  1.37957]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  232 / 320  Source neutrons : 43835
+
+Running time :                  0:24:12
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:51
+
+Estimated relative CPU usage :  1577.9%
+
+k-eff (analog)    = 1.37891 +/- 0.00038  [1.37816  1.37965]
+k-eff (implicit)  = 1.37915 +/- 0.00023  [1.37871  1.37960]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  233 / 320  Source neutrons : 43672
+
+Running time :                  0:24:18
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:46
+
+Estimated relative CPU usage :  1584.9%
+
+k-eff (analog)    = 1.37893 +/- 0.00038  [1.37819  1.37967]
+k-eff (implicit)  = 1.37915 +/- 0.00023  [1.37871  1.37959]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  234 / 320  Source neutrons : 43442
+
+Running time :                  0:24:23
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:40
+
+Estimated relative CPU usage :  1585.3%
+
+k-eff (analog)    = 1.37891 +/- 0.00038  [1.37817  1.37965]
+k-eff (implicit)  = 1.37914 +/- 0.00022  [1.37870  1.37958]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  235 / 320  Source neutrons : 43634
+
+Running time :                  0:24:28
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:35
+
+Estimated relative CPU usage :  1584.2%
+
+k-eff (analog)    = 1.37888 +/- 0.00038  [1.37814  1.37962]
+k-eff (implicit)  = 1.37913 +/- 0.00022  [1.37869  1.37957]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  236 / 320  Source neutrons : 43724
+
+Running time :                  0:24:34
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:30
+
+Estimated relative CPU usage :  1576.9%
+
+k-eff (analog)    = 1.37884 +/- 0.00038  [1.37810  1.37958]
+k-eff (implicit)  = 1.37914 +/- 0.00022  [1.37870  1.37957]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  237 / 320  Source neutrons : 43976
+
+Running time :                  0:24:39
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:24
+
+Estimated relative CPU usage :  1582.0%
+
+k-eff (analog)    = 1.37884 +/- 0.00038  [1.37810  1.37957]
+k-eff (implicit)  = 1.37916 +/- 0.00022  [1.37872  1.37959]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  238 / 320  Source neutrons : 44232
+
+Running time :                  0:24:44
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:19
+
+Estimated relative CPU usage :  1581.4%
+
+k-eff (analog)    = 1.37889 +/- 0.00038  [1.37815  1.37964]
+k-eff (implicit)  = 1.37917 +/- 0.00022  [1.37873  1.37960]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  239 / 320  Source neutrons : 43736
+
+Running time :                  0:24:50
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:14
+
+Estimated relative CPU usage :  1582.9%
+
+k-eff (analog)    = 1.37895 +/- 0.00038  [1.37820  1.37970]
+k-eff (implicit)  = 1.37918 +/- 0.00022  [1.37875  1.37962]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  240 / 320  Source neutrons : 43393
+
+Running time :                  0:24:55
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:08
+
+Estimated relative CPU usage :  1582.9%
+
+k-eff (analog)    = 1.37895 +/- 0.00038  [1.37821  1.37970]
+k-eff (implicit)  = 1.37918 +/- 0.00022  [1.37875  1.37962]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  241 / 320  Source neutrons : 43746
+
+Running time :                  0:25:00
+Estimated running time :        0:32:04
+Estimated running time left :   0:07:03
+
+Estimated relative CPU usage :  1579.6%
+
+k-eff (analog)    = 1.37896 +/- 0.00038  [1.37822  1.37970]
+k-eff (implicit)  = 1.37918 +/- 0.00022  [1.37875  1.37961]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  242 / 320  Source neutrons : 43826
+
+Running time :                  0:25:06
+Estimated running time :        0:32:04
+Estimated running time left :   0:06:58
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37898 +/- 0.00038  [1.37824  1.37972]
+k-eff (implicit)  = 1.37918 +/- 0.00022  [1.37875  1.37961]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  243 / 320  Source neutrons : 43712
+
+Running time :                  0:25:11
+Estimated running time :        0:32:04
+Estimated running time left :   0:06:52
+
+Estimated relative CPU usage :  1584.9%
+
+k-eff (analog)    = 1.37899 +/- 0.00038  [1.37825  1.37973]
+k-eff (implicit)  = 1.37918 +/- 0.00022  [1.37875  1.37961]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  244 / 320  Source neutrons : 43668
+
+Running time :                  0:25:16
+Estimated running time :        0:32:04
+Estimated running time left :   0:06:47
+
+Estimated relative CPU usage :  1582.6%
+
+k-eff (analog)    = 1.37899 +/- 0.00037  [1.37826  1.37972]
+k-eff (implicit)  = 1.37915 +/- 0.00022  [1.37872  1.37958]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  245 / 320  Source neutrons : 43715
+
+Running time :                  0:25:22
+Estimated running time :        0:32:04
+Estimated running time left :   0:06:41
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37899 +/- 0.00037  [1.37825  1.37972]
+k-eff (implicit)  = 1.37915 +/- 0.00022  [1.37872  1.37957]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  246 / 320  Source neutrons : 43798
+
+Running time :                  0:25:27
+Estimated running time :        0:32:03
+Estimated running time left :   0:06:36
+
+Estimated relative CPU usage :  1584.7%
+
+k-eff (analog)    = 1.37899 +/- 0.00037  [1.37826  1.37972]
+k-eff (implicit)  = 1.37914 +/- 0.00022  [1.37872  1.37957]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  247 / 320  Source neutrons : 43912
+
+Running time :                  0:25:32
+Estimated running time :        0:32:03
+Estimated running time left :   0:06:31
+
+Estimated relative CPU usage :  1584.9%
+
+k-eff (analog)    = 1.37901 +/- 0.00037  [1.37828  1.37974]
+k-eff (implicit)  = 1.37915 +/- 0.00022  [1.37873  1.37958]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  248 / 320  Source neutrons : 43784
+
+Running time :                  0:25:38
+Estimated running time :        0:32:03
+Estimated running time left :   0:06:25
+
+Estimated relative CPU usage :  1581.8%
+
+k-eff (analog)    = 1.37904 +/- 0.00037  [1.37831  1.37976]
+k-eff (implicit)  = 1.37913 +/- 0.00022  [1.37870  1.37956]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  249 / 320  Source neutrons : 43286
+
+Running time :                  0:25:43
+Estimated running time :        0:32:03
+Estimated running time left :   0:06:20
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37901 +/- 0.00037  [1.37828  1.37973]
+k-eff (implicit)  = 1.37914 +/- 0.00022  [1.37871  1.37956]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  250 / 320  Source neutrons : 43817
+
+Running time :                  0:25:48
+Estimated running time :        0:32:03
+Estimated running time left :   0:06:15
+
+Estimated relative CPU usage :  1584.1%
+
+k-eff (analog)    = 1.37898 +/- 0.00037  [1.37826  1.37971]
+k-eff (implicit)  = 1.37912 +/- 0.00022  [1.37870  1.37955]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  251 / 320  Source neutrons : 43689
+
+Running time :                  0:25:53
+Estimated running time :        0:32:03
+Estimated running time left :   0:06:09
+
+Estimated relative CPU usage :  1581.9%
+
+k-eff (analog)    = 1.37895 +/- 0.00037  [1.37823  1.37968]
+k-eff (implicit)  = 1.37910 +/- 0.00022  [1.37867  1.37952]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  252 / 320  Source neutrons : 43856
+
+Running time :                  0:25:59
+Estimated running time :        0:32:03
+Estimated running time left :   0:06:04
+
+Estimated relative CPU usage :  1584.5%
+
+k-eff (analog)    = 1.37893 +/- 0.00037  [1.37821  1.37966]
+k-eff (implicit)  = 1.37911 +/- 0.00022  [1.37868  1.37953]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  253 / 320  Source neutrons : 44270
+
+Running time :                  0:26:04
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:58
+
+Estimated relative CPU usage :  1584.7%
+
+k-eff (analog)    = 1.37898 +/- 0.00037  [1.37826  1.37971]
+k-eff (implicit)  = 1.37910 +/- 0.00022  [1.37868  1.37952]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  254 / 320  Source neutrons : 43430
+
+Running time :                  0:26:09
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:53
+
+Estimated relative CPU usage :  1583.8%
+
+k-eff (analog)    = 1.37899 +/- 0.00037  [1.37827  1.37971]
+k-eff (implicit)  = 1.37909 +/- 0.00021  [1.37867  1.37951]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  255 / 320  Source neutrons : 43624
+
+Running time :                  0:26:15
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:48
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37898 +/- 0.00037  [1.37826  1.37970]
+k-eff (implicit)  = 1.37907 +/- 0.00021  [1.37865  1.37949]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  256 / 320  Source neutrons : 43665
+
+Running time :                  0:26:20
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:42
+
+Estimated relative CPU usage :  1584.5%
+
+k-eff (analog)    = 1.37896 +/- 0.00037  [1.37824  1.37968]
+k-eff (implicit)  = 1.37909 +/- 0.00021  [1.37867  1.37951]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  257 / 320  Source neutrons : 44260
+
+Running time :                  0:26:25
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:37
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37900 +/- 0.00037  [1.37828  1.37972]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37866  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  258 / 320  Source neutrons : 43645
+
+Running time :                  0:26:31
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:32
+
+Estimated relative CPU usage :  1576.3%
+
+k-eff (analog)    = 1.37903 +/- 0.00037  [1.37831  1.37975]
+k-eff (implicit)  = 1.37906 +/- 0.00021  [1.37864  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  259 / 320  Source neutrons : 43355
+
+Running time :                  0:26:36
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:26
+
+Estimated relative CPU usage :  1584.9%
+
+k-eff (analog)    = 1.37901 +/- 0.00037  [1.37830  1.37973]
+k-eff (implicit)  = 1.37909 +/- 0.00021  [1.37867  1.37951]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  260 / 320  Source neutrons : 44169
+
+Running time :                  0:26:42
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:21
+
+Estimated relative CPU usage :  1571.0%
+
+k-eff (analog)    = 1.37905 +/- 0.00037  [1.37833  1.37976]
+k-eff (implicit)  = 1.37913 +/- 0.00022  [1.37870  1.37955]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  261 / 320  Source neutrons : 43746
+
+Running time :                  0:26:47
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:16
+
+Estimated relative CPU usage :  1585.4%
+
+k-eff (analog)    = 1.37908 +/- 0.00037  [1.37836  1.37980]
+k-eff (implicit)  = 1.37911 +/- 0.00022  [1.37869  1.37954]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  262 / 320  Source neutrons : 43224
+
+Running time :                  0:26:52
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:10
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37905 +/- 0.00037  [1.37833  1.37976]
+k-eff (implicit)  = 1.37911 +/- 0.00022  [1.37869  1.37953]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  263 / 320  Source neutrons : 43794
+
+Running time :                  0:26:57
+Estimated running time :        0:32:03
+Estimated running time left :   0:05:05
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37902 +/- 0.00037  [1.37830  1.37974]
+k-eff (implicit)  = 1.37909 +/- 0.00022  [1.37866  1.37951]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  264 / 320  Source neutrons : 43985
+
+Running time :                  0:27:03
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:59
+
+Estimated relative CPU usage :  1581.0%
+
+k-eff (analog)    = 1.37902 +/- 0.00036  [1.37831  1.37973]
+k-eff (implicit)  = 1.37909 +/- 0.00022  [1.37867  1.37951]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  265 / 320  Source neutrons : 43678
+
+Running time :                  0:27:08
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:54
+
+Estimated relative CPU usage :  1585.3%
+
+k-eff (analog)    = 1.37901 +/- 0.00036  [1.37830  1.37972]
+k-eff (implicit)  = 1.37908 +/- 0.00022  [1.37866  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  266 / 320  Source neutrons : 43864
+
+Running time :                  0:27:14
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:49
+
+Estimated relative CPU usage :  1579.0%
+
+k-eff (analog)    = 1.37902 +/- 0.00036  [1.37831  1.37973]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37866  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  267 / 320  Source neutrons : 43646
+
+Running time :                  0:27:19
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:43
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37901 +/- 0.00036  [1.37831  1.37972]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37866  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  268 / 320  Source neutrons : 43876
+
+Running time :                  0:27:24
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:38
+
+Estimated relative CPU usage :  1582.7%
+
+k-eff (analog)    = 1.37902 +/- 0.00036  [1.37832  1.37972]
+k-eff (implicit)  = 1.37906 +/- 0.00021  [1.37864  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  269 / 320  Source neutrons : 43243
+
+Running time :                  0:27:30
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:33
+
+Estimated relative CPU usage :  1584.4%
+
+k-eff (analog)    = 1.37897 +/- 0.00036  [1.37826  1.37968]
+k-eff (implicit)  = 1.37905 +/- 0.00021  [1.37863  1.37947]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  270 / 320  Source neutrons : 44118
+
+Running time :                  0:27:35
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:27
+
+Estimated relative CPU usage :  1580.2%
+
+k-eff (analog)    = 1.37896 +/- 0.00036  [1.37826  1.37967]
+k-eff (implicit)  = 1.37906 +/- 0.00021  [1.37865  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  271 / 320  Source neutrons : 43667
+
+Running time :                  0:27:40
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:22
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37894 +/- 0.00036  [1.37824  1.37965]
+k-eff (implicit)  = 1.37907 +/- 0.00021  [1.37866  1.37949]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  272 / 320  Source neutrons : 43887
+
+Running time :                  0:27:46
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:17
+
+Estimated relative CPU usage :  1582.5%
+
+k-eff (analog)    = 1.37894 +/- 0.00036  [1.37824  1.37964]
+k-eff (implicit)  = 1.37907 +/- 0.00021  [1.37866  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  273 / 320  Source neutrons : 43757
+
+Running time :                  0:27:51
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:11
+
+Estimated relative CPU usage :  1585.5%
+
+k-eff (analog)    = 1.37894 +/- 0.00036  [1.37824  1.37964]
+k-eff (implicit)  = 1.37909 +/- 0.00021  [1.37867  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  274 / 320  Source neutrons : 43633
+
+Running time :                  0:27:56
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:06
+
+Estimated relative CPU usage :  1584.2%
+
+k-eff (analog)    = 1.37893 +/- 0.00036  [1.37823  1.37962]
+k-eff (implicit)  = 1.37910 +/- 0.00021  [1.37869  1.37951]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  275 / 320  Source neutrons : 43694
+
+Running time :                  0:28:02
+Estimated running time :        0:32:03
+Estimated running time left :   0:04:01
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37891 +/- 0.00036  [1.37821  1.37960]
+k-eff (implicit)  = 1.37912 +/- 0.00021  [1.37870  1.37953]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  276 / 320  Source neutrons : 43897
+
+Running time :                  0:28:07
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:55
+
+Estimated relative CPU usage :  1580.8%
+
+k-eff (analog)    = 1.37890 +/- 0.00035  [1.37821  1.37960]
+k-eff (implicit)  = 1.37910 +/- 0.00021  [1.37869  1.37952]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  277 / 320  Source neutrons : 43528
+
+Running time :                  0:28:12
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:50
+
+Estimated relative CPU usage :  1584.8%
+
+k-eff (analog)    = 1.37887 +/- 0.00035  [1.37818  1.37957]
+k-eff (implicit)  = 1.37909 +/- 0.00021  [1.37868  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  278 / 320  Source neutrons : 44132
+
+Running time :                  0:28:18
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:44
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37889 +/- 0.00035  [1.37820  1.37958]
+k-eff (implicit)  = 1.37907 +/- 0.00021  [1.37866  1.37949]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  279 / 320  Source neutrons : 43498
+
+Running time :                  0:28:23
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:39
+
+Estimated relative CPU usage :  1582.0%
+
+k-eff (analog)    = 1.37887 +/- 0.00035  [1.37818  1.37956]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37867  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  280 / 320  Source neutrons : 44087
+
+Running time :                  0:28:28
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:34
+
+Estimated relative CPU usage :  1580.0%
+
+k-eff (analog)    = 1.37890 +/- 0.00035  [1.37821  1.37959]
+k-eff (implicit)  = 1.37909 +/- 0.00021  [1.37868  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  281 / 320  Source neutrons : 43602
+
+Running time :                  0:28:34
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:28
+
+Estimated relative CPU usage :  1584.4%
+
+k-eff (analog)    = 1.37890 +/- 0.00035  [1.37822  1.37959]
+k-eff (implicit)  = 1.37906 +/- 0.00021  [1.37865  1.37947]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  282 / 320  Source neutrons : 43564
+
+Running time :                  0:28:39
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:23
+
+Estimated relative CPU usage :  1585.1%
+
+k-eff (analog)    = 1.37889 +/- 0.00035  [1.37821  1.37957]
+k-eff (implicit)  = 1.37906 +/- 0.00021  [1.37865  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  283 / 320  Source neutrons : 43858
+
+Running time :                  0:28:44
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:18
+
+Estimated relative CPU usage :  1575.8%
+
+k-eff (analog)    = 1.37889 +/- 0.00035  [1.37821  1.37957]
+k-eff (implicit)  = 1.37907 +/- 0.00021  [1.37866  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  284 / 320  Source neutrons : 43939
+
+Running time :                  0:28:50
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:12
+
+Estimated relative CPU usage :  1574.1%
+
+k-eff (analog)    = 1.37891 +/- 0.00035  [1.37823  1.37959]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37867  1.37949]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  285 / 320  Source neutrons : 43724
+
+Running time :                  0:28:55
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:07
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37892 +/- 0.00035  [1.37824  1.37960]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37867  1.37949]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  286 / 320  Source neutrons : 43502
+
+Running time :                  0:29:01
+Estimated running time :        0:32:03
+Estimated running time left :   0:03:02
+
+Estimated relative CPU usage :  1583.4%
+
+k-eff (analog)    = 1.37891 +/- 0.00035  [1.37823  1.37959]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37867  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  287 / 320  Source neutrons : 43892
+
+Running time :                  0:29:06
+Estimated running time :        0:32:03
+Estimated running time left :   0:02:56
+
+Estimated relative CPU usage :  1582.1%
+
+k-eff (analog)    = 1.37892 +/- 0.00034  [1.37824  1.37959]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37867  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  288 / 320  Source neutrons : 43804
+
+Running time :                  0:29:11
+Estimated running time :        0:32:03
+Estimated running time left :   0:02:51
+
+Estimated relative CPU usage :  1581.4%
+
+k-eff (analog)    = 1.37893 +/- 0.00034  [1.37825  1.37960]
+k-eff (implicit)  = 1.37906 +/- 0.00021  [1.37866  1.37947]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  289 / 320  Source neutrons : 43695
+
+Running time :                  0:29:17
+Estimated running time :        0:32:03
+Estimated running time left :   0:02:46
+
+Estimated relative CPU usage :  1578.5%
+
+k-eff (analog)    = 1.37893 +/- 0.00034  [1.37826  1.37960]
+k-eff (implicit)  = 1.37908 +/- 0.00021  [1.37868  1.37949]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  290 / 320  Source neutrons : 43656
+
+Running time :                  0:29:22
+Estimated running time :        0:32:03
+Estimated running time left :   0:02:40
+
+Estimated relative CPU usage :  1580.4%
+
+k-eff (analog)    = 1.37892 +/- 0.00034  [1.37825  1.37959]
+k-eff (implicit)  = 1.37907 +/- 0.00021  [1.37867  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  291 / 320  Source neutrons : 43674
+
+Running time :                  0:29:27
+Estimated running time :        0:32:03
+Estimated running time left :   0:02:35
+
+Estimated relative CPU usage :  1585.0%
+
+k-eff (analog)    = 1.37891 +/- 0.00034  [1.37824  1.37957]
+k-eff (implicit)  = 1.37907 +/- 0.00021  [1.37867  1.37947]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  292 / 320  Source neutrons : 43775
+
+Running time :                  0:29:33
+Estimated running time :        0:32:03
+Estimated running time left :   0:02:29
+
+Estimated relative CPU usage :  1584.6%
+
+k-eff (analog)    = 1.37890 +/- 0.00034  [1.37823  1.37956]
+k-eff (implicit)  = 1.37905 +/- 0.00021  [1.37865  1.37945]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  293 / 320  Source neutrons : 43563
+
+Running time :                  0:29:38
+Estimated running time :        0:32:02
+Estimated running time left :   0:02:24
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37886 +/- 0.00034  [1.37820  1.37953]
+k-eff (implicit)  = 1.37903 +/- 0.00021  [1.37863  1.37944]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  294 / 320  Source neutrons : 43985
+
+Running time :                  0:29:43
+Estimated running time :        0:32:02
+Estimated running time left :   0:02:19
+
+Estimated relative CPU usage :  1583.6%
+
+k-eff (analog)    = 1.37886 +/- 0.00034  [1.37819  1.37952]
+k-eff (implicit)  = 1.37903 +/- 0.00021  [1.37863  1.37943]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  295 / 320  Source neutrons : 43817
+
+Running time :                  0:29:49
+Estimated running time :        0:32:02
+Estimated running time left :   0:02:13
+
+Estimated relative CPU usage :  1583.1%
+
+k-eff (analog)    = 1.37886 +/- 0.00034  [1.37820  1.37952]
+k-eff (implicit)  = 1.37904 +/- 0.00020  [1.37864  1.37944]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  296 / 320  Source neutrons : 43751
+
+Running time :                  0:29:54
+Estimated running time :        0:32:02
+Estimated running time left :   0:02:08
+
+Estimated relative CPU usage :  1580.3%
+
+k-eff (analog)    = 1.37886 +/- 0.00034  [1.37820  1.37952]
+k-eff (implicit)  = 1.37902 +/- 0.00020  [1.37862  1.37942]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  297 / 320  Source neutrons : 43776
+
+Running time :                  0:29:59
+Estimated running time :        0:32:02
+Estimated running time left :   0:02:03
+
+Estimated relative CPU usage :  1577.5%
+
+k-eff (analog)    = 1.37886 +/- 0.00033  [1.37821  1.37952]
+k-eff (implicit)  = 1.37901 +/- 0.00020  [1.37861  1.37941]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  298 / 320  Source neutrons : 43811
+
+Running time :                  0:30:05
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:57
+
+Estimated relative CPU usage :  1584.3%
+
+k-eff (analog)    = 1.37887 +/- 0.00033  [1.37822  1.37953]
+k-eff (implicit)  = 1.37903 +/- 0.00020  [1.37863  1.37943]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  299 / 320  Source neutrons : 44066
+
+Running time :                  0:30:10
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:52
+
+Estimated relative CPU usage :  1576.3%
+
+k-eff (analog)    = 1.37892 +/- 0.00034  [1.37826  1.37957]
+k-eff (implicit)  = 1.37905 +/- 0.00020  [1.37865  1.37945]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  300 / 320  Source neutrons : 43531
+
+Running time :                  0:30:15
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:47
+
+Estimated relative CPU usage :  1583.9%
+
+k-eff (analog)    = 1.37894 +/- 0.00034  [1.37828  1.37959]
+k-eff (implicit)  = 1.37905 +/- 0.00020  [1.37865  1.37945]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  301 / 320  Source neutrons : 43744
+
+Running time :                  0:30:21
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:41
+
+Estimated relative CPU usage :  1580.3%
+
+k-eff (analog)    = 1.37895 +/- 0.00033  [1.37830  1.37961]
+k-eff (implicit)  = 1.37906 +/- 0.00020  [1.37866  1.37945]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  302 / 320  Source neutrons : 43876
+
+Running time :                  0:30:26
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:36
+
+Estimated relative CPU usage :  1581.5%
+
+k-eff (analog)    = 1.37899 +/- 0.00033  [1.37833  1.37964]
+k-eff (implicit)  = 1.37905 +/- 0.00020  [1.37866  1.37945]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  303 / 320  Source neutrons : 43612
+
+Running time :                  0:30:31
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:31
+
+Estimated relative CPU usage :  1576.9%
+
+k-eff (analog)    = 1.37900 +/- 0.00033  [1.37835  1.37966]
+k-eff (implicit)  = 1.37905 +/- 0.00020  [1.37865  1.37944]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  304 / 320  Source neutrons : 43616
+
+Running time :                  0:30:37
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:25
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37901 +/- 0.00033  [1.37835  1.37966]
+k-eff (implicit)  = 1.37906 +/- 0.00020  [1.37866  1.37945]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  305 / 320  Source neutrons : 43765
+
+Running time :                  0:30:42
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:20
+
+Estimated relative CPU usage :  1578.2%
+
+k-eff (analog)    = 1.37901 +/- 0.00033  [1.37836  1.37966]
+k-eff (implicit)  = 1.37907 +/- 0.00020  [1.37868  1.37946]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  306 / 320  Source neutrons : 43598
+
+Running time :                  0:30:47
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:14
+
+Estimated relative CPU usage :  1583.5%
+
+k-eff (analog)    = 1.37900 +/- 0.00033  [1.37835  1.37965]
+k-eff (implicit)  = 1.37907 +/- 0.00020  [1.37868  1.37947]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  307 / 320  Source neutrons : 44017
+
+Running time :                  0:30:53
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:09
+
+Estimated relative CPU usage :  1579.9%
+
+k-eff (analog)    = 1.37902 +/- 0.00033  [1.37837  1.37967]
+k-eff (implicit)  = 1.37909 +/- 0.00020  [1.37870  1.37948]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  308 / 320  Source neutrons : 43579
+
+Running time :                  0:30:58
+Estimated running time :        0:32:02
+Estimated running time left :   0:01:04
+
+Estimated relative CPU usage :  1573.9%
+
+k-eff (analog)    = 1.37902 +/- 0.00033  [1.37837  1.37966]
+k-eff (implicit)  = 1.37910 +/- 0.00020  [1.37871  1.37949]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  309 / 320  Source neutrons : 43885
+
+Running time :                  0:31:03
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:58
+
+Estimated relative CPU usage :  1581.6%
+
+k-eff (analog)    = 1.37903 +/- 0.00033  [1.37839  1.37967]
+k-eff (implicit)  = 1.37911 +/- 0.00020  [1.37872  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  310 / 320  Source neutrons : 44000
+
+Running time :                  0:31:09
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:53
+
+Estimated relative CPU usage :  1584.0%
+
+k-eff (analog)    = 1.37907 +/- 0.00033  [1.37842  1.37971]
+k-eff (implicit)  = 1.37913 +/- 0.00020  [1.37874  1.37952]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  311 / 320  Source neutrons : 43494
+
+Running time :                  0:31:14
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:48
+
+Estimated relative CPU usage :  1580.9%
+
+k-eff (analog)    = 1.37908 +/- 0.00033  [1.37843  1.37972]
+k-eff (implicit)  = 1.37913 +/- 0.00020  [1.37874  1.37952]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  312 / 320  Source neutrons : 43719
+
+Running time :                  0:31:19
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:42
+
+Estimated relative CPU usage :  1582.0%
+
+k-eff (analog)    = 1.37909 +/- 0.00033  [1.37845  1.37973]
+k-eff (implicit)  = 1.37912 +/- 0.00020  [1.37873  1.37951]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  313 / 320  Source neutrons : 43505
+
+Running time :                  0:31:25
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:37
+
+Estimated relative CPU usage :  1579.7%
+
+k-eff (analog)    = 1.37907 +/- 0.00033  [1.37843  1.37971]
+k-eff (implicit)  = 1.37915 +/- 0.00020  [1.37876  1.37954]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  314 / 320  Source neutrons : 44117
+
+Running time :                  0:31:30
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:32
+
+Estimated relative CPU usage :  1581.0%
+
+k-eff (analog)    = 1.37909 +/- 0.00033  [1.37845  1.37973]
+k-eff (implicit)  = 1.37915 +/- 0.00020  [1.37876  1.37954]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  315 / 320  Source neutrons : 43512
+
+Running time :                  0:31:35
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:26
+
+Estimated relative CPU usage :  1585.2%
+
+k-eff (analog)    = 1.37909 +/- 0.00033  [1.37845  1.37973]
+k-eff (implicit)  = 1.37915 +/- 0.00020  [1.37876  1.37954]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  316 / 320  Source neutrons : 43848
+
+Running time :                  0:31:41
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:21
+
+Estimated relative CPU usage :  1583.2%
+
+k-eff (analog)    = 1.37909 +/- 0.00032  [1.37846  1.37973]
+k-eff (implicit)  = 1.37914 +/- 0.00020  [1.37875  1.37953]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  317 / 320  Source neutrons : 43543
+
+Running time :                  0:31:46
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:16
+
+Estimated relative CPU usage :  1583.0%
+
+k-eff (analog)    = 1.37908 +/- 0.00032  [1.37844  1.37972]
+k-eff (implicit)  = 1.37914 +/- 0.00020  [1.37876  1.37953]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  318 / 320  Source neutrons : 43808
+
+Running time :                  0:31:51
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:10
+
+Estimated relative CPU usage :  1581.6%
+
+k-eff (analog)    = 1.37907 +/- 0.00032  [1.37844  1.37971]
+k-eff (implicit)  = 1.37915 +/- 0.00020  [1.37876  1.37953]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  319 / 320  Source neutrons : 43735
+
+Running time :                  0:31:57
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:05
+
+Estimated relative CPU usage :  1583.0%
+
+k-eff (analog)    = 1.37906 +/- 0.00032  [1.37843  1.37969]
+k-eff (implicit)  = 1.37913 +/- 0.00020  [1.37875  1.37952]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+------------------------------------------------------------
+
+Serpent 2.1.31 -- Static criticality source simulation
+
+Input file: "standard-column2"
+
+Active cycle  320 / 320  Source neutrons : 43888
+
+Running time :                  0:32:02
+Estimated running time :        0:32:02
+Estimated running time left :   0:00:00
+
+Estimated relative CPU usage :  1582.8%
+
+k-eff (analog)    = 1.37907 +/- 0.00032  [1.37844  1.37970]
+k-eff (implicit)  = 1.37912 +/- 0.00020  [1.37873  1.37950]
+
+(O4) (MPI=8) (OMP=16)
+------------------------------------------------------------
+
+Transport cycle completed in 31.9 minutes.
+
+Waiting for results from other MPI tasks...
+OK.
+
+Application 92996840 resources: utime ~240070s, stime ~24s, Rss ~817296, inblocks ~347928, outblocks ~205183

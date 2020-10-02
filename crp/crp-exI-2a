@@ -1,0 +1,168 @@
+/*This input file defines a hexagonal standard fuel assembly.*/
+
+/* Numbering:
+* Universes: 1 to 10
+* Surfaces: 100 to 200
+* Cells: 500 to 600
+*/
+
+/******************************
+*      Particle Definition    *
+*******************************/
+particle 1
+
+uco    0.02125
+buffer 0.03125
+pyc    0.03525
+sic    0.03875
+pyc    0.04275
+matrix
+
+particle 2
+
+bkrnl  0.01000
+buffr2 0.01180
+pyc2   0.01410
+matrix2
+
+/*************************
+*        Geometry        *
+*************************/
+
+surf 100 inf
+surf 101 inf
+surf 102 inf
+
+cell 500 3 matrix -100
+cell 501 4 helium -101
+cell 502 M block -102
+
+pbed F 3 "crp4"
+pbed B 3 "crpP"
+
+% -- Fuel Channel
+surf 110 cyl 0.0 0.0 0.6225 0.0 4.928
+surf 111 cyl 0.0 0.0 0.6350 0.0 4.928
+
+cell 510 6 fill F  -110
+cell 511 6 fill 4   110 -111
+cell 512 6 fill M   111
+
+% -- Small Coolant Channel
+surf 112 cyl 0.0 0.0 0.6350 0.0 4.928
+
+cell 513 7 fill 4  -112
+cell 514 7 fill M   112
+
+% -- Large Coolant Channel
+surf 113 cyl 0.0 0.0 0.7940 0.0 4.928
+
+cell 515 8 fill 4  -113
+cell 516 8 fill M   113
+
+% -- Fuel Channel
+surf 114 cyl 0.0 0.0 0.5715 0.0 4.928
+surf 115 cyl 0.0 0.0 0.6350 0.0 4.928
+
+cell 517 L fill B  -114
+cell 518 L fill 4   114 -115
+cell 519 L fill M   115
+
+% -- Hexagonal Lattice
+lat 10 2 0.0 0.65 24 24 1.8796
+M M M M M M M M M M M M M M M M M M M M M M M M
+ M M M M M M M M M M M M L 6 8 6 6 8 6 6 8 6 L M
+  M M M M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 M
+   M M M M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M
+    M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
+     M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
+      M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 M
+       M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
+        M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
+         M M M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M
+          M M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M
+           M M L 8 6 6 8 6 6 8 6 M M M 6 8 6 6 8 6 6 8 L M
+            M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M M
+             M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M M M
+              M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M M M M
+               M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M M M M M
+                M M 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 M M M M M M
+                 M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M M M M M M M
+                  M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M M M M M M M M
+                   M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M M M M M M M M M
+                    M M 6 8 6 6 8 6 6 8 6 6 8 6 M M M M M M M M M M
+                     M M L 6 8 6 6 8 6 6 8 6 L M M M M M M M M M M M
+                      M M M M M M M M M M M M M M M M M M M M M M M M
+                       M M M M M M M M M M M M M M M M M M M M M M M M
+
+% -- Fuel Element Definition
+surf 120 hexyprism 0.0 0.0 18.0 0.0 4.928
+
+cell 530 0 fill 10 -120
+cell 531 0 outside  120
+
+/**********************************
+*            Materials            *
+**********************************/
+
+mat uco      sum          tmp 1200                  rgb 255 255 0
+ 92235.12c   3.67e-3
+ 92238.12c   1.97e-2
+  8016.12c   3.51e-2
+  6000.12c   1.17e-2
+
+mat buffer   sum          tmp 1200 moder grph2 6000 rgb 255 128   0
+ 6000.12c    5.26e-2
+
+mat pyc      sum          tmp 1200 moder grph2 6000 rgb 255   0   0
+ 6000.12c    9.53e-2
+
+mat sic      sum          tmp 1200 moder grph2 6000 rgb 153  76   0
+14028.12c    4.43e-2
+14029.12c    2.17e-3
+14030.12c    1.39e-3
+ 6000.12c    4.79e-2
+
+mat matrix   sum          tmp 1200 moder grph2 6000 rgb 160 160 160
+ 6000.12c    7.27e-2
+
+mat bkrnl    sum          tmp 1000 moder grph1 6000 rgb 255 192 203
+ 5010.10c    2.14e-2
+ 5011.10c    8.63e-2
+ 6000.10c    2.69e-2
+
+mat buffr2   sum          tmp 1000 moder grph1 6000 rgb 255 128   0
+ 6000.10c    5.02e-2
+
+mat pyc2     sum          tmp 1000 moder grph1 6000 rgb 255   0   0
+ 6000.10c    9.38e-2
+
+mat matrix2  sum          tmp 1000 moder grph1 6000 rgb 160 160 160
+ 6000.10c    7.27e-2
+
+mat helium   sum          tmp 1200                  rgb 150 105 255
+ 2004.12c    2.46e-5
+
+mat block    sum          tmp 1000 moder grph1 6000 rgb 155 255 232
+ 6000.10c    9.28e-2
+
+/******************************
+*            Input            *
+******************************/
+
+% --- Thermal scattering data for graphite:
+therm grph1 gr06.32t  % 1000K
+therm grph2 gr07.32t  % 1200K
+
+% --- Cross section data library file path:
+set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
+
+% --- Periodic boundary condition:
+set bc 3
+
+% --- Neutron population and criticality cycles:
+set pop 200000 500 50
+
+% --- Geometry plot:
+plot 3 1000 1000 0.2
+% plot 1 1000 1000 19. -2 2 0 4

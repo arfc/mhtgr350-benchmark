@@ -1,0 +1,19 @@
+#!/bin/bash
+#PBS -l nodes=16:ppn=32:xe
+#PBS -l walltime=20:00:00
+#PBS -N testing_serp_dep_uq
+#PBS -j oe 
+#PBS -q normal 
+
+### cd to the location where you submitted the job, if needed
+### note that you are on a PBS MOM node and not running interactively on a
+### compute node
+
+cd $PBS_O_WORKDIR
+
+# To add certain modules that you do not have added via ~/.modules
+module swap PrgEnv-cray PrgEnv-gnu
+export OMP_NUM_THREADS=32
+
+#aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 exerciseI-1a2
+aprun -n 8 -d 16 /projects/sciteam/bbcc/serpent/src2.1.31/sss2 -omp 16 exerciseI-1a3
