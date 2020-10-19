@@ -221,9 +221,13 @@ det EnergyDetector de MyEnergyGrid
 
 % --- Spatial flux detectors
 ene engrid 1 1e-11 0.625e-6 2e1
-det AxialBot n dm block dx 55.1 56.5 1 dy 105.6 107 1 dz -160 0 32 de engrid
-det AxialFuel n du 5 dx 55.1 56.5 1 dy 105.6 107 1 dz 0 793 80 de engrid
-det AxialTop n dm block dx 55.1 56.5 1 dy 105.6 107 1 dz 793 913 32 de engrid
+det Axial1 n dh 3  93.53 18.0 36 1 1 -160 913 80 de engrid
+det Axial2 n dh 3 124.71  0.0 36 1 1 -160 913 80 de engrid
+det Axial3 n dh 3 155.88 18.0 36 1 1 -160 913 80 de engrid
+
+det Radial1 n dn 1 0 300 300 0 360 1 0 793 1 de engrid
+det Radial2 n dn 1 0 300 300 0 2 1 396.5 475.8 1 de engrid
+det Radial3 n dn 1 0 300 300 30 32 1 396.5 475.8 1 de engrid
 
 % --- Group constant generation
 % 5: Fuel compact, 3: Helium, M: Moderator,
