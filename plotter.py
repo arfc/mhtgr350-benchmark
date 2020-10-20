@@ -9,36 +9,6 @@ from matplotlib.pyplot import gca
 from matplotlib.axes import Axes
 
 
-def plot_spectrum(data, name, fig):
-    """
-    Plots spectrum normalized. The integral of the flux is 1.
-
-    Parameters:
-    -----------
-    data: [serpenttools format]
-    name: [string]
-        name of the detector
-    fig: [string]
-        root name of the figure
-    """
-    det = data.detectors[name]
-    val = det.tallies
-    E = [line[0] for line in det.grids['E']]
-    Emax = det.grids['E'][-1][1]
-    dE = np.roll(E, -1) - E
-    dE[-1] = Emax - E[-1]
-    inte = sum(val*dE)
-    val = val/inte
-
-    # plt.figure()
-    plt.plot(E, val)
-    plt.xscale('log')
-    plt.xlabel('E [MeV]')
-    plt.ylabel('Normalized flux')
-    plt.grid(True)
-    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
-
-
 def reagroup(E, val, E0):
     '''
     This function converts a fine energy grid spectrum into a
@@ -68,8 +38,8 @@ def reagroup(E, val, E0):
         else:
             if E[i] >= E0[j]-e:
                 new_val[j] += val[i]
-                #new_val[j] += val[i]*(E[i+1]-E[i])/(E0[j+1]-E0[j])
-    
+                # new_val[j] += val[i]*(E[i+1]-E[i])/(E0[j+1]-E0[j])
+
     # this adds an additional point in the very beginning
     new_val = np.roll(new_val, 1)
     new_val[0] = new_val[1]
@@ -80,7 +50,7 @@ def reagroup(E, val, E0):
 
 def plot_serpent_coarse_spectrum():
     '''
-    This function 
+    This function
     '''
 
     data = st.read('oecd-fullcore26G-1200_det1b1.m', reader='det')
@@ -372,7 +342,7 @@ def plot_serpent_radial_collapse(data, name, save, lim, piH=1):
         name of the detector
     save: [string]
         name of the figure
-    lim: 
+    lim:
     piH: [float]
         angle * total height of the detector [cm]
     """
