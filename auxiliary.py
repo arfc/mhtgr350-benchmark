@@ -73,7 +73,7 @@ def fullcore():
     plt.savefig("figures/fullcore", dpi=300, bbox_inches="tight")
 
 
-def plot_spectrum(data, name):
+def plot_spectrum(data, name, fig):
     """
     Plots spectrum normalized. The integral of the flux is 1.
 
@@ -100,7 +100,7 @@ def plot_spectrum(data, name):
     plt.xlabel('E [MeV]')
     plt.ylabel('Normalized flux')
     plt.grid(True)
-    plt.savefig(name, dpi=300, bbox_inches="tight")
+    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
 def plot_axial(data, vb, vc, vt):
@@ -153,7 +153,7 @@ def plot_axial(data, vb, vc, vt):
     plt.savefig('axial1', dpi=300, bbox_inches="tight")
 
 
-def plot_detector(data, name, V=1):
+def plot_detector(data, name, fig, V=1):
     """
     Plots flux in the axial direction 'Z'.
 
@@ -178,7 +178,43 @@ def plot_detector(data, name, V=1):
     plt.xlabel('z [cm]')
     plt.ylabel(r'$\phi$')
     plt.legend(loc="upper right")
-    plt.savefig(name, dpi=300, bbox_inches="tight")
+    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
+
+
+def plot_radial(data, name, fig, piH=1):
+    """
+    Plots flux from curvilinear detector.
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    name: [string]
+        name of the detector
+    fig: [string]
+        root name of the figure
+    piH: [float]
+        angle * total height of the detector [cm]
+    """
+    det = data.detectors[name]
+    r = np.array([line[0] for line in det.grids['R']])
+    vdetector = np.roll(r, -1)**2-r**2
+    vdetector[-1] = det.grids['R'][-1][1]**2 - det.grids['R'][-1][0]**2
+    vdetector *= piH/2
+
+    val = det.tallies
+    val = val/vdetector
+    G = len(val)  # number of energy groups
+
+    plt.figure()
+    for i in range(G):
+        plt.step(r, val[G-1-i], where='post', label='g={0}'.format(i+1))
+
+    plt.xlabel('r [cm]')
+    plt.ylabel(r'$\phi$')
+    if G < 20:
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
+    else:
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True)
+    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
 
 
 def plots_standardcolumn():
@@ -204,26 +240,26 @@ def plots_fullcore():
     # Plot spectrum
     data = st.read('serpent/fullcore_det1b1.m', reader='det')
     name = 'EnergyDetector'
-    plot_spectrum(data, name)
+    plot_spectrum(data, name, 'figures2/fullcore')
 
     A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
     Ah = 6. * (A * 18./2)  # Area of the hexagon
     V = Ah * (160 + 793 + 120)
-    plot_detector(data, 'Axial1', V)
-    plot_detector(data, 'Axial2', V)
-    plot_detector(data, 'Axial3', V)
+    plot_detector(data, 'Axial1', 'figures2/fullcore', V)
+    plot_detector(data, 'Axial2', 'figures2/fullcore', V)
+    plot_detector(data, 'Axial3', 'figures2/fullcore', V)
 
     H = 793
     p = 2*np.pi  # = 360 deg
-    plot_radial(data, 'Radial1', p*H)
+    plot_radial(data, 'Radial1', 'figures2/fullcore', p*H)
 
     H = 79.3
     p = np.pi/90  # = 2 deg
-    plot_radial(data, 'Radial2', p*H)
+    plot_radial(data, 'Radial2', 'figures2/fullcore', p*H)
 
     H = 79.3
     p = np.pi/90  # = 2 deg
-    plot_radial(data, 'Radial3', p*H)
+    plot_radial(data, 'Radial3', 'figures2/fullcore', p*H)
 
 
 def main():
