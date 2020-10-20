@@ -193,21 +193,47 @@ def plots_standardcolumn():
     plot_detector(data, 'Axial', V)
 
 
+def plots_fullcore():
+    '''
+    Plots full-core flux detectors:
+    * Spectrum
+    * Axial1, Axial2, Axial3,
+    * Radial1, Radial2, Radial3
+    '''
+
+    # Plot spectrum
+    data = st.read('bw/fullcore_det1b1.m', reader='det')
+    name = 'EnergyDetector'
+    plot_spectrum(data, name)
+
+    A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
+    Ah = 6. * (A * 18./2)  # Area of the hexagon
+    V = Ah * (160 + 793 + 120)
+    plot_detector(data, 'Axial1', V)
+    plot_detector(data, 'Axial2', V)
+    plot_detector(data, 'Axial3', V)
+
+    H = 793
+    p = 2*np.pi  # = 360 deg
+    plot_radial(data, 'Radial1', p*H)
+
+    H = 79.3
+    p = np.pi/90  # = 2 deg
+    plot_radial(data, 'Radial2', p*H)
+
+    H = 79.3
+    p = np.pi/90  # = 2 deg
+    plot_radial(data, 'Radial3', p*H)
+
+
 def main():
     # Add legends
     compact()
     standard()
     fullcore()
 
-    data = st.read('fullcore_det1b1.m', reader='det')
-    # Plot spectrum
-    name = 'EnergyDetector'
-    plot_spectrum(data, name)
-    # Plot axial flux
-    Vbot = (56.5-55.1)*(107-105.6)*(0+160)
-    Vfuel = np.pi*0.6223**2*793
-    Vtop = (56.5-55.1)*(107-105.6)*(913-793)
-    plot_axial(data, Vbot, Vfuel, Vtop)
+    # Gets full-core flux plots
+    plots_fullcore()
 
 
 if __name__ == "__main__":
