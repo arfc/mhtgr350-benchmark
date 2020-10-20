@@ -21,14 +21,14 @@ def compact():
     helium = mpatches.Patch(color=(0.59, 0.41, 1.), label='He')
 
     cwd = os.getcwd()
-    fname = get_sample_data('%s/compact_geom1.png' % (cwd))
+    fname = get_sample_data('%s/figures/compact_geom1.png' % (cwd))
     im = plt.imread(fname)
     plt.imshow(im)
     plt.legend(handles=[uco, buffer, pyc, sic, matrix, block, helium],
                loc="upper left", bbox_to_anchor=(1.0, 1.0), fancybox=True)
 
     plt.axis('off')
-    plt.savefig("compact", dpi=300, bbox_inches="tight")
+    plt.savefig("figures/compact", dpi=300, bbox_inches="tight")
 
 
 def standard():
@@ -43,14 +43,14 @@ def standard():
     helium = mpatches.Patch(color=(0.59, 0.41, 1.), label='He')
 
     cwd = os.getcwd()
-    fname = get_sample_data('%s/standard-fuel_geom1.png' % (cwd))
+    fname = get_sample_data('%s/figures/standard-fuel_geom1.png' % (cwd))
     im = plt.imread(fname)
     plt.imshow(im)
     plt.legend(handles=[matrix, block, helium],
                loc="upper right", bbox_to_anchor=(1., 0.0), fancybox=True)
 
     plt.axis('off')
-    plt.savefig("standard", dpi=300, bbox_inches="tight")
+    plt.savefig("figures/standard", dpi=300, bbox_inches="tight")
 
 
 def fullcore():
@@ -64,13 +64,13 @@ def fullcore():
     block = mpatches.Patch(color=(0.61, 1., 0.91), label='Graphite Reflector')
 
     cwd = os.getcwd()
-    fname = get_sample_data('%s/fullcore_geom1.png' % (cwd))
+    fname = get_sample_data('%s/figures/fullcore_geom1.png' % (cwd))
     im = plt.imread(fname)
     plt.imshow(im)
     plt.legend(handles=[matrix, block])
 
     plt.axis('off')
-    plt.savefig("fullcore", dpi=300, bbox_inches="tight")
+    plt.savefig("figures/fullcore", dpi=300, bbox_inches="tight")
 
 
 def plot_spectrum(data, name):
@@ -202,7 +202,7 @@ def plots_fullcore():
     '''
 
     # Plot spectrum
-    data = st.read('bw/fullcore_det1b1.m', reader='det')
+    data = st.read('serpent/fullcore_det1b1.m', reader='det')
     name = 'EnergyDetector'
     plot_spectrum(data, name)
 
@@ -228,9 +228,9 @@ def plots_fullcore():
 
 def main():
     # Add legends
-    compact()
-    standard()
-    fullcore()
+    # compact()
+    # standard()
+    # fullcore()
 
     # Gets full-core flux plots
     plots_fullcore()
