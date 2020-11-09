@@ -194,8 +194,9 @@ def plots_standardcolumn():
 
 
 def fullcore_detectors():
-    '''
-    '''
+    """
+    Specifies the location of the detectors on 'oecd-fullcore_geom1.png'
+    """
 
     cwd = os.getcwd()
     fname = get_sample_data('%s/oecd-fullcore_geom1.png' % (cwd))
@@ -304,15 +305,15 @@ def plots_fullcore():
 
 def main():
     # Add legends
-    # compact()
-    # standard()
-    # fullcore()
+    compact()
+    standard()
+    fullcore()
 
     # plots location of the detectors
     fullcore_detectors()
 
     # Gets full-core flux plots 
-    # plots_fullcore()
+    plots_fullcore()
 
 
 if __name__ == "__main__":
