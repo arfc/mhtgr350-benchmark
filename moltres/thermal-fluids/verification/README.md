@@ -30,11 +30,18 @@ h = Nu/D * k Nu = 0.023 * Re^0.8 * Pr^0.4
 
 q0 = 35 * pi/2 q(z) = q0 * sin( pi/L * z)
 
+Input files:
+------------
+
 * 2D-unitcell.geo:
 Coolant radius calculated by preserving coolant channel area:
 Ac = \pi R_c^2 = \pi ( R_{c'}^2 - R_m^2 ) R_{c'} = \sqrt[]{ R_c^2 + R_m^2 }
 
 * 2D-preliminar.i: Moltres input file
+
+* 2D-mesh.geo: the geometry is produced in 2D in the RZ coordinate system.
+This file defines the 'axial view' of that geometry for better visualization.
+This file is not used for running the analyses.
 
 References:
 -----------
