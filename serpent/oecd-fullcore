@@ -10,11 +10,11 @@
 
 /******************************
 *      Particle Definition    *
-* Kernel radius 212.5e-6 m    *
-* Buffer radius 312.5e-6 m    *
-* IPyC radius   347.5e-6 m    *
-* SiC radius    382.5e-6 m    *
-* OPyC radius   422.5e-6 m    *
+* Kernel radius 2.125e-2 cm   *
+* Buffer radius 3.125e-2 cm   *
+* IPyC radius   3.475e-2 cm   *
+* SiC radius    3.825e-2 cm   *
+* OPyC radius   4.225e-2 cm   *
 * Matrix Graphite             *
 *******************************/
 particle 1
@@ -34,7 +34,10 @@ pyc2   0.01410
 matrix2
 
 /*************************
-*     Fuel column        *
+*        Geometry        *
+* Radius 0.6225 cm       *
+* Length 79.3 cm         *
+* Packing Fraction 0.35  *
 **************************/
 
 surf 100 inf
@@ -58,7 +61,7 @@ pbed 5 cm "crpP2"
 
 % -- Fuel Channel:
 surf 110 cyl 0.0 0.0 0.6225 0.0 79.3
-surf 111 cyl 0.0 0.0 0.6350  0.0 79.3
+surf 111 cyl 0.0 0.0 0.6350 0.0 79.3
 
 cell 510 6 fill 4  -110
 cell 511 6 fill 3   110 -111
