@@ -8,11 +8,11 @@
 
 /******************************
 *      Particle Definition    *
-* Kernel radius 212.5e-6 m    *
-* Buffer radius 312.5e-6 m    *
-* IPyC radius   347.5e-6 m    *
-* SiC radius    382.5e-6 m    *
-* OPyC radius   422.5e-6 m    *
+* Kernel radius 2.125e-2 cm   *
+* Buffer radius 3.125e-2 cm   *
+* IPyC radius   3.475e-2 cm   *
+* SiC radius    3.825e-2 cm   *
+* OPyC radius   4.225e-2 cm   *
 * Matrix Graphite             *
 *******************************/
 % -- Coated Particle
@@ -27,8 +27,8 @@ matrix
 
 /*************************
 *     Fuel column        *
-* Radius 0.6223 cm       *
-* Length 79.3 cm         *
+* Radius 0.6225 cm       *
+* Length 4.928 cm        *
 * Packing Fraction 0.35  *
 **************************/
 
@@ -40,24 +40,24 @@ cell 500 cm matrix -100 % cm: compact matrix
 cell 501 C helium  -101 % C: Coolant
 cell 502 M block   -102 % M: Moderator
 
-pbed F cm "particles79.inp"
+pbed F cm "oecd4"
 
 % -- Fuel Channel
-surf 110 cyl 0.0 0.0 0.6223 0.0 79.3
-surf 111 cyl 0.0 0.0 0.635  0.0 79.3
+surf 110 cyl 0.0 0.0 0.6225 0.0 4.928
+surf 111 cyl 0.0 0.0 0.6350 0.0 4.928
 
 cell 510 2 fill F  -110
 cell 511 2 fill C   110 -111
 cell 512 2 fill M   111
 
 % -- Small Coolant Channel
-surf 112 cyl 0.0 0.0 0.635 0.0 79.3
+surf 112 cyl 0.0 0.0 0.635 0.0 4.928
 
 cell 513 3 fill C  -112
 cell 514 3 fill M   112
 
 % -- Large Coolant Channel
-surf 113 cyl 0.0 0.0 0.794 0.0 79.3
+surf 113 cyl 0.0 0.0 0.794 0.0 4.928
 
 cell 515 4 fill C  -113
 cell 516 4 fill M   113
@@ -90,9 +90,9 @@ M M M M M M M M M M M M M M M M M M M M M M M M
                        M M M M M M M M M M M M M M M M M M M M M M M M
 
 % -- Fuel Element Definition
-surf 114 cyl 0.0 0.0 1.75 52.9 79.3
-surf 115 cyl 0.0 9.756 4.762 0.0 79.3
-surf 116 hexyprism 0.0 0.0 18.0 0.0 79.3
+surf 114 cyl 0.0 0.0 1.75 52.9 4.928
+surf 115 cyl 0.0 9.756 4.762 0.0 4.928
+surf 116 hexyprism 0.0 0.0 18.0 0.0 4.928
 
 cell 517 0 fill C   -114
 cell 518 0 fill C   -115

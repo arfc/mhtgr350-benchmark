@@ -1,0 +1,301 @@
+/* This input file defines the full MHTGR350 geometry.
+*  Reflector is defined as a block, without the coolant channels.
+*/
+
+/* Numbering:
+* Universes: 1 to 10
+* Surfaces: 100 to 200
+* Cells: 500 to 600
+*/
+
+/******************************
+*      Particle Definition    *
+* Kernel radius 2.125e-2 cm   *
+* Buffer radius 3.125e-2 cm   *
+* IPyC radius   3.475e-2 cm   *
+* SiC radius    3.825e-2 cm   *
+* OPyC radius   4.225e-2 cm   *
+* Matrix Graphite             *
+*******************************/
+particle 1
+
+uco    0.02125
+buffer 0.03125
+pyc    0.03475
+sic    0.03825
+pyc    0.04225
+matrix
+
+particle 2
+
+bkrnl  0.01000
+buffr2 0.01180
+pyc2   0.01410
+matrix2
+
+/*************************
+*        Geometry        *
+* Radius 0.6225 cm       *
+* Length 79.3 cm         *
+* Packing Fraction 0.35  *
+**************************/
+
+surf 100 inf
+surf 101 inf
+surf 102 inf
+surf 103 inf
+surf 104 inf
+surf 105 inf
+surf 106 inf
+
+cell 500 cm matrix -100
+cell 501 3 helium -101
+cell 502 M block  -102
+cell 503 B block  -103
+cell 504 T block  -104
+cell 505 I block  -105
+cell 506 O block  -106
+
+pbed 4 cm "oecd79"
+pbed 5 cm "crpP2"
+
+% -- Fuel Channel:
+surf 110 cyl 0.0 0.0 0.6225 0.0 79.3
+surf 111 cyl 0.0 0.0 0.6350 0.0 79.3
+
+cell 510 6 fill 4  -110
+cell 511 6 fill 3   110 -111
+cell 512 6 fill M   111
+
+% -- Small Coolant Channel
+surf 112 cyl 0.0 0.0 0.635 0.0 79.3
+
+cell 513 7 fill 3  -112
+cell 51M 7 fill M   112
+
+% -- Large Coolant Channel
+surf 113 cyl 0.0 0.0 0.794 0.0 79.3
+
+cell 515 8 fill 3 -113
+cell 516 8 fill M  113
+
+% -- Lumped burnable poison
+surf 114 cyl 0.0 0.0 0.5715 0.0 79.3
+surf 115 cyl 0.0 0.0 0.6350 0.0 79.3
+
+cell 517 L fill 5  -114
+cell 518 L fill 3   114 -115
+cell 519 L fill M   115
+
+% -- Standard Fuel lattice
+lat 10 2 0.0 0.65 24 24 1.879
+M M M M M M M M M M M M M M M M M M M M M M M M
+ M M M M M M M M M M M M L 6 8 6 6 8 6 6 8 6 L M
+  M M M M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 M
+   M M M M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M
+    M M M M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
+     M M M M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
+      M M M M M M M 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 M
+       M M M M M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M
+        M M M M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M
+         M M M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M
+          M M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M
+           M M L 8 6 6 8 6 6 8 6 M M M 6 8 6 6 8 6 6 8 L M
+            M M 6 6 8 6 6 8 6 6 7 M M 7 6 6 8 6 6 8 6 6 M M
+             M M 8 6 6 8 6 6 8 6 6 7 6 6 8 6 6 8 6 6 8 M M M
+              M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M M M M
+               M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M M M M M
+                M M 8 6 6 8 6 6 8 6 6 8 6 6 8 6 6 8 M M M M M M
+                 M M 6 8 6 6 8 6 6 8 6 6 8 6 6 8 6 M M M M M M M
+                  M M 6 6 8 6 6 8 6 6 8 6 6 8 6 6 M M M M M M M M
+                   M M 8 6 6 8 6 6 8 6 6 8 6 6 8 M M M M M M M M M
+                    M M 6 8 6 6 8 6 6 8 6 6 8 6 M M M M M M M M M M
+                     M M L 6 8 6 6 8 6 6 8 6 L M M M M M M M M M M M
+                      M M M M M M M M M M M M M M M M M M M M M M M M
+                       M M M M M M M M M M M M M M M M M M M M M M M M
+
+% -- Standard Fuel Element Definition
+surf 116 hexyprism 0.0 0.0 18.0 0.0 79.3
+
+cell 520 9 fill 10 -116
+cell 521 9 fill M   116
+
+% -- Core Lattice
+lat 11 3 -18.0 -18.0 20 20 36.0
+O O O O O O O O O O O O O O O O O O O O
+ O O O O O O O O O O O O O O O O O O O O
+  O O O O O O O O O O O O O O O O O O O O
+   O O O O O O O O O O O O O O O O O O O O
+    O O O O O O O O O O O O O O O O O O O O
+     O O O O O O O O O O O 9 9 9 9 O O O O O
+      O O O O O O O O O 9 9 9 9 9 9 9 O O O O
+       O O O O O O O O 9 9 9 9 9 9 9 9 O O O O
+        O O O O O O O 9 9 9 I I I 9 9 9 O O O O
+         O O O O O O 9 9 9 I I I I 9 9 9 O O O O
+          O O O O O O 9 9 I I I I I 9 9 O O O O O
+           O O O O O 9 9 9 I I I I 9 9 9 O O O O O
+            O O O O O 9 9 9 I I I 9 9 9 O O O O O O
+             O O O O O 9 9 9 9 9 9 9 9 O O O O O O O
+              O O O O O 9 9 9 9 9 9 9 O O O O O O O O
+               O O O O O O 9 9 9 9 O O O O O O O O O O
+                O O O O O O O O O O O O O O O O O O O O
+                 O O O O O O O O O O O O O O O O O O O O
+                  O O O O O O O O O O O O O O O O O O O O
+                   O O O O O O O O O O O O O O O O O O O O
+
+surf 117 cyl 0.0 0.0 290 0.0 79.3
+
+cell 522 12 fill 11 -117
+cell 523 12 fill O   117
+
+% -- Core Lattice Stack
+lat 13 9 0.0 0.0 10
+   0.0 12  79.3 12 158.6 12 237.9 12 317.2 12
+ 396.5 12 475.8 12 555.1 12 634.4 12 713.7 12
+
+surf 140 cyl 0.0 0.0 300    0 793
+surf 141 cyl 0.0 0.0 300 -160   0
+surf 142 cyl 0.0 0.0 300  793 913
+surf 143 cyl 0.0 0.0 300 -160 913
+
+cell 540 0 fill 13  -140
+cell 541 0 fill B   -141
+cell 542 0 fill T   -142
+cell 543 0 outside   143
+
+/**********************************
+*            Materials            *
+**********************************/
+
+mat uco      -10.5        tmp 600                  rgb 255 255 0
+ 92235.06c   -0.13615
+ 92238.06c   -0.75170
+  8016.06c   -0.08971
+  6000.06c   -0.02243
+
+mat buffer   -1.0         tmp 600 moder grph 6000 rgb 255 128   0
+ 6000.06c    -1.0
+
+mat pyc      -1.9         tmp 600 moder grph 6000 rgb 255   0   0
+ 6000.06c    -1.0
+
+mat sic      -3.2         tmp 600 moder grph 6000 rgb 153  76   0
+14028.06c    -0.64326
+14029.06c    -0.03396
+14030.06c    -0.02317
+ 6000.06c    -0.2996
+
+mat matrix   -1.74        tmp 600 moder grph 6000 rgb 160 160 160
+ 6000.06c    -1.0
+
+mat bkrnl    -2.47        tmp 600 moder grph 6000 rgb 255 192 203
+ 5010.06c    -0.14422
+ 5011.06c    -0.63856
+ 6000.06c    -0.21722
+
+mat buffr2   -1.0         tmp 600 moder grph 6000 rgb 255 128   0
+ 6000.06c    -1.0
+
+mat pyc2     -1.87        tmp 600 moder grph 6000 rgb 255   0   0
+ 6000.06c    -1.0
+
+mat matrix2  -0.94        tmp 600 moder grph 6000 rgb 160 160 160
+ 6000.06c    -1.0
+
+mat helium   -0.0050680   tmp 600                  rgb 150 105 255
+ 2004.06c    -1.0
+
+mat block    -1.85        tmp 600 moder grph 6000 rgb 155 255 232
+ 6000.06c    -1.0
+
+% --- Thermal scattering data for graphite:
+therm grph 600 gr03.32t gr04.32t
+
+% --- Cross section data library file path:
+set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
+
+/******************************
+*            Input            *
+******************************/
+
+% --- Vacuum boundary condition:
+set bc 1
+
+% --- Geometry plot:
+plot 3 1000 1000
+plot 1 1000 1000 0.5 -540 540 -160.0 920.0
+
+mesh 3 1000 1000
+
+% --- Neutron population and criticality cycles:
+set pop 800000 500 100
+set power 350000000
+
+% --- Energy spectrum detector
+ene MyEnergyGrid 3 500 1e-11 2e1
+det EnergyDetector de MyEnergyGrid
+
+% --- Spatial flux detectors
+% 26G
+ene engrid 1 1.000e-11 1.000e-08 2.000e-08 5.000e-08 8.000e-08 1.200e-07
+            2.000e-07 3.500e-07 6.500e-07 1.290e-06 2.380e-06 5.040e-06
+            8.320e-06 1.370e-05 2.900e-05 6.144e-05 1.301e-04 2.754e-04
+            7.485e-04 1.585e-03 3.355e-03 1.930e-02 1.110e-01 6.720e-01
+            3.680e+00 7.410e+00 1.490e+01
+
+det Axial1 n dh 3  93.53 18.0 36 1 1 -160 913 80 de engrid
+det Axial2 n dh 3 124.71  0.0 36 1 1 -160 913 80 de engrid
+det Axial3 n dh 3 155.88 18.0 36 1 1 -160 913 80 de engrid
+
+det Radial1 n dn 1 0 300 300 0 360 1 0 793 1 de engrid
+det Radial2 n dn 1 0 300 300 0 2 1 396.5 475.8 1 de engrid
+det Radial3 n dn 1 0 300 300 30 32 1 396.5 475.8 1 de engrid
+
+% --- Power distribution detectors
+det power  dr -8 void dh 3 62.35383 108.0 36 5 5 0 793 1
+
+% --- Cross-sections homogenization
+set gcu 9 I O B T
+set nfg engrid
+
+branch fuel0
+stp uco       -10.5       600
+stp buffer     -1.0       600 grph gr03.32t gr04.32t
+stp pyc        -1.9       600 grph gr03.32t gr04.32t
+stp sic        -3.2       600 grph gr03.32t gr04.32t
+stp matrix     -1.74      600 grph gr03.32t gr04.32t
+stp bkrnl      -2.47      600 grph gr03.32t gr04.32t
+stp buffr2     -1.0       600 grph gr03.32t gr04.32t
+stp pyc2       -1.87      600 grph gr03.32t gr04.32t
+stp matrix2    -0.94      600 grph gr03.32t gr04.32t
+stp helium     -0.0050680 600
+stp block      -1.85      600 grph gr03.32t gr04.32t
+
+branch fuel1
+stp uco       -10.5       750
+stp buffer     -1.0       750 grph gr04.32t gr05.32t
+stp pyc        -1.9       750 grph gr04.32t gr05.32t
+stp sic        -3.2       750 grph gr04.32t gr05.32t
+stp matrix     -1.74      750 grph gr04.32t gr05.32t
+stp bkrnl      -2.47      750 grph gr04.32t gr05.32t
+stp buffr2     -1.0       750 grph gr04.32t gr05.32t
+stp pyc2       -1.87      750 grph gr04.32t gr05.32t
+stp matrix2    -0.94      750 grph gr04.32t gr05.32t
+stp helium     -0.0041881 750
+stp block      -1.85      750 grph gr04.32t gr05.32t
+
+branch fuel2
+stp uco       -10.5       1200
+stp buffer     -1.0       1200 grph gr07.32t gr08.32t
+stp pyc        -1.9       1200 grph gr07.32t gr08.32t
+stp sic        -3.2       1200 grph gr07.32t gr08.32t
+stp matrix     -1.74      1200 grph gr07.32t gr08.32t
+stp bkrnl      -2.47      1200 grph gr07.32t gr08.32t
+stp buffr2     -1.0       1200 grph gr07.32t gr08.32t
+stp pyc2       -1.87      1200 grph gr07.32t gr08.32t
+stp matrix2    -0.94      1200 grph gr07.32t gr08.32t
+stp helium     -0.0025525 1200
+stp block      -1.85      1200 grph gr07.32t gr08.32t
+
+coef 1 0
+1 fuel0
