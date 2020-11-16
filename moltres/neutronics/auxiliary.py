@@ -89,7 +89,6 @@ def plotcsv_frommoose_groups(file, save, G=2, dire='z'):
     plt.close()
 
 
-
 def main():
     # Adds legend to geometry figure
     moltres_assembly_legend()
