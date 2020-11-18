@@ -1,5 +1,6 @@
 import os
 import numpy as np
+import matplotlib
 from matplotlib.cbook import get_sample_data
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
@@ -173,10 +174,10 @@ def plot_detector(data, name, V=1):
     val = val/vdetector
 
     plt.figure()
-    plt.step(z, val[0], where='post', label='thermal')
-    plt.step(z, val[1], where='post', label='fast')
-    plt.xlabel('z [cm]')
-    plt.ylabel(r'$\phi$')
+    plt.step(z, val[1], where='post', label='g=1')
+    plt.step(z, val[0], where='post', label='g=2')
+    # plt.xlabel('z [cm]')
+    # plt.ylabel(r'$\phi [\frac{n}{cm^2s}]$')
     plt.legend(loc="upper right")
     plt.savefig(name, dpi=300, bbox_inches="tight")
 
@@ -228,12 +229,14 @@ def plots_fullcore():
 
 def main():
     # Add legends
-    compact()
-    standard()
-    fullcore()
+    # compact()
+    # standard()
+    # fullcore()
+
+    plots_standardcolumn()
 
     # Gets full-core flux plots
-    plots_fullcore()
+    # plots_fullcore()
 
 
 if __name__ == "__main__":
