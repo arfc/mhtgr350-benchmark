@@ -34,7 +34,10 @@ def getxs():
         print(param)
         print(rel_err)
 
-        plt.plot([1, 2, 3], rel_err, marker='o', label=param)
+        if param == 'NSF':
+            plt.plot([1, 2, 3], rel_err, marker='o', label=r'$\nu\Sigma^f_g$')
+        elif param == 'REMXS':
+            plt.plot([1, 2, 3], rel_err, marker='o', label=r'$\Sigma^r_g$')
 
     plt.legend(loc='lower right')
     plt.ylim(bottom=0, top=6)
