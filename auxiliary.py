@@ -176,8 +176,8 @@ def plot_detector(data, name, V=1):
     plt.figure()
     plt.step(z, val[1], where='post', label='g=1')
     plt.step(z, val[0], where='post', label='g=2')
-    # plt.xlabel('z [cm]')
-    # plt.ylabel(r'$\phi [\frac{n}{cm^2s}]$')
+    plt.xlabel('z [cm]')
+    plt.ylabel(r'$\phi [\frac{n}{cm^2s}]$')
     plt.legend(loc="upper right")
     plt.savefig(name, dpi=300, bbox_inches="tight")
 
