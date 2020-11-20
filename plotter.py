@@ -7,6 +7,7 @@ from matplotlib.patches import RegularPolygon
 from matplotlib.collections import PatchCollection
 from matplotlib.pyplot import gca
 from matplotlib.axes import Axes
+import pandas as pd
 
 
 def reagroup(E, val, E0):
