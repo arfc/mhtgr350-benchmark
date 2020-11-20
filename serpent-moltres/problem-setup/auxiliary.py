@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def moltres_assembly_legend():
     '''
-    Adds legend to figure 'preliminary-study/3D-assembly-30deg-reflec-mesh'.
+    Adds legend to figure '3D-assembly-30deg-reflec-mesh'.
 
     '''
 
@@ -24,7 +24,7 @@ def moltres_assembly_legend():
                loc="upper right", bbox_to_anchor=(1.0, 0.0), fancybox=True)
 
     plt.axis('off')
-    plt.savefig('preliminary-study/3D-assembly-30deg-reflec-meshB2',
+    plt.savefig('3D-assembly-30deg-reflec-meshB2',
                 dpi=300, bbox_inches="tight")
 
 
@@ -94,8 +94,8 @@ def main():
     moltres_assembly_legend()
 
     # Plot flux
-    file = 'preliminary-study/3D-assembly-homo-eig-fuel_0002.csv'
-    save = 'preliminary-study/standard-column-homo'
+    file = '3D-assembly-homo-eig-fuel_0002.csv'
+    save = 'standard-column-homo'
     plotcsv_frommoose_groups(file, save, G=2, dire='z')
 
 

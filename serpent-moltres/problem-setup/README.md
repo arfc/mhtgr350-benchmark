@@ -2,7 +2,7 @@
 This preliminary study intends to use Moltres in the same way it solves MSRs to solve a prismatic HTGR fuel column.
 This is a heterogeneous calculation.
 The results suggest using a homogeneous calculation.
-'standard-column-homo.png' displays the neutron flux, which compares to Serpent's result (mhtgr350-benchmark/figures/standard-column-detector-Axial.png)
+'standard-column-homo.png' displays the neutron flux, which compares to Serpent's result (standard-column-detector-Axial.png)
 
 Sigma_t
 Mean free path = 1/Sigma_t
