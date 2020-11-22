@@ -4,8 +4,8 @@ from matplotlib.cbook import get_sample_data
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-# import matplotlib.axes.Axes 
 import pandas as pd
+import serpentTools as st
 
 
 def standard():
@@ -93,6 +93,45 @@ def moltres_assembly_legend():
                 dpi=300, bbox_inches="tight")
 
 
+def plot_serpent_axial(data, name, save, V=1, dire='Z'):
+    """
+    Plots axial flux from serpent detector.
+
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    name: [string]
+        name of the detector
+    fig: [string]
+        root name of the figure
+    V: [float]
+        total volume where the detector is applied [cm3]
+    dire: [float]
+        direction that the detector faces: 'X', 'Y', 'Z'
+    """
+    det = data.detectors[name]
+    z = [line[0] for line in det.grids[dire]]
+    z = np.array(z) + 160
+    val = det.tallies
+    vdetector = V/len(z)
+    val = val/vdetector
+    # M = max(val[1])
+    # val /= M
+    G = len(val)  # number of energy groups
+
+    plt.figure()
+    for i in range(G):
+        plt.step(z, val[G-1-i], where='post', label='g={0}'.format(i+1))
+
+    plt.xlabel(dire.lower()+' [cm]')
+    plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$')
+    if G < 20:
+        plt.legend(loc="upper right")
+    else:
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True)
+    plt.savefig(save + '-' + name, dpi=300, bbox_inches="tight")
+
+
 def plotcsv_frommoose_groups(file, save, G=2, dire='z'):
     '''
     Moltres output is a csv file.
@@ -156,13 +195,20 @@ def plotcsv_frommoose_groups(file, save, G=2, dire='z'):
 
 def main():
     # Serpent results
-    # Adds legend to geometry figure
-    standard()
+    # Add legend to geometry figure
+    # standard()
 
+    # Plot flux
+    data = st.read('standard-column_det0.m', reader='det')
+    save = 'standard-column-detector'
+    A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
+    Ah = 6. * (A * 18./2)  # Area of the hexagon
+    V = Ah * (160 + 793 + 120)
+    plot_serpent_axial(data, 'Axial', save, V)
 
     # Moltres results
-    # Adds legend to geometry figure
-    moltres_assembly_legend()
+    # Add legend to geometry figure
+    # moltres_assembly_legend()
 
     # Plot flux
     file = '3D-assembly-homo-eig-fuel_0002.csv'
