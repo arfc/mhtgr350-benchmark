@@ -155,14 +155,19 @@ def plotcsv_frommoose_groups(file, save, G=2, dire='z'):
 
 
 def main():
+    # Serpent results
     # Adds legend to geometry figure
     standard()
+
+
+    # Moltres results
+    # Adds legend to geometry figure
     moltres_assembly_legend()
 
     # Plot flux
-    # file = '3D-assembly-homo-eig-fuel_0002.csv'
-    # save = 'standard-column-homo'
-    # plotcsv_frommoose_groups(file, save, G=2, dire='z')
+    file = '3D-assembly-homo-eig-fuel_0002.csv'
+    save = 'standard-column-homo'
+    plotcsv_frommoose_groups(file, save, G=2, dire='z')
 
 
 if __name__ == "__main__":
