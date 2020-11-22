@@ -142,7 +142,7 @@
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  file_base = '3D-assembly-30-homo-eig'
+  file_base = '3D-assembly-homo-eig'
   execute_on = timestep_end
   exodus = true
   csv = true

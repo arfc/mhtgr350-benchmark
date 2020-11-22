@@ -93,6 +93,56 @@ def moltres_assembly_legend():
                 dpi=300, bbox_inches="tight")
 
 
+def plot_serpent_axial_werrbars(data, name, save, V=1, dire='Z'):
+    """
+    Plots axial flux from serpent detector.
+
+    Parameters:
+    -----------
+    data: [serpenttools format]
+    name: [string]
+        name of the detector
+    fig: [string]
+        root name of the figure
+    V: [float]
+        total volume where the detector is applied [cm3]
+    dire: [float]
+        direction that the detector faces: 'X', 'Y', 'Z'
+    """
+
+    det = data.detectors[name]
+    z = [line[0] for line in det.grids[dire]]
+    z = np.array(z) + 160
+    val = det.tallies
+
+    vdetector = V/len(z)
+    val = val/vdetector
+    # M = max(val[1])
+    # val /= M
+
+    er = det.errors * val
+    G = len(val)  # number of energy groups
+
+    plt.figure()
+    for i in range(G):
+        # plt.step(z, val[G-1-i], where='post', label='g={0}'.format(i+1))
+        plt.errorbar(z, val[G-1-i], yerr=er[G-1-i], drawstyle='steps-post',
+                     label='g={0}'.format(i+1))
+
+    if G < 20:
+        plt.legend(loc="upper right", fontsize=14)
+    else:
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True,
+                   fontsize=14)
+
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.xlabel(dire.lower()+' [cm]', fontsize=14)
+    plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$', fontsize=14)
+    plt.savefig(save + '-' + name + '-er', dpi=300, bbox_inches="tight")
+    plt.close()
+
+
 def plot_serpent_axial(data, name, save, V=1, dire='Z'):
     """
     Plots axial flux from serpent detector.
@@ -109,6 +159,7 @@ def plot_serpent_axial(data, name, save, V=1, dire='Z'):
     dire: [float]
         direction that the detector faces: 'X', 'Y', 'Z'
     """
+
     det = data.detectors[name]
     z = [line[0] for line in det.grids[dire]]
     z = np.array(z) + 160
@@ -123,13 +174,18 @@ def plot_serpent_axial(data, name, save, V=1, dire='Z'):
     for i in range(G):
         plt.step(z, val[G-1-i], where='post', label='g={0}'.format(i+1))
 
-    plt.xlabel(dire.lower()+' [cm]')
-    plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$')
     if G < 20:
-        plt.legend(loc="upper right")
+        plt.legend(loc="upper right", fontsize=14)
     else:
-        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True)
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True,
+                   fontsize=14)
+
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.xlabel(dire.lower()+' [cm]', fontsize=14)
+    plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$', fontsize=14)
     plt.savefig(save + '-' + name, dpi=300, bbox_inches="tight")
+    plt.close()
 
 
 def plotcsv_frommoose_groups(file, save, G=2, dire='z'):
@@ -182,13 +238,15 @@ def plotcsv_frommoose_groups(file, save, G=2, dire='z'):
         plt.plot(x, group[i], label='g='+str(i+1))
 
     if G < 20:
-        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
+        plt.legend(loc="upper right", fontsize=14)
     else:
-        # 1.1 or 1.2
-        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.1), fancybox=True)
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True,
+                   fontsize=14)
 
-    plt.xlabel(dire+' [cm]')
-    plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$')
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.xlabel(dire+' [cm]', fontsize=14)
+    plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$', fontsize=14)
     plt.savefig(save, dpi=300, bbox_inches="tight")
     plt.close()
 
@@ -204,14 +262,15 @@ def main():
     A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
     Ah = 6. * (A * 18./2)  # Area of the hexagon
     V = Ah * (160 + 793 + 120)
-    plot_serpent_axial(data, 'Axial', save, V)
+    # plot_serpent_axial(data, 'Axial', save, V)
+    plot_serpent_axial_werrbars(data, 'Axial', save, V)
 
     # Moltres results
     # Add legend to geometry figure
     # moltres_assembly_legend()
 
     # Plot flux
-    file = '3D-assembly-homo-eig-fuel_0002.csv'
+    file = '3D-assembly-homo-eig_fuel_0002.csv'
     save = 'standard-column-homo'
     plotcsv_frommoose_groups(file, save, G=2, dire='z')
 
