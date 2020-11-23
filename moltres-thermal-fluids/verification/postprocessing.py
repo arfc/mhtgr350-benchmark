@@ -171,7 +171,7 @@ def plot_verification_axial():
     plt.yticks(fontsize=14)
     plt.xlabel('z [cm]', fontsize=14)
     plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
-    plt.legend(loc='upper right', fontsize=14)
+    plt.legend(loc='lower left', fontsize=14)
     plt.savefig('2D-preliminar-axial', dpi=300, bbox_inches="tight")
 
 
@@ -242,7 +242,7 @@ def plot_verification_radial():
     plt.yticks(fontsize=14)
     plt.xlabel('r [cm]', fontsize=14)
     plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
-    plt.legend(loc='upper right', fontsize=14)
+    plt.legend(loc='lower left', fontsize=14)
     plt.savefig('2D-preliminar-radial2', dpi=300, bbox_inches="tight")
 
 
