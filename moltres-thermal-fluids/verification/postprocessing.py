@@ -167,9 +167,11 @@ def plot_verification_axial():
     temp = file['temp'].tolist()
     plt.plot(d, temp, label=r'numerical T$_f$')
 
-    plt.ylabel(r'Temperature [$^{\circ}$C]')
-    plt.xlabel('z [cm]')
-    plt.legend(loc='upper right')
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.xlabel('z [cm]', fontsize=14)
+    plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
+    plt.legend(loc='upper right', fontsize=14)
     plt.savefig('2D-preliminar-axial', dpi=300, bbox_inches="tight")
 
 
@@ -236,15 +238,17 @@ def plot_verification_radial():
     temp = file['temp'].tolist()
     plt.plot(d, temp, label='numerical')
 
-    plt.ylabel(r'Temperature [$^{\circ}$C]')
-    plt.xlabel('r [cm]')
-    plt.legend(loc='upper right')
+    plt.xticks(fontsize=14)
+    plt.yticks(fontsize=14)
+    plt.xlabel('r [cm]', fontsize=14)
+    plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
+    plt.legend(loc='upper right', fontsize=14)
     plt.savefig('2D-preliminar-radial2', dpi=300, bbox_inches="tight")
 
 
 def verification():
     # adds legend to mesh figure
-    add_legends('ver-mesh', 'ver-mesh2')
+    # add_legends('ver-mesh', 'ver-mesh2')
 
     # plots axial numerical and analytical temperatures
     plot_verification_axial()
