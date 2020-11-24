@@ -31,7 +31,8 @@ def fullcore():
 def fullcore_detectors():
     '''
     Adds legend to fuel core geometry image:
-    'oecd-fullcore_geom1.png'.
+    'oecd-fullcore_geom1.png' with the location of serpent detectors.
+
     '''
 
     cwd = os.getcwd()
@@ -45,7 +46,7 @@ def fullcore_detectors():
     y2 = int(height*0.6)
     x1 = int(width*0.45)
     x2 = int(width)
-    plt.imshow(im[y1:y2,x1:x2,:])
+    plt.imshow(im[y1:y2, x1:x2, :])
     plt.axis('off')
 
     # Axial 1
@@ -100,7 +101,8 @@ def fullcore_detectors():
     x = 52
     y = 349
     L = 495
-    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5, label='6- Radial3')
+    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5
+             label='6- Radial3')
     plt.text(x=350, y=y-200, s='6', rotation=30, fontsize=20, color='black')
     plt.legend(loc='best')
 
@@ -111,7 +113,9 @@ def fullcore_detectors():
 def fullcore_detectors_thesis():
     '''
     Adds legend to fuel core geometry image:
-    'oecd-fullcore_geom1.png'.
+    'oecd-fullcore_geom1.png' with the detectors with the same location
+    as the detectors in Moltres input files.
+
     '''
 
     cwd = os.getcwd()
@@ -125,7 +129,7 @@ def fullcore_detectors_thesis():
     y2 = int(height*0.6)
     x1 = int(width*0.45)
     x2 = int(width)
-    plt.imshow(im[y1:y2,x1:x2,:])
+    plt.imshow(im[y1:y2, x1:x2, :])
     plt.axis('off')
 
     # Axial 1
@@ -145,7 +149,8 @@ def fullcore_detectors_thesis():
     x = 52
     y = 349
     L = 495
-    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5, label='2 - Radial')
+    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5,
+             label='2 - Radial')
     plt.text(x=x+310, y=y-200, s='2', rotation=30, fontsize=24, color='black')
 
     plt.legend(loc='best')
@@ -154,6 +159,11 @@ def fullcore_detectors_thesis():
 
 
 if __name__ == "__main__":
+    # adds legends to full-core figure
     fullcore()
+
+    # adds legends to full-core figure w/ location of the serpent detectors
     fullcore_detectors()
+
+    # this figure goes into my ms thesis
     fullcore_detectors_thesis()
