@@ -31,6 +31,29 @@ def add_legends_full_assembly():
     plt.close()
 
 
+def full_assembly_convergence():
+    '''
+    This function plots the values from cool and fuel vs dofs in a figure.
+
+    '''
+
+    cool = [1060.405, 1062.230, 1063.999, 1065.128, 1065.318]
+    fuel = [1204.485, 1217.320, 1225.565, 1233.442, 1234.928]
+    dofs = [ 524291, 665893, 932129, 1317444, 1524595]
+    elements = [ 1025400, 1305800, 1833000, 2596000, 3006200]
+
+    plt.plot(dofs, cool, marker='o', label='Coolant')
+    plt.plot(dofs, fuel, marker='o', label='Fuel')
+    plt.legend(loc='best')
+    plt.ylabel(r'Temperature [$^{\circ}$C]')
+    plt.xlabel('Number of DoFs')
+    plt.savefig('full-assem-convergence', dpi=300, bbox_inches="tight")
+    plt.close()
+
+
 if __name__ == "__main__":
     # adds legends to mesh figure
     add_legends_full_assembly()
+
+    # plots the convergence of the temperatures
+    full_assembly_convergence()
