@@ -8,13 +8,13 @@
 
 /******************************
 *      Particle Definition    *
-* Kernel radius 2.125e-2 cm   *
-* Buffer radius 3.125e-2 cm   *
-* IPyC radius   3.475e-2 cm   *
-* SiC radius    3.825e-2 cm   *
-* OPyC radius   4.225e-2 cm   *
+* Kernel radius 2.125e-6 cm   *
+* Buffer radius 3.125e-6 cm   *
+* IPyC radius   3.475e-6 cm   *
+* SiC radius    3.825e-6 cm   *
+* OPyC radius   4.225e-6 cm   *
 * Matrix Graphite             *
-*******************************/
+******************************/
 particle 1
 
 uco    0.02125
@@ -26,10 +26,7 @@ matrix
 
 /*************************
 *        Geometry        *
-* Radius 0.6225 cm       *
-* Length 4.928 cm        *
-* Packing Fraction 0.35  *
-**************************/
+*************************/
 
 surf 100 inf
 surf 101 inf
@@ -97,8 +94,22 @@ set acelib "/projects/sciteam/bbcc/serpent/xsdata/jeff312/sss_jeff312.xsdata"
 set bc 3
 
 % --- Geometry plot:
-plot 3 1000 1000 0.2
+plot 3 1000 1000 0.2 -1.1 1.1 -1.1 1.1
 
 % --- Neutron population and criticality cycles:
 set pop 50000 500 50
 
+set gcu 0
+set nfg 3 2.38E-6 1.11E-1
+
+branch fuel0
+stp uco      -10.5      1200
+stp buffer   -1.0       1200 grph2 gr07.32t gr08.32t
+stp pyc      -1.9       1200 grph2 gr07.32t gr08.32t
+stp sic      -3.2       1200 grph2 gr07.32t gr08.32t
+stp matrix   -1.74      1200 grph2 gr07.32t gr08.32t
+stp helium   -0.0025525 1200
+stp block    -1.85      1000 grph1 gr06.32t gr07.32t
+
+coef 1 0
+1 fuel0
