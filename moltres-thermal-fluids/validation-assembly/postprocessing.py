@@ -20,7 +20,6 @@ def add_legends(figure, save):
 
     red = mpatches.Patch(color=(1., 0., 0.), label='Fuel')
     green = mpatches.Patch(color=(0., 1., 0.), label='Gap')
-    # gray = mpatches.Patch(color=(0.63, 0.63, 0.63), label='Moderator')
     gray = mpatches.Patch(color=(0.91, 0.91, 0.91), label='Moderator')
     yellow = mpatches.Patch(color=(1., 1., 0.), label='Film')
     blue = mpatches.Patch(color=(0., 0., 1.), label='Coolant')
@@ -396,5 +395,9 @@ def plot_val_assem_results():
     plt.close()
 
 
-# add_legends_val_fuel('mesh', 'val-assem-mesh')
-plot_val_assem_results()
+if __name__ == "__main__":
+    # adds legend to mesh figure
+    add_legends_val_fuel('mesh', 'val-assem-mesh')
+
+    # plot results
+    plot_val_assem_results()
