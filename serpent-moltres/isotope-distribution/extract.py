@@ -14,7 +14,7 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, serp1=False,
 
     '''
 
-    # the constants moltres looks for:
+    # the required constants for the analysis:
     goodStuff = ['Chit', 'Diffcoef', 'Nsf', 'Remxs']
     goodMap = dict([(thing, 'inf' + thing) for thing in goodStuff])
 
@@ -66,7 +66,6 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, serp1=False,
                     item))
 
         try:
-
             for coefficient in goodStuff:
                 with open(outdir + '/' + filebase + '_' + currentMat +
                           '_' + coefficient.upper() + '.txt', 'a') as fh:
@@ -81,96 +80,14 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, serp1=False,
                     fh.write('\n')
 
         except KeyError:
-            # print(secBranch)
             raise Exception('Check your mapping and secondary branch files.')
-
-
-def collapse(XS, lim):
-    '''
-    This function collapses fine group cross sections
-    into coarse group cross sections.
-    Parameters:
-    -----------
-    XS: dictionary
-        parameters to collapse
-    lim: array of int
-        sets the lower limits of the coarse groups
-    Returns:
-    --------
-    CXS: dictionary
-        collapsed parameters
-    '''
-    G = len(lim)
-    CXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'NSF': [], 'FISS': [], 'CHIT': [],
-           'SP0': np.zeros((G, G))}
-
-    data = ['ST', 'DIFFCOEF', 'NSF', 'FISS']
-
-    for g in range(G):
-        if g == 0:
-            phi = 0
-            chi = 0
-            for i in range(lim[0]):
-                phi += float(XS['FLX'][i])
-                chi += float(XS['CHIT'][i])
-            CXS['FLX'].append(phi)
-            CXS['CHIT'].append(chi)
-  
-            for dat in data:
-                xs = 0
-                for i in range(lim[0]):
-                    xs += float(XS[dat][i]) * float(XS['FLX'][i])
-                CXS[dat].append(xs/CXS['FLX'][0])
-
-        else:
-            phi = 0
-            chi = 0
-            for i in range(lim[g-1], lim[g]):
-                phi += float(XS['FLX'][i])
-                chi += float(XS['CHIT'][i])
-            CXS['FLX'].append(phi)
-            CXS['CHIT'].append(chi)
-
-            for dat in data:
-                xs = 0
-                for i in range(lim[g-1], lim[g]):
-                    xs += float(XS[dat][i]) * float(XS['FLX'][i])
-                CXS[dat].append(xs/CXS['FLX'][g])
-
-    for g in range(G):
-        for gp in range(G):
-
-            ss = 0
-            if g == 0 and gp == 0:
-                for i in range(lim[0]):
-                    for j in range(lim[0]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
-
-            elif g == 0:
-                for i in range(lim[0]):
-                    for j in range(lim[gp-1], lim[gp]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
-
-            elif gp == 0:
-                for i in range(lim[g-1], lim[g]):
-                    for j in range(lim[0]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
-
-            else:
-                for i in range(lim[g-1], lim[g]):
-                    for j in range(lim[gp-1], lim[gp]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
-
-            CXS['SP0'][g, gp] = ss/CXS['FLX'][g]
-
-    return CXS
 
 
 if __name__ == '__main__':
 
     # make it act like a nice little terminal program
     parser = argparse.ArgumentParser(
-        description='Extracts Serpent 2 group constants, \
+        description='Extracts Serpent2 group constants, \
             and puts them in a directory suitable for moltres.')
     parser.add_argument('outDir', metavar='o', type=str, nargs=1,
                         help='name of directory to write properties to.')
@@ -197,12 +114,12 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
 
-    # these are unpacked, so it fails if they werent passed to the script
+    # it fails if they werent passed to the script
     outdir = args.outDir[0]
     fileBase = args.fileBase[0]
     mapFile = args.mapFile[0]
     unimapFile = args.universeMap[0]
 
-    makePropertiesDir(outdir, fileBase, mapFile, unimapFile, serp1=args.serp1, fromMain=True)
-
+    makePropertiesDir(outdir, fileBase, mapFile, unimapFile, serp1=args.serp1,
+                      fromMain=True)
     print("Successfully made property files in directory {}.".format(outdir))

@@ -27,8 +27,8 @@ matrix
 /*************************
 *        Geometry        *
 * Radius 0.6225 cm       *
-* Length 4.928 cm        *	
-* Packing Fraction 0.35  *	
+* Length 4.928 cm        *
+* Packing Fraction 0.35  *
 **************************/
 
 surf 100 inf
