@@ -1,8 +1,9 @@
 import os
+import numpy as np
 from matplotlib.cbook import get_sample_data
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
-import numpy as np
+import matplotlib.ticker as ticker
 
 
 def fullcore():
@@ -17,13 +18,31 @@ def fullcore():
                            label='Graphite Reflector')
 
     cwd = os.getcwd()
-    plt.figure()
     fname = get_sample_data('%s/oecd-fullcore_geom1.png' % (cwd))
-    im = plt.imread(fname)
-    plt.imshow(im)
-    plt.legend(handles=[matrix, block])
+    image = plt.imread(fname)
+    fig, ax = plt.subplots()
+    ax.imshow(image)
 
-    plt.axis('off')
+    xlength = 2 * 2.97
+    scalex = xlength/1000
+    ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scalex))
+    ax.xaxis.set_major_formatter(ticks_x)
+    xticks = np.arange(0, np.floor(xlength)+1)/scalex
+    ax.set_xticks(xticks)
+    ax.tick_params(axis="x", labelsize=12)
+
+    ylength = 2 * 2.97
+    scaley = ylength/1000
+    ticks_y = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scaley))
+    ax.yaxis.set_major_formatter(ticks_y)
+    yticks = np.arange(0, np.floor(ylength)+1)/scaley
+    ax.set_yticks(yticks)
+    ax.tick_params(axis="y", labelsize=12)
+
+    ax.set_xlabel('x [m]', fontsize=12)
+    ax.set_ylabel('y [m]', fontsize=12)
+    plt.legend(handles=[matrix, block], loc="lower right",
+               bbox_to_anchor=(1.0, 1.0),  fontsize=12)
     plt.savefig("oecd-fullcore", dpi=300, bbox_inches="tight")
     plt.close()
 
@@ -101,7 +120,7 @@ def fullcore_detectors():
     x = 52
     y = 349
     L = 495
-    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5
+    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5,
              label='6- Radial3')
     plt.text(x=350, y=y-200, s='6', rotation=30, fontsize=20, color='black')
     plt.legend(loc='best')
