@@ -53,26 +53,6 @@ def standard():
     plt.savefig("figures/standard", dpi=300, bbox_inches="tight")
 
 
-def fullcore():
-    '''
-    Adds legend to fuel core geometry image:
-    'fullcore_geom1.png'.
-    '''
-
-    matrix = mpatches.Patch(color=(0.63, 0.63, 0.63),
-                            label='Graphite Fuel Block')
-    block = mpatches.Patch(color=(0.61, 1., 0.91), label='Graphite Reflector')
-
-    cwd = os.getcwd()
-    fname = get_sample_data('%s/figures/fullcore_geom1.png' % (cwd))
-    im = plt.imread(fname)
-    plt.imshow(im)
-    plt.legend(handles=[matrix, block])
-
-    plt.axis('off')
-    plt.savefig("figures/fullcore", dpi=300, bbox_inches="tight")
-
-
 def plot_spectrum(data, name, fig):
     """
     Plots spectrum normalized. The integral of the flux is 1.
