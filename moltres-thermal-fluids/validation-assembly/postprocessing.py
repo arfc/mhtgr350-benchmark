@@ -76,7 +76,7 @@ def plot_val_assem_results():
 
     plt.legend(loc='upper right', fontsize=14)
     plt.xticks(fontsize=14)
-    plt.yticks(np.linspace(900, 1050, 6),fontsize=14)
+    plt.yticks(np.linspace(900, 1050, 6), fontsize=14)
     plt.xlabel('Distance from point A [cm]', fontsize=14)
     plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
     plt.savefig('val-assem-line-AB', dpi=300, bbox_inches="tight")
