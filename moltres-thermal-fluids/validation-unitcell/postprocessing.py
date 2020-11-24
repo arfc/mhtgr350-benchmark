@@ -153,4 +153,8 @@ def plot_coolant_fuel(filename):
 
 
 if __name__ == "__main__":
+    # adds legends to the mesh figure
+    add_legends('unitcell', 'unitcell2')
+
+    # plots results
     plot_coolant_fuel('in-2006')
