@@ -248,7 +248,7 @@ def plot_verification_radial():
 
 def verification():
     # adds legend to mesh figure
-    # add_legends('ver-mesh', 'ver-mesh2')
+    add_legends('ver-mesh', 'ver-mesh2')
 
     # plots axial numerical and analytical temperatures
     plot_verification_axial()
