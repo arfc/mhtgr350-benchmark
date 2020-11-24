@@ -15,7 +15,7 @@ v13 = -2565
 v14 = -1210
 
 [Mesh]
-  file = assembly-gap15.msh
+  file = assembly-gap.msh
 [../]
 
 [Variables]
@@ -381,7 +381,7 @@ v14 = -1210
 
 [Outputs]
   perf_graph = true
-  file_base = 'input-g5'
+  file_base = 'input-g'
   execute_on = 'final'
   exodus = true
   csv = true

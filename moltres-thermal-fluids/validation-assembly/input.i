@@ -14,7 +14,7 @@ v12 = -2647
 v13 = -2642
 
 [Mesh]
-  file = assembly2.msh
+  file = assembly.msh
 [../]
 
 [Variables]
