@@ -8,13 +8,13 @@
 
 /******************************
 *      Particle Definition    *
-* Kernel radius 2.125e-6 cm   *
-* Buffer radius 3.125e-6 cm   *
-* IPyC radius   3.475e-6 cm   *
-* SiC radius    3.825e-6 cm   *
-* OPyC radius   4.225e-6 cm   *
+* Kernel radius 2.125e-2 cm   *
+* Buffer radius 3.125e-2 cm   *
+* IPyC radius   3.475e-2 cm   *
+* SiC radius    3.825e-2 cm   *
+* OPyC radius   4.225e-2 cm   *
 * Matrix Graphite             *
-******************************/
+*******************************/
 particle 1
 
 uco    0.02125
@@ -26,7 +26,10 @@ matrix
 
 /*************************
 *        Geometry        *
-*************************/
+* Radius 0.6225 cm       *
+* Length 4.928 cm        *	
+* Packing Fraction 0.35  *	
+**************************/
 
 surf 100 inf
 surf 101 inf

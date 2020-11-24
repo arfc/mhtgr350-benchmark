@@ -6,8 +6,11 @@
 * Cells: 500 to 600
 */
 
-/**************************
-*   Geometry Definition   *
+/*************************
+*        Geometry        *
+* Radius 0.6225 cm       *
+* Length 4.928 cm        *	
+* Packing Fraction 0.35  *	
 **************************/
 
 surf 100 inf
