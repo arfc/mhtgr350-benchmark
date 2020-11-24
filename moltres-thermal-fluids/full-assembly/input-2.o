@@ -1,0 +1,134 @@
+----------------------------------------
+Begin Torque Prologue on nid27561
+at Wed Oct 21 09:26:32 CDT 2020
+Job Id:			11643523.bw
+Username:		froberto
+Group:			ILL_bbcc
+Job name:		masters-loop
+Requested resources:	nodes=1:ppn=32:xe,walltime=00:30:00,neednodes=1:ppn=32:xe
+Queue:			normal
+Account:		bbcc
+End Torque Prologue:  0.100 elapsed
+----------------------------------------
+
+
+
+
+/var/spool/torque/mom_priv/jobs/11643523.bw.SC: line 56: /projects/sciteam/bbcc/source_me_for_MOOSE: Permission denied
+
+Building mesh ............................................                                 [[33m 45.83 s[39m]
+Caching mesh information ...                                                               [[33m  4.02 s[39m]
+Initializing equation system .........                                                     [[33m 10.00 s[39m]
+Caching mesh information ...                                                               [[33m  4.42 s[39m]
+
+Framework Information:
+MOOSE Version:           git commit f052e463d8 on 2019-11-13
+LibMesh Version:         143b57032761c71a1df09c59ffc692bb4f198a0c
+PETSc Version:           3.9.3
+Current Time:            Wed Oct 21 09:27:56 2020
+Executable Timestamp:    Wed Oct 21 09:26:36 2020
+
+Parallelism:
+  Num Processors:          16
+  Num Threads:             1
+
+Mesh: 
+  Parallel Type:           replicated
+  Mesh Dimension:          3
+  Spatial Dimension:       3
+  Nodes:                   
+    Total:                 665893
+    Local:                 44801
+  Elems:                   
+    Total:                 1305800
+    Local:                 82138
+  Num Subdomains:          5
+  Num Partitions:          16
+  Partitioner:             metis
+
+Nonlinear System:
+  Num DOFs:                665893
+  Num Local DOFs:          44801
+  Variables:               "temp" 
+  Finite Element Types:    "LAGRANGE" 
+  Approximation Orders:    "FIRST" 
+
+Relationship Managers:
+  Default:                 libMesh::DefaultCoupling x 2
+
+Execution Information:
+  Executioner:             Steady
+  Solver Mode:             NEWTON
+  MOOSE Preconditioner:    SMP
+
+Caching mesh information ...                                                               [[33m  4.51 s[39m]
+Projecting initial condition                                                               [[33m  1.61 s[39m]
+
+Postprocessor Values:
++----------------+----------------+----------------+----------------+
+| time           | max_cool_T     | max_fuel_T     | memory         |
++----------------+----------------+----------------+----------------+
+|   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |
++----------------+----------------+----------------+----------------+
+
+Computing initial residual                                                                 [[33m  1.52 s[39m]
+ 0 Nonlinear |R| = [32m1.436119e+04[39m
+      0 Linear |R| = [32m1.436119e+04[39m
+      1 Linear |R| = [32m1.935318e-07[39m
+  Linear solve converged due to CONVERGED_RTOL iterations 1
+      Line search: Using full step: fnorm 1.436118744948e+04 gnorm 5.671248910776e+03
+ 1 Nonlinear |R| = [32m5.671249e+03[39m
+      0 Linear |R| = [32m5.671249e+03[39m
+      1 Linear |R| = [32m2.717831e-10[39m
+  Linear solve converged due to CONVERGED_RTOL iterations 1
+      Line search: Using full step: fnorm 5.671248910776e+03 gnorm 2.497913433241e+01
+ 2 Nonlinear |R| = [32m2.497913e+01[39m
+      0 Linear |R| = [32m2.497913e+01[39m
+      1 Linear |R| = [32m1.478379e-13[39m
+  Linear solve converged due to CONVERGED_RTOL iterations 1
+      Line search: Using full step: fnorm 2.497913433241e+01 gnorm 4.920677429466e-04
+ 3 Nonlinear |R| = [32m4.920677e-04[39m
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE iterations 3
+[32m Solve Converged![39m
+
+Postprocessor Values:
++----------------+----------------+----------------+----------------+
+| time           | max_cool_T     | max_fuel_T     | memory         |
++----------------+----------------+----------------+----------------+
+|   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |
+|   1.000000e+00 |   1.062230e+03 |   1.217320e+03 |   2.460500e+04 |
++----------------+----------------+----------------+----------------+
+
+
+Performance Graph:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+|                  Section                 | Calls |   Self(s)  |   Avg(s)   |    %   | Children(s) |   Avg(s)   |    %   |  Total(s)  |   Avg(s)   |    %   |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+| MoltresApp (main)                        |     1 |      0.303 |      0.303 |   0.09 |     350.321 |    350.321 |  99.91 |    350.624 |    350.624 | 100.00 |
+|   FEProblem::outputStep                  |     2 |      0.003 |      0.001 |   0.00 |       0.379 |      0.190 |   0.11 |      0.382 |      0.191 |   0.11 |
+|   Steady::PicardSolve                    |     1 |      0.001 |      0.001 |   0.00 |     261.673 |    261.673 |  74.63 |    261.673 |    261.673 |  74.63 |
+|     FEProblem::computeUserObjects        |     1 |      0.375 |      0.375 |   0.11 |       0.000 |      0.000 |   0.00 |      0.375 |      0.375 |   0.11 |
+|     FEProblem::solve                     |     1 |    244.313 |    244.313 |  69.68 |      16.898 |     16.898 |   4.82 |    261.211 |    261.211 |  74.50 |
+|       FEProblem::computeResidualInternal |     5 |      0.003 |      0.001 |   0.00 |       7.355 |      1.471 |   2.10 |      7.358 |      1.472 |   2.10 |
+|         FEProblem::computeUserObjects    |     5 |      0.001 |      0.000 |   0.00 |       0.000 |      0.000 |   0.00 |      0.001 |      0.000 |   0.00 |
+|       FEProblem::computeJacobianInternal |     3 |      0.000 |      0.000 |   0.00 |       9.539 |      3.180 |   2.72 |      9.539 |      3.180 |   2.72 |
+|     FEProblem::outputStep                |     1 |      0.001 |      0.001 |   0.00 |       0.000 |      0.000 |   0.00 |      0.001 |      0.001 |   0.00 |
+|   Steady::final                          |     1 |      0.000 |      0.000 |   0.00 |      11.667 |     11.667 |   3.33 |     11.667 |     11.667 |   3.33 |
+|     FEProblem::computeUserObjects        |     1 |     11.653 |     11.653 |   3.32 |       0.000 |      0.000 |   0.00 |     11.653 |     11.653 |   3.32 |
+|     FEProblem::outputStep                |     1 |      0.001 |      0.001 |   0.00 |       0.013 |      0.013 |   0.00 |      0.014 |      0.014 |   0.00 |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+FINAL:
+
+Postprocessor Values:
++----------------+----------------+----------------+----------------+
+| time           | max_cool_T     | max_fuel_T     | memory         |
++----------------+----------------+----------------+----------------+
+|   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |
+|   1.000000e+00 |   1.062230e+03 |   1.217320e+03 |   2.460500e+04 |
+|   2.000000e+00 |   1.062230e+03 |   1.217320e+03 |   2.460500e+04 |
++----------------+----------------+----------------+----------------+
+
+Outputing exodus 
+.....                                                                                      [[33m6.79   s[39m]
+Application 93613905 resources: utime ~5540s, stime ~153s, Rss ~1805716, inblocks ~1598883, outblocks ~951903
