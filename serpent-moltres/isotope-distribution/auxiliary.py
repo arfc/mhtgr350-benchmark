@@ -93,10 +93,7 @@ def compact_homo():
     plt.savefig("compact-homo", dpi=300, bbox_inches="tight")
 
 
-def main():
+if __name__ == "__main__":
     # Add legends
     compact_hete()
     compact_homo()
-
-if __name__ == "__main__":
-    main()
