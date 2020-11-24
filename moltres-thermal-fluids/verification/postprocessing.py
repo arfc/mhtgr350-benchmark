@@ -34,39 +34,6 @@ def add_legends_verification(figure, save):
     plt.savefig(save, dpi=300, bbox_inches="tight")
 
 
-def plotcsv_frommoose_temp(file, save, dire='x'):
-    '''
-    Moltres output is a csv file.
-    This function plots those values.
-    The output is a figure.
-
-    Parameters:
-    -----------
-    file: [string]
-        name of the .csv file
-    save: [string]
-        name of the figure
-    dire: ['x', 'y', 'z']
-        direction of the detector
-    '''
-    file = pd.read_csv(file)
-
-    if dire == 'r':
-        x = np.array(file['x'].tolist())
-        y = np.array(file['y'].tolist())
-        d = np.sqrt(x**2 + y**2)
-    else:
-        d = file[dire].tolist()
-
-    temp = file['temp'].tolist()
-
-    plt.figure()
-    plt.plot(d, temp)
-    plt.ylabel(r'Temperature [$^{\circ}$C]')
-    plt.xlabel(dire + ' [cm]')
-    plt.savefig(save, dpi=300, bbox_inches="tight")
-
-
 def TCCL(z):
     '''
     Calculates the bulk coolant temperature for a certain 'z'.
