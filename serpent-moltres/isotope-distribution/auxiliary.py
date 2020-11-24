@@ -1,11 +1,10 @@
 import os
 import numpy as np
 import matplotlib
+import matplotlib.pyplot as plt
 from matplotlib.cbook import get_sample_data
 import matplotlib.patches as mpatches
-import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
-import serpentTools as st
 
 
 def compact_hete():
