@@ -1,0 +1,111 @@
+Building mesh .                                                                            [  2.55 s]
+
+Framework Information:
+MOOSE Version:           git commit 6a54c7ffdc on 2020-07-08
+LibMesh Version:         34618d0cd8517ebf15e1ecbbcb20d588228e4690
+PETSc Version:           3.13.3
+SLEPc Version:           3.13.3
+Current Time:            Fri Oct 23 14:23:35 2020
+Executable Timestamp:    Fri Sep 18 09:15:57 2020
+
+Parallelism:
+  Num Processors:          10
+  Num Threads:             1
+
+Mesh: 
+  Parallel Type:           replicated
+  Mesh Dimension:          3
+  Spatial Dimension:       3
+  Nodes:                   
+    Total:                 82518
+    Local:                 9029
+  Elems:                   
+    Total:                 149350
+    Local:                 14772
+  Num Subdomains:          19
+  Num Partitions:          10
+  Partitioner:             metis
+
+Nonlinear System:
+  Num DOFs:                82518
+  Num Local DOFs:          9029
+  Variables:               "temp" 
+  Finite Element Types:    "LAGRANGE" 
+  Approximation Orders:    "FIRST" 
+
+Execution Information:
+  Executioner:             Steady
+  Solver Mode:             NEWTON
+  MOOSE Preconditioner:    SMP
+
+LEGACY MODES ENABLED:
+ Default for parameter preset = false for all DirichletBC and ADDirichletBC objects.
+ Set use_legacy_dirichlet_bc = false in the application to change to the preferred behavior.
+
+LEGACY MODES ENABLED:
+ This application uses the legacy material output option: material properties are output only on TIMESTEP_END, not INITIAL. To remove this message, set 'use_legacy_material_output' to false in this application. If there are gold output files that contain material property output for which output occurs on INITIAL, then these will generate diffs due to zero values being stored, and these tests should be re-golded.
+
+
+Postprocessor Values:
++----------------+----------------+----------------+----------------+
+| time           | max_cool_T     | max_fuel_T     | memory         |
++----------------+----------------+----------------+----------------+
+|   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |
++----------------+----------------+----------------+----------------+
+
+ 0 Nonlinear |R| = 3.183523e+03
+      0 Linear |R| = 3.183523e+03
+      1 Linear |R| = 3.716804e-07
+  Linear solve converged due to CONVERGED_RTOL iterations 1
+      Line search: Using full step: fnorm 3.183522888039e+03 gnorm 1.408379246188e+03
+ 1 Nonlinear |R| = 1.408379e+03
+      0 Linear |R| = 1.408379e+03
+      1 Linear |R| = 3.943331e-10
+  Linear solve converged due to CONVERGED_RTOL iterations 1
+      Line search: Using full step: fnorm 1.408379246188e+03 gnorm 6.016745423744e+00
+ 2 Nonlinear |R| = 6.016745e+00
+      0 Linear |R| = 6.016745e+00
+      1 Linear |R| = 1.171472e-13
+  Linear solve converged due to CONVERGED_RTOL iterations 1
+      Line search: Using full step: fnorm 6.016745423744e+00 gnorm 1.019947425253e-04
+ 3 Nonlinear |R| = 1.019947e-04
+Nonlinear solve converged due to CONVERGED_FNORM_RELATIVE iterations 3
+ Solve Converged!
+
+Postprocessor Values:
++----------------+----------------+----------------+----------------+
+| time           | max_cool_T     | max_fuel_T     | memory         |
++----------------+----------------+----------------+----------------+
+|   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |
+|   1.000000e+00 |   1.005975e+03 |   1.115220e+03 |   2.444000e+03 |
++----------------+----------------+----------------+----------------+
+
+
+Performance Graph:
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+|                  Section                 | Calls |   Self(s)  |   Avg(s)   |    %   | Children(s) |   Avg(s)   |    %   |  Total(s)  |   Avg(s)   |    %   |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+| MoltresApp (main)                        |     1 |      0.011 |      0.011 |   0.07 |      14.209 |     14.209 |  99.93 |     14.220 |     14.220 | 100.00 |
+|   FEProblem::outputStep                  |     2 |      0.001 |      0.000 |   0.01 |       0.035 |      0.017 |   0.24 |      0.036 |      0.018 |   0.25 |
+|   Steady::PicardSolve                    |     1 |      0.000 |      0.000 |   0.00 |       9.366 |      9.366 |  65.86 |      9.366 |      9.366 |  65.87 |
+|     FEProblem::computeUserObjects        |     1 |      0.018 |      0.018 |   0.13 |       0.000 |      0.000 |   0.00 |      0.018 |      0.018 |   0.13 |
+|     FEProblem::solve                     |     1 |      8.114 |      8.114 |  57.06 |       1.233 |      1.233 |   8.67 |      9.348 |      9.348 |  65.74 |
+|       FEProblem::computeResidualInternal |     5 |      0.000 |      0.000 |   0.00 |       0.486 |      0.097 |   3.42 |      0.486 |      0.097 |   3.42 |
+|         FEProblem::computeUserObjects    |     5 |      0.000 |      0.000 |   0.00 |       0.000 |      0.000 |   0.00 |      0.000 |      0.000 |   0.00 |
+|       FEProblem::computeJacobianInternal |     3 |      0.000 |      0.000 |   0.00 |       0.747 |      0.249 |   5.25 |      0.747 |      0.249 |   5.25 |
+|     FEProblem::outputStep                |     1 |      0.000 |      0.000 |   0.00 |       0.000 |      0.000 |   0.00 |      0.000 |      0.000 |   0.00 |
+|   Steady::final                          |     1 |      0.000 |      0.000 |   0.00 |       0.525 |      0.525 |   3.69 |      0.525 |      0.525 |   3.69 |
+|     FEProblem::computeUserObjects        |     1 |      0.525 |      0.525 |   3.69 |       0.000 |      0.000 |   0.00 |      0.525 |      0.525 |   3.69 |
+|     FEProblem::outputStep                |     1 |      0.000 |      0.000 |   0.00 |       0.000 |      0.000 |   0.00 |      0.000 |      0.000 |   0.00 |
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+FINAL:
+
+Postprocessor Values:
++----------------+----------------+----------------+----------------+
+| time           | max_cool_T     | max_fuel_T     | memory         |
++----------------+----------------+----------------+----------------+
+|   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |   0.000000e+00 |
+|   1.000000e+00 |   1.005975e+03 |   1.115220e+03 |   2.444000e+03 |
+|   2.000000e+00 |   1.005975e+03 |   1.115220e+03 |   2.444000e+03 |
++----------------+----------------+----------------+----------------+
