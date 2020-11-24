@@ -246,21 +246,12 @@ def plot_verification_radial():
     plt.savefig('2D-preliminar-radial2', dpi=300, bbox_inches="tight")
 
 
-def verification():
+if __name__ == "__main__":
     # adds legend to mesh figure
-    add_legends('ver-mesh', 'ver-mesh2')
+    add_legends_verification('ver-mesh', 'ver-mesh2')
 
     # plots axial numerical and analytical temperatures
     plot_verification_axial()
 
     # plots radial numerical and analytical temperatures
     plot_verification_radial()
-
-
-def main():
-    # obtains figures for the verification analysis
-    verification()
-
-
-if __name__ == "__main__":
-    main()
