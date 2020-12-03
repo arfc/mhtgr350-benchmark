@@ -3,9 +3,15 @@ import matplotlib.pyplot as plt
 
 
 def getxs():
+    '''
+    This function obtains the relative errors of the parameters specified
+    in 'paramlist'.
+    The outputs are:
+    * Relative error of 'DIFFCOEF', 'NSF', 'REMXS', and 'CHIT'.
+    * Plot with the relative error of 'NSF' and 'REMXS'.
+    '''
 
-    # paramlist = ['DIFFCOEF', 'NSF', 'REMXS', 'CHIT']
-    paramlist = ['NSF', 'REMXS']
+    paramlist = ['DIFFCOEF', 'NSF', 'REMXS', 'CHIT']
 
     for param in paramlist:
         inFile = 'xs-a/mhtgr_homoge_' + param + '.txt'

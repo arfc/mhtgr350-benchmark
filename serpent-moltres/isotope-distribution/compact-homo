@@ -1,4 +1,5 @@
 /*This input file defines a hexagonal elementary cell for the MHTGR fuel compact.*/
+/*The fuel compact uses a homogeneous distribution of the fuel isotopes.*/
 
 /* Numbering:
 * Universes: 1 to 10
