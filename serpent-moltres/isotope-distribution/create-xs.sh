@@ -17,6 +17,7 @@ $MOLTRES/python/extractSerpent2GCs.py xs-a mhtgr tempMapping secBranch universeM
 # Step 3: These lines to remove all the unnecessary files
 rm homoge.coe
 rm tempMapping
+rm secBranch
 rm universeMapping
 
 
@@ -39,4 +40,5 @@ $MOLTRES/python/extractSerpent2GCs.py xs-b mhtgr tempMapping secBranch universeM
 # Step 3: These lines to remove all the unnecessary files
 rm homoge.coe
 rm tempMapping
+rm secBranch
 rm universeMapping
