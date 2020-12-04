@@ -23,6 +23,6 @@ scripts:
 * define-materials.py:
   - Writes the materials block for the moltres input file of the benchmark
 
-
-xsmap.pdf
-OECD-MHTGR350_Simplified.xs
+In the box:
+* xsmap.pdf
+* OECD-MHTGR350_Simplified.xs
