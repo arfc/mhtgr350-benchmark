@@ -255,7 +255,7 @@ if __name__ == "__main__":
     # add_legends_fullcore()
 
 
-    benchmark_1stmodel()
+    # benchmark_1stmodel()
 
 
-    # benchmark_2ndmodel()
+    benchmark_2ndmodel()
