@@ -1,62 +1,38 @@
-This file summarizes the results:
+This section calculates Phase 1 Exercise 1 of the MHTGR Benchmark.
+Due to a memory problem, the exercise was conducted with reflective boundary conditions instead of periodic ones.
 
-The important results from here are: 
-* 26G-koutb, 26G-kinb
+Geometries:
+----------
+* 3Dfullcore-out.msh
+	* Top reflector: 118.9
+	* Bottom reflector: 198.2
+	* Outer reflector: 297.3
+	* h = 20
 
-26G:
-- neumann BC
+* 3Dfullcore-in.msh
+	* Top reflector: 118.9
+	* Bottom reflector: 198.2
+	* Outer reflector: 297.3
+	* h = 20
 
-kout: 1.0720343198688
-kin: 1.0658083186546998
-CR worth: 544.9058 pcm
-Power bottom: 47709425.0655 W
-Power top 68960574.9345 W
-Axial offset: 0.1821
-physical memory usage: 332919.0 MiB
-
-kout time(512 cores)(s): 5135.250
-kin time(512 cores)(s): 11736.654
-
-* 3D-fullcore26G-koutb:
-	- 3Dfullcore-120-elemetsO.msh
-		* Top reflector: 118.9
-		* Bottom reflector: 198.2
-		* Outer reflector: 297.3
-		* h = 20
+Input files:
+------------
+* 3D-fullcore26G-kout:
 	- Neumann BCs
 	- oecdxsC-12G
-	- keff = 1.0680630860
 
-* 3D-fullcore26G-koutc:
-	- 3Dfullcore-120-elemetsO.msh
-		* Top reflector: 118.9
-		* Bottom reflector: 198.2
-		* Outer reflector: 297.3
-		* h = 20
-	- Neumann BCs
-	- oecdxsB-12G
-	- keff = 1.0680309033
-
-* 3D-fullcore26G-kinb:
-	- 3Dfullcore-120-elemetsP.msh
-		* Top reflector: 118.9
-		* Bottom reflector: 198.2
-		* Outer reflector: 297.3
-		* h = 20
+* 3D-fullcore26G-kin:
 	- Neumann BCs
 	- oecdxsC-12G
-	- keff = 1.0622792425139
 
-
-26G-b)
-
-kout: 1.0680630860026001
-kin: 1.0622792425139
-CR worth: 509.7778 pcm
-Power bottom: 48111187.5661 W
-Power top 68558812.4339 W
-Axial offset: 0.1753
-physical memory usage: 1168841.0 MiB
-
-kout time(1024 cores)(s): 15583.876 = 4h 19 min
-kin time(1024 cores)(s): 14781.946 = 4h 6 min
+Results:
+--------
+* keff,out = 1.0680630860026001
+* keff,in = 1.0622792425139
+* CR worth: 509.7778 pcm
+* Power bottom: 48111187.5661 W
+* Power top 68558812.4339 W
+* Axial offset: 0.1753
+* physical memory usage: 1168841.0 MiB
+* kout time(1024 cores)(s): 15583.876 = 4h 19 min
+* kin time(1024 cores)(s): 14781.946 = 4h 6 min
