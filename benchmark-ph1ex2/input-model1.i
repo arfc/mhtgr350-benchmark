@@ -2,7 +2,7 @@
 v = -1701.71 # [cm/s]
 
 [Mesh]
-  file = 2D-fullcore-simpleH.msh
+  file = 2D-fullcore-model1.msh
 [../]
 
 [Problem]
@@ -498,7 +498,7 @@ v = -1701.71 # [cm/s]
 
 [Outputs]
   perf_graph = true
-  file_base = 'input-2D-simpleH'
+  file_base = 'input-model1'
   execute_on = 'final'
   exodus = true
   csv = true

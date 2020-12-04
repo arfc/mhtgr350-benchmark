@@ -147,19 +147,19 @@ def benchmark_1stmodel():
 
 def full_2D_coolant_temp():
     plt.figure()
-    file = 'input-2D-simpleG_cool1B_0002.csv'
+    file = 'input-model2_cool1B_0002.csv'
     file = pd.read_csv(file)
     d = file['y'].tolist()
     temp = file['temp'].tolist()
     plt.plot(d, temp, label='Ring 1')
 
-    file = 'input-2D-simpleG_cool2B_0002.csv'
+    file = 'input-model2_cool2B_0002.csv'
     file = pd.read_csv(file)
     d = file['y'].tolist()
     temp = file['temp'].tolist()
     plt.plot(d, temp, label='Ring 2')
 
-    file = 'input-2D-simpleG_cool3B_0002.csv'
+    file = 'input-model2_cool3B_0002.csv'
     file = pd.read_csv(file)
     d = file['y'].tolist()
     temp = file['temp'].tolist()

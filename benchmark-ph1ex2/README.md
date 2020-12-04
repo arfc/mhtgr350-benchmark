@@ -101,11 +101,10 @@ and the outlet coolant temperature in the fuel rings.
 
 # 2nd Model:
 
-
 Geometries:
 -----------
 
-* 2D-fullcore-simpleG.geo:
+* 2D-fullcore-model2.geo:
 	- Ring representation
 	- each fuel ring has a coolant channel
 	- the fuel and moderator are a homogeneous mixture
@@ -113,7 +112,7 @@ Geometries:
 	- Adds axial layers
 	- adds outside air layer
 
-* fullcore-meshC.geo
+* fullcore-model2.geo
 	- necessary file to produce the figure of the geometry
 
 * unitcell-layers.geo
@@ -123,8 +122,8 @@ Geometries:
 Input files:
 ------------
 
-* input-2D-simpleG.i
-	- 2D-fullcore-simpleG.msh
+* input-model2.i
+	- 2D-fullcore-model2.msh
 	- Dirichlet BC on the outside air
 	- max cool 1: 719
 	- max cool 2: 648
