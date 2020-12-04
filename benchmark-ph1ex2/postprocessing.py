@@ -117,17 +117,17 @@ def plot_coolant_fuel(filename):
 def benchmark_1stmodel():
     filename = 'input-model1.csv'
     file = pd.read_csv(filename)
-    temp1 = file['max_cool3'].tolist()
-    temp2 = file['max_cool4'].tolist()
+    temp1 = file['max_cool3'].tolist()[-1]
+    temp2 = file['max_cool4'].tolist()[-1]
     print('Ring 4 coolant temperature: ', (temp1+temp2)/2)
-    temp1 = file['max_cool4'].tolist()
-    temp2 = file['max_cool5'].tolist()
+    temp1 = file['max_cool4'].tolist()[-1]
+    temp2 = file['max_cool5'].tolist()[-1]
     print('Ring 5 coolant temperature: ', (temp1+temp2)/2)
-    temp1 = file['max_cool5'].tolist()
-    temp2 = file['max_cool6'].tolist()
+    temp1 = file['max_cool5'].tolist()[-1]
+    temp2 = file['max_cool6'].tolist()[-1]
     print('Ring 6 coolant temperature: ', (temp1+temp2)/2)
 
-    filename = 'input-model1_acrossB_0002.csv'
+    filename = 'input-model1_across_0002.csv'
     file = pd.read_csv(filename)
     temp = []
     

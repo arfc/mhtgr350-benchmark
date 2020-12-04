@@ -485,11 +485,11 @@ v = -1701.71 # [cm/s]
   #   execute_on = final
   # [../]
 
-  [./acrossB]
+  [./across]
     type = LineValueSampler
     variable = 'temp'
-    start_point = '0 556.5 0'
-    end_point = '433.1 556.5 0'
+    start_point = '0 200 0'
+    end_point = '433.1 200 0'
     sort_by = x
     num_points = 500
     execute_on = final
