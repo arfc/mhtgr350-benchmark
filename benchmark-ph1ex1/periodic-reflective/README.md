@@ -1,10 +1,44 @@
+This study compares the results obtained for 3 and 6G with periodic and reflective boundary conditions.
+The results are in this same files
+
+Geometries:
+-----------
+* 3Dfullcore-out.geo
+  - Fuel: (10 layers: 220 subdomains) 220 materials
+  - bottom reflector: 3 materials
+  - top reflector: 3 materials
+  - inner reflector: 1 material
+  - outer reflector: 2 materials
+  - control rod: 1 material
+  - 232 subdomains total
+  - Bot refl: 198.2 cm
+  - Top refl: 118.9 cm
+  - Out refl: 297.3 cm
+  - msh:   -) h=40, Lb=30, Lc=20, Lt=30
+  		   b) h=40, no recombine, Lb=10,Lc=5, Lt=10
+
+* 3Dfullcore-in.geo
+  - Fuel: (10 layers: 220 subdomains) 220 materials
+  - bottom reflector: 3 materials: 200 cm/2 sub layers
+  - top reflector: 3 materials
+  - inner reflector: 1 material
+  - outer reflector: 2 materials
+  - control rod: 1 material
+  - 232 subdomains total
+  - Bot refl: 198.2 cm
+  - Top refl: 118.9 cm
+  - Out refl: 297.3 cm
+  - msh:  -) h=40, Lb=15, Lc=20, Lt=30
+          b) h=40, no recombine, Lb=10,Lc=5, Lt=10
+
+
 input files:
 ------------
 
 3G) Periodic BCs
 
 * 3D-fullcore3G-kout:
-	- 3Dfullcore-120-elemetsOb.msh
+	- 3Dfullcore-out.msh
 		* Top reflector: 118.9
 		* Bottom reflector: 198.2
 		* Outer reflector: 297.3
@@ -14,7 +48,7 @@ input files:
 	- keff = 1.0757099673
 
 * 3D-fullcore3G-kin:
-	- 3Dfullcore-120-elemetsPb.msh
+	- 3Dfullcore-in.msh
 		* Top reflector: 118.9
 		* Bottom reflector: 198.2
 		* Outer reflector: 297.3
@@ -38,7 +72,7 @@ time-kout(128 cores)(s): 317.704
 3G) Neumann BCs
 
 * 3D-fullcore3G-koutb:
-	- 3Dfullcore-120-elemetsOb.msh
+	- 3Dfullcore-out.msh
 		* Top reflector: 118.9
 		* Bottom reflector: 198.2
 		* Outer reflector: 297.3
@@ -48,7 +82,7 @@ time-kout(128 cores)(s): 317.704
 	- keff = 1.0758615535
 
 * 3D-fullcore3G-kinb:
-	- 3Dfullcore-120-elemetsPb.msh
+	- 3Dfullcore-in.msh
 		* Top reflector: 118.9
 		* Bottom reflector: 198.2
 		* Outer reflector: 297.3
@@ -71,8 +105,8 @@ time-kout(128 cores)(s): 263.999
 
 6G-c) Periodic BCs
 
-* 3D-fullcore6G-koutc:
-	- 3Dfullcore-120-elemetsOd.msh
+* 3D-fullcore6G-kout:
+	- 3Dfullcore-outb.msh
 		* Top reflector: 118.9, Lt = 10
 		* Bottom reflector: 198.2, Lb = 10
 		* Outer reflector: 297.3, Lf = 5
@@ -81,8 +115,8 @@ time-kout(128 cores)(s): 263.999
 	- oecdxsC-6G
 	- keff = 1.0718165381
 
-* 3D-fullcore6G-kinc:
-	- 3Dfullcore-120-elemetsPd.msh
+* 3D-fullcore6G-kin:
+	- 3Dfullcore-inb.msh
 		* Top reflector: 118.9, Lt = 10
 		* Bottom reflector: 198.2, Lb = 10
 		* Outer reflector: 297.3, Lf = 5
@@ -106,8 +140,8 @@ time-kin(128 cores)(s): 950.194
 
 6G-d) Neumann BCs
 
-* 3D-fullcore6G-koutd:
-	- 3Dfullcore-120-elemetsOd.msh
+* 3D-fullcore6G-koutb:
+	- 3Dfullcore-outb.msh
 		* Top reflector: 118.9, Lt = 10
 		* Bottom reflector: 198.2, Lb = 10
 		* Outer reflector: 297.3, Lf = 5
@@ -116,8 +150,8 @@ time-kin(128 cores)(s): 950.194
 	- oecdxsC-6G
 	- keff = 1.0719679501
 
-* 3D-fullcore6G-kind:
-	- 3Dfullcore-120-elemetsOd.msh
+* 3D-fullcore6G-kinb:
+	- 3Dfullcore-inb.msh
 		* Top reflector: 118.9, Lt = 10
 		* Bottom reflector: 198.2, Lb = 10
 		* Outer reflector: 297.3, Lf = 5
@@ -137,34 +171,3 @@ physical memory usage: 23547.0 MiB
 
 time-kout(128 cores)(s): 540.409
 time-kout(128 cores)(s): 847.455
-
-
-Geometries:
------------
-* 3Dfullcore-120-elemetsO.geo
-  - Fuel: (10 layers: 220 subdomains) 220 materials
-  - bottom reflector: 3 materials
-  - top reflector: 3 materials
-  - inner reflector: 1 material
-  - outer reflector: 2 materials
-  - control rod: 1 material
-  - 232 subdomains total
-  - Bot refl: 198.2 cm
-  - Top refl: 118.9 cm
-  - Out refl: 297.3 cm
-  - msh:   b) h=40, Lb=30, Lc=20, Lt=30
-  		   d) h=40, no recombine, Lb=10,Lc=5, Lt=10
-
-* 3Dfullcore-120-elemetsP.geo
-  - Fuel: (10 layers: 220 subdomains) 220 materials
-  - bottom reflector: 3 materials: 200 cm/2 sub layers
-  - top reflector: 3 materials
-  - inner reflector: 1 material
-  - outer reflector: 2 materials
-  - control rod: 1 material
-  - 232 subdomains total
-  - Bot refl: 198.2 cm
-  - Top refl: 118.9 cm
-  - Out refl: 297.3 cm
-  - msh:  b) h=40, Lb=15, Lc=20, Lt=30
-          d) h=40, no recombine, Lb=10,Lc=5, Lt=10
