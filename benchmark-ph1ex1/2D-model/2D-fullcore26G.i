@@ -27,31 +27,31 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'oecdxsA-26G/mhtgr_fuel_'
+    property_tables_root = '../oecdxsA-26G/mhtgr_fuel_'
     interp_type = 'linear'
     block = 'fuel'
   [../]
   [./ireflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'oecdxsA-26G/mhtgr_ireflector_'
+    property_tables_root = '../oecdxsA-26G/mhtgr_ireflector_'
     interp_type = 'linear'
     block = 'ireflector'
   [../]
   [./oreflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'oecdxsA-26G/mhtgr_oreflector_'
+    property_tables_root = '../oecdxsA-26G/mhtgr_oreflector_'
     interp_type = 'linear'
     block = 'oreflector'
   [../]
   [./breflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'oecdxsA-26G/mhtgr_breflector_'
+    property_tables_root = '../oecdxsA-26G/mhtgr_breflector_'
     interp_type = 'linear'
     block = 'breflector'
   [../]
   [./treflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'oecdxsA-26G/mhtgr_treflector_'
+    property_tables_root = '../oecdxsA-26G/mhtgr_treflector_'
     interp_type = 'linear'
     block = 'treflector'
   [../]
