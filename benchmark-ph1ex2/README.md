@@ -74,7 +74,7 @@ References:
 Geometries:
 -----------
 
-* 2D-fullcore-simpleH.geo:
+* 2D-fullcore-model1.geo:
 	- INL's benchmark model
 	- Ring representation
 	- each ring has a coolant channel
@@ -83,14 +83,14 @@ Geometries:
 	- Adds axial layers
 	- adds outside air layer
 
-* fullcore-meshD.geo
+* fullcore-model1.geo
 	- necessary file to produce the figure of the geometry
 
 Input files:
 ------------
 
-* input-2D-simpleH.i
-	- 2D-fullcore-simpleH.msh
+* input-model1.i
+	- 2D-fullcore-model1.msh
 
 Results:
 --------
