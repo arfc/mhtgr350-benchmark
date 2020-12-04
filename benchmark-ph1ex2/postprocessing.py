@@ -70,8 +70,8 @@ def benchmark_1stmodel():
     filename = 'input-model1_across_0002.csv'
     file = pd.read_csv(filename)
     temp = []
-    
-    x = np.array(file['x'].tolist())     
+
+    x = np.array(file['x'].tolist())
     temp = file['temp'].tolist()
 
     plt.plot(x, temp)
@@ -119,7 +119,7 @@ def benchmark_2ndmodel():
     plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
     plt.savefig('ex2a-fullcore-cool', dpi=300, bbox_inches="tight")
     plt.close()
-    
+
     # plot fuel and moder temperatures combined
     d = np.linspace(200, 200+793, 11)
     dmid = 0.5*(d + np.roll(d, -1))
@@ -129,38 +129,44 @@ def benchmark_2ndmodel():
     file = pd.read_csv(filename)
 
     temp = []
-    for  i in range(10):
+    for i in range(10):
         temp.append(file['ave_fuel' + str(i+1) + '_T'].tolist()[0])
-    plt.plot(dmid[:-1], temp, label='Ring 1, Fuel', color='#1f77b4', marker='o')
+    plt.plot(dmid[:-1], temp, label='Ring 1, Fuel', color='#1f77b4',
+             marker='o')
 
     temp = []
-    for  i in range(10):
+    for i in range(10):
         temp.append(file['ave_moder' + str(i+1) + '_T'].tolist()[0])
-    plt.plot(dmid[:-1], temp, label='Ring 1, Moderator', color='#1f77b4', marker='v')
+    plt.plot(dmid[:-1], temp, label='Ring 1, Moderator', color='#1f77b4',
+             marker='v')
 
     filename = 'unitcell-R2.csv'
     file = pd.read_csv(filename)
     temp = []
-    for  i in range(10):
+    for i in range(10):
         temp.append(file['ave_fuel' + str(i+1) + '_T'].tolist()[0])
-    plt.plot(dmid[:-1], temp, label='Ring 2, Fuel', color='#ff7f0e', marker='o')
+    plt.plot(dmid[:-1], temp, label='Ring 2, Fuel', color='#ff7f0e',
+             marker='o')
 
     temp = []
-    for  i in range(10):
+    for i in range(10):
         temp.append(file['ave_moder' + str(i+1) + '_T'].tolist()[0])
-    plt.plot(dmid[:-1], temp, label='Ring 2, Moderator', color='#ff7f0e', marker='v')
+    plt.plot(dmid[:-1], temp, label='Ring 2, Moderator', color='#ff7f0e',
+             marker='v')
 
     filename = 'unitcell-R3.csv'
     file = pd.read_csv(filename)
     temp = []
-    for  i in range(10):
+    for i in range(10):
         temp.append(file['ave_fuel' + str(i+1) + '_T'].tolist()[0])
-    plt.plot(dmid[:-1], temp, label='Ring 3, Fuel', color='#2ca02c', marker='o')
+    plt.plot(dmid[:-1], temp, label='Ring 3, Fuel', color='#2ca02c',
+             marker='o')
 
     temp = []
-    for  i in range(10):
+    for i in range(10):
         temp.append(file['ave_moder' + str(i+1) + '_T'].tolist()[0])
-    plt.plot(dmid[:-1], temp, label='Ring 3, Moderator', color='#2ca02c', marker='v')
+    plt.plot(dmid[:-1], temp, label='Ring 3, Moderator', color='#2ca02c',
+             marker='v')
 
     plt.legend(loc='lower left', fontsize=14)
     plt.xticks(fontsize=14)
