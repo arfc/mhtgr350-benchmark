@@ -8,6 +8,7 @@ from matplotlib.patches import RegularPolygon
 from matplotlib.collections import PatchCollection
 from matplotlib.pyplot import gca
 from matplotlib.axes import Axes
+import matplotlib.ticker as ticker
 
 
 def geo_label():
@@ -28,15 +29,37 @@ def geo_label():
     fuel = mpatches.Patch(color=(0.87, 0.87, 0.87), label='Fuel')
     oref1 = mpatches.Patch(color=(0, 1., 0.), label='Outer reflector 1')
     oref2 = mpatches.Patch(color=(0., 0., 1.), label='Outer reflector 2')
+
     crod = mpatches.Patch(color=(0.88, 0.65, 0.34), label='Control Rod')
 
     cwd = os.getcwd()
     fname = get_sample_data('%s/oecd-fullcore.png' % (cwd))
-    im = plt.imread(fname)
-    plt.imshow(im)
+    image = plt.imread(fname)
+    fig, ax = plt.subplots()
+    ax.imshow(image)
+
+    xlength = 2.97*np.cos(np.pi/6)
+    scalex = xlength/416
+    ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scalex))
+    ax.xaxis.set_major_formatter(ticks_x)
+    # xticks = np.array([0., 0.6, 0.9, 1.0])/scalex
+    xticks = np.arange(0, np.floor(xlength)+1)/scalex
+    ax.set_xticks(xticks)
+    ax.tick_params(axis="x", labelsize=12)
+
+    ylength = 2.97 + 2.97*np.sin(np.pi/6)
+    scaley = ylength/618
+    ticks_y = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scaley))
+    ax.yaxis.set_major_formatter(ticks_y)
+    # yticks = np.array([0., 0.6, 0.9, 1.0])/scaley
+    yticks = np.arange(0, np.floor(ylength)+1)/scaley
+    ax.set_yticks(yticks)
+    ax.tick_params(axis="y", labelsize=12)
+
+    ax.set_xlabel('x [m]', fontsize=12)
+    ax.set_ylabel('y [m]', fontsize=12)
     plt.legend(handles=[iref, fuel, oref1, oref2, crod],
                loc="upper left", bbox_to_anchor=(1.0, 1.0), fancybox=True)
-    plt.axis('off')
     plt.savefig("oecd-fullcore-legend", dpi=300, bbox_inches="tight")
 
 
@@ -103,8 +126,13 @@ def plot_axial_power_distribution(filename, save):
 
     plt.figure()
     plt.plot(z, power)
-    plt.ylabel(r'Power density [W/cm$^3$]')
-    plt.xlabel('Axial distance from bottom of active core [cm]')
+    plt.ylim(top=8)
+
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    plt.ylabel(r'Power density [W/cm$^3$]', fontsize=12)
+    plt.xlabel('Axial distance from bottom of active core [cm]', fontsize=12)
+    plt.grid()
     plt.savefig(save, dpi=300, bbox_inches="tight")
 
 
@@ -179,7 +207,6 @@ def plot_radial_power_distribution(filename, save):
     cbar.ax.set_ylabel(r'Power density [W/cm$^3$]')
 
     for i in range(22):
-        # val = "{:.2e}".format(power[i])
         plt.text(x=coord[i][0]-F/1.5, y=coord[i][1]-3.5,
                  s=np.round(power[i], 2), fontsize=12, color='w')
 
