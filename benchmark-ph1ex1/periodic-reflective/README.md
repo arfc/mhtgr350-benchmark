@@ -1,5 +1,6 @@
 This study compares the results obtained for 3 and 6G with periodic and reflective boundary conditions.
-The results are in this same files
+The results were obtained running 'postprocessing.py'.
+The results are summarized in this same file.
 
 Geometries:
 -----------
@@ -171,3 +172,42 @@ physical memory usage: 23547.0 MiB
 
 time-kout(128 cores)(s): 540.409
 time-kout(128 cores)(s): 847.455
+
+
+More debugging was done unsuccesfully, the following list summarizes those efforts.
+
+More debugging:
+---------------
+
+* 3G:
+  - Periodic BCs
+  - NEWTON, petsc: asm lu, it didn't
+  - PJFNK, pre: false, petsc: asm lu, it worked
+  - layers had no recombination, PJFNK, pre: false, petsc: asm lu, it worked
+  - layers had no recombination, NEWTON, petsc: lu superlu, it worked
+
+* 6G:
+  - Periodic BCs
+  - NEWTON, petsc: asm lu, it didn't work
+  - PJFNK, pre: false, petsc: asm lu, it didn't work
+  - JFNK, no pre, petsc: asm lu, it didn't work
+  - PJFNK, pre: false, it worked
+
+  - Neumann BCs
+  - NEWTON, petsc: asm lu, it worked
+
+* 26G:
+  - Neumann BCs
+  - NEWTON, petsc: asm lu, it worked
+
+  - Periodic BCs
+  - NEWTON, petsc: asm lu, it didn't work
+  - PJFNK, pre: false, petsc: asm lu, it didn't work
+  - layers had no recombination, PJFNK, pre: false, petsc: asm lu, it didn't work
+  - layers had no recombination, JFNK, no pre, petsc: asm lu, it didn't work
+  - layers had no recombination, PJFNK, pre: false, petsc: lu superlu_dist, it didn't work
+
+lu superlu_dist
+petsc_options_iname = '-pc_type -pc_factor_mat_solver_package'
+petsc_options_value = 'lu     superlu_dist'
+line_search = 'none'
