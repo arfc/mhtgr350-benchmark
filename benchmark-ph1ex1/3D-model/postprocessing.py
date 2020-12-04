@@ -200,7 +200,7 @@ if __name__ == "__main__":
     global_param(filename1, filename2)
 
     # Plots the radially averaged axial power distribution
-    filename = '3D-fullcore26G-koutb.csv'
+    filename = '3D-fullcore26G-kout.csv'
     save = '3D-fullcore26G-axialpower'
     plot_axial_power_distribution(filename, save)
 
