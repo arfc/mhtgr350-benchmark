@@ -7,11 +7,12 @@ How to create the XS:
 - run 'python convert.py'
 """
 import numpy as np
+import os
 
 
 def getxs(inFile, index):
     '''
-    Reads 'OECD-MHTGR350_Simplified.xs'
+    Reads 'OECD-MHTGR350_Simplified.xs' and saves the data into a dictionary
 
     Parameters:
     -----------
@@ -52,7 +53,6 @@ def getxs(inFile, index):
         sp0s = int(lines[i+g][0])-1
         spes = int(lines[i+g][1])-1
         for gp in range(0, spes-sp0s+1):
-            # XS['SP0'][g, gp+sp0s] = lines[i+g+26][gp]
             XS['SP0'][gp+sp0s, g] = float(lines[i+g+26][gp])
 
     for g in range(0, 26):
@@ -69,15 +69,6 @@ def getxs(inFile, index):
         XS['FISS'] = 0.9278*np.array(XS['FISS'])
         XS['SP0'] = 0.9278*np.array(XS['SP0'])
         XS['SP1'] = 0.9278*np.array(XS['SP1'])
-
-    # # To print values uncomment these lines
-    # print('FLX: ', XS['FLX'])
-    # print('ST: ', XS['ST'])
-    # print('DIFFCOEF: ', XS['DIFFCOEF'])
-    # print('NSF: ', XS['NSF'])
-    # print('FISS: ', XS['FISS'])
-    # print('CHIT: ', XS['CHIT'])
-    # print('SP0: ', XS['SP0'])
 
     return XS
 
@@ -100,7 +91,6 @@ def tomoltresformat(name, XS, index):
     base = name + '/mhtgr_' + str(index) + '_'
 
     T = 750
-
     G = len(XS['NSF'])
 
     data = ['NSF', 'DIFFCOEF', 'FISS', 'CHIT']
@@ -111,12 +101,6 @@ def tomoltresformat(name, XS, index):
             f.write(' ' + str(dg))
         f.write('\n')
         f.close()
-        # print(param + ' done')
-
-    # SP0 in Moltres for 2 groups:
-    # TEMP S11 S12 S21 S22
-    # for dg in XS['SP0']:
-    #      print(dg)
 
     f = open(base + 'SP0' + '.txt', "w+")
     f.write(str(T))
@@ -125,7 +109,6 @@ def tomoltresformat(name, XS, index):
             f.write(' ' + str(dg))
     f.write('\n')
     f.close()
-    # print('SP0 done')
 
     f = open(base + 'REMXS' + '.txt', "w+")
     f.write(str(T))
@@ -135,20 +118,17 @@ def tomoltresformat(name, XS, index):
         f.write(' ' + str(toti-scatii))
     f.write('\n')
     f.close()
-    # print('REMXS done')
 
     # MeV/fission: 200 MeV/fission
     f = open(base + 'KAPPA' + '.txt', "w+")
     f.write(str(T))
     for i in range(G):
-        f.write(' 200.0')
-        # if index == 'fuel':
-        #    f.write(' 200.0')
-        # else:
-        #    f.write(' 0.0')
+        if index == 'fuel':
+            f.write(' 200.0')
+        else:
+            f.write(' 0.0')
     f.write('\n')
     f.close()
-    # print('KAPPA done')
 
     # All the rest, these can be all 0
     data = ['INVV', 'CHID']
@@ -159,7 +139,6 @@ def tomoltresformat(name, XS, index):
             f.write(' 0.0')
         f.write('\n')
         f.close()
-        # print(param + ' done')
 
     # 8 is the number of precursor groups
     data = ['BETA_EFF', 'LAMBDA']
@@ -170,7 +149,6 @@ def tomoltresformat(name, XS, index):
             f.write(' 0.0')
         f.write('\n')
         f.close()
-        # print(param + ' done')
 
     print(index + ' done')
 
@@ -227,8 +205,6 @@ def homogenize(XS, vi):
                 sumx += float(XS[material]['SP0'][group, gp])\
                         * float(XS[material]['FLX'][group])*vi[material]
             HXS['SP0'][group, gp] = sumx/summ
-
-    # print(HXS)
 
     return HXS
 
@@ -318,8 +294,6 @@ def collapse(XS, lim):
 
             CXS['SP0'][g, gp] = ss/CXS['FLX'][g]
 
-    # print(CXS['SP0'])
-
     return CXS
 
 
@@ -407,6 +381,7 @@ def homogenize_collapse(G):
         lim = lim12
         directory = 'oecdxsA-12G'
 
+    os.mkdir(directory)
     CFXS = collapse(FXS, lim)
     CBRXS = collapse(BRXS, lim)
     CIRXS = collapse(IRXS, lim)
@@ -442,6 +417,7 @@ def only_collapse(G):
         lim = lim3
         directory = 'oecdxsC-3G'
 
+    os.mkdir(directory)
     for index in range(1, 233):
         mat = getxs('OECD-MHTGR350_Simplified.xs', index)
         CXS = collapse(mat, lim)
@@ -451,37 +427,42 @@ def only_collapse(G):
 def straight():
     '''
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
-    and saves them in Moltres format.
+    and saves them into Moltres format.
     '''
-
+    directory = 'oecdxsC-26G'
+    os.mkdir(directory)
     for index in range(1, 233):
         mat = getxs('OECD-MHTGR350_Simplified.xs', index)
-        tomoltresformat('oecdxsC-26G', mat, 'M'+str(index))
+        tomoltresformat(directory, mat, 'M'+str(index))
 
 
 def main():
     '''
+    Option 1: Necessary for running the 2D-model
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     homogenizes the cross sections by region, collapses the cross sections
     to another energy group structure, and saves the parameters in Moltres
     format.
     '''
-    # G = 2  # 2, 3, 6, 12
-    # homogenize_collapse(G)
+    G = 2  # 2, 3, 6, or 12
+    homogenize_collapse(G)
 
     '''
+    Option 2: Necessary for running the 3D-model
+    This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
+    and saves them in Moltres format.
+    '''
+    straight()
+
+    '''
+    Option 3: Necessary for running the 3D-model w/ periodic and reflective
+    BCs
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     collapses the cross sections to another energy group structure,
     and saves the parameters in Moltres format.
     '''
-    # G = 6  # 3 or 6
-    # only_collapse(G)
-
-    '''
-    This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
-    and saves them in Moltres format.
-    '''
-    # straight()
+    G = 6  # 3 or 6
+    only_collapse(G)
 
 
 if __name__ == "__main__":
