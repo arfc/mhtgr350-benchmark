@@ -25,7 +25,6 @@ R3cRo = 163.85;
 
 // Helium gap thickness
 hgt = 0.0125;
-hgt2 = 2;
 
 // Coolant film thickness
 cft = 0.01;
@@ -50,23 +49,18 @@ Lb = 20; // Bottom axial layers
 Lf = 10; // Active core axial layers
 Lt = 20; // Top axial layers
 
-Lir = 25;
+Lir = 25; // Inner reflector radial layers
 
-Lg = 3;
-Lfi = 3;
-Lco = 3;
+Lg = 3; // Helium gap radial layers
+Lfi = 3; // Coolant film radial layers
+Lco = 3; // Coolant channel radial layers
 
-LR1M = 5;
-LR1F = 5;
+LR1M = 5; // First fuel ring radial layers
+LR2M = 5; // Second fuel ring radial layers
+LR3M = 5; // Third fuel ring radial layers
 
-LR2M = 5;
-LR2F = 5;
-
-LR3M = 5;
-LR3F = 5;
-
-Lor = 25;
-Lrpv = 5;
+Lor = 25; // Outer reflector radial layers
+Lrpv = 5; // RPV and outside air radial layers
 
 // Geometry definition
 pl = 1;

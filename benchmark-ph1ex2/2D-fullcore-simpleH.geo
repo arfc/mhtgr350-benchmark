@@ -52,10 +52,10 @@ Lb = 20; // Bottom axial layers
 Lf = 10; // Active core axial layers
 Lt = 20; // Top axial layers
 
-Lrs = 10; // r-solid
-Lrf = 3; // r-film
-Lrc = 3; // r-cool
-Lrpv = 5; // r-rpv
+Lrs = 10; // solid radial layers
+Lrf = 3; // coolant film radial layers
+Lrc = 3; // cool channel radial layers
+Lrpv = 5; // rpv radial layers
 
 // Geometry definition
 pl = 1;
