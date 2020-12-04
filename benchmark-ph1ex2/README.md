@@ -92,6 +92,12 @@ Input files:
 * input-2D-simpleH.i
 	- 2D-fullcore-simpleH.msh
 
+Results:
+--------
+
+postprocessing.py obtains reflector average temperatures in the first bottom level of the core
+and the outlet coolant temperature in the fuel rings.
+
 
 # 2nd Model:
 

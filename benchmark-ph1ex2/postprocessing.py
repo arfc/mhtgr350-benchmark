@@ -115,6 +115,18 @@ def plot_coolant_fuel(filename):
 
 
 def benchmark_1stmodel():
+    filename = 'input-2D-simpleH_0002.csv'
+    file = pd.read_csv(filename)
+    temp1 = file['max_cool3'].tolist()
+    temp2 = file['max_cool4'].tolist()
+    print('Ring 4 coolant temperature: ', (temp1+temp2)/2)
+    temp1 = file['max_cool4'].tolist()
+    temp2 = file['max_cool5'].tolist()
+    print('Ring 5 coolant temperature: ', (temp1+temp2)/2)
+    temp1 = file['max_cool5'].tolist()
+    temp2 = file['max_cool6'].tolist()
+    print('Ring 6 coolant temperature: ', (temp1+temp2)/2)
+
     filename = 'input-2D-simpleH_across_0002.csv'
     file = pd.read_csv(filename)
     temp = []
@@ -240,10 +252,10 @@ def benchmark_2ndmodel():
 
 if __name__ == "__main__":
     # adds legends to figures of the geometries
-    add_legends_fullcore()
+    # add_legends_fullcore()
 
 
     benchmark_1stmodel()
 
 
-    benchmark_2ndmodel()
+    # benchmark_2ndmodel()

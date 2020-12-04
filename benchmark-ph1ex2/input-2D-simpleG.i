@@ -451,33 +451,33 @@ v = -1701.71 # [cm/s]
 []
 
 [VectorPostprocessors]
-  [./cool1]
-    type = LineValueSampler
-    variable = 'temp'
-    start_point = '98.68 200 0'
-    end_point = '98.68 993 0'
-    sort_by = y
-    num_points = 100
-    execute_on = final
-  [../]
-  [./cool2]
-    type = LineValueSampler
-    variable = 'temp'
-    start_point = '131.3 200 0'
-    end_point = '131.3 993 0'
-    sort_by = y
-    num_points = 100
-    execute_on = final
-  [../]
-  [./cool3]
-    type = LineValueSampler
-    variable = 'temp'
-    start_point = '160.94 200 0'
-    end_point = '160.94 993 0'
-    sort_by = y
-    num_points = 100
-    execute_on = final
-  [../]
+  # [./cool1]
+  #   type = LineValueSampler
+  #   variable = 'temp'
+  #   start_point = '98.68 200 0'
+  #   end_point = '98.68 993 0'
+  #   sort_by = y
+  #   num_points = 100
+  #   execute_on = final
+  # [../]
+  # [./cool2]
+  #   type = LineValueSampler
+  #   variable = 'temp'
+  #   start_point = '131.3 200 0'
+  #   end_point = '131.3 993 0'
+  #   sort_by = y
+  #   num_points = 100
+  #   execute_on = final
+  # [../]
+  # [./cool3]
+  #   type = LineValueSampler
+  #   variable = 'temp'
+  #   start_point = '160.94 200 0'
+  #   end_point = '160.94 993 0'
+  #   sort_by = y
+  #   num_points = 100
+  #   execute_on = final
+  # [../]
 
   [./cool1B]
     type = LineValueSampler
