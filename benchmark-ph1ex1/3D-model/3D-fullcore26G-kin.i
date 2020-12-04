@@ -9,7 +9,7 @@
 []
 
 [Mesh]
-  file = '3Dfullcore-120-elementsK.msh'
+  file = '3Dfullcore-120-elementsP.msh'
 [../]
 
 [Nt]
@@ -23,7 +23,7 @@
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  file_base = '3D-fullcore26G-kin'
+  file_base = '3D-fullcore26G-kinb'
   execute_on = timestep_end
   exodus = true
   csv = true
