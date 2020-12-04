@@ -9,7 +9,7 @@
 []
 
 [Mesh]
-  file = '3Dfullcore-120-elementsOb.msh'
+  file = '3Dfullcore-out.msh'
 [../]
 
 [Nt]
