@@ -8,7 +8,7 @@ import matplotlib.patches as mpatches
 
 def add_legends_fullcore():
     '''
-    This function adds legends to figure.
+    This function adds legends to figures of the models.
 
     Parameters:
     -----------
@@ -47,74 +47,14 @@ def add_legends_fullcore():
     plt.close()
 
 
-def plotcsv_frommoose_temp(file, save, dire='x'):
-    '''
-    Moltres output is a csv file.
-    This function plots those values.
-    The output is a figure.
-
-    Parameters:
-    -----------
-    file: [string]
-        name of the .csv file
-    save: [string]
-        name of the figure
-    dire: ['x', 'y', 'z']
-        direction of the detector
-    '''
-    file = pd.read_csv(file)
-
-    if dire == 'r':
-        x = np.array(file['x'].tolist())
-        y = np.array(file['y'].tolist())
-        d = np.sqrt(x**2 + y**2)
-    else:
-        d = file[dire].tolist()
-
-    temp = file['temp'].tolist()
-
-    plt.figure()
-    plt.plot(d, temp)
-    plt.ylabel(r'Temperature [$^{\circ}$C]')
-    # plt.ylim(bottom = 800, top=1200)
-    plt.xlabel(dire + ' [cm]')
-    plt.savefig(save, dpi=300, bbox_inches="tight")
-
-
-def plot_coolant_fuel(filename):
-    save = filename + '-axial'
-
-    file = filename + '_fuel1_0002.csv'
-    file = pd.read_csv(file)
-    d = file['z'].tolist()
-    temp = file['temp'].tolist()
-
-    plt.figure()
-    plt.plot(d, temp, label='Fuel')
-
-    file = filename + '_moder1_0002.csv'
-    file = pd.read_csv(file)
-    d = file['z'].tolist()
-    temp = file['temp'].tolist()
-
-    plt.plot(d, temp, label='Moderator')
-
-    file = filename + '_cool_0002.csv'
-    file = pd.read_csv(file)
-    d = file['z'].tolist()
-    temp = file['temp'].tolist()
-
-    plt.plot(d, temp, label='Coolant')
-
-    plt.legend(loc='upper right')
-    plt.ylabel(r'Temperature [$^{\circ}$C]')
-    # plt.ylim(bottom = 800, top=1200)
-    plt.xlabel('z [cm]')
-    plt.savefig(save, dpi=300, bbox_inches="tight")
-    plt.close()
-
-
 def benchmark_1stmodel():
+    '''
+    Obtains the results of the first model, including:
+    * average outlet coolant temperatures in the fuel rings
+    * figures of the temperature profile across the reactor in the r-direction
+
+    '''
+
     filename = 'input-model1.csv'
     file = pd.read_csv(filename)
     temp1 = file['max_cool3'].tolist()[-1]
@@ -135,8 +75,6 @@ def benchmark_1stmodel():
     temp = file['temp'].tolist()
 
     plt.plot(x, temp)
-    # plt.legend(loc='upper right')
-
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
     plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
@@ -145,7 +83,16 @@ def benchmark_1stmodel():
     plt.close()
 
 
-def full_2D_coolant_temp():
+def benchmark_2ndmodel():
+    '''
+    Obtains the results of the first model, including:
+    * average fuel and moderator temperatures in the bottom layer of the core
+    * figure of the axial coolant temperature in the 3 fuel rings
+    * figure of the axial average fuel and moderator temperatures
+
+    '''
+
+    # plot coolant temperatures
     plt.figure()
     file = 'input-model2_cool1B_0002.csv'
     file = pd.read_csv(file)
@@ -172,12 +119,6 @@ def full_2D_coolant_temp():
     plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
     plt.savefig('ex2a-fullcore-cool', dpi=300, bbox_inches="tight")
     plt.close()
-
-
-def benchmark_2ndmodel():
-
-    # plot coolant temperatures
-    full_2D_coolant_temp()
     
     # plot fuel and moder temperatures combined
     d = np.linspace(200, 200+793, 11)
@@ -252,10 +193,10 @@ def benchmark_2ndmodel():
 
 if __name__ == "__main__":
     # adds legends to figures of the geometries
-    # add_legends_fullcore()
+    add_legends_fullcore()
 
+    # obtains results for the first model
+    benchmark_1stmodel()
 
-    # benchmark_1stmodel()
-
-
+    # obtains results for the second model
     benchmark_2ndmodel()
