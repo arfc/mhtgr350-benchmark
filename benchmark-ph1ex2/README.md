@@ -83,6 +83,9 @@ Geometries:
 	- Adds axial layers
 	- adds outside air layer
 
+* fullcore-meshD.geo
+	- necessary file to produce the figure of the geometry
+
 Input files:
 ------------
 
@@ -103,6 +106,9 @@ Geometries:
 	- Adds RPV
 	- Adds axial layers
 	- adds outside air layer
+
+* fullcore-meshC.geo
+	- necessary file to produce the figure of the geometry
 
 * unitcell-layers.geo
 	- unitcell: fuel, gap, moderator, film, coolant
