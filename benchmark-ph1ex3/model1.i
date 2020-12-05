@@ -9,12 +9,11 @@ v = -1701.71 # [cm/s]
   account_delayed = false
   # power = 55.704e6 # 350/2/pi 10^6 W
   power = 350e6 # 350/2/pi 10^6 W
-  # temperature = 750
   temperature = temp
 []
 
 [Mesh]
-  file = 'simpleF9.msh'
+  file = 'model1.msh'
 [../]
 
 [Problem]
@@ -59,13 +58,6 @@ v = -1701.71 # [cm/s]
     variable = temp
     block = 'air rpv breflec film1b film2b film3b treflec film1t film2t film3t ireflec oreflec film1 film2 film3 F1l1 F1l2 F1l3 F1l4 F1l5 F1l6 F1l7 F1l8 F1l9 F1l10 F2l1 F2l2 F2l3 F2l4 F2l5 F2l6 F2l7 F2l8 F2l9 F2l10 F3l1 F3l2 F3l3 F3l4 F3l5 F3l6 F3l7 F3l8 F3l9 F3l10'
   [../]
-
-  # [./source]
-  #   type = BodyForce
-  #   variable = temp
-  #   function = heat_source
-  #   block = 'F1l1 F1l2 F1l3 F1l4 F1l5 F1l6 F1l7 F1l8 F1l9 F1l10 F2l1 F2l2 F2l3 F2l4 F2l5 F2l6 F2l7 F2l8 F2l9 F2l10 F3l1 F3l2 F3l3 F3l4 F3l5 F3l6 F3l7 F3l8 F3l9 F3l10'
-  # [../]
 
   [./temp_source]
     type = FissionHeatSource
@@ -128,6 +120,7 @@ v = -1701.71 # [cm/s]
 
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
+
   # petsc_options_iname = '-pc_type -sub_pc_type'
   # petsc_options_value = 'asm lu'
 
@@ -181,7 +174,7 @@ v = -1701.71 # [cm/s]
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  file_base = 'coupledD'
+  file_base = 'model1'
   execute_on = timestep_end
   exodus = true
   csv = true
