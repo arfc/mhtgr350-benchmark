@@ -32,24 +32,3 @@ Geometries:
 -----------
 The difference between model1.geo and model2.geo is that model2 divides the film into axial layers.
 This is necessary for obtaining the average temperatures in each 'assembly.'
-
-
-Rename things:
---------------
-coupledD -> model1
-coupledD-decoupled2 -> model1-noTF
-coupledH -> model2
-
-git mv coupledD.i model1.i
-git mv coupledD-decoupled2.i model1-noTF.i
-git mv coupledH.i model2.i
-
-simpleF9 -> model1
-simpleF11 -> model2
-
-git mv simpleF9.geo model1.geo
-git mv simpleF11.geo model2.geo
-
-Cross sections ?
-
-for f in coupledH*; do mv "$f" "${f/coupledH/model2}"; done
