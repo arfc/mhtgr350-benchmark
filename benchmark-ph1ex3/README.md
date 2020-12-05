@@ -4,7 +4,8 @@ Input files:
 * model1.i
 	- model1.geo
 	- neutronics affect thermal-tluids
-	- thermal-fluids affect the neutronics 
+	- thermal-fluids affect the neutronics
+	- uses the point-wise temperatures for calculating the thermal feedback
 	- if it uses PJFNK and no petsc options it runs, it takes forever, I haven't run it to the end
 	- two ways in which the heat produced by the neutronics can be deposited in the fuel:
 	  1) account for all the fissions in the fuel region: Fuel+film+cool
