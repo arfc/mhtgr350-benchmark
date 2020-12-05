@@ -14,7 +14,24 @@ def plotcsv_groups_collapse(file, save, lim, dire='z'):
     '''
         Moltres output is a csv file.
         This function plots those values.
+
+    Parameters:
+    -----------
+    file: [string]
+        name of the .csv to plot
+    save: [string]
+        name of the figure
+    lim: [list of int]
+        if lim = [2, 4, 6]:
+            - groups1 and groups2 form the new group1.
+            - groups3 and groups4 form the new group2.
+            - groups5 and groups6 form the new group3.
+        lim[-1] = G
+        len(lim) = Gp
+    dire: [char]
+        direction that the detector faces: 'x', 'y', 'z', 'r'
     '''
+
     file = pd.read_csv(file)
     fig, ax = plt.subplots()
 
@@ -42,10 +59,10 @@ def plotcsv_groups_collapse(file, save, lim, dire='z'):
             for g in range(lim[gp-1], lim[gp]):
                 group[gp] += np.array(file['group'+str(g+1)].tolist())
 
-    # # If values are unsorted
-    # for i in range(G):
-    #     group[i] = [X for _, X in sorted(zip(x, group[i]))]
-    # x.sort()
+    # If values are unsorted
+    for i in range(G):
+        group[i] = [X for _, X in sorted(zip(x, group[i]))]
+    x.sort()
 
     for gp in range(Gp):
         plt.plot(x, group[gp], label='g='+str(gp+1))
@@ -66,6 +83,21 @@ def plotcsv_groups_collapse(file, save, lim, dire='z'):
 
 
 def compare_serpent_moltres(data, file, save1, save2, liminf, limsup):
+    '''
+    Parameters:
+    -----------
+    data: [serpenttools format]
+        data from the .m to plot
+    file: [string]
+        name of the .csv to plot
+    save1: [string]
+        name of the figure w/ axial fluxes
+    save2: [string]
+        name of the figure w/ relative difference
+    liminf: [float]
+    limsup: [float]
+        relative error calculated within limits inf (liminf) and sup (limsup)
+    '''
 
     # serpent values
     A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
@@ -151,10 +183,8 @@ def compare_serpent_moltres(data, file, save1, save2, liminf, limsup):
                 rel = (fluxes[g, i]-moltresflux[g, i])/fluxes[g, i]
                 if rel > maxval:
                     maxval = rel
-        print('max error: ', maxval*100)
-    
-    # plt.xlim(left=180, right=160+120+793-140)
-    # plt.ylim(bottom=-10, top=10)
+        print('max rel error within limits ({0},{1}): {2}'.format(liminf,
+              limsup, maxval*100))
 
     plt.legend(loc="best", fontsize=14)
     plt.xticks(fontsize=14)
@@ -197,6 +227,7 @@ def plot_moltres_only():
     '''
     This function plots the axial flux for all 4 Moltres cases.
     '''
+
     lim = [4, 16, 26]
 
     file = '3D-assembly-noLBP-600-26G_axial_0002.csv'
