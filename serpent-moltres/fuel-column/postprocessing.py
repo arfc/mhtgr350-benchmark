@@ -174,8 +174,10 @@ def compare_serpent_moltres(data, file, save1, save2, liminf, limsup):
 
     for g in range(G):
         # relative error
-        plt.plot(mid, (fluxes[g]-moltresflux[g])/fluxes[g]*100, label='g='+str(g+1))
-        print('max rel error: ', np.amax(np.absolute(fluxes[g]-moltresflux[g])/fluxes[g]))
+        plt.plot(mid, (fluxes[g]-moltresflux[g])/fluxes[g]*100,
+                 label='g='+str(g+1))
+        print('max rel error: ',
+              np.amax(np.absolute(fluxes[g]-moltresflux[g])/fluxes[g]))
 
         maxval = 0
         for i in range(len(z)):
@@ -190,7 +192,8 @@ def compare_serpent_moltres(data, file, save1, save2, liminf, limsup):
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
     plt.xlabel(dire.lower()+' [cm]', fontsize=14)
-    plt.ylabel(r'$ \frac{\phi_S - \phi_M}{\phi_S} \times 100 \left[\%\right]$', fontsize=14)
+    plt.ylabel(r'$\frac{\phi_S-\phi_M}{\phi_S}\times 100 \left[\%\right]$',
+               fontsize=14)
     plt.savefig(save2, dpi=300, bbox_inches="tight")
     plt.close()
 
