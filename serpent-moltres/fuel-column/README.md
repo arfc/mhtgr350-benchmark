@@ -25,3 +25,4 @@ postprocessing.py:
 ------------------
 * plots axial neutron flux calculated by Serpent and Moltres
 * plots the relative difference between the fluxes
+* prints in terminal max relative differences 
