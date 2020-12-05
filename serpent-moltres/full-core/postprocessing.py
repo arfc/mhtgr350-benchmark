@@ -4,68 +4,8 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import RegularPolygon
 from matplotlib.collections import PatchCollection
 from matplotlib.pyplot import gca
-
-
-def plot_serpent_axial_collapse(data, name, save, lim, V=1, dire='Z'):
-    '''
-    Plots axial flux from serpent detector.
-    Collapses fluxes from G number of groups to Gp number of groups.
-
-    Parameters:
-    -----------
-    data: [serpenttools format]
-    name: [string]
-        name of the detector
-    save: [string]
-        name of the figure
-    lim: [list of int]
-        if lim = [2, 4, 6]:
-            - groups1 and groups2 form the new group1.
-            - groups3 and groups4 form the new group2.
-            - groups5 and groups6 form the new group3.
-        lim[-1] = G
-        len(lim) = Gp
-    V: [float]
-        total volume where the detector is applied [cm3]
-    dire: [float]
-        direction that the detector faces: 'X', 'Y', 'Z'
-    '''
-
-    det = data.detectors[name]
-    z = [line[0] for line in det.grids[dire]]
-    z = np.array(z) + 160
-    val = det.tallies
-    vdetector = V/len(z)
-    val = val/vdetector
-
-    G = len(lim)
-
-    fluxes = np.zeros((G, len(val[0])))
-    for g in range(G):
-        if g == 0:
-            for i in range(lim[0]):
-                fluxes[g] += val[25-i]
-        else:
-            for i in range(lim[g-1], lim[g]):
-                fluxes[g] += val[25-i]
-
-    plt.figure()
-    for i in range(G):
-        plt.step(z, fluxes[i], where='post', label='g={0}'.format(i+1))
-
-    if G < 20:
-        # plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True,
-        #            fontsize=14)
-        plt.legend(loc="upper right", fontsize=14)
-    else:
-        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True)
-
-    plt.xticks(fontsize=14)
-    plt.yticks(fontsize=14)
-    plt.xlabel(dire.lower()+' [cm]', fontsize=14)
-    plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$', fontsize=14)
-    plt.savefig(save, dpi=300, bbox_inches="tight")
-    plt.close()
+import pathmagic
+from auxiliary import plot_serpent_axial_collapse
 
 
 def plot_serpent_radial_collapse(data, name, save, lim, piH=1):
