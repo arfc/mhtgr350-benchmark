@@ -1,46 +1,28 @@
 Input files:
 ------------
 
-* coupled.i
-	- simpleF7.geo
-	- adds temperature dependency
-	- temperature is constant
-
-* coupledB.i
-	- simpleF7.geo
-	- adds temperature dependency
-
-* coupledC.i
-	- simpleF7.geo
-	- adds heat production
-
-* coupledCB.i
-	- simpleF7.geo
-	- adds heat production
-	- tries to determine the right way to determine where the heat should be deposited
-	- two ways: account for all the fissions in the fuel region: Fuel+film+cool
+* coupledD.i
+	- simpleF9.geo
+	- neutronics affect Thermal-Fluids
+	- Thermal-Fluids affect the neutronics 
+	- if it uses PJFNK and no petsc options it runs, it takes forever, I haven't run it to the end
+	- two ways in which the heat produced by the neutronics can be deposited in the fuel:
+	  1) account for all the fissions in the fuel region: Fuel+film+cool
 	  and let the coolant and film have a heat source.
-	  Or scale the power to the fissions in the fuel only.
-	  The first one seems to be more accurate from a neutronics stand point and the second one
+	  2) scale the power to the fissions in the fuel only.
+	  1) seems to be more accurate from a neutronics stand point and 2)
 	  more accurate from a thermal-hydraulics stand point.
 	  I chose the second one.
 
-* coupledD.i
-	- simpleF9.geo (it was using simple F8.geo previously)
-	- adds RPV subdomain
-	- if it uses PJFNK and no petsc options it runs, it takes forever, I haven't run it to the end
-
-* coupledD-decoupled1.i
-	- like coupledD.i
-	- neutronics don't affect the Thermal-Fluids 
-	- Thermal-Fluids don't affect the neutronics 
-
 * coupledD-decoupled2.i
-	- like coupledD.i
-	- neutronics affect Thermal-Fluids 
+	- simpleF9.geo
+	- similar to coupledD but w/ no thermal feedback
+	- neutronics affect Thermal-Fluids
 	- Thermal-Fluids don't affect the neutronics 
 
 * coupledH.i
+	- simpleF11.geo
+		* separates the films into 10 layers
 	- calculates temperature averages in the heterogeneous regions
 	- divides the fuel temperature zones
-	- simpleF11.geo
+	- required using 'PostprocessorAux.C' (testApp)
