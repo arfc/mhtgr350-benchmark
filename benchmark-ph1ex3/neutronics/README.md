@@ -16,3 +16,8 @@ Geometries:
 -----------
 * model1.geo: defines the fuel region with 30 subdomains and uses group constants for each of the 30 subdomains.
 * model2.geo: defines all the details for the thermal-fluids and all of them share the same cross-sections.
+
+Group-constants:
+----------------
+* retrieve the files from the ARFC box in the sudirectory mhtgr350-benchmark/OECD-MHTGR350
+* run: python convert.py

@@ -632,15 +632,20 @@ def getreflxs(inFile, index):
 
     Parameters:
     -----------
-    inFile: file
+    inFile: [file]
         path and name of the file
-    index: int
+    index: [int]
         material number [1-232]
     Returns:
     --------
     XS: dictionary
-        contains main parameters
+        contains main parameters: normalized flux (FLX),
+        total cross-section (ST), and transport cross-section (TR) for 
+        different temperatures.
+    XS: dictionary
+        contains the scattering matrices for different temperatures.
     '''
+
     with open(inFile, 'r') as i:
         data = i.readlines()
 
@@ -671,7 +676,6 @@ def getreflxs(inFile, index):
                  '2000':np.zeros(26)}
          }
 
-    # index = 232
     i = int(lines.index(['MATERIAL', str(index)]))
 
     for paramcount,param in enumerate(XS):
@@ -692,11 +696,9 @@ def getreflxs(inFile, index):
         for g in range(0, 26):
             spgs = int(lines[i+tcount*2][g])-1
             spge = int(lines[i+1+tcount*2][g])-1
-            # print(temp, g, spgs, spge)
             for gp in range(0, spge-spgs+1):
                 SP0[temp][gp+spgs, g] = float(lines[i+15+tcount*26+g][gp])
 
-    # print(SP0['2000'])
     return XS, SP0
 
 
@@ -910,14 +912,11 @@ def getfuelxs(inFile, index):
                         '2000':np.zeros(26)}}}
 
     i = int(lines.index(['MATERIAL', str(index)]))
-    # print(i)
 
     for paramcount,param in enumerate(XS):
         for tfcount,ftemp in enumerate(XS[param]):
             for tmcount,mtemp in enumerate(XS[param][ftemp]):
                 XS[param][ftemp][mtemp] = lines[i+3+paramcount*253+tfcount+tmcount*4]
-
-    # print(XS['DFS']['800']['600'])
 
     SP0 = {'293':{'293':np.zeros((26, 26)),
                   '600':np.zeros((26, 26)),
@@ -958,8 +957,6 @@ def getfuelxs(inFile, index):
                 for gp in range(0, spge-spgs+1):
                     SP0[ftemp][mtemp][gp+spgs, g] = float(lines[i+505+tfcount*26+tmcount*104+g][gp])
 
-    # print(SP0['2000']['2000'])
-
     beta = {'293':{'293':np.zeros(6),
                   '600':np.zeros(6),
                   '800':np.zeros(6),
@@ -994,8 +991,6 @@ def getfuelxs(inFile, index):
         for tmcount,mtemp in enumerate(beta[ftemp]):
             beta[ftemp][mtemp] = lines[i+tfcount+tmcount*4]
 
-    # print(beta['2000']['2000'])
-
     kappa = {'293':{'293': 0,
               '600': 0,
               '800': 0,
@@ -1026,12 +1021,11 @@ def getfuelxs(inFile, index):
               '2000': 0}}
 
     i += 253
-    # print(i)
+
     for tfcount,ftemp in enumerate(kappa):
         for tmcount,mtemp in enumerate(kappa[ftemp]):
             kappa[ftemp][mtemp] = lines[i+tfcount+tmcount*4]
 
-    # print(kappa['2000']['2000'])
     return XS, SP0, kappa
 
 
@@ -1039,16 +1033,19 @@ def homogenize_reflec(XS, SP0, vi, base):
     '''
     This function homogenizes several materials into one.
     The input cross sections have a 26 energy group structure.
+    The output is a folder with the homogenized group constants with
+    26 groups.
+
     Parameters:
     -----------
     XS: dictionary
         parameters to homogenize
+    SP0: [2D array of float]
+        scattering matrix
     vi: array of float
         volume fraction of each material
-    Returns:
-    --------
-    HXS: dictionary
-        homogenized parameters
+    base: [string]
+        base name of the group constants
     '''
 
     L = len(XS)
@@ -1141,7 +1138,17 @@ def homogenize_reflec(XS, SP0, vi, base):
             f.close()
 
 
-def homoge_refl():
+def homoge_refl(directory):
+    '''
+    Creates the reflector group constants for a model with 26 groups and
+    homogeneous reflector regions.
+
+    Parameters:
+    -----------
+    directory: [string]
+        name of the folder that contains the new group constants.
+    '''
+
     AT = np.pi/3 * 297.3**2
     AH = 18/np.cos(np.pi/6) * 18/2 * 6  # Hexagon area
     A1 = 19./3 * AH
@@ -1150,7 +1157,7 @@ def homoge_refl():
     A4 = AT - A1 - A2 - A3
 
     # bottom reflector
-    base = 'xs26g/mhtgr_breflec_'
+    base = directory + '/mhtgr_breflec_'
     XS = []
     SP0 = [] 
     for index in range(221, 225):
@@ -1163,7 +1170,7 @@ def homoge_refl():
     print('Bottom reflector done')
 
     # top reflector
-    base = 'xs26g/mhtgr_treflec_'
+    base = directory + '/mhtgr_treflec_'
     XS = []
     SP0 = [] 
     for index in range(228, 232):
@@ -1176,7 +1183,7 @@ def homoge_refl():
     print('Top reflector done')
 
     # inner reflector
-    base = 'xs26g/mhtgr_ireflec_'
+    base = directory + '/mhtgr_ireflec_'
     XS = []
     SP0 = [] 
     for index in range(225, 226):
@@ -1189,7 +1196,7 @@ def homoge_refl():
     print('Inner reflector done')
 
     # outer reflector
-    base = 'xs26g/mhtgr_oreflec_'
+    base = directory + '/mhtgr_oreflec_'
     XS = []
     SP0 = [] 
     for index in range(226, 228):
@@ -1205,17 +1212,22 @@ def homoge_refl():
 def homogenize_fuel(XS, SP0, kappa, vi, base):
     '''
     This function homogenizes several materials into one.
-    The input cross sections have a 26 energy group structure.
+    The input group constants have a 26 energy group structure.
+    The output group constants have 26 groups as well.
+    The output is a folder with the homogenized group constants.
+
     Parameters:
     -----------
-    XS: dictionary
+    XS: [dictionary]
         parameters to homogenize
-    vi: array of float
+    SP0: [2D array of float]
+        scattering matrix
+    kappa: [array of float]
+        energy/fission       
+    vi: [array of float]
         volume fraction of each material
-    Returns:
-    --------
-    HXS: dictionary
-        homogenized parameters
+    base: [string]
+        base name of the group constants
     '''
 
     L = len(XS)
@@ -1363,16 +1375,19 @@ def homogenize_fuel(XS, SP0, kappa, vi, base):
             f.close()
 
 
-def homoge_fuel():
-    AT = np.pi/3 * 297.3**2
-    AH = 18/np.cos(np.pi/6) * 18/2 * 6  # Hexagon area
-    A1 = 19./3 * AH
-    A2 = 22 * AH
-    A3 = 26 * AH
-    A4 = AT - A1 - A2 - A3
+def homoge_fuel(directory):
+    '''
+    Creates the fuel group constants for a model with 26G and 30 fuel
+    subdomains.
+
+    Parameters:
+    -----------
+    directory: [string]
+        name of the folder that contains the new group constants.
+    '''
 
     # F1 layer 1
-    base = 'xs26g/mhtgr_F1l1_'
+    base = directory + '/mhtgr_F1l1_'
     XS = []
     SP0 = []
     kappa = []
@@ -1385,7 +1400,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 1
-    base = 'xs26g/mhtgr_F2l1_'
+    base = directory + '/mhtgr_F2l1_'
     XS = []
     SP0 = []
     kappa = []
@@ -1403,7 +1418,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 1
-    base = 'xs26g/mhtgr_F3l1_'
+    base = directory + '/mhtgr_F3l1_'
     XS = []
     SP0 = []
     kappa = []
@@ -1422,7 +1437,7 @@ def homoge_fuel():
     print('Layer 1 done')
 
     # F1 layer 2
-    base = 'xs26g/mhtgr_F1l2_'
+    base = directory + '/mhtgr_F1l2_'
     XS = []
     SP0 = []
     kappa = []
@@ -1435,7 +1450,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 2
-    base = 'xs26g/mhtgr_F2l2_'
+    base = directory + '/mhtgr_F2l2_'
     XS = []
     SP0 = []
     kappa = []
@@ -1453,7 +1468,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 2
-    base = 'xs26g/mhtgr_F3l2_'
+    base = directory + '/mhtgr_F3l2_'
     XS = []
     SP0 = []
     kappa = []
@@ -1472,7 +1487,7 @@ def homoge_fuel():
     print('Layer 2 done')
 
     # F1 layer 3
-    base = 'xs26g/mhtgr_F1l3_'
+    base = directory + '/mhtgr_F1l3_'
     XS = []
     SP0 = []
     kappa = []
@@ -1485,7 +1500,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 3
-    base = 'xs26g/mhtgr_F2l3_'
+    base = directory + '/mhtgr_F2l3_'
     XS = []
     SP0 = []
     kappa = []
@@ -1498,7 +1513,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 3
-    base = 'xs26g/mhtgr_F3l3_'
+    base = directory + '/mhtgr_F3l3_'
     XS = []
     SP0 = []
     kappa = []
@@ -1517,7 +1532,7 @@ def homoge_fuel():
     print('Layer 3 done')
 
     # F1 layer 4
-    base = 'xs26g/mhtgr_F1l4_'
+    base = directory + '/mhtgr_F1l4_'
     XS = []
     SP0 = []
     kappa = []
@@ -1535,7 +1550,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 4
-    base = 'xs26g/mhtgr_F2l4_'
+    base = directory + '/mhtgr_F2l4_'
     XS = []
     SP0 = []
     kappa = []
@@ -1548,7 +1563,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 4
-    base = 'xs26g/mhtgr_F3l4_'
+    base = directory + '/mhtgr_F3l4_'
     XS = []
     SP0 = []
     kappa = []
@@ -1562,7 +1577,7 @@ def homoge_fuel():
     print('Layer 4 done')
 
     # F1 layer 5
-    base = 'xs26g/mhtgr_F1l5_'
+    base = directory + '/mhtgr_F1l5_'
     XS = []
     SP0 = []
     kappa = []
@@ -1580,7 +1595,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 5
-    base = 'xs26g/mhtgr_F2l5_'
+    base = directory + '/mhtgr_F2l5_'
     XS = []
     SP0 = []
     kappa = []
@@ -1598,7 +1613,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 5
-    base = 'xs26g/mhtgr_F3l5_'
+    base = directory + '/mhtgr_F3l5_'
     XS = []
     SP0 = []
     kappa = []
@@ -1612,7 +1627,7 @@ def homoge_fuel():
     print('Layer 5 done')
 
     # F1 layer 6
-    base = 'xs26g/mhtgr_F1l6_'
+    base = directory + '/mhtgr_F1l6_'
     XS = []
     SP0 = []
     kappa = []
@@ -1625,7 +1640,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 6
-    base = 'xs26g/mhtgr_F2l6_'
+    base = directory + '/mhtgr_F2l6_'
     XS = []
     SP0 = []
     kappa = []
@@ -1643,7 +1658,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 6
-    base = 'xs26g/mhtgr_F3l6_'
+    base = directory + '/mhtgr_F3l6_'
     XS = []
     SP0 = []
     kappa = []
@@ -1662,7 +1677,7 @@ def homoge_fuel():
     print('Layer 6 done')
 
     # F1 layer 7
-    base = 'xs26g/mhtgr_F1l7_'
+    base = directory + '/mhtgr_F1l7_'
     XS = []
     SP0 = []
     kappa = []
@@ -1675,7 +1690,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 7
-    base = 'xs26g/mhtgr_F2l7_'
+    base = directory + '/mhtgr_F2l7_'
     XS = []
     SP0 = []
     kappa = []
@@ -1693,7 +1708,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 7
-    base = 'xs26g/mhtgr_F3l7_'
+    base = directory + '/mhtgr_F3l7_'
     XS = []
     SP0 = []
     kappa = []
@@ -1712,7 +1727,7 @@ def homoge_fuel():
     print('Layer 7 done')
 
     # F1 layer 8
-    base = 'xs26g/mhtgr_F1l8_'
+    base = directory + '/mhtgr_F1l8_'
     XS = []
     SP0 = []
     kappa = []
@@ -1725,7 +1740,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 8
-    base = 'xs26g/mhtgr_F2l8_'
+    base = directory + '/mhtgr_F2l8_'
     XS = []
     SP0 = []
     kappa = []
@@ -1738,7 +1753,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 8
-    base = 'xs26g/mhtgr_F3l8_'
+    base = directory + '/mhtgr_F3l8_'
     XS = []
     SP0 = []
     kappa = []
@@ -1757,7 +1772,7 @@ def homoge_fuel():
     print('Layer 8 done')
 
     # F1 layer 9
-    base = 'xs26g/mhtgr_F1l9_'
+    base = directory + '/mhtgr_F1l9_'
     XS = []
     SP0 = []
     kappa = []
@@ -1775,7 +1790,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 9
-    base = 'xs26g/mhtgr_F2l9_'
+    base = directory + '/mhtgr_F2l9_'
     XS = []
     SP0 = []
     kappa = []
@@ -1788,7 +1803,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 9
-    base = 'xs26g/mhtgr_F3l9_'
+    base = directory + '/mhtgr_F3l9_'
     XS = []
     SP0 = []
     kappa = []
@@ -1802,7 +1817,7 @@ def homoge_fuel():
     print('Layer 9 done')
 
     # F1 layer 10
-    base = 'xs26g/mhtgr_F1l10_'
+    base = directory + '/mhtgr_F1l10_'
     XS = []
     SP0 = []
     kappa = []
@@ -1820,7 +1835,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F2 layer 10
-    base = 'xs26g/mhtgr_F2l10_'
+    base = directory + '/mhtgr_F2l10_'
     XS = []
     SP0 = []
     kappa = []
@@ -1838,7 +1853,7 @@ def homoge_fuel():
     homogenize_fuel(XS, SP0, kappa, vi, base)
 
     # F3 layer 10
-    base = 'xs26g/mhtgr_F3l10_'
+    base = directory + '/mhtgr_F3l10_'
     XS = []
     SP0 = []
     kappa = []
@@ -1855,17 +1870,28 @@ def homoge_fuel():
 def homogenize_collapse_reflec(XS, SP0, vi, base, lim):
     '''
     This function homogenizes several materials into one.
-    The input cross sections have a 26 energy group structure.
+    The input group constants have a 26 energy group structure.
+    The generated group constants have G groups (G = len(lim)).
+    The output is a folder with the homogenized and collapsed
+    group constants.
+
     Parameters:
     -----------
-    XS: dictionary
+    XS: [dictionary]
         parameters to homogenize
-    vi: array of float
+    SP0: [2D array of float]
+        scattering matrix
+    vi: [array of float]
         volume fraction of each material
-    Returns:
-    --------
-    HXS: dictionary
-        homogenized parameters
+    base: [string]
+        base name of the group constants
+    lim: [list of int]
+        if lim = [2, 4, 6]:
+            - groups1 and groups2 form the new group1.
+            - groups3 and groups4 form the new group2.
+            - groups5 and groups6 form the new group3.
+        lim[-1] = G
+        len(lim) = Gp
     '''
 
     L = len(XS)
@@ -2020,7 +2046,16 @@ def homogenize_collapse_reflec(XS, SP0, vi, base, lim):
             f.close()
 
 
-def homoge_collapse_refl():
+def homoge_collapse_refl(directory):
+    '''
+    Creates the reflector group constants for model1 and model2.
+
+    Parameters:
+    -----------
+    directory: [string]
+        name of the folder that contains the new group constants.
+    '''
+
     AT = np.pi/3 * 297.3**2
     AH = 18/np.cos(np.pi/6) * 18/2 * 6  # Hexagon area
     A1 = 19./3 * AH
@@ -2031,7 +2066,7 @@ def homoge_collapse_refl():
     lim3 = [4, 15, 26]
 
     # bottom reflector
-    base = 'xs3g/mhtgr_breflec_'
+    base = directory + '/mhtgr_breflec_'
     XS = []
     SP0 = [] 
     for index in range(221, 225):
@@ -2045,7 +2080,7 @@ def homoge_collapse_refl():
     print('Bottom reflector done')
 
     # top reflector
-    base = 'xs3g/mhtgr_treflec_'
+    base = directory + '/mhtgr_treflec_'
     XS = []
     SP0 = [] 
     for index in range(228, 232):
@@ -2058,7 +2093,7 @@ def homoge_collapse_refl():
     print('Top reflector done')
 
     # inner reflector
-    base = 'xs3g/mhtgr_ireflec_'
+    base = directory + '/mhtgr_ireflec_'
     XS = []
     SP0 = [] 
     for index in range(225, 226):
@@ -2071,7 +2106,7 @@ def homoge_collapse_refl():
     print('Inner reflector done')
 
     # outer reflector
-    base = 'xs3g/mhtgr_oreflec_'
+    base = directory + '/mhtgr_oreflec_'
     XS = []
     SP0 = [] 
     for index in range(226, 228):
@@ -2087,17 +2122,30 @@ def homoge_collapse_refl():
 def homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim):
     '''
     This function homogenizes several materials into one.
-    The input cross sections have a 26 energy group structure.
+    The input group constants have a 26 energy group structure.
+    The generated group constants have G groups (G = len(lim)).
+    The output is a folder with the homogenized and collapsed
+    group constants.
+
     Parameters:
     -----------
-    XS: dictionary
+    XS: [dictionary]
         parameters to homogenize
-    vi: array of float
+    SP0: [2D array of float]
+        scattering matrix
+    kappa: [array of float]
+        energy/fission       
+    vi: [array of float]
         volume fraction of each material
-    Returns:
-    --------
-    HXS: dictionary
-        homogenized parameters
+    base: [string]
+        base name of the group constants
+    lim: [list of int]
+        if lim = [2, 4, 6]:
+            - groups1 and groups2 form the new group1.
+            - groups3 and groups4 form the new group2.
+            - groups5 and groups6 form the new group3.
+        lim[-1] = G
+        len(lim) = Gp
     '''
 
     L = len(XS)
@@ -2299,7 +2347,6 @@ def homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim):
         f.write('\n')
         f.close()
 
-
         # Everythin that is zero
         data = ['INVV', 'CHID']
         for param in data:
@@ -2320,7 +2367,16 @@ def homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim):
             f.close()
 
 
-def homoge_collapse_fuel():
+def homoge_collapse_fuel(directory):
+    '''
+    Creates the fuel group constants for model1.
+
+    Parameters:
+    -----------
+    directory: [string]
+        name of the folder that contains the new group constants.
+    '''
+
     AT = np.pi/3 * 297.3**2
     AH = 18/np.cos(np.pi/6) * 18/2 * 6  # Hexagon area
     A1 = 19./3 * AH
@@ -2331,7 +2387,7 @@ def homoge_collapse_fuel():
     lim = [4, 15, 26]
 
     # F1 layer 1
-    base = 'xs3g/mhtgr_F1l1_'
+    base = directory + '/mhtgr_F1l1_'
     XS = []
     SP0 = []
     kappa = []
@@ -2344,7 +2400,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 1
-    base = 'xs3g/mhtgr_F2l1_'
+    base = directory + '/mhtgr_F2l1_'
     XS = []
     SP0 = []
     kappa = []
@@ -2362,7 +2418,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 1
-    base = 'xs3g/mhtgr_F3l1_'
+    base = directory + '/mhtgr_F3l1_'
     XS = []
     SP0 = []
     kappa = []
@@ -2381,7 +2437,7 @@ def homoge_collapse_fuel():
     print('Layer 1 done')
 
     # F1 layer 2
-    base = 'xs3g/mhtgr_F1l2_'
+    base = directory + '/mhtgr_F1l2_'
     XS = []
     SP0 = []
     kappa = []
@@ -2394,7 +2450,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 2
-    base = 'xs3g/mhtgr_F2l2_'
+    base = directory + '/mhtgr_F2l2_'
     XS = []
     SP0 = []
     kappa = []
@@ -2412,7 +2468,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 2
-    base = 'xs3g/mhtgr_F3l2_'
+    base = directory + '/mhtgr_F3l2_'
     XS = []
     SP0 = []
     kappa = []
@@ -2431,7 +2487,7 @@ def homoge_collapse_fuel():
     print('Layer 2 done')
 
     # F1 layer 3
-    base = 'xs3g/mhtgr_F1l3_'
+    base = directory + '/mhtgr_F1l3_'
     XS = []
     SP0 = []
     kappa = []
@@ -2444,7 +2500,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 3
-    base = 'xs3g/mhtgr_F2l3_'
+    base = directory + '/mhtgr_F2l3_'
     XS = []
     SP0 = []
     kappa = []
@@ -2457,7 +2513,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 3
-    base = 'xs3g/mhtgr_F3l3_'
+    base = directory + '/mhtgr_F3l3_'
     XS = []
     SP0 = []
     kappa = []
@@ -2476,7 +2532,7 @@ def homoge_collapse_fuel():
     print('Layer 3 done')
 
     # F1 layer 4
-    base = 'xs3g/mhtgr_F1l4_'
+    base = directory + '/mhtgr_F1l4_'
     XS = []
     SP0 = []
     kappa = []
@@ -2494,7 +2550,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 4
-    base = 'xs3g/mhtgr_F2l4_'
+    base = directory + '/mhtgr_F2l4_'
     XS = []
     SP0 = []
     kappa = []
@@ -2507,7 +2563,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 4
-    base = 'xs3g/mhtgr_F3l4_'
+    base = directory + '/mhtgr_F3l4_'
     XS = []
     SP0 = []
     kappa = []
@@ -2521,7 +2577,7 @@ def homoge_collapse_fuel():
     print('Layer 4 done')
 
     # F1 layer 5
-    base = 'xs3g/mhtgr_F1l5_'
+    base = directory + '/mhtgr_F1l5_'
     XS = []
     SP0 = []
     kappa = []
@@ -2539,7 +2595,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 5
-    base = 'xs3g/mhtgr_F2l5_'
+    base = directory + '/mhtgr_F2l5_'
     XS = []
     SP0 = []
     kappa = []
@@ -2557,7 +2613,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 5
-    base = 'xs3g/mhtgr_F3l5_'
+    base = directory + '/mhtgr_F3l5_'
     XS = []
     SP0 = []
     kappa = []
@@ -2571,7 +2627,7 @@ def homoge_collapse_fuel():
     print('Layer 5 done')
 
     # F1 layer 6
-    base = 'xs3g/mhtgr_F1l6_'
+    base = directory + '/mhtgr_F1l6_'
     XS = []
     SP0 = []
     kappa = []
@@ -2584,7 +2640,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 6
-    base = 'xs3g/mhtgr_F2l6_'
+    base = directory + '/mhtgr_F2l6_'
     XS = []
     SP0 = []
     kappa = []
@@ -2602,7 +2658,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 6
-    base = 'xs3g/mhtgr_F3l6_'
+    base = directory + '/mhtgr_F3l6_'
     XS = []
     SP0 = []
     kappa = []
@@ -2621,7 +2677,7 @@ def homoge_collapse_fuel():
     print('Layer 6 done')
 
     # F1 layer 7
-    base = 'xs3g/mhtgr_F1l7_'
+    base = directory + '/mhtgr_F1l7_'
     XS = []
     SP0 = []
     kappa = []
@@ -2634,7 +2690,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 7
-    base = 'xs3g/mhtgr_F2l7_'
+    base = directory + '/mhtgr_F2l7_'
     XS = []
     SP0 = []
     kappa = []
@@ -2652,7 +2708,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 7
-    base = 'xs3g/mhtgr_F3l7_'
+    base = directory + '/mhtgr_F3l7_'
     XS = []
     SP0 = []
     kappa = []
@@ -2671,7 +2727,7 @@ def homoge_collapse_fuel():
     print('Layer 7 done')
 
     # F1 layer 8
-    base = 'xs3g/mhtgr_F1l8_'
+    base = directory + '/mhtgr_F1l8_'
     XS = []
     SP0 = []
     kappa = []
@@ -2684,7 +2740,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 8
-    base = 'xs3g/mhtgr_F2l8_'
+    base = directory + '/mhtgr_F2l8_'
     XS = []
     SP0 = []
     kappa = []
@@ -2697,7 +2753,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 8
-    base = 'xs3g/mhtgr_F3l8_'
+    base = directory + '/mhtgr_F3l8_'
     XS = []
     SP0 = []
     kappa = []
@@ -2716,7 +2772,7 @@ def homoge_collapse_fuel():
     print('Layer 8 done')
 
     # F1 layer 9
-    base = 'xs3g/mhtgr_F1l9_'
+    base = directory + '/mhtgr_F1l9_'
     XS = []
     SP0 = []
     kappa = []
@@ -2734,7 +2790,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 9
-    base = 'xs3g/mhtgr_F2l9_'
+    base = directory + '/mhtgr_F2l9_'
     XS = []
     SP0 = []
     kappa = []
@@ -2747,7 +2803,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 9
-    base = 'xs3g/mhtgr_F3l9_'
+    base = directory + '/mhtgr_F3l9_'
     XS = []
     SP0 = []
     kappa = []
@@ -2761,7 +2817,7 @@ def homoge_collapse_fuel():
     print('Layer 9 done')
 
     # F1 layer 10
-    base = 'xs3g/mhtgr_F1l10_'
+    base = directory + '/mhtgr_F1l10_'
     XS = []
     SP0 = []
     kappa = []
@@ -2779,7 +2835,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F2 layer 10
-    base = 'xs3g/mhtgr_F2l10_'
+    base = directory + '/mhtgr_F2l10_'
     XS = []
     SP0 = []
     kappa = []
@@ -2797,7 +2853,7 @@ def homoge_collapse_fuel():
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
     # F3 layer 10
-    base = 'xs3g/mhtgr_F3l10_'
+    base = directory + '/mhtgr_F3l10_'
     XS = []
     SP0 = []
     kappa = []
@@ -2811,7 +2867,16 @@ def homoge_collapse_fuel():
     print('Layer 10 done')
 
 
-def homoge_collapse_fuel2():
+def homoge_collapse_fuel2(directory):
+    '''
+    Creates the fuel group constants for model2.
+
+    Parameters:
+    -----------
+    directory: [string]
+        name of the folder that contains the new group constants.
+    '''
+
     AT = np.pi/3 * 297.3**2
     AH = 18/np.cos(np.pi/6) * 18/2 * 6  # Hexagon area
     A1 = 19./3 * AH
@@ -2821,7 +2886,7 @@ def homoge_collapse_fuel2():
 
     lim = [4, 15, 26]
 
-    base = 'xs3g/mhtgr_fuel_'
+    base = directory + '/mhtgr_fuel_'
     XS = []
     SP0 = []
     kappa = []
@@ -2939,17 +3004,26 @@ def homoge_collapse_fuel2():
     vi = 1/220 * np.ones(220)
     homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim)
 
-# OECD-MHTGR350_Simplified
-# homogenize_collapse(3)  # fuel is homogenized into one region
-# homogenize_collapse2(3)
 
-# OECD-MHTGR350
+if __name__ == "__main__":
+    ''' Calculates the group constants of a model w/ 26 groups and 30 fuel
+    regions. Uncomment the following lines if you want to produce the
+    group constants.'''
+    # directory = 'xs26g'
+    # os.mkdir(directory)
+    # homoge_refl(directory)
+    # homoge_fuel(directory)
 
-# 26G
-# homoge_fuel()
-# homoge_refl()
+    # calculates model1 group constants
+    # 26G to 3G - 30 fuel regions
+    directory = 'xs3g'
+    os.mkdir(directory)
+    homoge_collapse_refl(directory)
+    homoge_collapse_fuel(directory)
 
-# 3G
-homoge_collapse_refl()
-# homoge_collapse_fuel() # 30 fuel regions
-homoge_collapse_fuel2() # 1 fuel region
+    # calculates model2 group constants
+    # 26G to 3G - 1 fuel region
+    directory = 'xs3gB'
+    os.mkdir(directory)
+    homoge_collapse_refl(directory)
+    homoge_collapse_fuel2(directory)
