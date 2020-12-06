@@ -1,7 +1,9 @@
 Geometries:
 -----------
 
-* 2D-fullcore-simpleD.geo
-	- 9 rings
-	- 9 coolant channels
-	
+* 2D-fullcore-simpleE.geo
+* 2D-fullcore-simpleF.geo
+
+Input files:
+------------
+
