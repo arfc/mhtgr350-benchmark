@@ -15,11 +15,15 @@ Input files:
 	  more accurate from a thermal-hydraulics stand point.
 	  I chose the second one.
 
+keff = 1.0231126538
+
 * model1-noTF.i
 	- model1.geo
 	- similar to coupledD but w/ no thermal feedback
 	- neutronics affect Thermal-Fluids
 	- Thermal-Fluids don't affect the neutronics 
+
+keff = 1.0271743945
 
 * model2.i
 	- model2.geo
@@ -27,6 +31,8 @@ Input files:
 	- calculates temperature averages in the heterogeneous regions
 	- divides the fuel temperature zones
 	- required using 'PostprocessorAux.C' (testApp)
+
+keff = 1.0228706345436
 
 Geometries:
 -----------
