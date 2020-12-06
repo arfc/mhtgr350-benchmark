@@ -4,20 +4,15 @@ Input files:
 * model1.i
 	- simpleF4.geo
 	- 3g
-	- 30 fuel regions
-
-* model2.i
-	- simpleF4.geo
-	- 3g
-	- 1 fuel region
+	- fuel region is defined with 30 subdomains neutronically
 
 * model3.i
 	- simpleF7.geo
 	- 3g
-	- 1 fuel region
+	- fuel region is defined with one subdomain neutronically
 	- keff = 1.0215416333
 
 Geometries:
 -----------
-* model1.geo: defines the fuel region with 30 subdomains
-* model2.geo: defines the fuel region with 1 subdomain
+* model1.geo: defines the fuel region with 30 subdomains and uses group constants for each of the 30 subdomains.
+* model2.geo: defines all the details for the thermal-fluids and all of them share the same cross-sections.
