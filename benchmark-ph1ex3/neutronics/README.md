@@ -15,6 +15,7 @@ Input files:
 	- simpleF7.geo
 	- 3g
 	- 1 fuel region
+	- keff = 1.0215416333
 
 Geometries:
 -----------
