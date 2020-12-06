@@ -24,7 +24,7 @@ def add_legends_fullcore():
     blue = mpatches.Patch(color=(0., 0., 1.), label='Coolant')
     lblue = mpatches.Patch(color=(0., 1., 1.), label='Air')
 
-    figure = 'simpleF9-mesh'
+    figure = 'model1-mesh'
     cwd = os.getcwd()
     fname = get_sample_data('{0}/{1}.png'.format(cwd, figure))
     im = plt.imread(fname)
