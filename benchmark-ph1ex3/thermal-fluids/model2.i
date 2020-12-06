@@ -2,7 +2,7 @@
 v = -1701.71 # [cm/s]
 
 [Mesh]
-  file = 2D-fullcore-simpleE.msh
+  file = model2.msh
 [../]
 
 [Problem]
@@ -393,7 +393,7 @@ v = -1701.71 # [cm/s]
   [./gapc]
     type = GenericConstantMaterial
     prop_names = 'k'
-    prop_values = '0.002695' # [W/cm/K] ave
+    prop_values = '0.002418' # [W/cm/K] ave
     block = 'film'
   [../]
   [./rpv]
@@ -443,7 +443,7 @@ v = -1701.71 # [cm/s]
 
 [Outputs]
   perf_graph = true
-  file_base = 'input-2D-simpleE'
+  file_base = 'model2'
   execute_on = 'final'
   exodus = true
   csv = true
