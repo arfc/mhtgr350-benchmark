@@ -1,18 +1,22 @@
 Input files:
 ------------
 
-* fullcore.i
+* model1.i
 	- simpleF4.geo
 	- 3g
 	- 30 fuel regions
 
-* fullcoreB.i
+* model2.i
 	- simpleF4.geo
 	- 3g
 	- 1 fuel region
 
-* fullcoreB2.i
+* model3.i
 	- simpleF7.geo
 	- 3g
 	- 1 fuel region
 
+Geometries:
+-----------
+* model1.geo: defines the fuel region with 30 subdomains
+* model2.geo: defines the fuel region with 1 subdomain

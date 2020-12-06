@@ -9,7 +9,7 @@
 []
 
 [Mesh]
-  file = 'simpleF4.msh'
+  file = 'model1.msh'
 [../]
 
 [Problem]
@@ -89,7 +89,7 @@
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  file_base = 'fullcore'
+  file_base = 'model1'
   execute_on = timestep_end
   exodus = true
   csv = true
