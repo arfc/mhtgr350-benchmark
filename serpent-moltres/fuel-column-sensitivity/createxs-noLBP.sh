@@ -1,7 +1,7 @@
 # Step 1: Uncomment these lines to create .coe
-cp standard-column7-26G.coe homoge.coe
-cp standard-column7-26G.coe brefl.coe
-cp standard-column7-26G.coe trefl.coe
+cp standard-column-noLBP-26G.coe homoge.coe
+cp standard-column-noLBP-26G.coe brefl.coe
+cp standard-column-noLBP-26G.coe trefl.coe
 sed -i '2s/.*/1 homoge0/' homoge.coe
 sed -i '537s/.*/1 homoge2/' homoge.coe
 sed -i '2s/.*/1 brefl0/' brefl.coe
@@ -18,15 +18,13 @@ echo 'brefl2 1200' >> tempMapping
 echo 'trefl0 600' >> tempMapping
 echo 'trefl2 1200' >> tempMapping
 
-> secBranch
-
 > universeMapping
 echo 'homoge 11' >> universeMapping
 echo 'brefl B' >> universeMapping
 echo 'trefl T' >> universeMapping
 
-mkdir xs-assembly-LBP-18Ge
-./extract-convert.py xs-assembly-LBP-18Ge mhtgr tempMapping universeMapping
+mkdir xs-assembly-noLBP-$1G 
+./extract-convert.py xs-assembly-noLBP-$1G mhtgr tempMapping universeMapping $1
 
 # Step 3: Uncomment these lines to remove all the unnecessary files
 rm homoge.coe
