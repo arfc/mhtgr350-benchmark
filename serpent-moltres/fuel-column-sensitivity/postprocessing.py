@@ -363,9 +363,9 @@ def noLBP_600_L2error():
     file2 = '3D-assembly-noLBP-600-15G_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15))
     file2 = '3D-assembly-noLBP-600-12G_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim12b))
+    e[3] = np.array(calc_error(file1, file2, lim26, lim12))
     file2 = '3D-assembly-noLBP-600-9G_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim9c))
+    e[2] = np.array(calc_error(file1, file2, lim26, lim9))
     file2 = '3D-assembly-noLBP-600-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
     file2 = '3D-assembly-noLBP-600-3G_axial_0002.csv'
@@ -400,9 +400,9 @@ def noLBP_1200_L2error():
     file2 = '3D-assembly-noLBP-1200-15G_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15))
     file2 = '3D-assembly-noLBP-1200-12G_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim12b))
+    e[3] = np.array(calc_error(file1, file2, lim26, lim12))
     file2 = '3D-assembly-noLBP-1200-9G_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim9c))
+    e[2] = np.array(calc_error(file1, file2, lim26, lim9))
     file2 = '3D-assembly-noLBP-1200-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
     file2 = '3D-assembly-noLBP-1200-3G_axial_0002.csv'
@@ -437,9 +437,9 @@ def LBP_600_L2error():
     file2 = '3D-assembly-LBP-600-15Gc_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15c))
     file2 = '3D-assembly-LBP-600-12G_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim12b))
+    e[3] = np.array(calc_error(file1, file2, lim26, lim12))
     file2 = '3D-assembly-LBP-600-9G_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim9c))
+    e[2] = np.array(calc_error(file1, file2, lim26, lim9))
     file2 = '3D-assembly-LBP-600-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
     file2 = '3D-assembly-LBP-600-3G_axial_0002.csv'
@@ -474,9 +474,9 @@ def LBP_1200_L2error():
     file2 = '3D-assembly-LBP-1200-15Gc_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15c))
     file2 = '3D-assembly-LBP-1200-12G_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim12b))
+    e[3] = np.array(calc_error(file1, file2, lim26, lim12))
     file2 = '3D-assembly-LBP-1200-9G_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim9c))
+    e[2] = np.array(calc_error(file1, file2, lim26, lim9))
     file2 = '3D-assembly-LBP-1200-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
     file2 = '3D-assembly-LBP-1200-3G_axial_0002.csv'
@@ -487,26 +487,25 @@ def LBP_1200_L2error():
     plot_error_acc_study(e, 'LBP-1200-er-final', xticks, xlabel)
 
 
-# noLBP - 600
-# Gets keff, time, and memory vs number of energy groups
-plot_global('no', 600, 1.43800)
-# Plots L2-norm relative error for 3, 6, 9, 12, 15, 18, 21 groups
-# noLBP_600_L2error()
+if __name__ == "__main__":
+    # Gets keff, time, and memory vs number of energy groups
+    # noLBP - 600
+    plot_global('no', 600, 1.43800)
 
-# noLBP - 1200
-# Gets keff, time, and memory vs number of energy groups
-plot_global('no', 1200, 1.37771)
-# Plots L2-norm relative error for 3, 6, 9, 12, 15, 18, 21 groups
-# noLBP_1200_L2error()
+    # noLBP - 1200
+    plot_global('no', 1200, 1.37771)
 
-# LBP - 600
-# Gets keff, time, and memory vs number of energy groups
-plot_global('yes', 600, 1.12861)
-# Plots L2-norm relative error for 3, 6, 9, 12, 15, 18, 21 groups
-# LBP_600_L2error()
+    # LBP - 600
+    plot_global('yes', 600, 1.12861)
 
-# LBP - 1200
-# Gets keff, time, and memory vs number of energy groups
-plot_global('yes', 1200, 1.06554)
-# Plots L2-norm relative error for 3, 6, 9, 12, 15, 18, 21 groups
-# LBP_1200_L2error()
+    # LBP - 1200
+    plot_global('yes', 1200, 1.06554)
+
+    # Plots L2-norm relative error for 3, 6, 9, 12, 15, 18, 21 groups
+    noLBP_600_L2error()
+
+    noLBP_1200_L2error()
+
+    LBP_600_L2error()
+
+    LBP_1200_L2error()
