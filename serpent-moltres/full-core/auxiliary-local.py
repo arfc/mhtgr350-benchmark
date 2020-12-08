@@ -266,3 +266,5 @@ if __name__ == "__main__":
     # moltres legends
     geo_label()
 
+    # adds legends to moltres detectors
+    geo_detectors()

@@ -6,6 +6,7 @@ from matplotlib.collections import PatchCollection
 from matplotlib.pyplot import gca
 import pathmagic
 from auxiliary import plot_serpent_axial_collapse
+import pandas as pd
 
 
 def plot_serpent_radial_collapse(data, name, save, lim, piH=1):
@@ -134,6 +135,7 @@ def plot_radial_power_distribution(power, save):
     plt.xlabel('X [cm]', fontsize=14)
     plt.ylabel('Y [cm]', fontsize=14)
     plt.savefig(save, dpi=300, bbox_inches="tight")
+    plt.close()
 
 
 def plotcsv_groups_collapse(file, save, lim, dire='z'):
@@ -352,10 +354,13 @@ def get_moltres_results():
 
 def compare_serpent_moltres():
     '''
+    Compares radial power distribution and fluxes.
+
     '''
 
-    Compare radial power distribution
-    data = st.read('oecd-fullcore26G-600_det1b1.m', reader='det')
+    G = 15
+    # Power distribution
+    data = st.read('oecd-fullcore-600_det1b1.m', reader='det')
     filename = '3D-fullcore-600-' + str(G) + 'Gd.csv'
 
     det = data.detectors['power']
@@ -382,7 +387,7 @@ def compare_serpent_moltres():
     save = 'serpent-moltres-600-error'
     plot_radial_power_distribution((power-power2)/power*100, save)
 
-    data = st.read('oecd-fullcore26G-1200_det1b1.m', reader='det')
+    data = st.read('oecd-fullcore-1200_det1b1.m', reader='det')
     filename = '3D-fullcore-1200-' + str(G) + 'Gc.csv'
 
     det = data.detectors['power']
@@ -409,11 +414,18 @@ def compare_serpent_moltres():
     save = 'serpent-moltres-1200-error'
     plot_radial_power_distribution((power-power2)/power*100, save)
 
-    # Compare Serpent and Moltres fluxes
+    # Fluxes
+    lim26 = [4, 16, 26]  # collapse from 26 to 3
+    A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
+    Ah = 6. * (A * 18./2)   # Area of the hexagon
+    V = Ah * (160 + 793 + 120)
+    H = 79.3
+    p = np.pi/180 * 2  # = 2 deg
+
     G = 15
     lim = choose_lim(G)
 
-    data = st.read('oecd-fullcore26G-600_det1b1.m', reader='det')
+    data = st.read('oecd-fullcore-600_det1b1.m', reader='det')
     save = 'serpent26G-600-collapse-Axial1'
     plot_serpent_axial_collapse(data, 'Axial1', save, lim26, V, 'Z')
 
@@ -421,7 +433,7 @@ def compare_serpent_moltres():
     save = 'serpent-moltres-axial-600'
     plotcsv_groups_collapse(file, save, lim, dire='z')
 
-    data = st.read('oecd-fullcore26G-600_det1b1.m', reader='det')
+    data = st.read('oecd-fullcore-600_det1b1.m', reader='det')
     save = 'serpent26G-600-collapse-Radial'
     plot_serpent_radial_collapse(data, 'Radial3', save, lim26, p*H)
 
@@ -429,7 +441,7 @@ def compare_serpent_moltres():
     save = 'serpent-moltres-radial-600'
     plotcsv_groups_collapse(file, save, lim, dire='r')
 
-    data = st.read('oecd-fullcore26G-1200_det1b1.m', reader='det')
+    data = st.read('oecd-fullcore-1200_det1b1.m', reader='det')
     save = 'serpent26G-1200-collapse-Axial1'
     plot_serpent_axial_collapse(data, 'Axial1', save, lim26, V, 'Z')
 
@@ -437,7 +449,7 @@ def compare_serpent_moltres():
     save = 'serpent-moltres-axial-1200'
     plotcsv_groups_collapse(file, save, lim, dire='z')
 
-    data = st.read('oecd-fullcore26G-1200_det1b1.m', reader='det')
+    data = st.read('oecd-fullcore-1200_det1b1.m', reader='det')
     save = 'serpent26G-1200-collapse-Radial'
     plot_serpent_radial_collapse(data, 'Radial3', save, lim26, p*H)
 
