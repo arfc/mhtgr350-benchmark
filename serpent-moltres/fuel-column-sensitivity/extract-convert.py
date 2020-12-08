@@ -15,7 +15,7 @@ def makePropertiesDir(
         filebase,
         mapFile,
         unimapFile,
-        ngroups=3,
+        ngroups='3',
         fromMain=False):
     """ Takes in a mapping from branch names to material temperatures,
     then makes a properties directory.
@@ -83,29 +83,29 @@ def makePropertiesDir(
                     item))
 
         try:           
-            if ngroups == 3:
+            if ngroups == '3':
                 lim = [4, 16, 26]
-            if ngroups == 6:
+            if ngroups == '6':
                 lim = [4, 10, 16, 18, 24, 26]
-            if ngroups == 9:
-                lim9c = [4, 8, 10, 13, 16, 18, 22, 24, 26]
-                lim = lim9c
-            if ngroups == 12:
-                lim12b = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26]
-                lim = lim12
-            if ngroups == 15:
-                lim15 = [2, 4, 5, 8, 9, 10, 12, 13, 14, 16, 18, 20, 22, 24, 26]
-                lim15b = [2, 4, 5, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26]
-                lim15c = [2, 4, 7, 9, 11, 14, 16, 18, 19, 20, 22, 23, 24, 25, 26]
-                lim15d = [2, 4, 8, 10, 12, 14, 16, 18, 19, 20, 22, 23, 24, 25, 26]
-                lim15e = [2, 4, 8, 10, 12, 14, 16, 18, 20, 21, 22, 23, 24, 25, 26]
-            if ngroups == 18:
-                lim18 = [2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 18, 20, 22, 23, 24, 25, 26]
-                lim18b = [2, 4, 5, 7, 8, 9, 10, 12, 14, 16, 18, 20, 21, 22, 23, 24, 25, 26]
-                lim18c = [2, 4, 7, 8, 9, 10, 12, 14, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26]
-                lim18d = [2, 4, 8, 9, 10, 12, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
-                lim18e = [2, 4, 8, 10, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26]
-            if ngroups == 21:
+            if ngroups == '9':
+                lim = [4, 8, 10, 13, 16, 18, 22, 24, 26]
+            if ngroups == '12':
+                lim = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26]
+            if ngroups == '15':
+                lim = [2, 4, 5, 8, 9, 10, 12, 13, 14, 16, 18, 20, 22, 24, 26]
+            if ngroups == '15b':
+                lim = [2, 4, 5, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26]
+            if ngroups == '15c':
+                lim = [2, 4, 7, 9, 11, 14, 16, 18, 19, 20, 22, 23, 24, 25, 26]
+            if ngroups == '15d':
+                lim = [2, 4, 8, 10, 12, 14, 16, 18, 19, 20, 22, 23, 24, 25, 26]
+            if ngroups == '15e':
+                lim = [2, 4, 8, 10, 12, 14, 16, 18, 20, 21, 22, 23, 24, 25, 26]
+            if ngroups == '18':
+                lim = [2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 18, 20, 22, 23, 24, 25, 26]
+            if ngroups == '18c':
+                lim = [2, 4, 7, 8, 9, 10, 12, 14, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26]
+            if ngroups == '21':
                 lim = [2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26]
 
             G = len(lim)
@@ -371,8 +371,8 @@ if __name__ == '__main__':
                         help='File that maps branches to temperatures')
     parser.add_argument('universeMap', metavar='u', type=str, nargs=1,
                         help='maps material names to serpent universe')
-    parser.add_argument('integer', metavar='N', type=int, nargs='+',
-                        help='number of groups')
+    parser.add_argument('engroup', metavar='N', type=str, nargs='+',
+                        help='energy group structure')
 
     args = parser.parse_args()
 
@@ -382,7 +382,7 @@ if __name__ == '__main__':
     mapFile = args.mapFile[0]
     unimapFile = args.universeMap[0]
     # not sure
-    ngroups = args.integer[0]
+    ngroups = args.engroup[0]
 
     makePropertiesDir(outdir, fileBase, mapFile, unimapFile, ngroups, fromMain=True)
 

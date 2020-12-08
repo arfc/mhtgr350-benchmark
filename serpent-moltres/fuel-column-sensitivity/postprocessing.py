@@ -349,8 +349,8 @@ def noLBP_600_L2error():
     lim21 = [2, 12, 21]  # from 21 to 3
     lim18 = [2, 11, 18]  # from 18 to 3
     lim15 = [2, 10, 15]  # from 15 to 3
-    lim12b = [1, 7, 12]  # from 12 to 3
-    lim9c = [1, 5, 9]  # from 9 to 3
+    lim12 = [1, 7, 12]  # from 12 to 3
+    lim9 = [1, 5, 9]  # from 9 to 3
     lim6 = [1, 3, 6]  # from 6 to 3
     lim3 = [1, 2, 3]  # from 3 to 3
 
@@ -362,9 +362,9 @@ def noLBP_600_L2error():
     e[5] = np.array(calc_error(file1, file2, lim26, lim18))
     file2 = '3D-assembly-noLBP-600-15G_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15))
-    file2 = '3D-assembly-noLBP-600-12Gb_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-600-12G_axial_0002.csv'
     e[3] = np.array(calc_error(file1, file2, lim26, lim12b))
-    file2 = '3D-assembly-noLBP-600-9Gc_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-600-9G_axial_0002.csv'
     e[2] = np.array(calc_error(file1, file2, lim26, lim9c))
     file2 = '3D-assembly-noLBP-600-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
@@ -386,8 +386,8 @@ def noLBP_1200_L2error():
     lim21 = [2, 12, 21]  # from 21 to 3
     lim18 = [2, 11, 18]  # from 18 to 3
     lim15 = [2, 10, 15]  # from 15 to 3
-    lim12b = [1, 7, 12]  # from 12 to 3
-    lim9c = [1, 5, 9]  # from 9 to 3
+    lim12 = [1, 7, 12]  # from 12 to 3
+    lim9 = [1, 5, 9]  # from 9 to 3
     lim6 = [1, 3, 6]  # from 6 to 3
     lim3 = [1, 2, 3]  # from 3 to 3
 
@@ -399,9 +399,9 @@ def noLBP_1200_L2error():
     e[5] = np.array(calc_error(file1, file2, lim26, lim18))
     file2 = '3D-assembly-noLBP-1200-15G_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15))
-    file2 = '3D-assembly-noLBP-1200-12Gb_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-1200-12G_axial_0002.csv'
     e[3] = np.array(calc_error(file1, file2, lim26, lim12b))
-    file2 = '3D-assembly-noLBP-1200-9Gc_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-1200-9G_axial_0002.csv'
     e[2] = np.array(calc_error(file1, file2, lim26, lim9c))
     file2 = '3D-assembly-noLBP-1200-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
@@ -423,8 +423,8 @@ def LBP_600_L2error():
     lim21 = [2, 12, 21]  # from 21 to 3
     lim18c = [2, 9, 18]  # from 18 to 3
     lim15c = [2, 7, 15]  # from 15 to 3
-    lim12b = [1, 7, 12]  # from 12 to 3
-    lim9c = [1, 5, 9]  # from 9 to 3
+    lim12 = [1, 7, 12]  # from 12 to 3
+    lim9 = [1, 5, 9]  # from 9 to 3
     lim6 = [1, 3, 6]  # from 6 to 3
     lim3 = [1, 2, 3]  # from 3 to 3
 
@@ -436,9 +436,9 @@ def LBP_600_L2error():
     e[5] = np.array(calc_error(file1, file2, lim26, lim18c))
     file2 = '3D-assembly-LBP-600-15Gc_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15c))
-    file2 = '3D-assembly-LBP-600-12Gb_axial_0002.csv'
+    file2 = '3D-assembly-LBP-600-12G_axial_0002.csv'
     e[3] = np.array(calc_error(file1, file2, lim26, lim12b))
-    file2 = '3D-assembly-LBP-600-9Gc_axial_0002.csv'
+    file2 = '3D-assembly-LBP-600-9G_axial_0002.csv'
     e[2] = np.array(calc_error(file1, file2, lim26, lim9c))
     file2 = '3D-assembly-LBP-600-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
@@ -460,8 +460,8 @@ def LBP_1200_L2error():
     lim21 = [2, 12, 21]  # from 21 to 3
     lim18c = [2, 9, 18]  # from 18 to 3
     lim15c = [2, 7, 15]  # from 15 to 3
-    lim12b = [1, 7, 12]  # from 12 to 3
-    lim9c = [1, 5, 9]  # from 9 to 3
+    lim12 = [1, 7, 12]  # from 12 to 3
+    lim9 = [1, 5, 9]  # from 9 to 3
     lim6 = [1, 3, 6]  # from 6 to 3
     lim3 = [1, 2, 3]  # from 3 to 3
 
@@ -473,9 +473,9 @@ def LBP_1200_L2error():
     e[5] = np.array(calc_error(file1, file2, lim26, lim18c))
     file2 = '3D-assembly-LBP-1200-15Gc_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15c))
-    file2 = '3D-assembly-LBP-1200-12Gb_axial_0002.csv'
+    file2 = '3D-assembly-LBP-1200-12G_axial_0002.csv'
     e[3] = np.array(calc_error(file1, file2, lim26, lim12b))
-    file2 = '3D-assembly-LBP-1200-9Gc_axial_0002.csv'
+    file2 = '3D-assembly-LBP-1200-9G_axial_0002.csv'
     e[2] = np.array(calc_error(file1, file2, lim26, lim9c))
     file2 = '3D-assembly-LBP-1200-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
