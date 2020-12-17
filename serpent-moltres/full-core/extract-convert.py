@@ -1,8 +1,4 @@
-#!/usr/bin/env python3
-# This script extracts group constants from Serpent 2. It should be
-# able to do all of the work, no need to specify how many energy
-# groups, or anything like that. Also, this could be imported into
-# other python scripts if needed, maybe for parametric studies.
+# This file is based in $MOLTRES/python/extractSerpent2GCs.py
 import os
 import numpy as np
 import argparse
@@ -10,21 +6,19 @@ import subprocess
 import serpentTools as sT
 
 
-def makePropertiesDir(
-        outdir,
-        filebase,
-        mapFile,
-        unimapFile,
-        serp1=False,
-        fromMain=False):
-    """ Takes in a mapping from branch names to material temperatures,
+def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
+    '''
+    Takes in a mapping from branch names to material temperatures,
     then makes a properties directory.
-    Serp1 means that the group transfer matrix is transposed."""
+
+    Parameters:
+    -----------
+
+    '''
 
     # the constants moltres looks for:
     goodStuff = ['BETA_EFF', 'Chit', 'Chid', 'lambda', 'Diffcoef', 'Kappa',
                  'Sp0', 'Nsf', 'Invv', 'Remxs', 'Fiss', 'Flx', 'Abs']
-    # goodStuff = ['BETA_EFF', 'lambda', 'Flx', 'Fiss', 'Chit']
     goodMap = dict([(thing, 'inf' + thing) for thing in goodStuff])
     goodMap['BETA_EFF'] = 'betaEff'
     goodMap['lambda'] = 'lambda'
@@ -83,42 +77,48 @@ def makePropertiesDir(
                     item))
 
         try:
-            
-            lim3 = [4, 16, 26]
-            lim6 = [4, 10, 16, 18, 24, 26]
-            
-            lim9 = [4, 8, 9, 10, 13, 16, 18, 24, 26]
-            # lim9b = [4, 8, 10, 13, 16, 18, 22, 24, 26]
-            # lim9c = [4, 10, 16, 18, 20, 22, 24, 26]
-            lim9c = [4, 8, 10, 13, 16, 18, 22, 24, 26]
-            lim9d = [4, 8, 10, 14, 16, 18, 22, 24, 26]
+            if ngroups == '3':
+                lim = [4, 16, 26]
+            if ngroups == '6':
+                lim = [4, 10, 16, 18, 24, 26]
+            if ngroups == '9':
+                lim = [4, 8, 10, 13, 16, 18, 22, 24, 26]
+            if ngroups == '12':
+                lim = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26]
+            if ngroups == '15':
+                lim = [2, 4, 5, 8, 9, 10, 12, 13, 14, 16, 18, 20, 22, 24,
+                       26]
+            if ngroups == '15b':
+                lim = [2, 4, 5, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24,
+                       26]
+            if ngroups == '15c':
+                lim = [2, 4, 7, 9, 11, 14, 16, 18, 19, 20, 22, 23, 24, 25,
+                       26]
+            if ngroups == '15d':
+                lim = [2, 4, 8, 10, 12, 14, 16, 18, 19, 20, 22, 23, 24, 25,
+                       26]
+            if ngroups == '15e':
+                lim = [2, 4, 8, 10, 12, 14, 16, 18, 20, 21, 22, 23, 24, 25,
+                       26]
+            if ngroups == '18':
+                lim = [2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 18, 20, 22, 23,
+                       24, 25, 26]
+            if ngroups == '18c':
+                lim = [2, 4, 7, 8, 9, 10, 12, 14, 16, 18, 19, 20, 21, 22, 23,
+                       24, 25, 26]
+            if ngroups == '21':
+                lim = [2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19,
+                       20, 22, 23, 24, 25, 26]
 
-            lim12 = [2, 4, 5, 8, 9, 10, 13, 14, 16, 18, 24, 26]
-            lim12b = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26]
-            lim12c = [2, 4, 6, 9, 11, 14, 16, 18, 20, 22, 24, 26]
-            
-            lim15 = [2, 4, 5, 8, 9, 10, 12, 13, 14, 16, 18, 20, 22, 24, 26]
-            lim15b = [2, 4, 5, 8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26]
-            lim15c = [2, 4, 7, 9, 11, 14, 16, 18, 19, 20, 22, 23, 24, 25, 26]
-            lim15d = [2, 4, 8, 10, 12, 14, 16, 18, 19, 20, 22, 23, 24, 25, 26]
-            lim15e = [2, 4, 8, 10, 12, 14, 16, 18, 20, 21, 22, 23, 24, 25, 26]
-
-            lim18 = [2, 4, 5, 7, 8, 9, 10, 12, 13, 14, 16, 18, 20, 22, 23, 24, 25, 26]
-            lim21 = [2, 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 22, 23, 24, 25, 26]
-
-            lim = lim15d
             G = len(lim)
-
             CXS = {'Flx': [], 'Fiss': [], 'Chit': [], 'Chid': [], 'Diffcoef': [], 'Kappa': [],
                    'Nsf': [], 'Invv': [], 'Remxs': [], 'Sp0': np.zeros((G, G))
                   }
 
             fluxes = coeList[currentMat].branches[item].universes[
                      uniMap[currentMat], 0, 0, None].infExp[goodMap['Flx']]
-            # print(fluxes[0]+fluxes[1])
             chi = coeList[currentMat].branches[item].universes[
                   uniMap[currentMat], 0, 0, None].infExp[goodMap['Chit']]
-
             chid = coeList[currentMat].branches[item].universes[
                    uniMap[currentMat], 0, 0, None].infExp[goodMap['Chid']]
 
@@ -272,7 +272,6 @@ def makePropertiesDir(
                     fh.write('\n')
 
         except KeyError:
-            # print(secBranch)
             raise Exception('Check your mapping and secondary branch files.')
 
 
@@ -291,6 +290,7 @@ def collapse(XS, lim):
     CXS: dictionary
         collapsed parameters
     '''
+
     G = len(lim)
     CXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'NSF': [], 'FISS': [], 'CHIT': [],
            'SP0': np.zeros((G, G))}
@@ -367,33 +367,24 @@ if __name__ == '__main__':
                         help='name of directory to write properties to.')
     parser.add_argument('fileBase', metavar='f', type=str,
                         nargs=1, help='File base name to give moltres')
-    parser.add_argument(
-        'mapFile',
-        metavar='b',
-        type=str,
-        nargs=1,
-        help='File that maps branches to temperatures')
-    parser.add_argument(
-        'universeMap',
-        metavar='u',
-        type=str,
-        nargs=1,
-        help='File that maps material names to serpent universe')
-    parser.add_argument(
-        '--serp1',
-        dest='serp1',
-        action='store_true',
-        help='use this flag for serpent 1 group transfer matrices')
-    parser.set_defaults(serp1=False)
-
+    parser.add_argument('outDir', metavar='o', type=str, nargs=1,
+                        help='name of directory to write properties to.')
+    parser.add_argument('fileBase', metavar='f', type=str, nargs=1,
+                        help='File base name to give moltres')
+    parser.add_argument('mapFile', metavar='b', type=str, nargs=1,
+                        help='File that maps branches to temperatures')
+    parser.add_argument('universeMap', metavar='u', type=str, nargs=1,
+                        help='maps material names to serpent universe')
+    parser.add_argument('engroup', metavar='N', type=str, nargs='+',
+                        help='energy group structure')
     args = parser.parse_args()
 
     # these are unpacked, so it fails if they werent passed to the script
     outdir = args.outDir[0]
     fileBase = args.fileBase[0]
     mapFile = args.mapFile[0]
-    unimapFile = args.universeMap[0]
+    ngroups = args.engroup[0]
 
-    makePropertiesDir(outdir, fileBase, mapFile, unimapFile, serp1=args.serp1, fromMain=True)
+    makePropertiesDir(outdir, fileBase, mapFile, unimapFile, ngroups)
 
     print("Successfully made property files in directory {}.".format(outdir))

@@ -1,4 +1,5 @@
-
+Serpent input files:
+--------------------
 * oecd-fullcore
 	- full core
 	- Explicit and random: oecd79, crpP2
@@ -6,12 +7,18 @@
 	- oecd material composition from Benchmark Phase III [2]
 	- Geometry definition from [3]
 
-
-oecd-fullcore:
 800000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
-12.2 h MPI = 8, OMP = 16: 128 cores
-six_ff_keff = 1.06135 +/- 0.00006
 
+Serpent Keff:
+-------------
+* 600: 1.10869
+* 1200: 1.06138
+
+keff (600K) = 1.1115000683
+keff (1200K) = 1.0646803289
+
+time(s) (256 cores) (600K): 12406.826 = 3.44 h
+time(s) (256 cores) (1200K): 15311.763 = 4.25 h
 
 References:
 -----------
@@ -22,23 +29,6 @@ References:
 [3] OECD geometry from: OECD/NEA. Benchmark of the Modular High-Temperature Gas-Cooled Reactor (MHTGR)-350 MW Core Design Volumes I and II. February 2018.
 
 [4] Hans Gougar et al. PRISMATIC COUPLED NEUTRONICS/THERMAL FLUIDS TRANSIENT BENCHMARK OF THE MHTGR-350 MW CORE DESIGN BENCHMARK DEFINITION. 2010.
-
-Info:
------
-Moltres DOFs: 
-N of elements: 300720
-Nodes (DOFs/group): 160035
-total dof = 2400525
-
-Serpent Keff:
-* 600: 1.10869
-* 1200: 1.06138
-
-keff (600K) = 1.1115000683
-keff (1200K) = 1.0646803289
-
-time(s) (256 cores) (600K): 12406.826 = 3.44 h
-time(s) (256 cores) (1200K): 15311.763 = 4.25 h
 
 Detector equivalency:
 ---------------------
@@ -63,6 +53,12 @@ Geometry:
   - inner reflector: 1 material
   - outer reflector: 1 material
   - h = 8
+
+Moltres DOFs:
+N of elements: 300720
+Nodes (DOFs/group): 160035
+total dof = 2400525
+
 
 Petsc debugging:
 ----------------

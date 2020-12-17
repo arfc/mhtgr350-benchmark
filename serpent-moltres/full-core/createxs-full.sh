@@ -18,8 +18,6 @@ echo 'orefl0 600' >> tempMapping
 echo 'brefl0 600' >> tempMapping
 echo 'trefl0 600' >> tempMapping
 
-> secBranch
-
 > universeMapping
 echo 'homoge 9' >> universeMapping
 echo 'irefl I' >> universeMapping
@@ -27,7 +25,8 @@ echo 'orefl O' >> universeMapping
 echo 'brefl B' >> universeMapping
 echo 'trefl T' >> universeMapping
 
-$MOLTRES/python/extractSerpent2GCs.py xs-fullcore-26G mhtgr tempMapping secBranch universeMapping
+mkdir xs-fullcore-15Gd
+./extract-convert.py xs-fullcore-15Gd mhtgr tempMapping universeMapping
 
 # Step 3: Uncomment these lines to remove all the unnecessary files
 rm homoge.coe
@@ -36,7 +35,6 @@ rm orefl.coe
 rm brefl.coe
 rm trefl.coe
 rm tempMapping
-rm secBranch
 rm universeMapping
 
 cp fullcore-1200-26G.coe homoge.coe
@@ -58,8 +56,6 @@ echo 'orefl0 1200' >> tempMapping
 echo 'brefl0 1200' >> tempMapping
 echo 'trefl0 1200' >> tempMapping
 
-> secBranch
-
 > universeMapping
 echo 'homoge 9' >> universeMapping
 echo 'irefl I' >> universeMapping
@@ -67,7 +63,7 @@ echo 'orefl O' >> universeMapping
 echo 'brefl B' >> universeMapping
 echo 'trefl T' >> universeMapping
 
-$MOLTRES/python/extractSerpent2GCs.py xs-fullcore-26G mhtgr tempMapping secBranch universeMapping
+./extract-convert.py xs-fullcore-15Gd mhtgr tempMapping universeMapping
 
 # Step 3: Uncomment these lines to remove all the unnecessary files
 rm homoge.coe
@@ -76,5 +72,4 @@ rm orefl.coe
 rm brefl.coe
 rm trefl.coe
 rm tempMapping
-rm secBranch
 rm universeMapping

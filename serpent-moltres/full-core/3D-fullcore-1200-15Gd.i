@@ -56,7 +56,7 @@
 [Outputs]
   perf_graph = true
   print_linear_residuals = true
-  file_base = '3D-fullcore-1200-15Gc'
+  file_base = '3D-fullcore-1200-15Gd'
   execute_on = timestep_end
   exodus = true
   csv = true

@@ -322,12 +322,12 @@ def get_moltres_results():
     save = '3D-fullcore-600-' + str(G) + 'Gd-radial1'
     plotcsv_groups_collapse(file, save, lim, dire='r')
 
-    file = '3D-fullcore-1200-' + str(G) + 'Gc_axial1_0002.csv'
-    save = '3D-fullcore-1200-' + str(G) + 'Gc-axial1'
+    file = '3D-fullcore-1200-' + str(G) + 'Gd_axial1_0002.csv'
+    save = '3D-fullcore-1200-' + str(G) + 'Gd-axial1'
     plotcsv_groups_collapse(file, save, lim, dire='z')
 
-    file = '3D-fullcore-1200-' + str(G) + 'Gc_radial1_0002.csv'
-    save = '3D-fullcore-1200-' + str(G) + 'Gc-radial1'
+    file = '3D-fullcore-1200-' + str(G) + 'Gd_radial1_0002.csv'
+    save = '3D-fullcore-1200-' + str(G) + 'Gd-radial1'
     plotcsv_groups_collapse(file, save, lim, dire='r')
 
     # Moltres radial power
