@@ -5,7 +5,6 @@ import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import pandas as pd
-# import serpentTools as st
 from matplotlib.cbook import get_sample_data
 from matplotlib.patches import RegularPolygon
 from matplotlib.collections import PatchCollection
@@ -72,7 +71,7 @@ def geo_label():
     fuel = mpatches.Patch(color=(0, 1., 0.), label='Fuel')
     oref = mpatches.Patch(color=(0., 0., 1.), label='Outer reflector')
     bref = mpatches.Patch(color=(0.87, 0.87, 0.87), label='Bottom reflector')
-    
+
     cwd = os.getcwd()
     fname = get_sample_data('%s/3D-fullcore-60-homo-meshB1.png' % (cwd))
     image = plt.imread(fname)
@@ -245,10 +244,11 @@ def geo_detectors():
     im = plt.imread(fname)
     plt.imshow(im)
     plt.axis('off')
-    plt.plot(117, 419, color='yellow', marker='o', markersize='7', label='Axial')
+    plt.plot(117, 419, color='yellow', marker='o', markersize='7',
+             label='Axial')
     L = 542
-    plt.plot([6, 6+L*np.cos(np.pi/6)], [550, 550-L/2], color='yellow', lw=2, label='Radial')
-
+    plt.plot([6, 6+L*np.cos(np.pi/6)], [550, 550-L/2], color='yellow',
+             lw=2, label='Radial')
     plt.legend(loc='best')
     plt.savefig("3D-fullcore-60-detectors2", dpi=300, bbox_inches="tight")
 
