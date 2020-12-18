@@ -1,3 +1,11 @@
+# How to reproduce the results:
+
+* Create cross-sections running: ``` bash createxs-full.sh 15d ```
+* to produce the ```.msh``` file open ```3D-fullcore-elements.geo``` with ```gmsh``` and generate 3D mesh
+* to run Moltres input files do: ```$MOLTRES/moltres-opt -i <inputfile>```
+* produce the figures run ``` python postprocessing.py ```
+
+
 Serpent input files:
 --------------------
 * oecd-fullcore
@@ -7,18 +15,17 @@ Serpent input files:
 	- oecd material composition from Benchmark Phase III [2]
 	- Geometry definition from [3]
 
-800000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
 
 Serpent Keff:
 -------------
-* 600: 1.10869
-* 1200: 1.06138
+800000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
 
 keff (600K) = 1.1115000683
 keff (1200K) = 1.0646803289
 
 time(s) (256 cores) (600K): 12406.826 = 3.44 h
 time(s) (256 cores) (1200K): 15311.763 = 4.25 h
+
 
 References:
 -----------
@@ -29,6 +36,7 @@ References:
 [3] OECD geometry from: OECD/NEA. Benchmark of the Modular High-Temperature Gas-Cooled Reactor (MHTGR)-350 MW Core Design Volumes I and II. February 2018.
 
 [4] Hans Gougar et al. PRISMATIC COUPLED NEUTRONICS/THERMAL FLUIDS TRANSIENT BENCHMARK OF THE MHTGR-350 MW CORE DESIGN BENCHMARK DEFINITION. 2010.
+
 
 Detector equivalency:
 ---------------------
@@ -42,6 +50,7 @@ Radial3 -> Radial1
 Thesis -> Serpent -> Moltres
 Axial1 -> Axial1  -> Axial1
 Radial -> Radial3  -> Radial1
+
 
 Geometry:
 ---------

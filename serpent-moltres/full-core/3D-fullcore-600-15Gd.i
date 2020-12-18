@@ -23,31 +23,31 @@
 [Materials]
   [./fuel]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs-fullcore-15Gd/mhtgr_homoge_'
+    property_tables_root = 'xs-fullcore-15dG/mhtgr_homoge_'
     interp_type = 'linear'
     block = 'F1 F2 F3 F4 F5 F6 F7 F8 F9 F10 F11'
   [../]
   [./ireflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs-fullcore-15Gd/mhtgr_irefl_'
+    property_tables_root = 'xs-fullcore-15dG/mhtgr_irefl_'
     interp_type = 'linear'
     block = 'ireflector'
   [../]
   [./oreflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs-fullcore-15Gd/mhtgr_orefl_'
+    property_tables_root = 'xs-fullcore-15dG/mhtgr_orefl_'
     interp_type = 'linear'
     block = 'oreflector'
   [../]
   [./breflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs-fullcore-15Gd/mhtgr_brefl_'
+    property_tables_root = 'xs-fullcore-15dG/mhtgr_brefl_'
     interp_type = 'linear'
     block = 'breflector'
   [../]
   [./treflector]
     type = GenericMoltresMaterial
-    property_tables_root = 'xs-fullcore-15Gd/mhtgr_trefl_'
+    property_tables_root = 'xs-fullcore-15dG/mhtgr_trefl_'
     interp_type = 'linear'
     block = 'treflector'
   [../]

@@ -1,9 +1,9 @@
 # Step 1: Uncomment these lines to create .coe
-cp fullcore-600-26G.coe homoge.coe
-cp fullcore-600-26G.coe irefl.coe
-cp fullcore-600-26G.coe orefl.coe
-cp fullcore-600-26G.coe brefl.coe
-cp fullcore-600-26G.coe trefl.coe
+cp oecd-fullcore-600.coe homoge.coe
+cp oecd-fullcore-600.coe irefl.coe
+cp oecd-fullcore-600.coe orefl.coe
+cp oecd-fullcore-600.coe brefl.coe
+cp oecd-fullcore-600.coe trefl.coe
 sed -i '2s/.*/1 homoge0/' homoge.coe
 sed -i '2s/.*/1 irefl0/' irefl.coe
 sed -i '2s/.*/1 orefl0/' orefl.coe
@@ -25,8 +25,8 @@ echo 'orefl O' >> universeMapping
 echo 'brefl B' >> universeMapping
 echo 'trefl T' >> universeMapping
 
-mkdir xs-fullcore-15Gd
-./extract-convert.py xs-fullcore-15Gd mhtgr tempMapping universeMapping
+mkdir xs-fullcore-$1G
+python extract-convert.py xs-fullcore-$1G mhtgr tempMapping universeMapping $1
 
 # Step 3: Uncomment these lines to remove all the unnecessary files
 rm homoge.coe
@@ -37,11 +37,11 @@ rm trefl.coe
 rm tempMapping
 rm universeMapping
 
-cp fullcore-1200-26G.coe homoge.coe
-cp fullcore-1200-26G.coe irefl.coe
-cp fullcore-1200-26G.coe orefl.coe
-cp fullcore-1200-26G.coe brefl.coe
-cp fullcore-1200-26G.coe trefl.coe
+cp oecd-fullcore-1200.coe homoge.coe
+cp oecd-fullcore-1200.coe irefl.coe
+cp oecd-fullcore-1200.coe orefl.coe
+cp oecd-fullcore-1200.coe brefl.coe
+cp oecd-fullcore-1200.coe trefl.coe
 sed -i '2s/.*/1 homoge0/' homoge.coe
 sed -i '2s/.*/1 irefl0/' irefl.coe
 sed -i '2s/.*/1 orefl0/' orefl.coe
@@ -63,7 +63,7 @@ echo 'orefl O' >> universeMapping
 echo 'brefl B' >> universeMapping
 echo 'trefl T' >> universeMapping
 
-./extract-convert.py xs-fullcore-15Gd mhtgr tempMapping universeMapping
+python extract-convert.py xs-fullcore-$1G mhtgr tempMapping universeMapping $1
 
 # Step 3: Uncomment these lines to remove all the unnecessary files
 rm homoge.coe

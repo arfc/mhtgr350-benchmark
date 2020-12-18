@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # This file is based in $MOLTRES/python/extractSerpent2GCs.py
 import os
 import numpy as np
@@ -365,10 +366,6 @@ if __name__ == '__main__':
             and puts them in a directory suitable for moltres.')
     parser.add_argument('outDir', metavar='o', type=str, nargs=1,
                         help='name of directory to write properties to.')
-    parser.add_argument('fileBase', metavar='f', type=str,
-                        nargs=1, help='File base name to give moltres')
-    parser.add_argument('outDir', metavar='o', type=str, nargs=1,
-                        help='name of directory to write properties to.')
     parser.add_argument('fileBase', metavar='f', type=str, nargs=1,
                         help='File base name to give moltres')
     parser.add_argument('mapFile', metavar='b', type=str, nargs=1,
@@ -377,12 +374,15 @@ if __name__ == '__main__':
                         help='maps material names to serpent universe')
     parser.add_argument('engroup', metavar='N', type=str, nargs='+',
                         help='energy group structure')
+
     args = parser.parse_args()
 
     # these are unpacked, so it fails if they werent passed to the script
     outdir = args.outDir[0]
     fileBase = args.fileBase[0]
     mapFile = args.mapFile[0]
+    unimapFile = args.universeMap[0]
+    # not sure
     ngroups = args.engroup[0]
 
     makePropertiesDir(outdir, fileBase, mapFile, unimapFile, ngroups)
