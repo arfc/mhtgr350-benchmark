@@ -174,7 +174,8 @@ def plotcsv_groups_collapse(file, save, lim, dire='z'):
         plt.plot(x, group[gp], label='M, g='+str(gp+1))
 
     if Gp < 20:
-        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True, fontsize=14)
+        plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True,
+                   fontsize=14)
         # plt.legend(loc="upper right", fontsize=14)
     else:
         # 1.1 or 1.2
@@ -249,7 +250,7 @@ def plot_radial_power_distribution(power, save, absol=True):
 
     cbar = plt.colorbar(pc)
 
-    if absol == False:
+    if absol is False:
         cbar.ax.set_ylabel(r'$\Delta_P$ [%]', fontsize=14)
     else:
         cbar.ax.set_ylabel('Power [MW]', fontsize=14)
@@ -378,13 +379,13 @@ def choose_lim(G):
     elif G == 15:
         lim = [2, 7, 15]  # from 15 to 3
     elif G == 12:
-        lim = [2, 9, 12] # from 12 to 3
+        lim = [2, 9, 12]  # from 12 to 3
     elif G == 9:
-        lim = [1, 6, 9] # from 9 to 3
+        lim = [1, 6, 9]  # from 9 to 3
     elif G == 6:
-        lim = [1, 3, 6] # from 6 to 3
+        lim = [1, 3, 6]  # from 6 to 3
     else:
-        lim = [1, 2, 3] # from 3 to 3
+        lim = [1, 2, 3]  # from 3 to 3
     return lim
 
 
