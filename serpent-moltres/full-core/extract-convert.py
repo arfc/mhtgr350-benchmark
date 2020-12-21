@@ -24,7 +24,7 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
     unimapFile: [string]
         maps material names to serpent universe
     ngroups: [string]
-        the options are 3, 6, 9, 12, 15, 15b, 15c, 15d, 15e, 18, 21
+        the options are 3, 6, 9, 12, 15, 15b, 15c, 15d, 15e, 18, 18c, 21
     '''
 
     # the constants moltres looks for:
