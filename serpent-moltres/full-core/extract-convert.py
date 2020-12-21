@@ -14,7 +14,16 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
 
     Parameters:
     -----------
-
+    outdir: [string]
+    	name of directory to write properties to
+    filebase: [string]
+    	file base name to give moltres
+    mapFile: [string]
+    	file that maps branches to temperatures
+    unimapFile: [string]
+        maps material names to serpent universe
+    ngroups: [string]
+    	the options are 3, 6, 9, 12, 15, 15b, 15c, 15d, 15e, 18, 21
     '''
 
     # the constants moltres looks for:
@@ -276,90 +285,7 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
             raise Exception('Check your mapping and secondary branch files.')
 
 
-def collapse(XS, lim):
-    '''
-    This function collapses fine group cross sections
-    into coarse group cross sections.
-    Parameters:
-    -----------
-    XS: dictionary
-        parameters to collapse
-    lim: array of int
-        sets the lower limits of the coarse groups
-    Returns:
-    --------
-    CXS: dictionary
-        collapsed parameters
-    '''
-
-    G = len(lim)
-    CXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'NSF': [], 'FISS': [], 'CHIT': [],
-           'SP0': np.zeros((G, G))}
-
-    data = ['ST', 'DIFFCOEF', 'NSF', 'FISS']
-
-    for g in range(G):
-        if g == 0:
-            phi = 0
-            chi = 0
-            for i in range(lim[0]):
-                phi += float(XS['FLX'][i])
-                chi += float(XS['CHIT'][i])
-            CXS['FLX'].append(phi)
-            CXS['CHIT'].append(chi)
-  
-            for dat in data:
-                xs = 0
-                for i in range(lim[0]):
-                    xs += float(XS[dat][i]) * float(XS['FLX'][i])
-                CXS[dat].append(xs/CXS['FLX'][0])
-
-        else:
-            phi = 0
-            chi = 0
-            for i in range(lim[g-1], lim[g]):
-                phi += float(XS['FLX'][i])
-                chi += float(XS['CHIT'][i])
-            CXS['FLX'].append(phi)
-            CXS['CHIT'].append(chi)
-
-            for dat in data:
-                xs = 0
-                for i in range(lim[g-1], lim[g]):
-                    xs += float(XS[dat][i]) * float(XS['FLX'][i])
-                CXS[dat].append(xs/CXS['FLX'][g])
-
-    for g in range(G):
-        for gp in range(G):
-
-            ss = 0
-            if g == 0 and gp == 0:
-                for i in range(lim[0]):
-                    for j in range(lim[0]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
-
-            elif g == 0:
-                for i in range(lim[0]):
-                    for j in range(lim[gp-1], lim[gp]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
-
-            elif gp == 0:
-                for i in range(lim[g-1], lim[g]):
-                    for j in range(lim[0]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
-
-            else:
-                for i in range(lim[g-1], lim[g]):
-                    for j in range(lim[gp-1], lim[gp]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
-
-            CXS['SP0'][g, gp] = ss/CXS['FLX'][g]
-
-    return CXS
-
-
 if __name__ == '__main__':
-
     # make it act like a nice little terminal program
     parser = argparse.ArgumentParser(
         description='Extracts Serpent 2 group constants, \
@@ -374,7 +300,6 @@ if __name__ == '__main__':
                         help='maps material names to serpent universe')
     parser.add_argument('engroup', metavar='N', type=str, nargs='+',
                         help='energy group structure')
-
     args = parser.parse_args()
 
     # these are unpacked, so it fails if they werent passed to the script
@@ -382,9 +307,7 @@ if __name__ == '__main__':
     fileBase = args.fileBase[0]
     mapFile = args.mapFile[0]
     unimapFile = args.universeMap[0]
-    # not sure
     ngroups = args.engroup[0]
 
     makePropertiesDir(outdir, fileBase, mapFile, unimapFile, ngroups)
-
     print("Successfully made property files in directory {}.".format(outdir))
