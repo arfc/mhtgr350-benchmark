@@ -9,8 +9,9 @@ import serpentTools as sT
 
 def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
     '''
-    Takes in a mapping from branch names to material temperatures,
-    then makes a properties directory.
+    Takes in a mapping from universe names to material properties.
+    It collapses the material properties from 26 to ngroups.
+    Then, it makes a material properties directory.
 
     Parameters:
     -----------
