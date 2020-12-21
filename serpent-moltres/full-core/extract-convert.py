@@ -16,15 +16,15 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
     Parameters:
     -----------
     outdir: [string]
-    	name of directory to write properties to
+        name of directory to write properties to
     filebase: [string]
-    	file base name to give moltres
+        file base name to give moltres
     mapFile: [string]
-    	file that maps branches to temperatures
+        file that maps branches to temperatures
     unimapFile: [string]
         maps material names to serpent universe
     ngroups: [string]
-    	the options are 3, 6, 9, 12, 15, 15b, 15c, 15d, 15e, 18, 21
+        the options are 3, 6, 9, 12, 15, 15b, 15c, 15d, 15e, 18, 21
     '''
 
     # the constants moltres looks for:
@@ -122,20 +122,23 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
                        20, 22, 23, 24, 25, 26]
 
             G = len(lim)
-            CXS = {'Flx': [], 'Fiss': [], 'Chit': [], 'Chid': [], 'Diffcoef': [], 'Kappa': [],
-                   'Nsf': [], 'Invv': [], 'Remxs': [], 'Sp0': np.zeros((G, G))
-                  }
+            CXS = {
+                'Flx': [], 'Fiss': [], 'Chit': [], 'Chid': [], 'Diffcoef': [],
+                'Kappa': [], 'Nsf': [], 'Invv': [], 'Remxs': [],
+                'Sp0': np.zeros((G, G))
+                }
 
             fluxes = coeList[currentMat].branches[item].universes[
-                     uniMap[currentMat], 0, 0, None].infExp[goodMap['Flx']]
+                uniMap[currentMat], 0, 0, None].infExp[goodMap['Flx']]
             chi = coeList[currentMat].branches[item].universes[
-                  uniMap[currentMat], 0, 0, None].infExp[goodMap['Chit']]
+                uniMap[currentMat], 0, 0, None].infExp[goodMap['Chit']]
             chid = coeList[currentMat].branches[item].universes[
-                   uniMap[currentMat], 0, 0, None].infExp[goodMap['Chid']]
+                uniMap[currentMat], 0, 0, None].infExp[goodMap['Chid']]
 
             goodstuff1 = ['BETA_EFF', 'lambda']
             goodstuff2 = ['Fiss', 'Diffcoef', 'Kappa', 'Nsf', 'Invv']
-            goodstuff3 = ['Fiss', 'Flx', 'Chit', 'Chid', 'Diffcoef', 'Kappa', 'Nsf', 'Invv']
+            goodstuff3 = ['Fiss', 'Flx', 'Chit', 'Chid', 'Diffcoef', 'Kappa',
+                          'Nsf', 'Invv']
 
             for g in range(G):
                 if g == 0:
@@ -149,10 +152,11 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
                     CXS['Flx'].append(phi)
                     CXS['Chit'].append(chi_aux)
                     CXS['Chid'].append(chid_aux)
-        
+
                     for dat in goodstuff2:
                         XSar = coeList[currentMat].branches[item].universes[
-                              uniMap[currentMat], 0, 0, None].infExp[goodMap[dat]]
+                            uniMap[currentMat], 0, 0, None].infExp[
+                                goodMap[dat]]
                         xs = 0
                         for i in range(lim[0]):
                             xs += XSar[i] * fluxes[i]
@@ -169,10 +173,11 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
                     CXS['Flx'].append(phi)
                     CXS['Chit'].append(chi_aux)
                     CXS['Chid'].append(chid_aux)
-        
+
                     for dat in goodstuff2:
                         XSar = coeList[currentMat].branches[item].universes[
-                              uniMap[currentMat], 0, 0, None].infExp[goodMap[dat]]
+                            uniMap[currentMat], 0, 0, None].infExp[
+                                goodMap[dat]]
                         xs = 0
                         for i in range(lim[g-1], lim[g]):
                             xs += XSar[i] * fluxes[i]
@@ -224,7 +229,7 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
             for g in range(G):
                 if g == 0:
                     XSar = coeList[currentMat].branches[item].universes[
-                          uniMap[currentMat], 0, 0, None].infExp[goodMap['Abs']]
+                        uniMap[currentMat], 0, 0, None].infExp[goodMap['Abs']]
                     xs = 0
                     for i in range(lim[0]):
                         xs += XSar[i] * fluxes[i]
@@ -232,7 +237,7 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
 
                 else:
                     XSar = coeList[currentMat].branches[item].universes[
-                          uniMap[currentMat], 0, 0, None].infExp[goodMap['Abs']]
+                        uniMap[currentMat], 0, 0, None].infExp[goodMap['Abs']]
                     xs = 0
                     for i in range(lim[g-1], lim[g]):
                         xs += XSar[i] * fluxes[i]
@@ -258,17 +263,18 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
                 with open(outdir + '/' + filebase + '_' + currentMat +
                           '_' + coefficient.upper() + '.txt', 'a') as fh:
                     strData = coeList[currentMat].branches[item].universes[
-                              uniMap[currentMat], 0, 0, None].gc[goodMap[coefficient]]
+                        uniMap[currentMat], 0, 0, None].gc[
+                            goodMap[coefficient]]
                     strData = strData[1:9]
 
                     # Cut off group 7 and 8 precursor params in 6
                     # group calcs
                     if not use8Groups:
                         strData = strData[0:6]
-    
+
                     strData = ' '.join(
-                    [str(dat) for dat in strData]) if isinstance(
-                        strData, np.ndarray) else strData
+                        [str(dat) for dat in strData]) if isinstance(
+                            strData, np.ndarray) else strData
 
                     fh.write(str(temp) + ' ' + strData)
                     fh.write('\n')
