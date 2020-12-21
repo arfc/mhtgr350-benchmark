@@ -1,4 +1,7 @@
-# How to reproduce the results:
+This directory holds the files of the MHTGR-350 full-core model in Serpent and Moltres.
+
+
+# How to reproduce the results
 
 * Create cross-sections running: ``` bash createxs-full.sh 15d ```
 * to produce the ```.msh``` file open ```3D-fullcore-elements.geo``` with ```gmsh``` and generate 3D mesh
@@ -6,18 +9,36 @@
 * produce the figures run ``` python postprocessing.py ```
 
 
-Serpent input files:
---------------------
+# Input files
+
 * oecd-fullcore
-	- full core
-	- Explicit and random: oecd79, crpP2
-	- HFP
+	- full-core model in Serpent
+	- oecd79, crpP2 hold the location of the fuel particles and burnable poisson
 	- oecd material composition from Benchmark Phase III [2]
 	- Geometry definition from [3]
 
+* 3D-fullcore-elemets.geo
+  - gmsh geometry
+  - 1/6th of the reactor.
+  - Fuel: 1 material
+  - bottom reflector: 1 material
+  - top reflector: 1 material
+  - inner reflector: 1 material
+  - outer reflector: 1 material
+  - h = 8
+  - N of elements: 300720
+  - Moltres DOFs/group: 160035
+  - Moltres total dof = 2400525
 
-Serpent Keff:
--------------
+* 3D-fullcore-600-15Gd.i
+  - Moltres input file at 600 K
+
+* 3D-fullcore-1200-15Gd.i
+  - Moltres input file at 1200 K
+
+
+# Serpent Results
+
 800000 neutrons/cycle, 500 active cycles, 50 inactive cycles.
 
 keff (600K) = 1.1115000683
@@ -27,8 +48,22 @@ time(s) (256 cores) (600K): 12406.826 = 3.44 h
 time(s) (256 cores) (1200K): 15311.763 = 4.25 h
 
 
-References:
------------
+# Detector equivalency
+
+* Serpent -> Moltres
+* Axial1 -> Axial1
+* Axial2 -> Axial2
+* Axial3 -> Axial3
+* Radial1,2 -> Radial2
+* Radial3 -> Radial1
+
+* Thesis -> Serpent -> Moltres
+* Axial -> Axial1  -> Axial1
+* Radial -> Radial3  -> Radial1
+
+
+# References
+
 [1] CRP model from: Bostelmann, Strydom, Yoon. Results for Phase I of the IAEA Coordinated Research Program on HTGR Uncertainties. January 2015.
 
 [2] OECD model from: OECD/NEA. OECD/NEA COUPLED NEUTRONIC/THERMAL-FLUIDS BENCHMARK OF THE MHTGR-350 MW CORE DESIGN VOLUME III: LATTICE PHYSICS EXERCISES. January 2015.
@@ -38,40 +73,9 @@ References:
 [4] Hans Gougar et al. PRISMATIC COUPLED NEUTRONICS/THERMAL FLUIDS TRANSIENT BENCHMARK OF THE MHTGR-350 MW CORE DESIGN BENCHMARK DEFINITION. 2010.
 
 
-Detector equivalency:
----------------------
-Serpent -> Moltres
-Axial1 -> Axial1
-Axial2 -> Axial2
-Axial3 -> Axial3
-Radial1,2 -> Radial2
-Radial3 -> Radial1
+# Petsc debugging:
 
-Thesis -> Serpent -> Moltres
-Axial1 -> Axial1  -> Axial1
-Radial -> Radial3  -> Radial1
-
-
-Geometry:
----------
-* 3D-fullcore-elemets.geo
-  - 1/6th of the reactor.
-  - Fuel: 1 material
-  - bottom reflector: 1 material
-  - top reflector: 1 material
-  - inner reflector: 1 material
-  - outer reflector: 1 material
-  - h = 8
-
-Moltres DOFs:
-N of elements: 300720
-Nodes (DOFs/group): 160035
-total dof = 2400525
-
-
-Petsc debugging:
-----------------
-This study intends to find the best petsc configuration, in terms of memory and run times.
+This study intends to find the best petsc configuration, in terms of memory and computational time.
 
 The conclusion of this study is that the best option is the following (prioritizing memory and speed):
 
@@ -321,3 +325,4 @@ solve_type = 'JFNK'
     MPI 12
       eigenvalue = 1.420470e+00
       memory = 1.071000e+03
+
