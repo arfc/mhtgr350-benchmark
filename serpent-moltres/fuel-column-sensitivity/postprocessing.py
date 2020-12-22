@@ -148,8 +148,8 @@ def plot_global(lbp_condition, temp_condition, keff_serp):
     This function plots the global parameters:
     - keff
     - processing time
-    - memory requirement
-    and plots it against the different group structures
+    - memory expense
+    and for the different energy group structures.
 
     Parameters:
     -----------
@@ -184,27 +184,28 @@ def plot_global(lbp_condition, temp_condition, keff_serp):
 
     keff_serp_aux = keff_serp * np.ones(len(keff_aux))
 
-    # plt.figure()
-    # plt.plot(groups_aux, keff_aux, marker='o', label='Moltres')
-    # plt.plot(groups_aux, keff_serp_aux, label='Serpent')
-    # plt.legend(loc='best')
-    # plt.xticks([3, 6, 9, 12, 15, 18, 21, 26])
-    # plt.ylabel(r'K$_{eff}$')
-    # plt.xlabel('Number of groups')
-    # ax = plt.axes()
-    # ax.yaxis.set_major_formatter(mtick.FormatStrFormatter('%.5f'))
-    # if lbp_condition == 'yes':
-    #     plt.savefig('keff-LBP-' + str(temp_condition), dpi=300,
-    #                 bbox_inches="tight")
-    # else:
-    #     plt.savefig('keff-noLBP-' + str(temp_condition), dpi=300,
-    #                 bbox_inches="tight")
-    # plt.close()
+    # Keff vs energy group structure
+    plt.figure()
+    plt.plot(groups_aux, keff_aux, marker='o', label='Moltres')
+    plt.plot(groups_aux, keff_serp_aux, label='Serpent')
+    plt.legend(loc='best')
+    plt.xticks([3, 6, 9, 12, 15, 18, 21, 26])
+    plt.ylabel(r'K$_{eff}$')
+    plt.xlabel('Number of groups')
+    ax = plt.axes()
+    ax.yaxis.set_major_formatter(mtick.FormatStrFormatter('%.5f'))
+    if lbp_condition == 'yes':
+        plt.savefig('keff-LBP-' + str(temp_condition), dpi=300,
+                    bbox_inches="tight")
+    else:
+        plt.savefig('keff-noLBP-' + str(temp_condition), dpi=300,
+                    bbox_inches="tight")
+    plt.close()
 
+    # Time and memory vs energy group structure
     fig, ax1 = plt.subplots()
     time_aux /= 3600  # sec to hours
     memory_aux = memory_aux/1024
-
     ax1.plot(groups_aux, time_aux, color='black', marker='v')
     ax1.set_xticks([3, 6, 9, 12, 15, 18, 21, 26])
     ax1.tick_params(axis='x', labelsize=14)
@@ -212,7 +213,6 @@ def plot_global(lbp_condition, temp_condition, keff_serp):
     ax1.tick_params(axis='y', labelsize=14)
     ax1.set_xlabel("Number of groups", fontsize=14)
     ax2 = ax1.twinx()
-
     ax2.plot(groups_aux, memory_aux, color='blue', marker='o')
     ax2.set_ylabel('Peak memory usage [GiB]', color='blue', fontsize=14)
     ax2.tick_params(axis='y', labelcolor='blue', labelsize=14)
@@ -488,24 +488,19 @@ def LBP_1200_L2error():
 
 
 if __name__ == "__main__":
-    # Gets keff, time, and memory vs number of energy groups
+
     # noLBP - 600
     plot_global('no', 600, 1.43800)
+    noLBP_600_L2error()
 
     # noLBP - 1200
     plot_global('no', 1200, 1.37771)
+    noLBP_1200_L2error()
 
     # LBP - 600
     plot_global('yes', 600, 1.12861)
+    LBP_600_L2error()
 
     # LBP - 1200
     plot_global('yes', 1200, 1.06554)
-
-    # Plots L2-norm relative error for 3, 6, 9, 12, 15, 18, 21 groups
-    noLBP_600_L2error()
-
-    noLBP_1200_L2error()
-
-    LBP_600_L2error()
-
     LBP_1200_L2error()
