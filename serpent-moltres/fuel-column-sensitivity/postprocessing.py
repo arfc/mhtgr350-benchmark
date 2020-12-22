@@ -139,8 +139,8 @@ def plot_error_acc_study(error, save, xticks, xlabel):
     plt.plot(xticks, error[:, 1, 1], marker='o', label='g=2')
     plt.plot(xticks, error[:, 1, 2], marker='o', label='g=3')
 
-    plt.ylabel(r'$\left|\left| \frac{\phi (x) - \phi_{26}(x)}{\phi_{26}(x)} \right|\right|_2$',
-    	       fontsize=14)
+    plt.ylabel(r'$\left|\left| \frac{\phi (x) - ' +
+               r'\phi_{26}(x)}{\phi_{26}(x)} \right|\right|_2$', fontsize=14)
     plt.yticks(fontsize=14)
     plt.xlabel(xlabel, fontsize=14)
     plt.xticks(xticks, fontsize=14)
