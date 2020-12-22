@@ -37,10 +37,10 @@ def getxs(inFile, index):
           'CHIT': [], 'SP0': np.zeros((26, 26)), 'SP1': np.zeros((26, 26))}
     for group in lines[i+1:i+27]:
         XS['FLX'].append(float(group[1]))
-        XS['ST'].append(float(group[2]))  # Total XS = \Sigma_t
+        XS['ST'].append(float(group[2]))  # \Sigma_t
         XS['DIFFCOEF'].append(float(group[3]))
         XS['NSF'].append(float(group[4]))  # \nu \Sigma_f
-        XS['FISS'].append(float(group[5]))  # Fission XS = \Sigma_f
+        XS['FISS'].append(float(group[5]))  # \Sigma_f
         XS['CHIT'].append(float(group[6]))
 
     # XS['SPO'] is a 26 x 26 matrix:
@@ -63,6 +63,7 @@ def getxs(inFile, index):
 
     if index == 232:
         # the 0.9278 is a weighing factor for the crontrol rod
+        # it is specified in the benchmark definition
         XS['ST'] = 0.9278*np.array(XS['ST'])
         XS['DIFFCOEF'] = 0.9278*np.array(XS['DIFFCOEF'])
         XS['NSF'] = 0.9278*np.array(XS['NSF'])
@@ -102,6 +103,8 @@ def tomoltresformat(name, XS, index):
         f.write('\n')
         f.close()
 
+    # SP0 in Moltres for 2 groups:
+    # TEMP S11 S12 S21 S22
     f = open(base + 'SP0' + '.txt', "w+")
     f.write(str(T))
     for i in range(len(XS['SP0'])):
@@ -130,7 +133,7 @@ def tomoltresformat(name, XS, index):
     f.write('\n')
     f.close()
 
-    # All the rest, these can be all 0
+    # The remaining constants can be all 0
     data = ['INVV', 'CHID']
     for param in data:
         f = open(base + param + '.txt', "w+")
