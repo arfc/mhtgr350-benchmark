@@ -20,4 +20,4 @@ Geometries:
 Group-constants:
 ----------------
 * retrieve the files from the ARFC box in the sudirectory mhtgr350-benchmark/OECD-MHTGR350
-* run: python convert.py
+* run: ```python convert.py```
