@@ -38,10 +38,12 @@ def calc_error(file1, file2, lim1, lim2, dire='z'):
     Returns:
     --------
     e: [array]
-        L2 norm relative error between file2 and file1 values.
+        L2 norm relative error between file1 and file2 values.
+        file1 contains the reference values.
     e2: [array]
         L2 norm relative error on the active core region between
-        file2 and file1 values.
+        file1 and file2 values.
+        file1 contains the reference values.
     '''
 
     file1 = pd.read_csv(file1)
@@ -53,14 +55,15 @@ def calc_error(file1, file2, lim1, lim2, dire='z'):
         y1 = np.array(file1['y'].tolist())
         r = np.sqrt(x1**2 + y1**2)
         x = r
-
     else:
         x = file1[dire].tolist()
 
     x = np.array(x)
     group11 = file1['group1'].tolist()
     N = len(group11)
-    G = len(file1.keys())-4  # this might cause issues
+    # the number of columns in the csv file is the number of
+    # groups + 4: x, y, z, id.
+    G = len(file1.keys()) - 4
 
     Gp = len(lim1)
     group1 = np.zeros((Gp, N))
@@ -75,7 +78,9 @@ def calc_error(file1, file2, lim1, lim2, dire='z'):
 
     group21 = file2['group1'].tolist()
     N = len(group21)
-    G = len(file2.keys())-4  # this might cause issues
+    # the number of columns in the csv file is the number of
+    # groups + 4: x, y, z, id.
+    G = len(file2.keys())-4
 
     Gp = len(lim2)
     group2 = np.zeros((Gp, N))
@@ -129,15 +134,16 @@ def plot_error_acc_study(error, save, xticks, xlabel):
     '''
 
     plt.figure()
+
     plt.plot(xticks, error[:, 1, 0], marker='o', label='g=1')
     plt.plot(xticks, error[:, 1, 1], marker='o', label='g=2')
     plt.plot(xticks, error[:, 1, 2], marker='o', label='g=3')
+
     plt.ylabel(r'$\left|\left| \frac{\phi (x) - \phi_{26}(x)}{\phi_{26}(x)} \right|\right|_2$',
     	       fontsize=14)
     plt.yticks(fontsize=14)
     plt.xlabel(xlabel, fontsize=14)
     plt.xticks(xticks, fontsize=14)
-
     plt.legend(loc="best", fontsize=14)
     plt.savefig(save, dpi=300, bbox_inches="tight")
     plt.close()
@@ -233,11 +239,18 @@ def accuracy_study():
     - no LBP, 1200 K
     - LBP, 600 K
     - LBP, 1200 K
-    And for the different 15 energy group structures: a, b, c, d, e.
+    And for the energy group structures: 15, 15b, 15c, 15d, 15e.
     4 plots are produced with the error vs the energy group structure.
     It also prints the errors on the terminal.
-    Additionally, it obtains a weighted average of the error.
-    W_thermal = 0.5, W_epithermal = 0.3, W_fast = 0.2.
+    Additionally, it obtains a weighted average of the error, using the
+    following weights:
+    - W_thermal = 0.5
+    - W_epithermal = 0.3
+    - W_fast = 0.2
+    However, this file doesn't run this function becuase I accidently
+    deleted the necessary files for reproducing the results.
+    We'll keep the function if anyone wants to reproduce these
+    results in the future.
     '''
 
     lim26 = [4, 16, 26]  # from 26 to 3
@@ -267,10 +280,9 @@ def accuracy_study():
     print('noLBP 600:')
     cumul += np.round(e[:, 1, :].T*100, 1)
     print(np.round(e[:, 1, :].T*100, 1))
-
     xticks = ['a', 'b', 'c', 'd', 'e']
     xlabel = 'Energy group structure'
-    # plot_error_acc_study(e, 'accuracy-noLBP-600-er-15', xticks, xlabel)
+    plot_error_acc_study(e, 'accuracy-noLBP-600-er-15', xticks, xlabel)
 
     # no LBP 1200
     e = np.zeros((5, 2, 3))
@@ -290,7 +302,7 @@ def accuracy_study():
     print('noLBP 1200:')
     cumul += np.round(e[:, 1, :].T*100, 1)
     print(np.round(e[:, 1, :].T*100, 1))
-    # plot_error_acc_study(e, 'accuracy-noLBP-1200-er-15', xticks, xlabel)
+    plot_error_acc_study(e, 'accuracy-noLBP-1200-er-15', xticks, xlabel)
 
     # LBP 600
     e = np.zeros((5, 2, 3))
@@ -310,7 +322,7 @@ def accuracy_study():
     print('LBP 600:')
     cumul += np.round(e[:, 1, :].T*100, 1)
     print(np.round(e[:, 1, :].T*100, 1))
-    # plot_error_acc_study(e, 'accuracy-LBP-600-er-15', xticks, xlabel)
+    plot_error_acc_study(e, 'accuracy-LBP-600-er-15', xticks, xlabel)
 
     # LBP 1200
     e = np.zeros((5, 2, 3))
@@ -330,7 +342,7 @@ def accuracy_study():
     print('LBP 1200:')
     cumul += np.round(e[:, 1, :].T*100, 1)
     print(np.round(e[:, 1, :].T*100, 1))
-    # plot_error_acc_study(e, 'accuracy-LBP-1200-er-15', xticks, xlabel)
+    plot_error_acc_study(e, 'accuracy-LBP-1200-er-15', xticks, xlabel)
 
     print('Cumulative error: ')
     cumul = cumul/4
@@ -342,7 +354,7 @@ def accuracy_study():
 def noLBP_600_L2error():
     '''
     This function plots the L2 norm relative error for the different
-    group structures for the no LBP and 600 K case.
+    group structures for the no LBP 600 K case.
     '''
 
     lim26 = [4, 16, 26]  # from 26 to 3
@@ -379,7 +391,7 @@ def noLBP_600_L2error():
 def noLBP_1200_L2error():
     '''
     This function plots the L2 norm relative error for the different
-    group structures for the no LBP and 1200 K case.
+    group structures for the no LBP 1200 K case.
     '''
 
     lim26 = [4, 16, 26]  # from 26 to 3
@@ -416,7 +428,7 @@ def noLBP_1200_L2error():
 def LBP_600_L2error():
     '''
     This function plots the L2 norm relative error for the different
-    group structures for the LBP and 600 K case.
+    group structures for the LBP 600 K case.
     '''
 
     lim26 = [4, 16, 26]  # from 26 to 3
@@ -453,7 +465,7 @@ def LBP_600_L2error():
 def LBP_1200_L2error():
     '''
     This function plots the L2 norm relative error for the different
-    group structures for the no LBP and 1200 K case.
+    group structures for the no LBP 1200 K case.
     '''
 
     lim26 = [4, 16, 26]  # from 26 to 3
