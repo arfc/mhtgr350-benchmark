@@ -1,5 +1,4 @@
-Input files:
-------------
+# Input files:
 
 * model1.i
 	- simpleF4.geo
@@ -12,12 +11,12 @@ Input files:
 	- fuel region is defined with one subdomain neutronically
 	- keff = 1.0215416333
 
-Geometries:
------------
+# Geometries:
+
 * model1.geo: defines the fuel region with 30 subdomains and uses group constants for each of the 30 subdomains.
 * model2.geo: defines all the details for the thermal-fluids and all of them share the same cross-sections.
 
-Group-constants:
-----------------
+# To create group-constant files:
+
 * retrieve the files from the ARFC box in the sudirectory mhtgr350-benchmark/OECD-MHTGR350
 * run: ```python convert.py```
