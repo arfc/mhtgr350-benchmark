@@ -1,5 +1,4 @@
-Input files:
-------------
+# Input files:
 
 * model1.i
 	- model1.geo
@@ -34,8 +33,8 @@ keff = 1.0271743945
 
 keff = 1.0228706345436
 
-Geometries:
------------
+# Geometries:
+
 The difference between model1.geo and model2.geo is that model2 divides the film into axial layers.
 This is necessary for obtaining the average temperatures in each 'assembly.'
 Both models define the fuel as one subdomain for the neutronics, and in 30 subdomains for the thermal-fluids.
