@@ -3,7 +3,8 @@ import numpy as np
 
 def getreflxs(inFile, index):
     '''
-    Reads 'OECD-MHTGR350.xs'
+    Reads 'refl.xs', which has the information of the reflector
+    subdomains in 'OECD-MHTGR350.xs'.
 
     Parameters:
     -----------
@@ -56,7 +57,6 @@ def getreflxs(inFile, index):
          }
 
     i = int(lines.index(['MATERIAL', str(index)]))
-
     for paramcount, param in enumerate(XS):
         for tempcount, item in enumerate(XS[param]):
             XS[param][item] = lines[i+3+paramcount*8+tempcount]
@@ -83,6 +83,27 @@ def getreflxs(inFile, index):
 
 
 def getfuelxs(inFile, index):
+    '''
+    Reads 'fuel.xs', which has the information of the fuel
+    subdomains in 'OECD-MHTGR350.xs'.
+
+    Parameters:
+    -----------
+    inFile: [file]
+        path and name of the file
+    index: [int]
+        material number [1-232]
+    Returns:
+    --------
+    XS: dictionary
+        contains main parameters: normalized flux (FLX),
+        total cross-section (ST), and transport cross-section (TR) for
+        different temperatures.
+    SP0: dictionary
+        contains the scattering matrices for different temperatures.
+    kappa: dictionary
+        contains the energy/fission for different temperatures.
+    '''
 
     with open(inFile, 'r') as i:
         data = i.readlines()
@@ -456,7 +477,6 @@ def getfuelxs(inFile, index):
             }
 
     i += 253
-
     for tfcount, ftemp in enumerate(kappa):
         for tmcount, mtemp in enumerate(kappa[ftemp]):
             kappa[ftemp][mtemp] = lines[i+tfcount+tmcount*4]
