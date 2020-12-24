@@ -15,9 +15,9 @@ def getreflxs(inFile, index):
     --------
     XS: dictionary
         contains main parameters: normalized flux (FLX),
-        total cross-section (ST), and transport cross-section (TR) for 
+        total cross-section (ST), and transport cross-section (TR) for
         different temperatures.
-    XS: dictionary
+    SP0: dictionary
         contains the scattering matrices for different temperatures.
     '''
 
@@ -28,46 +28,51 @@ def getreflxs(inFile, index):
     for line in data:
         lines.append(line.split())
 
-    XS = {'FLX':{'293':np.zeros(26),
-                 '600':np.zeros(26),
-                 '800':np.zeros(26),
-                 '1000':np.zeros(26),
-                 '1200':np.zeros(26),
-                 '1600':np.zeros(26),
-                 '2000':np.zeros(26)},
-          'ST':{'293':np.zeros(26),
-                 '600':np.zeros(26),
-                 '800':np.zeros(26),
-                 '1000':np.zeros(26),
-                 '1200':np.zeros(26),
-                 '1600':np.zeros(26),
-                 '2000':np.zeros(26)},
-          'TR':{'293':np.zeros(26),
-                 '600':np.zeros(26),
-                 '800':np.zeros(26),
-                 '1000':np.zeros(26),
-                 '1200':np.zeros(26),
-                 '1600':np.zeros(26),
-                 '2000':np.zeros(26)}
+    XS = {
+          'FLX': {
+              '293': np.zeros(26),
+              '600': np.zeros(26),
+              '800': np.zeros(26),
+              '1000': np.zeros(26),
+              '1200': np.zeros(26),
+              '1600': np.zeros(26),
+              '2000': np.zeros(26)},
+          'ST': {
+              '293': np.zeros(26),
+              '600': np.zeros(26),
+              '800': np.zeros(26),
+              '1000': np.zeros(26),
+              '1200': np.zeros(26),
+              '1600': np.zeros(26),
+              '2000': np.zeros(26)},
+          'TR': {
+              '293': np.zeros(26),
+              '600': np.zeros(26),
+              '800': np.zeros(26),
+              '1000': np.zeros(26),
+              '1200': np.zeros(26),
+              '1600': np.zeros(26),
+              '2000': np.zeros(26)}
          }
 
     i = int(lines.index(['MATERIAL', str(index)]))
 
-    for paramcount,param in enumerate(XS):
-        for tempcount,item in enumerate(XS[param]):
+    for paramcount, param in enumerate(XS):
+        for tempcount, item in enumerate(XS[param]):
             XS[param][item] = lines[i+3+paramcount*8+tempcount]
 
-    SP0 = {'293':np.zeros((26, 26)),
-           '600':np.zeros((26, 26)),
-           '800':np.zeros((26, 26)),
-           '1000':np.zeros((26, 26)),
-           '1200':np.zeros((26, 26)),
-           '1600':np.zeros((26, 26)),
-           '2000':np.zeros((26, 26))
+    SP0 = {
+      '293': np.zeros((26, 26)),
+      '600': np.zeros((26, 26)),
+      '800': np.zeros((26, 26)),
+      '1000': np.zeros((26, 26)),
+      '1200': np.zeros((26, 26)),
+      '1600': np.zeros((26, 26)),
+      '2000': np.zeros((26, 26))
           }
 
     i += 27
-    for tcount,temp in enumerate(SP0):
+    for tcount, temp in enumerate(SP0):
         for g in range(0, 26):
             spgs = int(lines[i+tcount*2][g])-1
             spge = int(lines[i+1+tcount*2][g])-1
@@ -86,319 +91,374 @@ def getfuelxs(inFile, index):
     for line in data:
         lines.append(line.split())
 
-    XS = {'FLX':{'293':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                 '800':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '1400':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '2000':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)}},
-          'ST':{'293':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '800':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '1400':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '2000':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)}},
-          'TR':{'293':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '800':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '1400':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '2000':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)}},
-          'NSF':{'293':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '800':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '1400':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '2000':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)}},
-          # fission XS
-          'FISS':{'293':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '800':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '1400':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '2000':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)}},
-          # fission spectrum
-          'CHIT':{'293':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '800':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '1400':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '2000':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)}},
-          # delayed fission spectrum
-          'CHID':{'293':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '800':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '1400':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)},
-                '2000':{'293':np.zeros(26),
-                        '600':np.zeros(26),
-                        '800':np.zeros(26),
-                        '1000':np.zeros(26),
-                        '1200':np.zeros(26),
-                        '1600':np.zeros(26),
-                        '2000':np.zeros(26)}}}
+    XS = {
+        'FLX': {
+            '293': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '800': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '1400': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '2000': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)}},
+        'ST': {
+            '293': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '800': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '1400': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '2000': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)}},
+        'TR': {
+            '293': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '800': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '1400': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '2000': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)}},
+        'NSF': {
+            '293': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '800': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '1400': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '2000': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)}},
+        # fission XS
+        'FISS': {
+            '293': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '800': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '1400': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '2000': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)}},
+        # fission spectrum
+        'CHIT': {
+            '293': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '800': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '1400': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '2000': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)}
+                },
+        # delayed fission spectrum
+        'CHID': {
+            '293': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '800': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '1400': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)},
+            '2000': {
+                '293': np.zeros(26),
+                '600': np.zeros(26),
+                '800': np.zeros(26),
+                '1000': np.zeros(26),
+                '1200': np.zeros(26),
+                '1600': np.zeros(26),
+                '2000': np.zeros(26)}}}
 
     i = int(lines.index(['MATERIAL', str(index)]))
+    for paramcount, param in enumerate(XS):
+        for tfcount, ftemp in enumerate(XS[param]):
+            for tmcount, mtemp in enumerate(XS[param][ftemp]):
+                XS[param][ftemp][mtemp] = lines[
+                    i+3+paramcount*253+tfcount+tmcount*4]
 
-    for paramcount,param in enumerate(XS):
-        for tfcount,ftemp in enumerate(XS[param]):
-            for tmcount,mtemp in enumerate(XS[param][ftemp]):
-                XS[param][ftemp][mtemp] = lines[i+3+paramcount*253+tfcount+tmcount*4]
-
-    SP0 = {'293':{'293':np.zeros((26, 26)),
-                  '600':np.zeros((26, 26)),
-                  '800':np.zeros((26, 26)),
-                  '1000':np.zeros((26, 26)),
-                  '1200':np.zeros((26, 26)),
-                  '1600':np.zeros((26, 26)),
-                  '2000':np.zeros((26, 26))},
-           '800':{'293':np.zeros((26, 26)),
-                  '600':np.zeros((26, 26)),
-                  '800':np.zeros((26, 26)),
-                  '1000':np.zeros((26, 26)),
-                  '1200':np.zeros((26, 26)),
-                  '1600':np.zeros((26, 26)),
-                  '2000':np.zeros((26, 26))},
-           '1400':{'293':np.zeros((26, 26)),
-                  '600':np.zeros((26, 26)),
-                  '800':np.zeros((26, 26)),
-                  '1000':np.zeros((26, 26)),
-                  '1200':np.zeros((26, 26)),
-                  '1600':np.zeros((26, 26)),
-                  '2000':np.zeros((26, 26))},
-           '2000':{'293':np.zeros((26, 26)),
-                  '600':np.zeros((26, 26)),
-                  '800':np.zeros((26, 26)),
-                  '1000':np.zeros((26, 26)),
-                  '1200':np.zeros((26, 26)),
-                  '1600':np.zeros((26, 26)),
-                  '2000':np.zeros((26, 26))}}
+    SP0 = {
+        '293': {
+            '293': np.zeros((26, 26)),
+            '600': np.zeros((26, 26)),
+            '800': np.zeros((26, 26)),
+            '1000': np.zeros((26, 26)),
+            '1200': np.zeros((26, 26)),
+            '1600': np.zeros((26, 26)),
+            '2000': np.zeros((26, 26))},
+        '800': {
+            '293': np.zeros((26, 26)),
+            '600': np.zeros((26, 26)),
+            '800': np.zeros((26, 26)),
+            '1000': np.zeros((26, 26)),
+            '1200': np.zeros((26, 26)),
+            '1600': np.zeros((26, 26)),
+            '2000': np.zeros((26, 26))},
+        '1400': {
+            '293': np.zeros((26, 26)),
+            '600': np.zeros((26, 26)),
+            '800': np.zeros((26, 26)),
+            '1000': np.zeros((26, 26)),
+            '1200': np.zeros((26, 26)),
+            '1600': np.zeros((26, 26)),
+            '2000': np.zeros((26, 26))},
+        '2000': {
+            '293': np.zeros((26, 26)),
+            '600': np.zeros((26, 26)),
+            '800': np.zeros((26, 26)),
+            '1000': np.zeros((26, 26)),
+            '1200': np.zeros((26, 26)),
+            '1600': np.zeros((26, 26)),
+            '2000': np.zeros((26, 26))}
+          }
 
     i += 3034
-    for tfcount,ftemp in enumerate(SP0):
-        for tmcount,mtemp in enumerate(SP0[ftemp]):
+    for tfcount, ftemp in enumerate(SP0):
+        for tmcount, mtemp in enumerate(SP0[ftemp]):
             for g in range(0, 26):
                 spgs = int(lines[i+tfcount*2+tmcount*8][g])-1
                 spge = int(lines[i+1+tfcount*2+tmcount*8][g])-1
-                # print(temp, g, spgs, spge)
                 for gp in range(0, spge-spgs+1):
-                    SP0[ftemp][mtemp][gp+spgs, g] = float(lines[i+505+tfcount*26+tmcount*104+g][gp])
+                    SP0[ftemp][mtemp][gp+spgs, g] = float(lines[
+                        i+505+tfcount*26+tmcount*104+g][gp])
 
-    beta = {'293':{'293':np.zeros(6),
-                  '600':np.zeros(6),
-                  '800':np.zeros(6),
-                  '1000':np.zeros(6),
-                  '1200':np.zeros(6),
-                  '1600':np.zeros(6),
-                  '2000':np.zeros(6)},
-           '800':{'293':np.zeros(6),
-                  '600':np.zeros(6),
-                  '800':np.zeros(6),
-                  '1000':np.zeros(6),
-                  '1200':np.zeros(6),
-                  '1600':np.zeros(6),
-                  '2000':np.zeros(6)},
-           '1400':{'293':np.zeros(6),
-                  '600':np.zeros(6),
-                  '800':np.zeros(6),
-                  '1000':np.zeros(6),
-                  '1200':np.zeros(6),
-                  '1600':np.zeros(6),
-                  '2000':np.zeros(6)},
-           '2000':{'293':np.zeros(6),
-                  '600':np.zeros(6),
-                  '800':np.zeros(6),
-                  '1000':np.zeros(6),
-                  '1200':np.zeros(6),
-                  '1600':np.zeros(6),
-                  '2000':np.zeros(6)}}
+    beta = {
+        '293': {
+            '293': np.zeros(6),
+            '600': np.zeros(6),
+            '800': np.zeros(6),
+            '1000': np.zeros(6),
+            '1200': np.zeros(6),
+            '1600': np.zeros(6),
+            '2000': np.zeros(6)},
+        '800': {
+            '293': np.zeros(6),
+            '600': np.zeros(6),
+            '800': np.zeros(6),
+            '1000': np.zeros(6),
+            '1200': np.zeros(6),
+            '1600': np.zeros(6),
+            '2000': np.zeros(6)},
+        '1400': {
+            '293': np.zeros(6),
+            '600': np.zeros(6),
+            '800': np.zeros(6),
+            '1000': np.zeros(6),
+            '1200': np.zeros(6),
+            '1600': np.zeros(6),
+            '2000': np.zeros(6)},
+        '2000': {
+            '293': np.zeros(6),
+            '600': np.zeros(6),
+            '800': np.zeros(6),
+            '1000': np.zeros(6),
+            '1200': np.zeros(6),
+            '1600': np.zeros(6),
+            '2000': np.zeros(6)}
+           }
 
     i += 14116
-    for tfcount,ftemp in enumerate(beta):
-        for tmcount,mtemp in enumerate(beta[ftemp]):
+    for tfcount, ftemp in enumerate(beta):
+        for tmcount, mtemp in enumerate(beta[ftemp]):
             beta[ftemp][mtemp] = lines[i+tfcount+tmcount*4]
 
-    kappa = {'293':{'293': 0,
-              '600': 0,
-              '800': 0,
-              '1000': 0,
-              '1200': 0,
-              '1600': 0,
-              '2000': 0},
-       '800':{'293': 0,
-              '600': 0,
-              '800': 0,
-              '1000': 0,
-              '1200': 0,
-              '1600': 0,
-              '2000': 0},
-       '1400':{'293': 0,
-              '600': 0,
-              '800': 0,
-              '1000': 0,
-              '1200': 0,
-              '1600': 0,
-              '2000': 0},
-       '2000':{'293': 0,
-              '600': 0,
-              '800': 0,
-              '1000': 0,
-              '1200': 0,
-              '1600': 0,
-              '2000': 0}}
+    kappa = {
+        '293': {
+            '293': 0,
+            '600': 0,
+            '800': 0,
+            '1000': 0,
+            '1200': 0,
+            '1600': 0,
+            '2000': 0},
+        '800': {
+            '293': 0,
+            '600': 0,
+            '800': 0,
+            '1000': 0,
+            '1200': 0,
+            '1600': 0,
+            '2000': 0},
+        '1400': {
+            '293': 0,
+            '600': 0,
+            '800': 0,
+            '1000': 0,
+            '1200': 0,
+            '1600': 0,
+            '2000': 0},
+        '2000': {
+            '293': 0,
+            '600': 0,
+            '800': 0,
+            '1000': 0,
+            '1200': 0,
+            '1600': 0,
+            '2000': 0}
+            }
 
     i += 253
 
-    for tfcount,ftemp in enumerate(kappa):
-        for tmcount,mtemp in enumerate(kappa[ftemp]):
+    for tfcount, ftemp in enumerate(kappa):
+        for tmcount, mtemp in enumerate(kappa[ftemp]):
             kappa[ftemp][mtemp] = lines[i+tfcount+tmcount*4]
 
     return XS, SP0, kappa
@@ -424,7 +484,6 @@ def homogenize_reflec(XS, SP0, vi, base):
     '''
 
     L = len(XS)
-    
     for temp in ['293', '600', '800', '1000', '1200', '1600', '2000']:
         HXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'SP0': np.zeros((26, 26))}
         for group in range(26):
@@ -437,8 +496,8 @@ def homogenize_reflec(XS, SP0, vi, base):
             for dat in data:
                 sumx = 0
                 for material in range(L):
-                    sumx += float(XS[material][dat][temp][group])\
-                            * float(XS[material]['FLX'][temp][group]) * vi[material]
+                    sumx += float(XS[material][dat][temp][group]) * \
+                        float(XS[material]['FLX'][temp][group]) * vi[material]
                 HXS[dat].append(sumx/summ)
 
             # # Uncomment this to homogenize TR cross section
@@ -446,8 +505,9 @@ def homogenize_reflec(XS, SP0, vi, base):
             # for dat in data:
             #     sumx = 0
             #     for material in range(L):
-            #         sumx += float(XS[material][dat][temp][group])\
-            #                 * float(XS[material]['FLX'][temp][group]) * vi[material]
+            #         sumx += float(XS[material][dat][temp][group]) * \
+            #             float(XS[material]['FLX'][temp][group]) * \
+            #                 vi[material]
             #     HXS[dat].append(sumx/summ)
 
             # Use this to homogenize the diff coeficient
@@ -455,15 +515,15 @@ def homogenize_reflec(XS, SP0, vi, base):
             for dat in data:
                 sumx = 0
                 for material in range(L):
-                    sumx += 1./3./float(XS[material]['TR'][temp][group])\
-                            * float(XS[material]['FLX'][temp][group]) * vi[material]
+                    sumx += 1./3./float(XS[material]['TR'][temp][group]) * \
+                        float(XS[material]['FLX'][temp][group]) * vi[material]
                 HXS[dat].append(sumx/summ)
 
             for gp in range(26):
                 sumx = 0
                 for material in range(L):
-                    sumx += float(SP0[material][temp][group, gp])\
-                            * float(XS[material]['FLX'][temp][group])*vi[material]
+                    sumx += float(SP0[material][temp][group, gp]) * \
+                        float(XS[material]['FLX'][temp][group])*vi[material]
                 HXS['SP0'][group, gp] = sumx/summ
 
         # Use this to homogenize the diff coeficient
@@ -534,12 +594,12 @@ def homoge_refl(directory):
     # bottom reflector
     base = directory + '/mhtgr_breflec_'
     XS = []
-    SP0 = [] 
+    SP0 = []
     for index in range(221, 225):
         XSi, SP0i = getreflxs('xsfiles/refl.xs', index)
         XS.append(XSi)
         SP0.append(SP0i)
-    
+
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     homogenize_reflec(XS, SP0, vi, base)
     print('Bottom reflector done')
@@ -547,12 +607,12 @@ def homoge_refl(directory):
     # top reflector
     base = directory + '/mhtgr_treflec_'
     XS = []
-    SP0 = [] 
+    SP0 = []
     for index in range(228, 232):
         XSi, SP0i = getreflxs('xsfiles/refl.xs', index)
         XS.append(XSi)
         SP0.append(SP0i)
-    
+
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     homogenize_reflec(XS, SP0, vi, base)
     print('Top reflector done')
@@ -560,7 +620,7 @@ def homoge_refl(directory):
     # inner reflector
     base = directory + '/mhtgr_ireflec_'
     XS = []
-    SP0 = [] 
+    SP0 = []
     for index in range(225, 226):
         XSi, SP0i = getreflxs('xsfiles/refl.xs', index)
         XS.append(XSi)
@@ -573,7 +633,7 @@ def homoge_refl(directory):
     # outer reflector
     base = directory + '/mhtgr_oreflec_'
     XS = []
-    SP0 = [] 
+    SP0 = []
     for index in range(226, 228):
         XSi, SP0i = getreflxs('xsfiles/refl.xs', index)
         XS.append(XSi)
@@ -598,7 +658,7 @@ def homogenize_fuel(XS, SP0, kappa, vi, base):
     SP0: [2D array of float]
         scattering matrix
     kappa: [array of float]
-        energy/fission       
+        energy/fission
     vi: [array of float]
         volume fraction of each material
     base: [string]
@@ -606,7 +666,6 @@ def homogenize_fuel(XS, SP0, kappa, vi, base):
     '''
 
     L = len(XS)
-    
     for temp in ['293', '800', '1400', '2000']:
         HXS = {'FLX': [], 'ST': [], 'FISS': [], 'NSF': [],
                'CHIT': [], 'KAPPA': [],
@@ -677,7 +736,8 @@ def homogenize_fuel(XS, SP0, kappa, vi, base):
                             b = float(XS[material]['FLX'][temp]['1600'][group])
                             flx = np.interp(1400, [1200, 1600], [a, b])
                         else:
-                            trans = float(XS[material]['TR'][temp][temp][group])
+                            trans = float(XS[material]['TR'][
+                                temp][temp][group])
                             flx = float(XS[material]['FLX'][temp][temp][group])
                         sumx += 1./3./trans * flx * vi[material]
                     HXS[dat].append(sumx/summ)
@@ -1271,7 +1331,6 @@ def homogenize_collapse_reflec(XS, SP0, vi, base, lim):
 
     L = len(XS)
     G = len(lim)
-    
     for temp in ['293', '600', '800', '1000', '1200', '1600', '2000']:
         HXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'SP0': np.zeros((26, 26))}
         for group in range(26):
@@ -1284,8 +1343,8 @@ def homogenize_collapse_reflec(XS, SP0, vi, base, lim):
             for dat in data:
                 sumx = 0
                 for material in range(L):
-                    sumx += float(XS[material][dat][temp][group])\
-                            * float(XS[material]['FLX'][temp][group]) * vi[material]
+                    sumx += float(XS[material][dat][temp][group]) * \
+                        float(XS[material]['FLX'][temp][group]) * vi[material]
                 HXS[dat].append(sumx/summ)
 
             # # Uncomment this to homogenize TR cross section
@@ -1293,8 +1352,9 @@ def homogenize_collapse_reflec(XS, SP0, vi, base, lim):
             # for dat in data:
             #     sumx = 0
             #     for material in range(L):
-            #         sumx += float(XS[material][dat][temp][group])\
-            #                 * float(XS[material]['FLX'][temp][group]) * vi[material]
+            #         sumx += float(XS[material][dat][temp][group]) * \
+            #             float(XS[material]['FLX'][temp][group]) * \
+            #                 vi[material]
             #     HXS[dat].append(sumx/summ)
 
             # Use this to homogenize the diff coeficient
@@ -1302,15 +1362,15 @@ def homogenize_collapse_reflec(XS, SP0, vi, base, lim):
             for dat in data:
                 sumx = 0
                 for material in range(L):
-                    sumx += 1./3./float(XS[material]['TR'][temp][group])\
-                            * float(XS[material]['FLX'][temp][group]) * vi[material]
+                    sumx += 1./3./float(XS[material]['TR'][temp][group]) * \
+                        float(XS[material]['FLX'][temp][group]) * vi[material]
                 HXS[dat].append(sumx/summ)
 
             for gp in range(26):
                 sumx = 0
                 for material in range(L):
-                    sumx += float(SP0[material][temp][group, gp])\
-                            * float(XS[material]['FLX'][temp][group])*vi[material]
+                    sumx += float(SP0[material][temp][group, gp]) * \
+                        float(XS[material]['FLX'][temp][group])*vi[material]
                 HXS['SP0'][group, gp] = sumx/summ
 
         # collapse here
@@ -1346,22 +1406,26 @@ def homogenize_collapse_reflec(XS, SP0, vi, base, lim):
                 if g == 0 and gp == 0:
                     for i in range(lim[0]):
                         for j in range(lim[0]):
-                            ss += float(HXS['SP0'][i, j]) * float(HXS['FLX'][i])
+                            ss += float(HXS['SP0'][i, j]) * \
+                                float(HXS['FLX'][i])
 
                 elif g == 0:
                     for i in range(lim[0]):
                         for j in range(lim[gp-1], lim[gp]):
-                            ss += float(HXS['SP0'][i, j]) * float(HXS['FLX'][i])
+                            ss += float(HXS['SP0'][i, j]) * \
+                                float(HXS['FLX'][i])
 
                 elif gp == 0:
                     for i in range(lim[g-1], lim[g]):
                         for j in range(lim[0]):
-                            ss += float(HXS['SP0'][i, j]) * float(HXS['FLX'][i])
+                            ss += float(HXS['SP0'][i, j]) * \
+                                float(HXS['FLX'][i])
 
                 else:
                     for i in range(lim[g-1], lim[g]):
                         for j in range(lim[gp-1], lim[gp]):
-                            ss += float(HXS['SP0'][i, j]) * float(HXS['FLX'][i])
+                            ss += float(HXS['SP0'][i, j]) * \
+                                float(HXS['FLX'][i])
 
                 CXS['SP0'][g, gp] = ss/CXS['FLX'][g]
 
@@ -1443,12 +1507,12 @@ def homoge_collapse_refl(directory):
     # bottom reflector
     base = directory + '/mhtgr_breflec_'
     XS = []
-    SP0 = [] 
+    SP0 = []
     for index in range(221, 225):
         XSi, SP0i = getreflxs('xsfiles/refl.xs', index)
         XS.append(XSi)
         SP0.append(SP0i)
-    
+
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     homogenize_collapse_reflec(XS, SP0, vi, base, lim3)
 
@@ -1457,12 +1521,12 @@ def homoge_collapse_refl(directory):
     # top reflector
     base = directory + '/mhtgr_treflec_'
     XS = []
-    SP0 = [] 
+    SP0 = []
     for index in range(228, 232):
         XSi, SP0i = getreflxs('xsfiles/refl.xs', index)
         XS.append(XSi)
         SP0.append(SP0i)
-    
+
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     homogenize_collapse_reflec(XS, SP0, vi, base, lim3)
     print('Top reflector done')
@@ -1470,7 +1534,7 @@ def homoge_collapse_refl(directory):
     # inner reflector
     base = directory + '/mhtgr_ireflec_'
     XS = []
-    SP0 = [] 
+    SP0 = []
     for index in range(225, 226):
         XSi, SP0i = getreflxs('xsfiles/refl.xs', index)
         XS.append(XSi)
@@ -1483,7 +1547,7 @@ def homoge_collapse_refl(directory):
     # outer reflector
     base = directory + '/mhtgr_oreflec_'
     XS = []
-    SP0 = [] 
+    SP0 = []
     for index in range(226, 228):
         XSi, SP0i = getreflxs('xsfiles/refl.xs', index)
         XS.append(XSi)
@@ -1509,7 +1573,7 @@ def homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim):
     SP0: [2D array of float]
         scattering matrix
     kappa: [array of float]
-        energy/fission       
+        energy/fission
     vi: [array of float]
         volume fraction of each material
     base: [string]
@@ -1525,7 +1589,7 @@ def homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim):
 
     L = len(XS)
     G = len(lim)
-    
+
     for temp in ['293', '800', '1400', '2000']:
         HXS = {'FLX': [], 'ST': [], 'FISS': [], 'NSF': [],
                'CHIT': [], 'KAPPA': [],
@@ -1596,7 +1660,8 @@ def homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim):
                             b = float(XS[material]['FLX'][temp]['1600'][group])
                             flx = np.interp(1400, [1200, 1600], [a, b])
                         else:
-                            trans = float(XS[material]['TR'][temp][temp][group])
+                            trans = float(XS[material]['TR'][
+                                temp][temp][group])
                             flx = float(XS[material]['FLX'][temp][temp][group])
                         sumx += 1./3./trans * flx * vi[material]
                     HXS[dat].append(sumx/summ)
@@ -1632,7 +1697,7 @@ def homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim):
 
         # collapse here
         CXS = {'FLX': [], 'ST': [], 'NSF': [], 'FISS': [], 'DIFFCOEF': [],
-               'CHIT': [], 'KAPPA':[], 'SP0': np.zeros((G, G))}
+               'CHIT': [], 'KAPPA': [], 'SP0': np.zeros((G, G))}
         data = ['ST', 'DIFFCOEF', 'NSF', 'FISS']
         for g in range(G):
             if g == 0:
@@ -1672,22 +1737,26 @@ def homogenize_collapse_fuel(XS, SP0, kappa, vi, base, lim):
                 if g == 0 and gp == 0:
                     for i in range(lim[0]):
                         for j in range(lim[0]):
-                            ss += float(HXS['SP0'][i, j]) * float(HXS['FLX'][i])
+                            ss += float(HXS['SP0'][i, j]) * \
+                                float(HXS['FLX'][i])
 
                 elif g == 0:
                     for i in range(lim[0]):
                         for j in range(lim[gp-1], lim[gp]):
-                            ss += float(HXS['SP0'][i, j]) * float(HXS['FLX'][i])
+                            ss += float(HXS['SP0'][i, j]) * \
+                                float(HXS['FLX'][i])
 
                 elif gp == 0:
                     for i in range(lim[g-1], lim[g]):
                         for j in range(lim[0]):
-                            ss += float(HXS['SP0'][i, j]) * float(HXS['FLX'][i])
+                            ss += float(HXS['SP0'][i, j]) * \
+                                float(HXS['FLX'][i])
 
                 else:
                     for i in range(lim[g-1], lim[g]):
                         for j in range(lim[gp-1], lim[gp]):
-                            ss += float(HXS['SP0'][i, j]) * float(HXS['FLX'][i])
+                            ss += float(HXS['SP0'][i, j]) * \
+                                float(HXS['FLX'][i])
 
                 CXS['SP0'][g, gp] = ss/CXS['FLX'][g]
 
