@@ -40,3 +40,11 @@ This is necessary for obtaining the average temperatures in each 'assembly.'
 Both models define the fuel as one subdomain for the neutronics, and in 30 subdomains for the thermal-fluids.
 
 * notes.ipynb: calculates the geometry
+
+# Reproducing the results
+
+* in ../neutronics/ run ``` python convert.py ```
+* the cross-sections used in the coupled exercise will appear in the folder ```xs3gB```.
+* move that folder into this directory
+* run $MOLTRES/moltres-opt -i <inputfile>
+* to produce the figures with the results run ```python auxiliary.py```
