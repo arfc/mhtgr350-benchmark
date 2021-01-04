@@ -199,14 +199,14 @@ def getfuelxs(inFile, index):
     return XS
 
 
-def output_to_file_reflec(temp, XS):
+def output_to_file_reflec(temp, XS, base):
     '''
     '''
 
     data = ['FLX', 'ST', 'DIFFCOEF']
     for param in data:
         f = open(base + param + '.txt', 'a')
-        f.write(str(temp))
+        f.write(str(float(temp)-273))
         for dg in XS[param]:
             f.write(' ' + str(dg))
         f.write('\n')
@@ -221,7 +221,7 @@ def output_to_file_reflec(temp, XS):
     f.close()
 
     f = open(base + 'REMXS' + '.txt', 'a')
-    f.write(str(temp))
+    f.write(str(float(temp)-273))
     for i in range(len(XS['SP0'])):
         scatii = float(XS['SP0'][i, i])
         toti = float(XS['ST'][i])
@@ -233,7 +233,7 @@ def output_to_file_reflec(temp, XS):
     data = ['NSF', 'FISS', 'CHIT', 'KAPPA', 'INVV', 'CHID']
     for param in data:
         f = open(base + param + '.txt', 'a')
-        f.write(str(temp))
+        f.write(str(float(temp)-273))
         for dg in range(26):
             f.write(' ' + str(0))
         f.write('\n')
@@ -242,7 +242,7 @@ def output_to_file_reflec(temp, XS):
     data = ['BETA_EFF', 'LAMBDA']
     for param in data:
         f = open(base + param + '.txt', 'a')
-        f.write(str(temp))
+        f.write(str(float(temp)-273))
         for i in range(8):
             f.write(' 0')
         f.write('\n')
@@ -251,10 +251,11 @@ def output_to_file_reflec(temp, XS):
     return
 
 
-def output_to_file_fuel(temp, XS):
+def output_to_file_fuel(temp, XS, base):
     '''
     '''
 
+    G = 26
     data = ['FLX', 'ST', 'NSF', 'FISS', 'DIFFCOEF', 'CHIT', 'KAPPA']
     for param in data:
         f = open(base + param + '.txt', 'a')
@@ -353,7 +354,7 @@ def homogenize_reflec(XS, vi, base):
                 HXS['SP0'][group, gp] = sumx/summ
 
         # Output to txt files
-        output_to_file_reflec(temp, HXS)
+        output_to_file_reflec(temp, HXS, base)
     return
 
 
@@ -480,7 +481,7 @@ def homogenize_fuel(XS, vi, base):
                 HXS['SP0'][group, gp] = sumx/summ
 
         # Output to txt files
-        output_to_file_fuel(temp, HXS)
+        output_to_file_fuel(temp, HXS, base)
 
     return
 
@@ -600,7 +601,7 @@ def homogenize_collapse_reflec(XS, vi, base, lim):
                 CXS['SP0'][g, gp] = ss/CXS['FLX'][g]
 
         # Output to txt files
-        output_to_file_reflec(temp, CXS)
+        output_to_file_reflec(temp, CXS, base)
 
     return
 
@@ -810,12 +811,12 @@ def homogenize_collapse_fuel(XS, vi, base, lim):
             CXS['KAPPA'].append(HXS['KAPPA'][0])
 
         # Output to txt files
-        output_to_file_fuel(temp, CXS)
+        output_to_file_fuel(temp, CXS, base)
 
     return
 
 
-def output_homoge_refl_xs(directory, collapse=True):
+def output_homoge_refl_xs(directory, collapse=False):
     '''
     Creates a directory with the reflector group constants files
     for a model with 26 groups and homogeneous reflector regions.
@@ -824,6 +825,9 @@ def output_homoge_refl_xs(directory, collapse=True):
     -----------
     directory: [string]
         name of the folder that contains the new group constants.
+    collapse: [bool]
+        True to collapse from 26 to 3 groups.
+        False to use the 26 G structure.
     '''
 
     AT = np.pi/3 * 297.3**2
@@ -844,7 +848,7 @@ def output_homoge_refl_xs(directory, collapse=True):
 
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     if collapse is True:
-        homogenize_collapse_reflec(XS, vi, base, lim3)
+        homogenize_collapse_reflec(XS, vi, base, lim)
     else:
         homogenize_reflec(XS, vi, base)
     print('Bottom reflector done')
@@ -858,7 +862,7 @@ def output_homoge_refl_xs(directory, collapse=True):
 
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     if collapse is True:
-        homogenize_collapse_reflec(XS, vi, base, lim3)
+        homogenize_collapse_reflec(XS, vi, base, lim)
     else:
         homogenize_reflec(XS, vi, base)
     print('Top reflector done')
@@ -872,7 +876,7 @@ def output_homoge_refl_xs(directory, collapse=True):
 
     vi = [1]
     if collapse is True:
-        homogenize_collapse_reflec(XS, vi, base, lim3)
+        homogenize_collapse_reflec(XS, vi, base, lim)
     else:
         homogenize_reflec(XS, vi, base)
     print('Inner reflector done')
@@ -886,14 +890,14 @@ def output_homoge_refl_xs(directory, collapse=True):
 
     vi = [A3/(A3 + A4), A4/(A3 + A4)]
     if collapse is True:
-        homogenize_collapse_reflec(XS, vi, base, lim3)
+        homogenize_collapse_reflec(XS, vi, base, lim)
     else:
         homogenize_reflec(XS, vi, base)
     print('Outer reflector done')
     return
 
 
-def output_fuel_xs(directory, collapse=True):
+def output_fuel_xs(directory, collapse=False):
     '''
     Creates a directory with the fuel group constants files for a model
     with 26 or 3 groups and 30 homogeneous fuel subdomains.
@@ -1363,21 +1367,21 @@ if __name__ == "__main__":
     ''' Calculates the group constants of a model w/ 26 groups and 30 fuel
     regions. Uncomment the following lines if you want to produce the
     group constants.'''
-    directory = 'xs26g'
-    os.mkdir(directory)
-    output_homoge_refl_xs(directory)
-    output_homoge_fuel_xs(directory)
+    # directory = 'xs26g'
+    # os.mkdir(directory)
+    # output_homoge_refl_xs(directory)
+    # output_fuel_xs(directory)
 
     # calculates model1 group constants
     # 26G to 3G - 30 fuel regions
-    # directory = 'xs3g'
-    # os.mkdir(directory)
-    # output_homoge_refl_xs(directory, collapse=True)
-    # output_homoge_fuel_xs(directory, collapse=True)
+    directory = 'xs3g'
+    os.mkdir(directory)
+    output_homoge_refl_xs(directory, collapse=True)
+    output_fuel_xs(directory, collapse=True)
 
     # calculates model2 group constants
     # 26G to 3G - 1 fuel region
-    # directory = 'xs3gB'
-    # os.mkdir(directory)
-    # output_homoge_refl_xs(directory, collapse=True)
-    # output_homoge_collapse_fuel2_xs(directory)
+    directory = 'xs3gB'
+    os.mkdir(directory)
+    output_homoge_refl_xs(directory, collapse=True)
+    output_homoge_collapse_fuel2_xs(directory)
