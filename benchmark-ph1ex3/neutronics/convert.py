@@ -199,6 +199,110 @@ def getfuelxs(inFile, index):
     return XS
 
 
+def output_to_file_reflec(temp, XS):
+    '''
+    '''
+
+    data = ['FLX', 'ST', 'DIFFCOEF']
+    for param in data:
+        f = open(base + param + '.txt', 'a')
+        f.write(str(temp))
+        for dg in XS[param]:
+            f.write(' ' + str(dg))
+        f.write('\n')
+        f.close()
+
+    f = open(base + 'SP0' + '.txt', "w+")
+    f.write(str(float(temp)-273))
+    for i in range(len(XS['SP0'])):
+        for dg in XS['SP0'][i]:
+            f.write(' ' + str(dg))
+    f.write('\n')
+    f.close()
+
+    f = open(base + 'REMXS' + '.txt', 'a')
+    f.write(str(temp))
+    for i in range(len(XS['SP0'])):
+        scatii = float(XS['SP0'][i, i])
+        toti = float(XS['ST'][i])
+        f.write(' ' + str(toti-scatii))
+    f.write('\n')
+    f.close()
+
+    # Everythin that is zero
+    data = ['NSF', 'FISS', 'CHIT', 'KAPPA', 'INVV', 'CHID']
+    for param in data:
+        f = open(base + param + '.txt', 'a')
+        f.write(str(temp))
+        for dg in range(26):
+            f.write(' ' + str(0))
+        f.write('\n')
+        f.close()
+
+    data = ['BETA_EFF', 'LAMBDA']
+    for param in data:
+        f = open(base + param + '.txt', 'a')
+        f.write(str(temp))
+        for i in range(8):
+            f.write(' 0')
+        f.write('\n')
+        f.close()
+
+    return
+
+
+def output_to_file_fuel(temp, XS):
+    '''
+    '''
+
+    data = ['FLX', 'ST', 'NSF', 'FISS', 'DIFFCOEF', 'CHIT', 'KAPPA']
+    for param in data:
+        f = open(base + param + '.txt', 'a')
+        f.write(str(float(temp)-273))
+        for dg in XS[param]:
+            f.write(' ' + str(dg))
+        f.write('\n')
+        f.close()
+
+    f = open(base + 'SP0' + '.txt', "w+")
+    f.write(str(float(temp)-273))
+    for i in range(len(XS['SP0'])):
+        for dg in XS['SP0'][i]:
+            f.write(' ' + str(dg))
+    f.write('\n')
+    f.close()
+    # print('SP0 done')
+
+    f = open(base + 'REMXS' + '.txt', 'a')
+    f.write(str(float(temp)-273))
+    for i in range(len(XS['SP0'])):
+        scatii = float(XS['SP0'][i, i])
+        toti = float(XS['ST'][i])
+        f.write(' ' + str(toti-scatii))
+    f.write('\n')
+    f.close()
+
+    # Everythin that is zero
+    data = ['INVV', 'CHID']
+    for param in data:
+        f = open(base + param + '.txt', 'a')
+        f.write(str(float(temp)-273))
+        for dg in range(G):
+            f.write(' ' + str(0))
+        f.write('\n')
+        f.close()
+
+    data = ['BETA_EFF', 'LAMBDA']
+    for param in data:
+        f = open(base + param + '.txt', 'a')
+        f.write(str(float(temp)-273))
+        for i in range(8):
+            f.write(' 0')
+        f.write('\n')
+        f.close()
+    return
+
+
 def homogenize_reflec(XS, vi, base):
     '''
     This function homogenizes several materials of the reflector region
@@ -233,17 +337,6 @@ def homogenize_reflec(XS, vi, base):
                         float(XS[material]['FLX'][temp][group]) * vi[material]
                 HXS[dat].append(sumx/summ)
 
-            # # Uncomment this to homogenize TR cross section
-            # data = ['TR']
-            # for dat in data:
-            #     sumx = 0
-            #     for material in range(L):
-            #         sumx += float(XS[material][dat][temp][group]) * \
-            #             float(XS[material]['FLX'][temp][group]) * \
-            #                 vi[material]
-            #     HXS[dat].append(sumx/summ)
-
-            # Use this to homogenize the diff coeficient
             data = ['DIFFCOEF']
             for dat in data:
                 sumx = 0
@@ -259,52 +352,8 @@ def homogenize_reflec(XS, vi, base):
                         float(XS[material]['FLX'][temp][group])*vi[material]
                 HXS['SP0'][group, gp] = sumx/summ
 
-        # Use this to homogenize the diff coeficient
-        data = ['FLX', 'ST', 'DIFFCOEF']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(temp))
-            for dg in HXS[param]:
-                f.write(' ' + str(dg))
-            f.write('\n')
-            f.close()
-
-        # # Uncomment this to homogenize TR cross section
-        # f = open(base + 'DIFFCOEF' + '.txt', 'a')
-        # f.write(str(temp))
-        # for dg in HXS['TR']:
-        #     f.write(' ' + str(1./3./dg))
-        # f.write('\n')
-        # f.close()
-
-        f = open(base + 'REMXS' + '.txt', 'a')
-        f.write(str(temp))
-        for i in range(len(HXS['SP0'])):
-            scatii = float(HXS['SP0'][i, i])
-            toti = float(HXS['ST'][i])
-            f.write(' ' + str(toti-scatii))
-        f.write('\n')
-        f.close()
-
-        # Everythin that is zero
-        data = ['NSF', 'FISS', 'CHIT', 'KAPPA', 'INVV', 'CHID']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(temp))
-            for dg in range(26):
-                f.write(' ' + str(0))
-            f.write('\n')
-            f.close()
-
-        data = ['BETA_EFF', 'LAMBDA']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(temp))
-            for i in range(8):
-                f.write(' 0')
-            f.write('\n')
-            f.close()
-
+        # Output to txt files
+        output_to_file_reflec(temp, HXS)
     return
 
 
@@ -430,450 +479,9 @@ def homogenize_fuel(XS, vi, base):
                     sumx += sp0 * flx * vi[material]
                 HXS['SP0'][group, gp] = sumx/summ
 
-        # Use this to homogenize the diff coeficient
-        data = ['FLX', 'ST', 'NSF', 'FISS', 'DIFFCOEF', 'CHIT', 'KAPPA']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(temp))
-            for dg in HXS[param]:
-                f.write(' ' + str(dg))
-            f.write('\n')
-            f.close()
+        # Output to txt files
+        output_to_file_fuel(temp, HXS)
 
-        f = open(base + 'REMXS' + '.txt', 'a')
-        f.write(str(temp))
-        for i in range(len(HXS['SP0'])):
-            scatii = float(HXS['SP0'][i, i])
-            toti = float(HXS['ST'][i])
-            f.write(' ' + str(toti-scatii))
-        f.write('\n')
-        f.close()
-
-        # Everythin that is zero
-        data = ['INVV', 'CHID']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(temp))
-            for dg in range(26):
-                f.write(' ' + str(0))
-            f.write('\n')
-            f.close()
-
-        data = ['BETA_EFF', 'LAMBDA']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(temp))
-            for i in range(8):
-                f.write(' 0')
-            f.write('\n')
-            f.close()
-
-    return
-
-
-def output_homoge_refl_xs(directory):
-    '''
-    Creates a directory with the reflector group constants files
-    for a model with 26 groups and homogeneous reflector regions.
-
-    Parameters:
-    -----------
-    directory: [string]
-        name of the folder that contains the new group constants.
-    '''
-
-    AT = np.pi/3 * 297.3**2
-    AH = 18/np.cos(np.pi/6) * 18/2 * 6  # Hexagon area
-    A1 = 19./3 * AH
-    A2 = 22 * AH
-    A3 = 26 * AH
-    A4 = AT - A1 - A2 - A3
-
-    # bottom reflector
-    base = directory + '/mhtgr_breflec_'
-    XS = []
-    for index in range(221, 225):
-        XSi = getreflxs('xsfiles/refl.xs', index)
-        XS.append(XSi)
-
-    vi = [A1/AT, A2/AT, A3/AT, A4/AT]
-    homogenize_reflec(XS, vi, base)
-    print('Bottom reflector done')
-
-    # top reflector
-    base = directory + '/mhtgr_treflec_'
-    XS = []
-    for index in range(228, 232):
-        XSi = getreflxs('xsfiles/refl.xs', index)
-        XS.append(XSi)
-
-    vi = [A1/AT, A2/AT, A3/AT, A4/AT]
-    homogenize_reflec(XS, vi, base)
-    print('Top reflector done')
-
-    # inner reflector
-    base = directory + '/mhtgr_ireflec_'
-    XS = []
-    for index in range(225, 226):
-        XSi = getreflxs('xsfiles/refl.xs', index)
-        XS.append(XSi)
-
-    vi = [1]
-    homogenize_reflec(XS, vi, base)
-    print('Inner reflector done')
-
-    # outer reflector
-    base = directory + '/mhtgr_oreflec_'
-    XS = []
-    for index in range(226, 228):
-        XSi = getreflxs('xsfiles/refl.xs', index)
-        XS.append(XSi)
-
-    vi = [A3/(A3 + A4), A4/(A3 + A4)]
-    homogenize_reflec(XS, vi, base)
-    print('Outer reflector done')
-    return
-
-
-def output_homoge_fuel_xs(directory):
-    '''
-    Creates the fuel group constants for a model with 26G and .
-    Creates a directory with the fuel group constants files for a model
-    with 26 groups and 30 homogeneous fuel subdomains.
-
-    Parameters:
-    -----------
-    directory: [string]
-        name of the folder that contains the new group constants.
-    '''
-
-    # F1 layer 1
-    base = directory + '/mhtgr_F1l1_'
-    XS = []
-    for index in range(1, 7):
-        XSi = getfuelxs('xsfiles/fuel1-10.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 1
-    base = directory + '/mhtgr_F2l1_'
-    XS = []
-    for index in range(7, 11):
-        XSi = getfuelxs('xsfiles/fuel1-10.xs', index)
-        XS.append(XSi)
-    for index in range(11, 15):
-        XSi = getfuelxs('xsfiles/fuel11-20.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 1
-    base = directory + '/mhtgr_F3l1_'
-    XS = []
-    for index in range(15, 21):
-        XSi = getfuelxs('xsfiles/fuel11-20.xs', index)
-        XS.append(XSi)
-    for index in range(21, 23):
-        XSi = getfuelxs('xsfiles/fuel21-30.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 1 done')
-
-    # F1 layer 2
-    base = directory + '/mhtgr_F1l2_'
-    XS = []
-    for index in range(23, 29):
-        XSi = getfuelxs('xsfiles/fuel21-30.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 2
-    base = directory + '/mhtgr_F2l2_'
-    XS = []
-    for index in range(29, 31):
-        XSi = getfuelxs('xsfiles/fuel21-30.xs', index)
-        XS.append(XSi)
-    for index in range(31, 37):
-        XSi = getfuelxs('xsfiles/fuel31-40.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 2
-    base = directory + '/mhtgr_F3l2_'
-    XS = []
-    for index in range(37, 41):
-        XSi = getfuelxs('xsfiles/fuel31-40.xs', index)
-        XS.append(XSi)
-    for index in range(41, 45):
-        XSi = getfuelxs('xsfiles/fuel41-50.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 2 done')
-
-    # F1 layer 3
-    base = directory + '/mhtgr_F1l3_'
-    XS = []
-    for index in range(45, 51):
-        XSi = getfuelxs('xsfiles/fuel41-50.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 3
-    base = directory + '/mhtgr_F2l3_'
-    XS = []
-    for index in range(51, 59):
-        XSi = getfuelxs('xsfiles/fuel51-60.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 3
-    base = directory + '/mhtgr_F3l3_'
-    XS = []
-    for index in range(59, 61):
-        XSi = getfuelxs('xsfiles/fuel51-60.xs', index)
-        XS.append(XSi)
-    for index in range(61, 67):
-        XSi = getfuelxs('xsfiles/fuel61-70.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 3 done')
-
-    # F1 layer 4
-    base = directory + '/mhtgr_F1l4_'
-    XS = []
-    for index in range(67, 71):
-        XSi = getfuelxs('xsfiles/fuel61-70.xs', index)
-        XS.append(XSi)
-    for index in range(71, 73):
-        XSi = getfuelxs('xsfiles/fuel71-80.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 4
-    base = directory + '/mhtgr_F2l4_'
-    XS = []
-    for index in range(73, 81):
-        XSi = getfuelxs('xsfiles/fuel71-80.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 4
-    base = directory + '/mhtgr_F3l4_'
-    XS = []
-    for index in range(81, 89):
-        XSi = getfuelxs('xsfiles/fuel81-90.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 4 done')
-
-    # F1 layer 5
-    base = directory + '/mhtgr_F1l5_'
-    XS = []
-    for index in range(89, 91):
-        XSi = getfuelxs('xsfiles/fuel81-90.xs', index)
-        XS.append(XSi)
-    for index in range(91, 95):
-        XSi = getfuelxs('xsfiles/fuel91-100.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 5
-    base = directory + '/mhtgr_F2l5_'
-    XS = []
-    for index in range(95, 101):
-        XSi = getfuelxs('xsfiles/fuel91-100.xs', index)
-        XS.append(XSi)
-    for index in range(101, 103):
-        XSi = getfuelxs('xsfiles/fuel101-110.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 5
-    base = directory + '/mhtgr_F3l5_'
-    XS = []
-    for index in range(103, 111):
-        XSi = getfuelxs('xsfiles/fuel101-110.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 5 done')
-
-    # F1 layer 6
-    base = directory + '/mhtgr_F1l6_'
-    XS = []
-    for index in range(111, 117):
-        XSi = getfuelxs('xsfiles/fuel111-120.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 6
-    base = directory + '/mhtgr_F2l6_'
-    XS = []
-    for index in range(117, 121):
-        XSi = getfuelxs('xsfiles/fuel111-120.xs', index)
-        XS.append(XSi)
-    for index in range(121, 125):
-        XSi = getfuelxs('xsfiles/fuel121-130.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 6
-    base = directory + '/mhtgr_F3l6_'
-    XS = []
-    for index in range(125, 131):
-        XSi = getfuelxs('xsfiles/fuel121-130.xs', index)
-        XS.append(XSi)
-    for index in range(131, 133):
-        XSi = getfuelxs('xsfiles/fuel131-140.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 6 done')
-
-    # F1 layer 7
-    base = directory + '/mhtgr_F1l7_'
-    XS = []
-    for index in range(133, 139):
-        XSi = getfuelxs('xsfiles/fuel131-140.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 7
-    base = directory + '/mhtgr_F2l7_'
-    XS = []
-    for index in range(139, 141):
-        XSi = getfuelxs('xsfiles/fuel131-140.xs', index)
-        XS.append(XSi)
-    for index in range(141, 147):
-        XSi = getfuelxs('xsfiles/fuel141-150.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 7
-    base = directory + '/mhtgr_F3l7_'
-    XS = []
-    for index in range(147, 151):
-        XSi = getfuelxs('xsfiles/fuel141-150.xs', index)
-        XS.append(XSi)
-    for index in range(151, 155):
-        XSi = getfuelxs('xsfiles/fuel151-160.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 7 done')
-
-    # F1 layer 8
-    base = directory + '/mhtgr_F1l8_'
-    XS = []
-    for index in range(155, 161):
-        XSi = getfuelxs('xsfiles/fuel151-160.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 8
-    base = directory + '/mhtgr_F2l8_'
-    XS = []
-    for index in range(161, 169):
-        XSi = getfuelxs('xsfiles/fuel161-170.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 8
-    base = directory + '/mhtgr_F3l8_'
-    XS = []
-    for index in range(169, 171):
-        XSi = getfuelxs('xsfiles/fuel161-170.xs', index)
-        XS.append(XSi)
-    for index in range(171, 176):
-        XSi = getfuelxs('xsfiles/fuel171-180.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 8 done')
-
-    # F1 layer 9
-    base = directory + '/mhtgr_F1l9_'
-    XS = []
-    for index in range(177, 181):
-        XSi = getfuelxs('xsfiles/fuel171-180.xs', index)
-        XS.append(XSi)
-    for index in range(181, 183):
-        XSi = getfuelxs('xsfiles/fuel181-190.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 9
-    base = directory + '/mhtgr_F2l9_'
-    XS = []
-    for index in range(183, 191):
-        XSi = getfuelxs('xsfiles/fuel181-190.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 9
-    base = directory + '/mhtgr_F3l9_'
-    XS = []
-    for index in range(191, 199):
-        XSi = getfuelxs('xsfiles/fuel191-200.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 9 done')
-
-    # F1 layer 10
-    base = directory + '/mhtgr_F1l10_'
-    XS = []
-    for index in range(199, 201):
-        XSi = getfuelxs('xsfiles/fuel191-200.xs', index)
-        XS.append(XSi)
-    for index in range(201, 205):
-        XSi = getfuelxs('xsfiles/fuel201-210.xs', index)
-        XS.append(XSi)
-    vi = 1/6 * np.ones(6)
-    homogenize_fuel(XS, vi, base)
-
-    # F2 layer 10
-    base = directory + '/mhtgr_F2l10_'
-    XS = []
-    for index in range(205, 211):
-        XSi = getfuelxs('xsfiles/fuel201-210.xs', index)
-        XS.append(XSi)
-    for index in range(211, 213):
-        XSi = getfuelxs('xsfiles/fuel211-220.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-
-    # F3 layer 10
-    base = directory + '/mhtgr_F3l10_'
-    XS = []
-    for index in range(213, 221):
-        XSi = getfuelxs('xsfiles/fuel211-220.xs', index)
-        XS.append(XSi)
-    vi = 1/8 * np.ones(8)
-    homogenize_fuel(XS, vi, base)
-    print('Layer 10 done')
     return
 
 
@@ -920,17 +528,6 @@ def homogenize_collapse_reflec(XS, vi, base, lim):
                         float(XS[material]['FLX'][temp][group]) * vi[material]
                 HXS[dat].append(sumx/summ)
 
-            # # Uncomment this to homogenize TR cross section
-            # data = ['TR']
-            # for dat in data:
-            #     sumx = 0
-            #     for material in range(L):
-            #         sumx += float(XS[material][dat][temp][group]) * \
-            #             float(XS[material]['FLX'][temp][group]) * \
-            #                 vi[material]
-            #     HXS[dat].append(sumx/summ)
-
-            # Use this to homogenize the diff coeficient
             data = ['DIFFCOEF']
             for dat in data:
                 sumx = 0
@@ -946,7 +543,7 @@ def homogenize_collapse_reflec(XS, vi, base, lim):
                         float(XS[material]['FLX'][temp][group])*vi[material]
                 HXS['SP0'][group, gp] = sumx/summ
 
-        # collapse here
+        # collapses here
         CXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'SP0': np.zeros((G, G))}
         data = ['ST', 'DIFFCOEF']
         for g in range(G):
@@ -1002,127 +599,10 @@ def homogenize_collapse_reflec(XS, vi, base, lim):
 
                 CXS['SP0'][g, gp] = ss/CXS['FLX'][g]
 
-        # Use this to homogenize the diff coeficient
-        data = ['FLX', 'ST', 'DIFFCOEF']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(float(temp)-273))
-            for dg in CXS[param]:
-                f.write(' ' + str(dg))
-            f.write('\n')
-            f.close()
-
-        # # Uncomment this to homogenize TR cross section
-        # f = open(base + 'DIFFCOEF' + '.txt', 'a')
-        # f.write(str(temp))
-        # for dg in HXS['TR']:
-        #     f.write(' ' + str(1./3./dg))
-        # f.write('\n')
-        # f.close()
-
-        f = open(base + 'SP0' + '.txt', "w+")
-        f.write(str(float(temp)-273))
-        for i in range(len(CXS['SP0'])):
-            for dg in CXS['SP0'][i]:
-                f.write(' ' + str(dg))
-        f.write('\n')
-        f.close()
-        # print('SP0 done')
-
-        f = open(base + 'REMXS' + '.txt', 'a')
-        f.write(str(float(temp)-273))
-        for i in range(len(CXS['SP0'])):
-            scatii = float(CXS['SP0'][i, i])
-            toti = float(CXS['ST'][i])
-            f.write(' ' + str(toti-scatii))
-        f.write('\n')
-        f.close()
-
-        # Everythin that is zero
-        data = ['NSF', 'FISS', 'CHIT', 'KAPPA', 'INVV', 'CHID']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(float(temp)-273))
-            for dg in range(G):
-                f.write(' ' + str(0))
-            f.write('\n')
-            f.close()
-
-        data = ['BETA_EFF', 'LAMBDA']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(float(temp)-273))
-            for i in range(8):
-                f.write(' 0')
-            f.write('\n')
-            f.close()
+        # Output to txt files
+        output_to_file_reflec(temp, CXS)
 
     return
-
-
-def output_homoge_collapse_refl_xs(directory):
-    '''
-    Creates the reflector group constants for model1 and model2.
-
-    Parameters:
-    -----------
-    directory: [string]
-        name of the folder that contains the new group constants.
-    '''
-
-    AT = np.pi/3 * 297.3**2
-    AH = 18/np.cos(np.pi/6) * 18/2 * 6  # Hexagon area
-    A1 = 19./3 * AH
-    A2 = 22 * AH
-    A3 = 26 * AH
-    A4 = AT - A1 - A2 - A3
-
-    lim3 = [4, 15, 26]
-
-    # bottom reflector
-    base = directory + '/mhtgr_breflec_'
-    XS = []
-    for index in range(221, 225):
-        XSi = getreflxs('xsfiles/refl.xs', index)
-        XS.append(XSi)
-
-    vi = [A1/AT, A2/AT, A3/AT, A4/AT]
-    homogenize_collapse_reflec(XS, vi, base, lim3)
-
-    print('Bottom reflector done')
-
-    # top reflector
-    base = directory + '/mhtgr_treflec_'
-    XS = []
-    for index in range(228, 232):
-        XSi = getreflxs('xsfiles/refl.xs', index)
-        XS.append(XSi)
-
-    vi = [A1/AT, A2/AT, A3/AT, A4/AT]
-    homogenize_collapse_reflec(XS, vi, base, lim3)
-    print('Top reflector done')
-
-    # inner reflector
-    base = directory + '/mhtgr_ireflec_'
-    XS = []
-    for index in range(225, 226):
-        XSi = getreflxs('xsfiles/refl.xs', index)
-        XS.append(XSi)
-
-    vi = [1]
-    homogenize_collapse_reflec(XS, vi, base, lim3)
-    print('Inner reflector done')
-
-    # outer reflector
-    base = directory + '/mhtgr_oreflec_'
-    XS = []
-    for index in range(226, 228):
-        XSi = getreflxs('xsfiles/refl.xs', index)
-        XS.append(XSi)
-
-    vi = [A3/(A3 + A4), A4/(A3 + A4)]
-    homogenize_collapse_reflec(XS, vi, base, lim3)
-    print('Outer reflector done')
 
 
 def homogenize_collapse_fuel(XS, vi, base, lim):
@@ -1329,58 +809,16 @@ def homogenize_collapse_fuel(XS, vi, base, lim):
         for g in range(G):
             CXS['KAPPA'].append(HXS['KAPPA'][0])
 
-        # print in moltres format
-        data = ['FLX', 'ST', 'NSF', 'FISS', 'DIFFCOEF', 'CHIT', 'KAPPA']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(float(temp)-273))
-            for dg in CXS[param]:
-                f.write(' ' + str(dg))
-            f.write('\n')
-            f.close()
+        # Output to txt files
+        output_to_file_fuel(temp, CXS)
 
-        f = open(base + 'SP0' + '.txt', "w+")
-        f.write(str(float(temp)-273))
-        for i in range(len(CXS['SP0'])):
-            for dg in CXS['SP0'][i]:
-                f.write(' ' + str(dg))
-        f.write('\n')
-        f.close()
-        # print('SP0 done')
-
-        f = open(base + 'REMXS' + '.txt', 'a')
-        f.write(str(float(temp)-273))
-        for i in range(len(CXS['SP0'])):
-            scatii = float(CXS['SP0'][i, i])
-            toti = float(CXS['ST'][i])
-            f.write(' ' + str(toti-scatii))
-        f.write('\n')
-        f.close()
-
-        # Everythin that is zero
-        data = ['INVV', 'CHID']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(float(temp)-273))
-            for dg in range(G):
-                f.write(' ' + str(0))
-            f.write('\n')
-            f.close()
-
-        data = ['BETA_EFF', 'LAMBDA']
-        for param in data:
-            f = open(base + param + '.txt', 'a')
-            f.write(str(float(temp)-273))
-            for i in range(8):
-                f.write(' 0')
-            f.write('\n')
-            f.close()
     return
 
 
-def output_homoge_collapse_fuel_xs(directory):
+def output_homoge_refl_xs(directory, collapse=True):
     '''
-    Creates the fuel group constants for model1.
+    Creates a directory with the reflector group constants files
+    for a model with 26 groups and homogeneous reflector regions.
 
     Parameters:
     -----------
@@ -1397,6 +835,80 @@ def output_homoge_collapse_fuel_xs(directory):
 
     lim = [4, 15, 26]
 
+    # bottom reflector
+    base = directory + '/mhtgr_breflec_'
+    XS = []
+    for index in range(221, 225):
+        XSi = getreflxs('xsfiles/refl.xs', index)
+        XS.append(XSi)
+
+    vi = [A1/AT, A2/AT, A3/AT, A4/AT]
+    if collapse is True:
+        homogenize_collapse_reflec(XS, vi, base, lim3)
+    else:
+        homogenize_reflec(XS, vi, base)
+    print('Bottom reflector done')
+
+    # top reflector
+    base = directory + '/mhtgr_treflec_'
+    XS = []
+    for index in range(228, 232):
+        XSi = getreflxs('xsfiles/refl.xs', index)
+        XS.append(XSi)
+
+    vi = [A1/AT, A2/AT, A3/AT, A4/AT]
+    if collapse is True:
+        homogenize_collapse_reflec(XS, vi, base, lim3)
+    else:
+        homogenize_reflec(XS, vi, base)
+    print('Top reflector done')
+
+    # inner reflector
+    base = directory + '/mhtgr_ireflec_'
+    XS = []
+    for index in range(225, 226):
+        XSi = getreflxs('xsfiles/refl.xs', index)
+        XS.append(XSi)
+
+    vi = [1]
+    if collapse is True:
+        homogenize_collapse_reflec(XS, vi, base, lim3)
+    else:
+        homogenize_reflec(XS, vi, base)
+    print('Inner reflector done')
+
+    # outer reflector
+    base = directory + '/mhtgr_oreflec_'
+    XS = []
+    for index in range(226, 228):
+        XSi = getreflxs('xsfiles/refl.xs', index)
+        XS.append(XSi)
+
+    vi = [A3/(A3 + A4), A4/(A3 + A4)]
+    if collapse is True:
+        homogenize_collapse_reflec(XS, vi, base, lim3)
+    else:
+        homogenize_reflec(XS, vi, base)
+    print('Outer reflector done')
+    return
+
+
+def output_fuel_xs(directory, collapse=True):
+    '''
+    Creates a directory with the fuel group constants files for a model
+    with 26 or 3 groups and 30 homogeneous fuel subdomains.
+
+    Parameters:
+    -----------
+    directory: [string]
+        name of the folder that contains the new group constants.
+    collapse: [bool]
+        True to collapse from 26 to 3 groups.
+        False to use the 26 G structure.
+    '''
+
+    lim = [4, 15, 26]
+
     # F1 layer 1
     base = directory + '/mhtgr_F1l1_'
     XS = []
@@ -1404,7 +916,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel1-10.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 1
     base = directory + '/mhtgr_F2l1_'
@@ -1416,7 +931,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel11-20.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 1
     base = directory + '/mhtgr_F3l1_'
@@ -1428,7 +946,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel21-30.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 1 done')
 
     # F1 layer 2
@@ -1438,7 +959,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel21-30.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 2
     base = directory + '/mhtgr_F2l2_'
@@ -1450,7 +974,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel31-40.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 2
     base = directory + '/mhtgr_F3l2_'
@@ -1462,7 +989,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel41-50.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 2 done')
 
     # F1 layer 3
@@ -1472,7 +1002,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel41-50.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 3
     base = directory + '/mhtgr_F2l3_'
@@ -1481,7 +1014,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel51-60.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 3
     base = directory + '/mhtgr_F3l3_'
@@ -1493,7 +1029,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel61-70.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 3 done')
 
     # F1 layer 4
@@ -1506,7 +1045,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel71-80.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 4
     base = directory + '/mhtgr_F2l4_'
@@ -1515,7 +1057,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel71-80.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 4
     base = directory + '/mhtgr_F3l4_'
@@ -1524,7 +1069,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel81-90.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 4 done')
 
     # F1 layer 5
@@ -1537,7 +1085,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel91-100.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 5
     base = directory + '/mhtgr_F2l5_'
@@ -1549,7 +1100,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel101-110.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 5
     base = directory + '/mhtgr_F3l5_'
@@ -1558,7 +1112,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel101-110.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 5 done')
 
     # F1 layer 6
@@ -1568,7 +1125,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel111-120.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 6
     base = directory + '/mhtgr_F2l6_'
@@ -1580,7 +1140,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel121-130.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 6
     base = directory + '/mhtgr_F3l6_'
@@ -1592,7 +1155,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel131-140.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 6 done')
 
     # F1 layer 7
@@ -1602,7 +1168,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel131-140.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 7
     base = directory + '/mhtgr_F2l7_'
@@ -1614,7 +1183,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel141-150.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 7
     base = directory + '/mhtgr_F3l7_'
@@ -1626,7 +1198,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel151-160.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 7 done')
 
     # F1 layer 8
@@ -1636,7 +1211,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel151-160.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 8
     base = directory + '/mhtgr_F2l8_'
@@ -1645,7 +1223,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel161-170.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 8
     base = directory + '/mhtgr_F3l8_'
@@ -1657,7 +1238,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel171-180.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 8 done')
 
     # F1 layer 9
@@ -1670,7 +1254,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel181-190.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 9
     base = directory + '/mhtgr_F2l9_'
@@ -1679,7 +1266,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel181-190.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 9
     base = directory + '/mhtgr_F3l9_'
@@ -1688,7 +1278,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel191-200.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 9 done')
 
     # F1 layer 10
@@ -1701,7 +1294,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel201-210.xs', index)
         XS.append(XSi)
     vi = 1/6 * np.ones(6)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F2 layer 10
     base = directory + '/mhtgr_F2l10_'
@@ -1713,7 +1309,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel211-220.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
 
     # F3 layer 10
     base = directory + '/mhtgr_F3l10_'
@@ -1722,7 +1321,10 @@ def output_homoge_collapse_fuel_xs(directory):
         XSi = getfuelxs('xsfiles/fuel211-220.xs', index)
         XS.append(XSi)
     vi = 1/8 * np.ones(8)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    if collapse is True:
+        homogenize_collapse_fuel(XS, vi, base, lim)
+    else:
+        homogenize_fuel(XS, vi, base)
     print('Layer 10 done')
     return
 
@@ -1761,21 +1363,21 @@ if __name__ == "__main__":
     ''' Calculates the group constants of a model w/ 26 groups and 30 fuel
     regions. Uncomment the following lines if you want to produce the
     group constants.'''
-    # directory = 'xs26g'
-    # os.mkdir(directory)
-    # output_homoge_refl_xs(directory)
-    # output_homoge_fuel_xs(directory)
+    directory = 'xs26g'
+    os.mkdir(directory)
+    output_homoge_refl_xs(directory)
+    output_homoge_fuel_xs(directory)
 
     # calculates model1 group constants
     # 26G to 3G - 30 fuel regions
-    directory = 'xs3g'
-    os.mkdir(directory)
-    output_homoge_collapse_refl_xs(directory)
-    output_homoge_collapse_fuel_xs(directory)
+    # directory = 'xs3g'
+    # os.mkdir(directory)
+    # output_homoge_refl_xs(directory, collapse=True)
+    # output_homoge_fuel_xs(directory, collapse=True)
 
     # calculates model2 group constants
     # 26G to 3G - 1 fuel region
-    directory = 'xs3gB'
-    os.mkdir(directory)
-    output_homoge_collapse_refl_xs(directory)
-    output_homoge_collapse_fuel2_xs(directory)
+    # directory = 'xs3gB'
+    # os.mkdir(directory)
+    # output_homoge_refl_xs(directory, collapse=True)
+    # output_homoge_collapse_fuel2_xs(directory)
