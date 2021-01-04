@@ -58,7 +58,7 @@ def update_dict_fuel(dictionary, gconstants, ftemps, mtemps, groups):
 
     for const in gconstants:
         dictionary[const] = {}
-        for ftemp in ftemps:         
+        for ftemp in ftemps:
             dictionary[const][ftemp] = {}
             for mtemp in mtemps:
                 if const == 'SP0':
@@ -119,7 +119,8 @@ def getreflxs(inFile, index):
             spgs = int(lines[i+tcount*2][g])-1
             spge = int(lines[i+1+tcount*2][g])-1
             for gp in range(0, spge-spgs+1):
-                XS['SP0'][temp][gp+spgs, g] = float(lines[i+15+tcount*26+g][gp])
+                XS['SP0'][temp][gp+spgs, g] = float(lines[
+                    i+15+tcount*26+g][gp])
 
     return XS
 
@@ -382,7 +383,8 @@ def homogenize_reflec(XS, vi, base, collapse=False):
             # collapses here
             lim = [4, 15, 26]
             G = len(lim)
-            CXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'SP0': np.zeros((G, G))}
+            CXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [],
+                   'SP0': np.zeros((G, G))}
             data = ['ST', 'DIFFCOEF']
             for g in range(G):
                 if g == 0:
@@ -572,7 +574,7 @@ def homogenize_fuel(XS, vi, base, collapse=False):
             # outputs to txt files
             output_to_file_fuel(temp, HXS, base)
 
-        else:  
+        else:
             # collapse here
             lim = [4, 15, 26]
             G = len(lim)
@@ -1083,11 +1085,14 @@ def output_homoge_collapse_fuel2_xs(directory):
     XS = []
     for j in range(22):
         for index in range(j*10 + 1, j*10 + 11):
-            XSi = getfuelxs('xsfiles/fuel' + str(j*10 + 1) + '-' + str(j*10 + 10) + '.xs', index)
+            XSi = getfuelxs('xsfiles/fuel' + str(j*10 + 1) +
+                            '-' + str(j*10 + 10) + '.xs', index)
             XS.append(XSi)
     vi = 1/220 * np.ones(220)
     homogenize_fuel(XS, vi, base, collapse=True)
     print('Fuel done')
+
+    return
 
 
 if __name__ == "__main__":
