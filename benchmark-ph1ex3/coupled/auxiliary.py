@@ -32,65 +32,89 @@ def add_legends_fullcore():
     return
 
 
-def plot_fluxes(file1, file2, save, direc):
+def plot_fluxes(file1, file2, save, direc, legend):
     '''
-    This function creates 4 images including the following plots:
+    This function creates 2 images including the following plots:
     * axial fluxes
-    * axial temperature
     * radial fluxes
-    * radial temperature
 
-    of model1 results and model1-noTF results.
+    Parameters:
+    -----------
+    file1: [string]
+        name of .csv file to plot
+    file2: [string]
+        name of .csv file to plot
+    save: [string]
+        figure's name
+    direc: ['x', 'y', 'z', or 'r']
+        direction of the detector
+    legend: [list of strings]
+        root of the figure legends
     '''
 
-    # axial fluxes
     G = 3  # number of groups
     fig, ax = plt.subplots()
     file = pd.read_csv(file1)
-    x = np.array(file['y'].tolist())
+    x = np.array(file[direc].tolist())
     for g in range(G):
         flux = np.array(file['group'+str(g+1)].tolist())
-        plt.plot(x, flux, label='F, g={0}'.format(g+1))
+        plt.plot(x, flux, label=legend[0] + ', g={0}'.format(g+1))
 
     file = pd.read_csv(file2)
-    x = np.array(file['y'].tolist())
+    x = np.array(file[direc].tolist())
     for g in range(G):
         flux = np.array(file['group'+str(g+1)].tolist())
-        plt.plot(x, flux, label='NF, g={0}'.format(g+1))
+        plt.plot(x, flux, label=legend[-1] + ', g={0}'.format(g+1))
 
     plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True,
                fontsize=14)
     plt.xticks(fontsize=16)
     plt.yticks(fontsize=16)
-    if direc is 'y' or direc is 'z':
+    if direc == 'y' or direc == 'z':
         plt.xlabel('z [cm]', fontsize=14)
     else:
         plt.xlabel('r [cm]', fontsize=14)
     plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$', fontsize=16)
     ax.yaxis.get_offset_text().set_fontsize(14)
-    plt.savefig(save2, dpi=300, bbox_inches="tight")
+    plt.savefig(save, dpi=300, bbox_inches="tight")
     return
 
 
-def plot_temperatures(file1, file2, save, direc):
+def plot_temperatures(file1, file2, save, direc, legend):
     '''
+    This function creates 2 images including the following plots:
+    * axial temperature
+    * radial temperature
+
+    Parameters:
+    -----------
+    file1: [string]
+        name of .csv file to plot
+    file2: [string]
+        name of .csv file to plot
+    save: [string]
+        figure's name
+    direc: ['x', 'y', 'z', or 'r']
+        direction of the detector
+    legend: [list of strings]
+        root of the figure legends
     '''
 
     plt.figure()
     file = pd.read_csv(file1)
     x = np.array(file[direc].tolist())
     flux = np.array(file['temp'].tolist())
-    plt.plot(x, flux, label='F')
+    plt.plot(x, flux, label=legend[0])
 
     file = pd.read_csv(file2)
     flux = np.array(file['temp'].tolist())
-    plt.plot(x, flux, label='NF')
+    plt.plot(x, flux, label=legend[-1])
 
     plt.legend(loc="upper right", fontsize=14)
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
     plt.ylabel(r'Temperature [$^{\circ}$C]', fontsize=14)
-    if direc is 'y' or direc is 'z':
+    if direc == 'y' or direc == 'z':
         plt.xlabel('z [cm]', fontsize=14)
     else:
         plt.xlabel('r [cm]', fontsize=14)
@@ -105,23 +129,43 @@ if __name__ == "__main__":
     # plot figures from model1
     file1 = 'model1_axial1_0002.csv'
     file2 = 'model1-noTF_axial1_0002.csv'
-    save1 = 'coupledD-3G-axial'
-    plot_fluxes(file1, file2, save, 'y')
+    save = 'coupledD-3G-axial'
+    legend = ['F', 'NF']
+    plot_fluxes(file1, file2, save, 'y', legend)
 
-    file3 = 'model1_radial1_0002.csv'
-    file4 = 'model1-noTF_radial1_0002.csv'
-    save2 = 'coupledD-3G-radial'
-    plot_fluxes(file1, file2, save, 'y')
+    file1 = 'model1_radial1_0002.csv'
+    file2 = 'model1-noTF_radial1_0002.csv'
+    save = 'coupledD-3G-radial'
+    plot_fluxes(file1, file2, save, 'x', legend)
 
     file1 = 'model1_axialT_0002.csv'
     file2 = 'model1-noTF_axialT_0002.csv'
     save = 'coupledD-3G-axialT'
-    plot_temperatures(file1, file2, save, 'y')
+    plot_temperatures(file1, file2, save, 'y', legend)
 
-    file7 = 'model1_radialT_0002.csv'
-    file8 = 'model1-noTF_radialT_0002.csv'
-    save4 = 'coupledD-3G-radialT'
-    plot_temperatures(file1, file2, save, 'x')
+    file1 = 'model1_radialT_0002.csv'
+    file2 = 'model1-noTF_radialT_0002.csv'
+    save = 'coupledD-3G-radialT'
+    plot_temperatures(file1, file2, save, 'x', legend)
 
     # plot figures from model2
-    # plot_allcoupled()
+    file1 = 'model2_axial1_0002.csv'
+    file2 = 'model1_axial1_0002.csv'
+    save = 'coupledD-H-axial'
+    legend = ['AVE', 'P-W']
+    plot_fluxes(file1, file2, save, 'y', legend)
+
+    file1 = 'model2_radial1_0002.csv'
+    file2 = 'model1_radial1_0002.csv'
+    save = 'coupledD-H-radial'
+    plot_fluxes(file1, file2, save, 'x', legend)
+
+    file1 = 'model2_axialT_0002.csv'
+    file2 = 'model1_axialT_0002.csv'
+    save = 'coupledD-H-axialT'
+    plot_temperatures(file1, file2, save, 'y', legend)
+
+    file1 = 'model2_radialT_0002.csv'
+    file2 = 'model1_radialT_0002.csv'
+    save = 'coupledD-H-radialT'
+    plot_temperatures(file1, file2, save, 'x', legend)
