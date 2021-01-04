@@ -19,7 +19,7 @@ def update_dict_reflec(dictionary, gconstants, temps, groups):
         number of energy groups
     Returns:
     --------
-    dictionary: [dictionary of float]      
+    dictionary: [dictionary of float]
     '''
 
     for const in gconstants:
@@ -141,10 +141,6 @@ def getfuelxs(inFile, index):
         contains main parameters: normalized flux (FLX),
         total cross-section (ST), and transport cross-section (TR) for
         different temperatures.
-    SP0: dictionary
-        contains the scattering matrices for different temperatures.
-    kappa: dictionary
-        contains the energy/fission for different temperatures.
     '''
 
     with open(inFile, 'r') as i:
@@ -201,6 +197,17 @@ def getfuelxs(inFile, index):
 
 def output_to_file_reflec(temp, XS, base):
     '''
+    This function generates several .txt files that hold the group constants
+    information in Moltres readable format for reflector materials.
+
+    Parameters:
+    -----------
+    temp: [list of float]
+        fuel temperatures
+    XS: [dictionary]
+        contains group constants information
+    base: [string]
+        base name of the group constants
     '''
 
     data = ['FLX', 'ST', 'DIFFCOEF']
@@ -253,6 +260,17 @@ def output_to_file_reflec(temp, XS, base):
 
 def output_to_file_fuel(temp, XS, base):
     '''
+    This function generates several .txt files that hold the group constants
+    information in Moltres readable format for fuel materials.
+
+    Parameters:
+    -----------
+    temp: [list of float]
+        fuel temperatures
+    XS: [dictionary]
+        contains group constants information
+    base: [string]
+        base name of the group constants
     '''
 
     G = 26
@@ -319,6 +337,9 @@ def homogenize_reflec(XS, vi, base, collapse=False):
         volume fraction of each material
     base: [string]
         base name of the group constants
+    collapse: [bool]
+        True to collapse from 26 to 3 groups.
+        False to use the 26 G structure.
     '''
 
     L = len(XS)
@@ -422,7 +443,7 @@ def homogenize_reflec(XS, vi, base, collapse=False):
     return
 
 
-def homogenize_fuel(XS, vi, base, collpase=False):
+def homogenize_fuel(XS, vi, base, collapse=False):
     '''
     This function homogenizes several materials of the fuel region
     into one. The input group constants have a 26 energy group structure.
@@ -437,6 +458,9 @@ def homogenize_fuel(XS, vi, base, collpase=False):
         volume fraction of each material
     base: [string]
         base name of the group constants
+    collapse: [bool]
+        True to collapse from 26 to 3 groups.
+        False to use the 26 G structure.
     '''
 
     L = len(XS)
@@ -654,7 +678,7 @@ def output_homoge_refl_xs(directory, collapse=False):
         XS.append(XSi)
 
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
-    homogenize_reflec(XS, vi, base, collapse, lim)
+    homogenize_reflec(XS, vi, base, collapse)
     print('Bottom reflector done')
 
     # top reflector
@@ -665,7 +689,7 @@ def output_homoge_refl_xs(directory, collapse=False):
         XS.append(XSi)
 
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
-    homogenize_reflec(XS, vi, base, collapse, lim)
+    homogenize_reflec(XS, vi, base, collapse)
     print('Top reflector done')
 
     # inner reflector
@@ -676,7 +700,7 @@ def output_homoge_refl_xs(directory, collapse=False):
         XS.append(XSi)
 
     vi = [1]
-    homogenize_reflec(XS, vi, base, collapse, lim)
+    homogenize_reflec(XS, vi, base, collapse)
     print('Inner reflector done')
 
     # outer reflector
@@ -687,7 +711,7 @@ def output_homoge_refl_xs(directory, collapse=False):
         XS.append(XSi)
 
     vi = [A3/(A3 + A4), A4/(A3 + A4)]
-    homogenize_reflec(XS, vi, base, collapse, lim)
+    homogenize_reflec(XS, vi, base, collapse)
     print('Outer reflector done')
     return
 
@@ -1062,7 +1086,7 @@ def output_homoge_collapse_fuel2_xs(directory):
             XSi = getfuelxs('xsfiles/fuel' + str(j*10 + 1) + '-' + str(j*10 + 10) + '.xs', index)
             XS.append(XSi)
     vi = 1/220 * np.ones(220)
-    homogenize_collapse_fuel(XS, vi, base, lim)
+    homogenize_fuel(XS, vi, base, collapse=True)
     print('Fuel done')
 
 
@@ -1070,10 +1094,10 @@ if __name__ == "__main__":
     ''' Calculates the group constants of a model w/ 26 groups and 30 fuel
     regions. Uncomment the following lines if you want to produce the
     group constants.'''
-    directory = 'xs26g'
-    os.mkdir(directory)
-    output_homoge_refl_xs(directory)
-    output_fuel_xs(directory)
+    # directory = 'xs26g'
+    # os.mkdir(directory)
+    # output_homoge_refl_xs(directory)
+    # output_fuel_xs(directory)
 
     # calculates model1 group constants
     # 26G to 3G - 30 fuel regions
@@ -1084,7 +1108,7 @@ if __name__ == "__main__":
 
     # calculates model2 group constants
     # 26G to 3G - 1 fuel region
-    # directory = 'xs3gB'
-    # os.mkdir(directory)
-    # output_homoge_refl_xs(directory, collapse=True)
-    # output_homoge_collapse_fuel2_xs(directory)
+    directory = 'xs3gB'
+    os.mkdir(directory)
+    output_homoge_refl_xs(directory, collapse=True)
+    output_homoge_collapse_fuel2_xs(directory)
