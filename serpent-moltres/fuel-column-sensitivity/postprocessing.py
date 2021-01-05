@@ -269,15 +269,20 @@ def accuracy_study():
         for temp in ['600', '1200']:
 
             file1 = '3D-assembly-' + lbp + '-' + temp + '-26G_axial_0002.csv'
-            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15G_axial_0002.csv'
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + \
+                '-15G_axial_0002.csv'
             e[0] = np.array(calc_error(file1, file2, lim26, lim15))
-            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15Gb_axial_0002.csv'
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + \
+                '-15Gb_axial_0002.csv'
             e[1] = np.array(calc_error(file1, file2, lim26, lim15b))
-            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15Gc_axial_0002.csv'
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + \
+                '-15Gc_axial_0002.csv'
             e[2] = np.array(calc_error(file1, file2, lim26, lim15c))
-            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15Gd_axial_0002.csv'
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + \
+                '-15Gd_axial_0002.csv'
             e[3] = np.array(calc_error(file1, file2, lim26, lim15d))
-            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15Ge_axial_0002.csv'
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + \
+                '-15Ge_axial_0002.csv'
             e[4] = np.array(calc_error(file1, file2, lim26, lim15e))
 
             print(f'{lbp} {temp}:')
