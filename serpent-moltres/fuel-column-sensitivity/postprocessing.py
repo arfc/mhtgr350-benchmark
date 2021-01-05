@@ -230,7 +230,7 @@ def plot_global(lbp_condition, temp_condition, keff_serp):
         plt.savefig('time-noLBP-' + str(temp_condition), dpi=300,
                     bbox_inches="tight")
     plt.close()
-
+    return
 
 def accuracy_study():
     '''
