@@ -80,7 +80,7 @@ def calc_error(file1, file2, lim1, lim2, dire='z'):
     N = len(group21)
     # the number of columns in the csv file is the number of
     # groups + 4: x, y, z, id.
-    G = len(file2.keys())-4
+    G = len(file2.keys()) - 4
 
     Gp = len(lim2)
     group2 = np.zeros((Gp, N))
@@ -106,7 +106,7 @@ def calc_error(file1, file2, lim1, lim2, dire='z'):
 
     e2 = np.zeros(3)
     for gp in range(Gp):
-        aux = group1[gp][group1[gp] != 0]-group2[gp][group2[gp] != 0]
+        aux = group1[gp][group1[gp] != 0] - group2[gp][group2[gp] != 0]
         aux /= group1[gp][group1[gp] != 0]
         aux = aux**2
         e2[gp] = np.sqrt(sum(aux))
@@ -134,7 +134,6 @@ def plot_error_acc_study(error, save, xticks, xlabel):
     '''
 
     plt.figure()
-
     plt.plot(xticks, error[:, 1, 0], marker='o', label='g=1')
     plt.plot(xticks, error[:, 1, 1], marker='o', label='g=2')
     plt.plot(xticks, error[:, 1, 2], marker='o', label='g=3')
@@ -148,6 +147,7 @@ def plot_error_acc_study(error, save, xticks, xlabel):
     plt.savefig(save, dpi=300, bbox_inches="tight")
     plt.close()
     return
+
 
 def plot_global(lbp_condition, temp_condition, keff_serp):
     '''
@@ -232,6 +232,7 @@ def plot_global(lbp_condition, temp_condition, keff_serp):
     plt.close()
     return
 
+
 def accuracy_study():
     '''
     This function obtains the L2 norm relative error for the 4 different cases:
@@ -247,9 +248,9 @@ def accuracy_study():
     - W_thermal = 0.5
     - W_epithermal = 0.3
     - W_fast = 0.2
-    However, this file doesn't run this function becuase I accidently
+    However, this script doesn't run this function because I accidently
     deleted the necessary files for reproducing the results.
-    We'll keep the function if anyone wants to reproduce these
+    We'll keep the function in case anyone wants to reproduce these
     results in the future.
     '''
 
@@ -260,101 +261,50 @@ def accuracy_study():
     lim15d = [2, 7, 15]  # from 15 to 3
     lim15e = [2, 7, 15]  # from 15 to 3
 
-    # no LBP 600
     e = np.zeros((5, 2, 3))
-    cumul = np.zeros((3, 5))
     base = './accuracy15G/'
-    file1 = '3D-assembly-noLBP-600-26G_axial_0002.csv'
+    cumul = np.zeros((3, 5))
 
-    file2 = base + '3D-assembly-noLBP-600-15G_axial_0002.csv'
-    e[0] = np.array(calc_error(file1, file2, lim26, lim15))
-    file2 = base + '3D-assembly-noLBP-600-15Gb_axial_0002.csv'
-    e[1] = np.array(calc_error(file1, file2, lim26, lim15b))
-    file2 = base + '3D-assembly-noLBP-600-15Gc_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim15c))
-    file2 = base + '3D-assembly-noLBP-600-15Gd_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim15d))
-    file2 = base + '3D-assembly-noLBP-600-15Ge_axial_0002.csv'
-    e[4] = np.array(calc_error(file1, file2, lim26, lim15e))
+    for lbp in ['noLBP', 'LBP']:
+        for temp in ['600', '1200']:
 
-    print('noLBP 600:')
-    cumul += np.round(e[:, 1, :].T*100, 1)
-    print(np.round(e[:, 1, :].T*100, 1))
-    xticks = ['a', 'b', 'c', 'd', 'e']
-    xlabel = 'Energy group structure'
-    plot_error_acc_study(e, 'accuracy-noLBP-600-er-15', xticks, xlabel)
+            file1 = '3D-assembly-' + lbp + '-' + temp + '-26G_axial_0002.csv'
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15G_axial_0002.csv'
+            e[0] = np.array(calc_error(file1, file2, lim26, lim15))
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15Gb_axial_0002.csv'
+            e[1] = np.array(calc_error(file1, file2, lim26, lim15b))
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15Gc_axial_0002.csv'
+            e[2] = np.array(calc_error(file1, file2, lim26, lim15c))
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15Gd_axial_0002.csv'
+            e[3] = np.array(calc_error(file1, file2, lim26, lim15d))
+            file2 = base + '3D-assembly-' + lbp + '-' + temp + '-15Ge_axial_0002.csv'
+            e[4] = np.array(calc_error(file1, file2, lim26, lim15e))
 
-    # no LBP 1200
-    e = np.zeros((5, 2, 3))
-    file1 = '3D-assembly-noLBP-1200-26G_axial_0002.csv'
-
-    file2 = base + '3D-assembly-noLBP-1200-15G_axial_0002.csv'
-    e[0] = np.array(calc_error(file1, file2, lim26, lim15))
-    file2 = base + '3D-assembly-noLBP-1200-15Gb_axial_0002.csv'
-    e[1] = np.array(calc_error(file1, file2, lim26, lim15b))
-    file2 = base + '3D-assembly-noLBP-1200-15Gc_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim15c))
-    file2 = base + '3D-assembly-noLBP-1200-15Gd_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim15d))
-    file2 = base + '3D-assembly-noLBP-1200-15Ge_axial_0002.csv'
-    e[4] = np.array(calc_error(file1, file2, lim26, lim15e))
-
-    print('noLBP 1200:')
-    cumul += np.round(e[:, 1, :].T*100, 1)
-    print(np.round(e[:, 1, :].T*100, 1))
-    plot_error_acc_study(e, 'accuracy-noLBP-1200-er-15', xticks, xlabel)
-
-    # LBP 600
-    e = np.zeros((5, 2, 3))
-    file1 = '3D-assembly-LBP-600-26G_axial_0002.csv'
-
-    file2 = base + '3D-assembly-LBP-600-15G_axial_0002.csv'
-    e[0] = np.array(calc_error(file1, file2, lim26, lim15))
-    file2 = base + '3D-assembly-LBP-600-15Gb_axial_0002.csv'
-    e[1] = np.array(calc_error(file1, file2, lim26, lim15b))
-    file2 = base + '3D-assembly-LBP-600-15Gc_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim15c))
-    file2 = base + '3D-assembly-LBP-600-15Gd_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim15d))
-    file2 = base + '3D-assembly-LBP-600-15Ge_axial_0002.csv'
-    e[4] = np.array(calc_error(file1, file2, lim26, lim15e))
-
-    print('LBP 600:')
-    cumul += np.round(e[:, 1, :].T*100, 1)
-    print(np.round(e[:, 1, :].T*100, 1))
-    plot_error_acc_study(e, 'accuracy-LBP-600-er-15', xticks, xlabel)
-
-    # LBP 1200
-    e = np.zeros((5, 2, 3))
-    file1 = '3D-assembly-LBP-1200-26G_axial_0002.csv'
-
-    file2 = base + '3D-assembly-LBP-1200-15G_axial_0002.csv'
-    e[0] = np.array(calc_error(file1, file2, lim26, lim15))
-    file2 = base + '3D-assembly-LBP-1200-15Gb_axial_0002.csv'
-    e[1] = np.array(calc_error(file1, file2, lim26, lim15b))
-    file2 = base + '3D-assembly-LBP-1200-15Gc_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim15c))
-    file2 = base + '3D-assembly-LBP-1200-15Gd_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim15d))
-    file2 = base + '3D-assembly-LBP-1200-15Ge_axial_0002.csv'
-    e[4] = np.array(calc_error(file1, file2, lim26, lim15e))
-
-    print('LBP 1200:')
-    cumul += np.round(e[:, 1, :].T*100, 1)
-    print(np.round(e[:, 1, :].T*100, 1))
-    plot_error_acc_study(e, 'accuracy-LBP-1200-er-15', xticks, xlabel)
+            print(f'{lbp} {temp}:')
+            cumul += np.round(e[:, 1, :].T*100, 1)
+            print(np.round(e[:, 1, :].T*100, 1))
+            xticks = ['a', 'b', 'c', 'd', 'e']
+            xlabel = 'Energy group structure'
+            plot_error_acc_study(e, 'accuracy-' + lbp + '-' + temp + '-er-15',
+                                 xticks, xlabel)
 
     print('Cumulative error: ')
     cumul = cumul/4
     ave = np.zeros(5)
     ave = 0.5*cumul[0, :] + 0.3*cumul[1, :] + 0.2*cumul[2, :]
     print(ave)
+    return
 
 
-def noLBP_600_L2error():
+def noLBP_L2error(temp):
     '''
     This function plots the L2 norm relative error for the different
-    group structures for the no LBP 600 K case.
+    group structures for the no LBP cases.
+
+    Parameters:
+    -----------
+    temp: [float]
+        temperature in K: 600 or 1200K
     '''
 
     lim26 = [4, 16, 26]  # from 26 to 3
@@ -367,68 +317,37 @@ def noLBP_600_L2error():
     lim3 = [1, 2, 3]  # from 3 to 3
 
     e = np.zeros((7, 2, 3))
-    file1 = '3D-assembly-noLBP-600-26G_axial_0002.csv'
-    file2 = '3D-assembly-noLBP-600-21G_axial_0002.csv'
+    file1 = '3D-assembly-noLBP-' + str(temp) + '-26G_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-' + str(temp) + '-21G_axial_0002.csv'
     e[6] = np.array(calc_error(file1, file2, lim26, lim21))
-    file2 = '3D-assembly-noLBP-600-18G_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-' + str(temp) + '-18G_axial_0002.csv'
     e[5] = np.array(calc_error(file1, file2, lim26, lim18))
-    file2 = '3D-assembly-noLBP-600-15G_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-' + str(temp) + '-15G_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15))
-    file2 = '3D-assembly-noLBP-600-12G_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-' + str(temp) + '-12G_axial_0002.csv'
     e[3] = np.array(calc_error(file1, file2, lim26, lim12))
-    file2 = '3D-assembly-noLBP-600-9G_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-' + str(temp) + '-9G_axial_0002.csv'
     e[2] = np.array(calc_error(file1, file2, lim26, lim9))
-    file2 = '3D-assembly-noLBP-600-6G_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-' + str(temp) + '-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
-    file2 = '3D-assembly-noLBP-600-3G_axial_0002.csv'
+    file2 = '3D-assembly-noLBP-' + str(temp) + '-3G_axial_0002.csv'
     e[0] = np.array(calc_error(file1, file2, lim26, lim3))
 
     xticks = [3, 6, 9, 12, 15, 18, 21]
     xlabel = 'Number of energy groups'
-    plot_error_acc_study(e, 'noLBP-600-er-final', xticks, xlabel)
+    plot_error_acc_study(e, 'noLBP-' + str(temp) + '-er-final', xticks, xlabel)
+    return
 
 
-def noLBP_1200_L2error():
+def LBP_L2error(temp):
     '''
     This function plots the L2 norm relative error for the different
-    group structures for the no LBP 1200 K case.
-    '''
+    group structures for the LBP cases.
 
-    lim26 = [4, 16, 26]  # from 26 to 3
-    lim21 = [2, 12, 21]  # from 21 to 3
-    lim18 = [2, 11, 18]  # from 18 to 3
-    lim15 = [2, 10, 15]  # from 15 to 3
-    lim12 = [1, 7, 12]  # from 12 to 3
-    lim9 = [1, 5, 9]  # from 9 to 3
-    lim6 = [1, 3, 6]  # from 6 to 3
-    lim3 = [1, 2, 3]  # from 3 to 3
-
-    e = np.zeros((7, 2, 3))
-    file1 = '3D-assembly-noLBP-1200-26G_axial_0002.csv'
-    file2 = '3D-assembly-noLBP-1200-21G_axial_0002.csv'
-    e[6] = np.array(calc_error(file1, file2, lim26, lim21))
-    file2 = '3D-assembly-noLBP-1200-18G_axial_0002.csv'
-    e[5] = np.array(calc_error(file1, file2, lim26, lim18))
-    file2 = '3D-assembly-noLBP-1200-15G_axial_0002.csv'
-    e[4] = np.array(calc_error(file1, file2, lim26, lim15))
-    file2 = '3D-assembly-noLBP-1200-12G_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim12))
-    file2 = '3D-assembly-noLBP-1200-9G_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim9))
-    file2 = '3D-assembly-noLBP-1200-6G_axial_0002.csv'
-    e[1] = np.array(calc_error(file1, file2, lim26, lim6))
-    file2 = '3D-assembly-noLBP-1200-3G_axial_0002.csv'
-    e[0] = np.array(calc_error(file1, file2, lim26, lim3))
-
-    xticks = [3, 6, 9, 12, 15, 18, 21]
-    xlabel = 'Number of energy groups'
-    plot_error_acc_study(e, 'noLBP-1200-er-final', xticks, xlabel)
-
-
-def LBP_600_L2error():
-    '''
-    This function plots the L2 norm relative error for the different
-    group structures for the LBP 600 K case.
+    Parameters:
+    -----------
+    temp: [float]
+        temperature in K: 600 or 1200K
     '''
 
     lim26 = [4, 16, 26]  # from 26 to 3
@@ -441,78 +360,42 @@ def LBP_600_L2error():
     lim3 = [1, 2, 3]  # from 3 to 3
 
     e = np.zeros((7, 2, 3))
-    file1 = '3D-assembly-LBP-600-26G_axial_0002.csv'
-    file2 = '3D-assembly-LBP-600-21G_axial_0002.csv'
+    file1 = '3D-assembly-LBP-' + str(temp) + '-26G_axial_0002.csv'
+    file2 = '3D-assembly-LBP-' + str(temp) + '-21G_axial_0002.csv'
     e[6] = np.array(calc_error(file1, file2, lim26, lim21))
-    file2 = '3D-assembly-LBP-600-18Gc_axial_0002.csv'
+    file2 = '3D-assembly-LBP-' + str(temp) + '-18Gc_axial_0002.csv'
     e[5] = np.array(calc_error(file1, file2, lim26, lim18c))
-    file2 = '3D-assembly-LBP-600-15Gc_axial_0002.csv'
+    file2 = '3D-assembly-LBP-' + str(temp) + '-15Gc_axial_0002.csv'
     e[4] = np.array(calc_error(file1, file2, lim26, lim15c))
-    file2 = '3D-assembly-LBP-600-12G_axial_0002.csv'
+    file2 = '3D-assembly-LBP-' + str(temp) + '-12G_axial_0002.csv'
     e[3] = np.array(calc_error(file1, file2, lim26, lim12))
-    file2 = '3D-assembly-LBP-600-9G_axial_0002.csv'
+    file2 = '3D-assembly-LBP-' + str(temp) + '-9G_axial_0002.csv'
     e[2] = np.array(calc_error(file1, file2, lim26, lim9))
-    file2 = '3D-assembly-LBP-600-6G_axial_0002.csv'
+    file2 = '3D-assembly-LBP-' + str(temp) + '-6G_axial_0002.csv'
     e[1] = np.array(calc_error(file1, file2, lim26, lim6))
-    file2 = '3D-assembly-LBP-600-3G_axial_0002.csv'
+    file2 = '3D-assembly-LBP-' + str(temp) + '-3G_axial_0002.csv'
     e[0] = np.array(calc_error(file1, file2, lim26, lim3))
 
     xticks = [3, 6, 9, 12, 15, 18, 21]
     xlabel = 'Number of energy groups'
-    plot_error_acc_study(e, 'LBP-600-er-final', xticks, xlabel)
-
-
-def LBP_1200_L2error():
-    '''
-    This function plots the L2 norm relative error for the different
-    group structures for the no LBP 1200 K case.
-    '''
-
-    lim26 = [4, 16, 26]  # from 26 to 3
-    lim21 = [2, 12, 21]  # from 21 to 3
-    lim18c = [2, 9, 18]  # from 18 to 3
-    lim15c = [2, 7, 15]  # from 15 to 3
-    lim12 = [1, 7, 12]  # from 12 to 3
-    lim9 = [1, 5, 9]  # from 9 to 3
-    lim6 = [1, 3, 6]  # from 6 to 3
-    lim3 = [1, 2, 3]  # from 3 to 3
-
-    e = np.zeros((7, 2, 3))
-    file1 = '3D-assembly-LBP-1200-26G_axial_0002.csv'
-    file2 = '3D-assembly-LBP-1200-21G_axial_0002.csv'
-    e[6] = np.array(calc_error(file1, file2, lim26, lim21))
-    file2 = '3D-assembly-LBP-1200-18Gc_axial_0002.csv'
-    e[5] = np.array(calc_error(file1, file2, lim26, lim18c))
-    file2 = '3D-assembly-LBP-1200-15Gc_axial_0002.csv'
-    e[4] = np.array(calc_error(file1, file2, lim26, lim15c))
-    file2 = '3D-assembly-LBP-1200-12G_axial_0002.csv'
-    e[3] = np.array(calc_error(file1, file2, lim26, lim12))
-    file2 = '3D-assembly-LBP-1200-9G_axial_0002.csv'
-    e[2] = np.array(calc_error(file1, file2, lim26, lim9))
-    file2 = '3D-assembly-LBP-1200-6G_axial_0002.csv'
-    e[1] = np.array(calc_error(file1, file2, lim26, lim6))
-    file2 = '3D-assembly-LBP-1200-3G_axial_0002.csv'
-    e[0] = np.array(calc_error(file1, file2, lim26, lim3))
-
-    xticks = [3, 6, 9, 12, 15, 18, 21]
-    xlabel = 'Number of energy groups'
-    plot_error_acc_study(e, 'LBP-1200-er-final', xticks, xlabel)
+    plot_error_acc_study(e, 'LBP-' + str(temp) + '-er-final', xticks, xlabel)
+    return
 
 
 if __name__ == "__main__":
 
     # noLBP - 600
     plot_global('no', 600, 1.43800)
-    noLBP_600_L2error()
+    noLBP_L2error(600)
 
     # noLBP - 1200
     plot_global('no', 1200, 1.37771)
-    noLBP_1200_L2error()
+    noLBP_L2error(1200)
 
     # LBP - 600
     plot_global('yes', 600, 1.12861)
-    LBP_600_L2error()
+    LBP_L2error(600)
 
     # LBP - 1200
     plot_global('yes', 1200, 1.06554)
-    LBP_1200_L2error()
+    LBP_L2error(1200)

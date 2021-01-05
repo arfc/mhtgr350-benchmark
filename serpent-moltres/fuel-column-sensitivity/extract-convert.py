@@ -224,7 +224,7 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
                 fh.write('\n')
 
             sigabs = coeList[currentMat].branches[item].universes[
-                   uniMap[currentMat], 0, 0, None].infExp[goodMap['Abs']]
+                uniMap[currentMat], 0, 0, None].infExp[goodMap['Abs']]
 
             for g in range(G):
                 if g == 0:
@@ -290,6 +290,8 @@ def makePropertiesDir(outdir, filebase, mapFile, unimapFile, ngroups='3'):
 
         except KeyError:
             raise Exception('Check your mapping and secondary branch files.')
+
+    return
 
 
 if __name__ == '__main__':
