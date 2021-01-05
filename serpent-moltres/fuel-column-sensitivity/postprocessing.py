@@ -147,7 +147,7 @@ def plot_error_acc_study(error, save, xticks, xlabel):
     plt.legend(loc="best", fontsize=14)
     plt.savefig(save, dpi=300, bbox_inches="tight")
     plt.close()
-
+    return
 
 def plot_global(lbp_condition, temp_condition, keff_serp):
     '''
