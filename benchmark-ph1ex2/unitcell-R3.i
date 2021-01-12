@@ -89,12 +89,14 @@
 [Functions]
   [./cool_temp]
     type = PiecewiseLinear
-    # data_file = 'input-2D-simpleC_cool3_0002.csv'
-    data_file = 'input-2D-simpleG_cool3_0002.csv'
+    data_file = 'input-model2_cool3B_0002.csv'
     axis = z
     format = columns
+    # the following values change for different versions of MOOSE
     x_index_in_file = 1
     y_index_in_file = 4
+    # x_index_in_file = 3
+    # y_index_in_file = 1
     xy_in_file_only = false
   [../]
   [./heat_source1]
@@ -210,7 +212,7 @@
 []
 
 [Outputs]
-  file_base = 'unitcellB-R3'
+  file_base = 'unitcell-R3'
   execute_on = 'final'
   exodus = true
   csv = true

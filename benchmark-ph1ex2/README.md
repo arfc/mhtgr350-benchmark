@@ -99,6 +99,14 @@ postprocessing.py obtains reflector average temperatures in the first bottom lev
 and the outlet coolant temperature in the fuel rings.
 
 
+How to reproduce the results:
+-----------------------------
+
+* create global mesh: open ``` 2D-fullcore-model1.geo ``` with gmsh and create 2D mesh
+* run global model input file: ```mpirun -np 4 $MOLTRES/moltres-opt -i input-model1.i```
+* produce figures with the results: ``` python postprocessing.py ```
+
+
 # 2nd Model:
 
 Geometries:
@@ -145,3 +153,13 @@ Other files:
 * postprocessing.py:
 	- contains functions to add legends to figures
 	- obtains and plots results
+
+
+How to reproduce the results:
+-----------------------------
+
+* create global mesh: open ``` 2D-fullcore-model2.geo ``` with gmsh and create 2D mesh
+* run global model input file: ```mpirun -np 4 $MOLTRES/moltres-opt -i input-model2.i```
+* create unit cell mesh: open ``` unitcell-layers.geo ``` with gmsh and create 3D mesh
+* run unit cell model input file: ```mpirun -np 4 $MOLTRES/moltres-opt -i unitcell-R1.i```
+* produce figures with the results: ``` python postprocessing.py ```
