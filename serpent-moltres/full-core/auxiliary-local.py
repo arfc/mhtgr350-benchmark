@@ -4,6 +4,12 @@ from matplotlib.cbook import get_sample_data
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+import pandas as pd
+from matplotlib.cbook import get_sample_data
+from matplotlib.patches import RegularPolygon
+from matplotlib.collections import PatchCollection
+from matplotlib.pyplot import gca
+from matplotlib.axes import Axes
 
 
 def fullcore():
@@ -45,6 +51,56 @@ def fullcore():
                bbox_to_anchor=(1.0, 1.0),  fontsize=12)
     plt.savefig("oecd-fullcore", dpi=300, bbox_inches="tight")
     plt.close()
+
+
+def geo_label():
+    '''
+    Adds legend to '3D-fullcore-60-homo-meshB1'.
+
+    Colors:
+    * Yellow: color=(0.9, 0.9, 0.0)
+    * Red: color=(1.0, 0.0, 0.0)
+    * Green: color=(0.0, 1.0, 0.0)
+    * Blue: color=(0.0, 0.0, 1.0)
+    * Grey: color=(0.87, 0.87, 0.87)
+    * Light blue: color=(0.17, 0.81, 0.98)
+    * Magenta: color=(0.98, 0.17, 0.95)
+    '''
+    tref = mpatches.Patch(color=(0.9, 0.9, 0.0), label='Top reflector')
+    iref = mpatches.Patch(color=(1., 0., 0.), label='Inner reflector')
+    fuel = mpatches.Patch(color=(0, 1., 0.), label='Fuel')
+    oref = mpatches.Patch(color=(0., 0., 1.), label='Outer reflector')
+    bref = mpatches.Patch(color=(0.87, 0.87, 0.87), label='Bottom reflector')
+
+    cwd = os.getcwd()
+    fname = get_sample_data('%s/3D-fullcore-60-homo-meshB1.png' % (cwd))
+    image = plt.imread(fname)
+    fig, ax = plt.subplots()
+    ax.imshow(image)
+
+    xlength = 2.97 * np.cos(np.pi/6)
+    scalex = xlength/482
+    ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scalex))
+    ax.xaxis.set_major_formatter(ticks_x)
+    xticks = np.arange(0, np.floor(xlength)+1)/scalex
+    # xticks = np.array([0, 0.8, 1.0])/scalex
+    ax.set_xticks(xticks)
+    ax.tick_params(axis="x", labelsize=12)
+
+    ylength = 2.97
+    scaley = ylength/552
+    ticks_y = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scaley))
+    ax.yaxis.set_major_formatter(ticks_y)
+    yticks = np.arange(0, np.floor(ylength)+1)/scaley
+    # yticks = np.array([0, 0.8, 1.0])/scaley
+    ax.set_yticks(yticks)
+    ax.tick_params(axis="y", labelsize=12)
+
+    ax.set_xlabel('x [m]', fontsize=12)
+    ax.set_ylabel('y [m]', fontsize=12)
+    plt.legend(handles=[iref, fuel, oref],
+               loc="lower right", bbox_to_anchor=(1.0, 1.0), fancybox=True)
+    plt.savefig("3D-fullcore-60-homo-meshB2", dpi=300, bbox_inches="tight")
 
 
 def fullcore_detectors():
@@ -177,6 +233,26 @@ def fullcore_detectors_thesis():
     plt.close()
 
 
+def geo_detectors():
+    '''
+    Adds legend to '3D-fullcore-60-homo-meshB1'.
+
+    '''
+
+    cwd = os.getcwd()
+    fname = get_sample_data('%s/3D-fullcore-60-homo-meshB1.png' % (cwd))
+    im = plt.imread(fname)
+    plt.imshow(im)
+    plt.axis('off')
+    plt.plot(117, 419, color='yellow', marker='o', markersize='7',
+             label='Axial')
+    L = 542
+    plt.plot([6, 6+L*np.cos(np.pi/6)], [550, 550-L/2], color='yellow',
+             lw=2, label='Radial')
+    plt.legend(loc='best')
+    plt.savefig("3D-fullcore-60-detectors2", dpi=300, bbox_inches="tight")
+
+
 if __name__ == "__main__":
     # adds legends to full-core figure
     fullcore()
@@ -186,3 +262,9 @@ if __name__ == "__main__":
 
     # this figure goes into my ms thesis
     fullcore_detectors_thesis()
+
+    # moltres legends
+    geo_label()
+
+    # adds legends to moltres detectors
+    geo_detectors()
