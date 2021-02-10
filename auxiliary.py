@@ -14,7 +14,7 @@ def plot_serpent_axial_collapse(data, dname, figname, lim, V=1, dire='Z'):
     Parameters:
     -----------
     data: [serpenttools format]
-        variable that contains the detector data retrieved by 
+        variable that contains the detector data retrieved by
         serpentTools.read(). See:
         https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
     dname: [string]
@@ -100,7 +100,7 @@ def plot_spectrum(data, dname, figname):
     Parameters:
     -----------
     data: [serpenttools format]
-        variable that contains the detector data retrieved by 
+        variable that contains the detector data retrieved by
         serpentTools.read(). See:
         https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
     dname: [string]
@@ -135,7 +135,7 @@ def plot_axial(data, vb, vc, vt):
     Parameters:
     -----------
     data: [serpenttools format]
-        variable that contains the detector data retrieved by 
+        variable that contains the detector data retrieved by
         serpentTools.read(). See:
         https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
     vb: [float]
@@ -188,7 +188,7 @@ def plot_detector(data, dname, fig, V=1):
     Parameters:
     -----------
     data: [serpenttools format]
-        variable that contains the detector data retrieved by 
+        variable that contains the detector data retrieved by
         serpentTools.read(). See:
         https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
     dname: [string]
@@ -219,7 +219,7 @@ def plot_radial(data, dname, fig, piH=1):
     Parameters:
     -----------
     data: [serpenttools format]
-        variable that contains the detector data retrieved by 
+        variable that contains the detector data retrieved by
         serpentTools.read(). See:
         https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
     dname: [string]
@@ -279,7 +279,7 @@ def fullcore_detectors():
     y2 = int(height*0.6)
     x1 = int(width*0.45)
     x2 = int(width)
-    plt.imshow(im[y1:y2,x1:x2,:])
+    plt.imshow(im[y1:y2, x1:x2, :])
     plt.axis('off')
 
     # Axial 1
@@ -334,7 +334,8 @@ def fullcore_detectors():
     x = 52
     y = 349
     L = 495
-    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5, label='6- Radial3')
+    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5,
+             label='6- Radial3')
     plt.text(x=350, y=y-200, s='6', rotation=30, fontsize=20, color='black')
     plt.legend(loc='best')
 
@@ -383,7 +384,7 @@ def main():
     # plots location of the detectors
     fullcore_detectors()
 
-    # Gets full-core flux plots 
+    # Gets full-core flux plots
     plots_fullcore()
 
 
