@@ -66,20 +66,14 @@
 
 [Executioner]
   type = InversePowerMethod
-
-  # normalization = total_fission_heat
-  # normal_factor = 55.704e6 # 350/2/pi 10^6 W
-
   max_power_iterations = 100
   xdiff = 'group1diff'
-
   bx_norm = 'bnorm'
   k0 = 1.06
   pfactor = 1e-4
   l_max_its = 300
-
   eig_check_tol = 1e-08
-
+  # Petsc options
   solve_type = 'NEWTON'
   petsc_options = '-snes_converged_reason -ksp_converged_reason -snes_linesearch_monitor'
   petsc_options_iname = '-pc_type -sub_pc_type'
@@ -154,14 +148,12 @@
     type = ElmIntegTotFissHeatPostprocessor
     execute_on = 'linear timestep_end'
     outputs = 'csv console'
-    # nt_scale = ${nt_scale}
     block = 'fuel'
   [../]
   [./average_fission_heat]
     type = AverageFissionHeat
     execute_on = 'linear timestep_end'
     outputs = 'csv console'
-    # nt_scale = ${nt_scale}
     block = 'fuel'
   [../]
   [./memory]

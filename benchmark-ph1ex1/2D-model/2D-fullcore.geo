@@ -1,10 +1,7 @@
-//
+// This geometry file defines a 2D full core model.
 
 Geometry.CopyMeshingMethod = 1;
 
-Rf = 0.635;  // 0.635 cm
-Rc = 0.794;  // 0.794 cm
-pi = 1.88;  // 1.88 cm
 h = 10;
 
 F = 36.0/2/Cos(Pi/6);
@@ -13,12 +10,11 @@ Rm = 6*F;
 Ri = Rm - Ah * 66 / (4*Rm*Pi);
 Ro = 2*Rm - Ri;
 
-//R1 = 4*a;
 R1 = Ri;
 Printf("%f", R1);
-//R2 = 8*a;
 R2 = Ro;
 Printf("%f", R2);
+
 R3 = 300.0;
 H = 793;
 HB = 160;
