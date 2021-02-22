@@ -174,7 +174,7 @@ def homogenize(XS, vi):
             for material in range(L):
                 scatxs = XS[material]['SP0'].reshape(26, 26)
                 sumx += float(scatxs[group, gp])\
-                        * float(XS[material]['FLX'][group])*vi[material]
+                    * float(XS[material]['FLX'][group])*vi[material]
             HXS['SP0'][group, gp] = sumx/summ
 
     HXS['REMXS'] = HXS['ST'] - HXS['SP0'].diagonal()
