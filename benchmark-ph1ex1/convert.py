@@ -141,12 +141,18 @@ def homogenize(XS, vi):
     HXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'NSF': [], 'FISS': [],
            'CHIT': [], 'SP0': np.zeros((26, 26))}
 
+    HXS = {}
+    for param in ['FLX', 'ST', 'DIFFCOEF', 'NSF', 'FISS', 'CHIT']:
+        HXS[param] = np.zeros(26)
+    HXS[param] = np.zeros((26, 26))
+
+    scatxs = XS['SP0'].reshape(26, 26)
     L = len(XS)
     for group in range(26):
         summ = 0
         for material in range(L):
             summ += float(XS[material]['FLX'][group]) * vi[material]
-        HXS['FLX'].append(summ)
+        HXS['FLX'][group] = summ
 
         data = ['ST', 'DIFFCOEF', 'FISS', 'NSF']
         for dat in data:
@@ -154,7 +160,7 @@ def homogenize(XS, vi):
             for material in range(L):
                 sumx += float(XS[material][dat][group])\
                         * float(XS[material]['FLX'][group]) * vi[material]
-            HXS[dat].append(sumx/summ)
+            HXS[dat][group] = sumx/summ
 
         sumxx = 0
         for material in range(L):
@@ -163,16 +169,25 @@ def homogenize(XS, vi):
                      * float(XS[material]['FLX'][group])\
                      * vi[material]
         if sumx != 0:
-            HXS['CHIT'].append(sumxx/sumx)
+            HXS['CHIT'][group] = sumxx/sumx
         else:
-            HXS['CHIT'].append(0)
+            HXS['CHIT'][group] = 0
 
         for gp in range(26):
             sumx = 0
             for material in range(L):
-                sumx += float(XS[material]['SP0'][group, gp])\
+                scatxs = XS[material]['SP0'].reshape(26, 26)
+                sumx += float(scatxs[group, gp])\
                         * float(XS[material]['FLX'][group])*vi[material]
             HXS['SP0'][group, gp] = sumx/summ
+
+    HXS['REMXS'] = HXS['ST'] - HXS['SP0'].diagonal()
+    HXS['SP0'].reshape(26, 1)
+    HXS['KAPPA'] = 200*np.ones(G)
+    HXS['INVV'] = np.zeros(G)
+    HXS['CHID'] = np.zeros(G)
+    HXS['BETA_EFF'] = np.zeros(8)
+    HXS['LAMBDA'] = np.zeros(8)
 
     return HXS
 
@@ -200,11 +215,11 @@ def collapse(XS, lim):
     '''
 
     G = len(lim)
-    CXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'NSF': [], 'FISS': [],
-           'CHIT': [], 'SP0': np.zeros((G, G))}
+    CXS = {}
+    for param in ['FLX', 'ST', 'DIFFCOEF', 'NSF', 'FISS', 'CHIT']:
+        CXS[param] = np.zeros(G)
 
-    data = ['ST', 'DIFFCOEF', 'NSF', 'FISS']
-
+    CXS['SP0'] = np.zeros((G, G))
     for g in range(G):
         if g == 0:
             phi = 0
@@ -212,14 +227,14 @@ def collapse(XS, lim):
             for i in range(lim[0]):
                 phi += float(XS['FLX'][i])
                 chi += float(XS['CHIT'][i])
-            CXS['FLX'].append(phi)
-            CXS['CHIT'].append(chi)
+            CXS['FLX'][g] = phi
+            CXS['CHIT'][g] = chi
 
-            for dat in data:
+            for dat in ['ST', 'DIFFCOEF', 'NSF', 'FISS']:
                 xs = 0
                 for i in range(lim[0]):
                     xs += float(XS[dat][i]) * float(XS['FLX'][i])
-                CXS[dat].append(xs/CXS['FLX'][0])
+                CXS[dat][g] = xs/CXS['FLX'][0]
 
         else:
             phi = 0
@@ -227,15 +242,16 @@ def collapse(XS, lim):
             for i in range(lim[g-1], lim[g]):
                 phi += float(XS['FLX'][i])
                 chi += float(XS['CHIT'][i])
-            CXS['FLX'].append(phi)
-            CXS['CHIT'].append(chi)
+            CXS['FLX'][g] = phi
+            CXS['CHIT'][g] = chi
 
             for dat in data:
                 xs = 0
                 for i in range(lim[g-1], lim[g]):
                     xs += float(XS[dat][i]) * float(XS['FLX'][i])
-                CXS[dat].append(xs/CXS['FLX'][g])
+                CXS[dat][g] = xs/CXS['FLX'][g]
 
+    scatxs = XS['SP0'].reshape(26, 26)
     for g in range(G):
         for gp in range(G):
 
@@ -243,29 +259,38 @@ def collapse(XS, lim):
             if g == 0 and gp == 0:
                 for i in range(lim[0]):
                     for j in range(lim[0]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
+                        ss += float(scatxs[i, j]) * float(XS['FLX'][i])
 
             elif g == 0:
                 for i in range(lim[0]):
                     for j in range(lim[gp-1], lim[gp]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
+                        ss += float(scatxs[i, j]) * float(XS['FLX'][i])
 
             elif gp == 0:
                 for i in range(lim[g-1], lim[g]):
                     for j in range(lim[0]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
+                        ss += float(scatxs[i, j]) * float(XS['FLX'][i])
 
             else:
                 for i in range(lim[g-1], lim[g]):
                     for j in range(lim[gp-1], lim[gp]):
-                        ss += float(XS['SP0'][i, j]) * float(XS['FLX'][i])
+                        ss += float(scatxs[i, j]) * float(XS['FLX'][i])
 
             CXS['SP0'][g, gp] = ss/CXS['FLX'][g]
+
+    # process XS
+    CXS['REMXS'] = CXS['ST'] - CXS['SP0'].diagonal()
+    CXS['SP0'].reshape(G*G, 1)
+    CXS['KAPPA'] = 200*np.ones(G)
+    CXS['INVV'] = np.zeros(G)
+    CXS['CHID'] = np.zeros(G)
+    CXS['BETA_EFF'] = np.zeros(8)
+    CXS['LAMBDA'] = np.zeros(8)
 
     return CXS
 
 
-def homogenize_collapse(G):
+def homogenize_collapse(directory, lim):
     '''
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     homogenizes the cross sections by region, collapses the cross sections
@@ -274,8 +299,14 @@ def homogenize_collapse(G):
 
     Parameters:
     -----------
-    G: [int]
-        number of groups to collapse the xs sections
+    directory: [string]
+        folder that will contain the cross-section files
+    lim: [list of int]
+        sets the lower limits of the coarse groups
+        if lim = [2, 4, 6]:
+            - groups1 and groups2 form the new group1.
+            - groups3 and groups4 form the new group2.
+            - groups5 and groups6 form the new group3.
     Returns:
     --------
     None
@@ -334,19 +365,6 @@ def homogenize_collapse(G):
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     TRXS = homogenize(XS, vi)
 
-    if G == 2:
-        lim = [18, 26]
-        directory = 'oecdxsA-2G'
-    elif G == 3:
-        lim = [4, 18, 26]
-        directory = 'oecdxsA-3G'
-    elif G == 6:
-        lim = [4, 10, 16, 18, 24, 26]
-        directory = 'oecdxsA-6G'
-    else:
-        lim = [2, 4, 5, 8, 9, 10, 13, 14, 16, 18, 24, 26]
-        directory = 'oecdxsA-12G'
-
     if os.path.exists(directory):
         shutil.rmtree(directory)
     os.mkdir(directory)
@@ -364,40 +382,16 @@ def homogenize_collapse(G):
     return None
 
 
-def only_collapse(G):
-    '''
-    This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
-    collapses the cross sections to another energy group structure,
-    and saves the parameters in Moltres format.
-
-    Parameters:
-    -----------
-    G: [int]
-        number of groups to collapse the xs sections
-    '''
-
-    lim3 = [4, 18, 26]  # 3G
-    lim6 = [4, 10, 16, 18, 24, 26]  # 6G
-
-    if G == 6:
-        lim = lim6
-        directory = 'oecdxsC-6G'
-    else:
-        lim = lim3
-        directory = 'oecdxsC-3G'
-
-    os.mkdir(directory)
-    for index in range(1, 233):
-        mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
-        CXS = collapse(mat, lim)
-        tomoltresformat(directory, CXS, 'M'+str(index))
-
-
 def straight():
     '''
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     and saves them into Moltres format.
+
+    Returns:
+    --------
+    None
     '''
+
     temperature = 750
 
     directory = 'oecdxsC-26G'
@@ -410,6 +404,44 @@ def straight():
         xsecs['M'+str(index)] = get_xs('OECD-MHTGR350_Simplified.xs', index)
         output_xs(directory, temperature, xsecs)
 
+    return None
+
+
+def only_collapse(directory, lim):
+    '''
+    This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
+    collapses the cross sections to another energy group structure,
+    and saves the parameters in Moltres format.
+
+    Parameters:
+    -----------
+    directory: [string]
+        folder that will contain the cross-section files
+    lim: [list of int]
+        sets the lower limits of the coarse groups
+        if lim = [2, 4, 6]:
+            - groups1 and groups2 form the new group1.
+            - groups3 and groups4 form the new group2.
+            - groups5 and groups6 form the new group3.
+    Returns:
+    --------
+    None
+    '''
+
+    temperature = 750
+
+    if os.path.exists(directory):
+        shutil.rmtree(directory)
+    os.mkdir(directory)
+
+    for index in range(1, 233):
+        xsecs = get_xs('OECD-MHTGR350_Simplified.xs', index)
+        cxsecs = {}
+        cxsecs['M'+str(index)] = collapse(xsecs, lim)
+        output_xs(directory, temperature, cxsecs)
+
+    return None
+
 
 if __name__ == "__main__":
     '''
@@ -419,8 +451,11 @@ if __name__ == "__main__":
     to another energy group structure, and saves the parameters in Moltres
     format.
     '''
-    # G = 2  # 2, 3, 6, or 12
-    # homogenize_collapse(G)
+    lim2 = [18, 26]
+    lim3 = [4, 18, 26]
+    lim6 = [4, 10, 16, 18, 24, 26]
+    lim12 = [2, 4, 5, 8, 9, 10, 13, 14, 16, 18, 24, 26]
+    homogenize_collapse('oecdxsA-2G', lim2)
 
     '''
     Option 2: Necessary for running the 3D-model
@@ -436,5 +471,6 @@ if __name__ == "__main__":
     collapses the cross sections to another energy group structure,
     and saves the parameters in Moltres format.
     '''
-    # G = 6  # 3 or 6
-    # only_collapse(G)
+    lim3 = [4, 18, 26]
+    lim6 = [4, 10, 16, 18, 24, 26]
+    only_collapse('oecdxsC-3G', lim3)
