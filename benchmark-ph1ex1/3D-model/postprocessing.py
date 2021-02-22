@@ -1,7 +1,7 @@
+import os
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import os
 import matplotlib.patches as mpatches
 from matplotlib.cbook import get_sample_data
 from matplotlib.patches import RegularPolygon
@@ -9,61 +9,9 @@ from matplotlib.collections import PatchCollection
 from matplotlib.pyplot import gca
 from matplotlib.axes import Axes
 import matplotlib.ticker as ticker
-
-
-def add_label_to_geometry(infigure, outfigure, handles, limit, pixels):
-    '''
-    Adds legends and dimensions to figure.
-
-    Parameters:
-    -----------
-    infigure: [string]
-        Name of the input figure.
-    outfigure: [string]
-        Name of the figure to create.
-    handles: [list]
-        Contains the colors and legends of the labels.
-    limit: [tuple]
-        Dimensions of the objecte represented in the figure in the x- and
-        y-directions. Expressed in meters.
-    pixels: [tuple]
-        Dimensions of the figure in the x- and y-directions. Expressed in 
-        pixels.
-    Returns:
-    --------
-    None
-    '''
-
-    cwd = os.getcwd()
-    fname = get_sample_data('%s/%s' % (cwd, infigure))
-    image = plt.imread(fname)
-    fig, ax = plt.subplots()
-    ax.imshow(image)
-
-    xlength = limit[0]
-    scalex = xlength/pixels[0]
-    ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scalex))
-    ax.xaxis.set_major_formatter(ticks_x)
-    xticks = np.arange(0, np.floor(xlength)+1)/scalex
-    ax.set_xticks(xticks)
-    ax.tick_params(axis="x", labelsize=12)
-    
-    ylength = limit[1]
-    scaley = ylength/pixels[1]
-    ticks_y = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scaley))
-    ax.yaxis.set_major_formatter(ticks_y)
-    yticks = np.arange(0, np.floor(ylength)+1)/scaley
-    ax.set_yticks(yticks)
-    ax.tick_params(axis="y", labelsize=12)
-
-    ax.set_xlabel('x [m]', fontsize=12)
-    ax.set_ylabel('y [m]', fontsize=12)
-    plt.legend(handles=handles, loc="upper left", bbox_to_anchor=(1.0, 1.0),
-               fancybox=True)
-    plt.savefig(outfigure, dpi=300, bbox_inches="tight")
-    plt.close()
-
-    return None
+import sys
+sys.path.append('../../')
+import auxiliary as aux
 
 
 def global_param(filename1, filename2):
@@ -234,19 +182,19 @@ if __name__ == "__main__":
     limit = 2.97*np.cos(np.pi/6), 2.97 + 2.97*np.sin(np.pi/6)
     pixels = 416, 617
 
-    add_label_to_geometry(infigure, outfigure, handles, limit, pixels)
+    aux.add_label_to_geometry(infigure, outfigure, handles, limit, pixels)
 
-    # # Obtains global parameters:
-    # G = 26
-    # filename1 = '3D-fullcore' + str(G) + 'G-kout.csv'
-    # filename2 = '3D-fullcore' + str(G) + 'G-kin.csv'
-    # global_param(filename1, filename2)
+    # Obtains global parameters:
+    G = 26
+    filename1 = '3D-fullcore' + str(G) + 'G-kout.csv'
+    filename2 = '3D-fullcore' + str(G) + 'G-kin.csv'
+    global_param(filename1, filename2)
 
-    # # Plots the radially averaged axial power distribution
-    # filename = '3D-fullcore26G-kout.csv'
-    # save = '3D-fullcore26G-axialpower'
-    # plot_axial_power_distribution(filename, save)
+    # Plots the radially averaged axial power distribution
+    filename = '3D-fullcore26G-kout.csv'
+    save = '3D-fullcore26G-axialpower'
+    plot_axial_power_distribution(filename, save)
 
-    # # Plots the axially averaged radial power distribution
-    # save = '3D-fullcore26G-radialpower'
-    # plot_radial_power_distribution(filename, save)
+    # Plots the axially averaged radial power distribution
+    save = '3D-fullcore26G-radialpower'
+    plot_radial_power_distribution(filename, save)
