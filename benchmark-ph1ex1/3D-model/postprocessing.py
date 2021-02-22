@@ -26,6 +26,9 @@ def global_param(filename1, filename2):
         name of .csv file with results for case with CR out
     filename2: [string]
         name of .csv file with results for case with CR in
+    Returns:
+    --------
+    None
     '''
 
     file_out = pd.read_csv(filename1)
@@ -50,10 +53,12 @@ def global_param(filename1, filename2):
     print('Axial offset: {0}'.format(np.round(AO, 4)))
 
     mem = float(file_out['memory'].tolist()[-1])
-    print('physical memory usage: {0} MiB'.format(mem))
+    print('Physical memory usage: {0} MiB'.format(mem))
+
+    return None
 
 
-def plot_axial_power_distribution(filename, save):
+def plot_axial_power_distribution(filename, figname):
     '''
     This function plots the axial power distribution.
 
@@ -63,10 +68,12 @@ def plot_axial_power_distribution(filename, save):
         name of the .csv file with results
     save: [string]
         name of the figure where to save the plot
+    Returns:
+    --------
+    None
     '''
 
     file = pd.read_csv(filename)
-
     power = np.zeros(10)
     for i in range(10):
         power[i] = float(file['radially_averaged_axial_power_Z'
@@ -84,58 +91,35 @@ def plot_axial_power_distribution(filename, save):
     plt.ylabel(r'Power density [W/cm$^3$]', fontsize=12)
     plt.xlabel('Axial distance from bottom of active core [cm]', fontsize=12)
     plt.grid()
-    plt.savefig(save, dpi=300, bbox_inches="tight")
+    plt.savefig(figname, dpi=300, bbox_inches="tight")
+    plt.close()
+
+    return None
 
 
-def plot_radial_power_distribution(filename, save):
+def plot_radial_power_distribution(coordinates, pitch, power, figname):
     '''
     This function plots the radial power distribution.
 
     Parameters:
     -----------
     filename: [string]
-        name of the .csv file with results
-    save: [string]
+        name of the .csv file with the results
+    figname: [string]
         name of the figure where to save the plot
+    Returns:
+    --------
+    None
     '''
 
-    file = pd.read_csv(filename)
-
-    power = np.zeros(22)
-    for i in range(22):
-        power[i] = float(file['axially_averaged_radial_power_R'
-                         + str(i+1)].tolist()[-1])
-
-    P = 36  # pitch
-    F = P / np.sqrt(3)
-
-    coord = []
-    # 1 - 6
-    for i in range(4):
-        coord.append(np.array([i*(F+F/2), 3*P-i*P/2]))
-    for i in range(1, 3):
-        coord.append(np.array([3*(F+F/2), 3*P-3*P/2-i*P]))
-
-    # 7 - 14
-    for i in range(5):
-        coord.append(np.array([i*(F+F/2), 4*P-i*P/2]))
-    for i in range(1, 4):
-        coord.append(np.array([4*(F+F/2), 4*P-4*P/2-i*P]))
-
-    # 15 - 22
-    for i in range(1, 5):
-        coord.append(np.array([i*(F+F/2), 5*P-i*P/2]))
-    for i in range(1, 5):
-        coord.append(np.array([5*(F+F/2), 5*P-5*P/2-i*P]))
-
-    coord = np.array(coord)
+    side_length = pitch / np.sqrt(3)
 
     plt.figure()
     patches = []
     xmax, ymax = [-np.inf, ] * 2
     xmin, ymin = [np.inf, ] * 2
-    for i in range(len(coord)):
-        h = RegularPolygon(coord[i], 6, F, np.pi/2)
+    for i in range(len(coordinates)):
+        h = RegularPolygon(coordinates[i], 6, side_length, np.pi/2)
         patches.append(h)
         verts = h.get_verts()
         vmins = verts.min(0)
@@ -158,13 +142,16 @@ def plot_radial_power_distribution(filename, save):
     cbar.ax.set_ylabel(r'Power density [W/cm$^3$]')
 
     for i in range(22):
-        plt.text(x=coord[i][0]-F/1.5, y=coord[i][1]-3.5,
+        plt.text(x=coordinates[i][0]-side_length/1.5, y=coordinates[i][1]-3.5,
                  s=np.round(power[i], 2), fontsize=12, color='w')
 
     plt.axis('equal')
     plt.xlabel('X [cm]')
     plt.ylabel('Y [cm]')
-    plt.savefig(save, dpi=300, bbox_inches="tight")
+    plt.savefig(figname, dpi=300, bbox_inches="tight")
+    plt.close()
+
+    return None
 
 
 if __name__ == "__main__":
@@ -192,9 +179,41 @@ if __name__ == "__main__":
 
     # Plots the radially averaged axial power distribution
     filename = '3D-fullcore26G-kout.csv'
-    save = '3D-fullcore26G-axialpower'
-    plot_axial_power_distribution(filename, save)
+    figname = '3D-fullcore26G-axialpower'
+    plot_axial_power_distribution(filename, figname)
 
     # Plots the axially averaged radial power distribution
-    save = '3D-fullcore26G-radialpower'
-    plot_radial_power_distribution(filename, save)
+    file = pd.read_csv(filename)
+    power = np.zeros(22)
+    for i in range(22):
+        power[i] = float(file['axially_averaged_radial_power_R'
+                         + str(i+1)].tolist()[-1])
+
+    pitch = 36
+    side_length = pitch / np.sqrt(3)
+
+    coordinates = []
+    # Assemblies 1 - 6
+    for i in range(4):
+        coordinates.append(np.array([i*(side_length+side_length/2),
+                     3*pitch-i*pitch/2]))
+    for i in range(1, 3):
+        coordinates.append(np.array([3*(side_length+side_length/2),
+                     3*pitch-3*pitch/2-i*pitch]))
+    # Assemblies 7 - 14
+    for i in range(5):
+        coordinates.append(np.array([i*(side_length+side_length/2),
+                     4*pitch-i*pitch/2]))
+    for i in range(1, 4):
+        coordinates.append(np.array([4*(side_length+side_length/2),
+                     4*pitch-4*pitch/2-i*pitch]))
+    # Assemblies 15 - 22
+    for i in range(1, 5):
+        coordinates.append(np.array([i*(side_length+side_length/2),
+                     5*pitch-i*pitch/2]))
+    for i in range(1, 5):
+        coordinates.append(np.array([5*(side_length+side_length/2),
+                     5*pitch-5*pitch/2-i*pitch]))
+    coordinates = np.array(coordinates)
+    figname = '3D-fullcore26G-radialpower'
+    plot_radial_power_distribution(coordinates, pitch, power, figname)
