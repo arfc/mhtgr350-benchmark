@@ -308,8 +308,9 @@ def homogenize_collapse(directory, lim):
     None
     '''
 
+    # Different region areas
     AT = np.pi/3 * 300**2
-    AH = 18/np.cos(np.pi/6) * 18/2 * 6  # Hexagon area
+    AH = 18/np.cos(np.pi/6) * 18/2 * 6
     A1 = 19./3 * AH
     A2 = 22 * AH
     A3 = 26 * AH
