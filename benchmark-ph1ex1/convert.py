@@ -64,7 +64,7 @@ def get_xs(filename, index):
         for gp in range(0, sp1e-sp1s+1):
             XS['SP1'][gp+sp1s, g] = float(lines[i+g+26+26][gp])
 
-    for param in ['FLX', 'ST', 'DIFFCOEF', 'NSF', 'FISS', 'CHIT', 'SP0', 'SP1']:
+    for param in ['FLX', 'ST', 'DIFFCOEF', 'NSF', 'FISS', 'CHIT']:
         XS[param] = np.array(XS[param])
 
     if index == 232:
@@ -76,8 +76,8 @@ def get_xs(filename, index):
 
     # process XS
     XS['REMXS'] = XS['ST'] - XS['SP0'].diagonal()
-    XS['SP0'].reshape(26*26, 1)
-    XS['SP1'].reshape(26*26, 1)
+    XS['SP0'] = np.reshape(XS['SP0'], 26*26)
+    XS['SP1'] = np.reshape(XS['SP1'], 26*26)
     XS['KAPPA'] = 200*np.ones(26)
     XS['INVV'] = np.zeros(26)
     XS['CHID'] = np.zeros(26)
@@ -138,15 +138,11 @@ def homogenize(XS, vi):
         homogenized parameters
     '''
 
-    HXS = {'FLX': [], 'ST': [], 'DIFFCOEF': [], 'NSF': [], 'FISS': [],
-           'CHIT': [], 'SP0': np.zeros((26, 26))}
-
     HXS = {}
     for param in ['FLX', 'ST', 'DIFFCOEF', 'NSF', 'FISS', 'CHIT']:
         HXS[param] = np.zeros(26)
-    HXS[param] = np.zeros((26, 26))
+    HXS['SP0'] = np.zeros((26, 26))
 
-    scatxs = XS['SP0'].reshape(26, 26)
     L = len(XS)
     for group in range(26):
         summ = 0
@@ -182,10 +178,10 @@ def homogenize(XS, vi):
             HXS['SP0'][group, gp] = sumx/summ
 
     HXS['REMXS'] = HXS['ST'] - HXS['SP0'].diagonal()
-    HXS['SP0'].reshape(26, 1)
-    HXS['KAPPA'] = 200*np.ones(G)
-    HXS['INVV'] = np.zeros(G)
-    HXS['CHID'] = np.zeros(G)
+    HXS['SP0'] = np.reshape(HXS['SP0'], 26*26)
+    HXS['KAPPA'] = 200*np.ones(26)
+    HXS['INVV'] = np.zeros(26)
+    HXS['CHID'] = np.zeros(26)
     HXS['BETA_EFF'] = np.zeros(8)
     HXS['LAMBDA'] = np.zeros(8)
 
@@ -245,7 +241,7 @@ def collapse(XS, lim):
             CXS['FLX'][g] = phi
             CXS['CHIT'][g] = chi
 
-            for dat in data:
+            for dat in ['ST', 'DIFFCOEF', 'NSF', 'FISS']:
                 xs = 0
                 for i in range(lim[g-1], lim[g]):
                     xs += float(XS[dat][i]) * float(XS['FLX'][i])
@@ -280,7 +276,7 @@ def collapse(XS, lim):
 
     # process XS
     CXS['REMXS'] = CXS['ST'] - CXS['SP0'].diagonal()
-    CXS['SP0'].reshape(G*G, 1)
+    CXS['SP0'] = np.reshape(CXS['SP0'], G*G)
     CXS['KAPPA'] = 200*np.ones(G)
     CXS['INVV'] = np.zeros(G)
     CXS['CHID'] = np.zeros(G)
@@ -382,11 +378,15 @@ def homogenize_collapse(directory, lim):
     return None
 
 
-def straight():
+def straight(directory):
     '''
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     and saves them into Moltres format.
 
+    Parameters:
+    -----------
+    directory: [string]
+        folder that will contain the cross-section files
     Returns:
     --------
     None
@@ -394,7 +394,6 @@ def straight():
 
     temperature = 750
 
-    directory = 'oecdxsC-26G'
     if os.path.exists(directory):
         shutil.rmtree(directory)
     os.mkdir(directory)
@@ -462,7 +461,7 @@ if __name__ == "__main__":
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     and saves them in Moltres format.
     '''
-    straight()
+    straight('oecdxsC-26G')
 
     '''
     Option 3: Necessary for running the 3D-model w/ periodic and reflective
@@ -471,6 +470,4 @@ if __name__ == "__main__":
     collapses the cross sections to another energy group structure,
     and saves the parameters in Moltres format.
     '''
-    lim3 = [4, 18, 26]
-    lim6 = [4, 10, 16, 18, 24, 26]
     only_collapse('oecdxsC-3G', lim3)
