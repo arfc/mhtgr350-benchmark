@@ -11,9 +11,9 @@ from auxiliary import plot_serpent_axial_collapse
 
 if __name__ == "__main__":
 
-    A = 18/np.cos(np.pi/6)  # cm length of face of the hexagon
-    Ah = 6. * (A * 18./2)   # Area of the hexagon
-    V = Ah * (160 + 793 + 120)
+    hexagon_side_length = 18/np.cos(np.pi/6)
+    hexagon_area = 6. * (hexagon_side_length * 18./2)
+    column_volume = hexagon_area * (160 + 793 + 120)
     lim = [4, 16, 26]
     name = 'Axial'
 

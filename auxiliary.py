@@ -1,12 +1,72 @@
 import os
 import numpy as np
-from matplotlib.cbook import get_sample_data
-import matplotlib.patches as mpatches
-import matplotlib.pyplot as plt
 import serpentTools as st
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+from matplotlib.cbook import get_sample_data
+from matplotlib.patches import RegularPolygon
+from matplotlib.collections import PatchCollection
+from matplotlib.pyplot import gca
+from matplotlib.axes import Axes
+import matplotlib.ticker as ticker
 
 
-def plot_serpent_axial_collapse(data, name, save, lim, V=1, dire='Z'):
+def add_label_to_geometry(infigure, outfigure, handles, limit, pixels):
+    '''
+    Adds legends and dimensions to figure.
+
+    Parameters:
+    -----------
+    infigure: [string]
+        Name of the input figure.
+    outfigure: [string]
+        Name of the figure to create.
+    handles: [list]
+        Contains the colors and legends of the labels.
+    limit: [tuple]
+        Dimensions of the objecte represented in the figure in the x- and
+        y-directions. Expressed in meters.
+    pixels: [tuple]
+        Dimensions of the figure in the x- and y-directions. Expressed in
+        pixels.
+    Returns:
+    --------
+    None
+    '''
+
+    cwd = os.getcwd()
+    fname = get_sample_data('%s/%s' % (cwd, infigure))
+    image = plt.imread(fname)
+    fig, ax = plt.subplots()
+    ax.imshow(image)
+
+    xlength = limit[0]
+    scalex = xlength/pixels[0]
+    ticks_x = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scalex))
+    ax.xaxis.set_major_formatter(ticks_x)
+    xticks = np.arange(0, np.floor(xlength)+1)/scalex
+    ax.set_xticks(xticks)
+    ax.tick_params(axis="x", labelsize=12)
+
+    ylength = limit[1]
+    scaley = ylength/pixels[1]
+    ticks_y = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scaley))
+    ax.yaxis.set_major_formatter(ticks_y)
+    yticks = np.arange(0, np.floor(ylength)+1)/scaley
+    ax.set_yticks(yticks)
+    ax.tick_params(axis="y", labelsize=12)
+
+    ax.set_xlabel('x [m]', fontsize=12)
+    ax.set_ylabel('y [m]', fontsize=12)
+    plt.legend(handles=handles, loc="upper left", bbox_to_anchor=(1.0, 1.0),
+               fancybox=True)
+    plt.savefig(outfigure, dpi=300, bbox_inches="tight")
+    plt.close()
+
+    return None
+
+
+def plot_serpent_axial_collapse(data, dname, figname, lim, V=1, dire='Z'):
     '''
     Plots axial flux from serpent detector.
     Collapses fluxes from G number of groups to Gp number of groups.
@@ -14,10 +74,13 @@ def plot_serpent_axial_collapse(data, name, save, lim, V=1, dire='Z'):
     Parameters:
     -----------
     data: [serpenttools format]
-    name: [string]
-        name of the detector
-    save: [string]
-        name of the figure
+        variable that contains the detector data retrieved by
+        serpentTools.read(). See:
+        https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
+    dname: [string]
+        name of the detector in the Serpent input file
+    figname: [string]
+        name of the file that will save the plot produced here
     lim: [list of int]
         if lim = [2, 4, 6]:
             - groups1 and groups2 form the new group1.
@@ -27,19 +90,19 @@ def plot_serpent_axial_collapse(data, name, save, lim, V=1, dire='Z'):
         len(lim) = Gp
     V: [float]
         total volume where the detector is applied [cm3]
-    dire: [float]
-        direction that the detector faces: 'X', 'Y', 'Z'
+    direction: [string]
+        direction that the detector faces.
+        The possible options are: 'X', 'Y', 'Z'
     '''
 
-    det = data.detectors[name]
-    z = [line[0] for line in det.grids[dire]]
+    det = data.detectors[dname]
+    z = [line[0] for line in det.grids[direction]]
     z = np.array(z) + 160
     val = det.tallies
     vdetector = V/len(z)
     val = val/vdetector
 
     G = len(lim)
-
     fluxes = np.zeros((G, len(val[0])))
     for g in range(G):
         if g == 0:
@@ -62,9 +125,9 @@ def plot_serpent_axial_collapse(data, name, save, lim, V=1, dire='Z'):
 
     plt.xticks(fontsize=14)
     plt.yticks(fontsize=14)
-    plt.xlabel(dire.lower()+' [cm]', fontsize=14)
+    plt.xlabel(direction.lower()+' [cm]', fontsize=14)
     plt.ylabel(r'$\phi \left[\frac{n}{cm^2s}\right]$', fontsize=14)
-    plt.savefig(save, dpi=300, bbox_inches="tight")
+    plt.savefig(figname, dpi=300, bbox_inches="tight")
     plt.close()
 
 
@@ -90,18 +153,23 @@ def standard():
     plt.savefig("figures/standard", dpi=300, bbox_inches="tight")
 
 
-def plot_spectrum(data, name, fig):
+def plot_spectrum(data, dname, figname):
     """
     Plots spectrum normalized. The integral of the flux is 1.
 
     Parameters:
     -----------
     data: [serpenttools format]
-    name: [string]
-    name of the detector
+        variable that contains the detector data retrieved by
+        serpentTools.read(). See:
+        https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
+    dname: [string]
+        name of the detector in the Serpent input file
+    figname: [string]
+        name of the file that will save the plot produced here
     """
 
-    det = data.detectors[name]
+    det = data.detectors[dname]
     val = det.tallies
 
     E = [line[0] for line in det.grids['E']]
@@ -117,7 +185,7 @@ def plot_spectrum(data, name, fig):
     plt.xlabel('E [MeV]')
     plt.ylabel('Normalized flux')
     plt.grid(True)
-    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
+    plt.savefig(fig + '-' + dname, dpi=300, bbox_inches="tight")
 
 
 def plot_axial(data, vb, vc, vt):
@@ -127,12 +195,15 @@ def plot_axial(data, vb, vc, vt):
     Parameters:
     -----------
     data: [serpenttools format]
+        variable that contains the detector data retrieved by
+        serpentTools.read(). See:
+        https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
     vb: [float]
-    volume of the bottom reflector detector
+        volume of the bottom reflector detector
     vc: [float]
-    volume of the core reflector detector
+        volume of the core reflector detector
     vt: [float]
-    volume of the top reflector detector
+        volume of the top reflector detector
     """
 
     name = 'AxialBot'
@@ -170,20 +241,23 @@ def plot_axial(data, vb, vc, vt):
     plt.savefig('axial1', dpi=300, bbox_inches="tight")
 
 
-def plot_detector(data, name, fig, V=1):
+def plot_detector(data, dname, fig, V=1):
     """
     Plots flux in the axial direction 'Z'.
 
     Parameters:
     -----------
     data: [serpenttools format]
-    name: [string]
-    name of the detector
+        variable that contains the detector data retrieved by
+        serpentTools.read(). See:
+        https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
+    dname: [string]
+        name of the detector in the Serpent input file
     V: [float]
-    total volume where the detector is applied [cm3]
+        total volume where the detector is applied [cm3]
     """
 
-    det = data.detectors[name]
+    det = data.detectors[dname]
     z = [line[0] for line in det.grids['Z']]
     val = det.tallies
     vdetector = V/len(z)
@@ -195,23 +269,27 @@ def plot_detector(data, name, fig, V=1):
     plt.xlabel('z [cm]')
     plt.ylabel(r'$\phi$')
     plt.legend(loc="upper right")
-    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
+    plt.savefig(fig + '-' + dname, dpi=300, bbox_inches="tight")
 
 
-def plot_radial(data, name, fig, piH=1):
+def plot_radial(data, dname, fig, piH=1):
     """
     Plots flux from curvilinear detector.
+
     Parameters:
     -----------
     data: [serpenttools format]
-    name: [string]
-        name of the detector
-    fig: [string]
-        root name of the figure
+        variable that contains the detector data retrieved by
+        serpentTools.read(). See:
+        https://serpent-tools.readthedocs.io/en/master/examples/Detector.html
+    dname: [string]
+        name of the detector in the Serpent input file
+    figname: [string]
+        root name of the file that will save the plot produced here
     piH: [float]
         angle * total height of the detector [cm]
     """
-    det = data.detectors[name]
+    det = data.detectors[dname]
     r = np.array([line[0] for line in det.grids['R']])
     vdetector = np.roll(r, -1)**2-r**2
     vdetector[-1] = det.grids['R'][-1][1]**2 - det.grids['R'][-1][0]**2
@@ -231,7 +309,7 @@ def plot_radial(data, name, fig, piH=1):
         plt.legend(loc="upper left", bbox_to_anchor=(1., 1.), fancybox=True)
     else:
         plt.legend(loc="upper left", bbox_to_anchor=(1., 1.2), fancybox=True)
-    plt.savefig(fig + '-' + name, dpi=300, bbox_inches="tight")
+    plt.savefig(fig + '-' + dname, dpi=300, bbox_inches="tight")
 
 
 def plots_standardcolumn():
@@ -261,7 +339,7 @@ def fullcore_detectors():
     y2 = int(height*0.6)
     x1 = int(width*0.45)
     x2 = int(width)
-    plt.imshow(im[y1:y2,x1:x2,:])
+    plt.imshow(im[y1:y2, x1:x2, :])
     plt.axis('off')
 
     # Axial 1
@@ -316,7 +394,8 @@ def fullcore_detectors():
     x = 52
     y = 349
     L = 495
-    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5, label='6- Radial3')
+    plt.plot([x, L*np.cos(np.pi/6)+x], [y, -L/2+y], 'r-', lw=1.5,
+             label='6- Radial3')
     plt.text(x=350, y=y-200, s='6', rotation=30, fontsize=20, color='black')
     plt.legend(loc='best')
 
@@ -365,7 +444,7 @@ def main():
     # plots location of the detectors
     fullcore_detectors()
 
-    # Gets full-core flux plots 
+    # Gets full-core flux plots
     plots_fullcore()
 
 
