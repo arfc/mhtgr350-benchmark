@@ -196,24 +196,24 @@ if __name__ == "__main__":
     # Assemblies 1 - 6
     for i in range(4):
         coordinates.append(np.array([i*(side_length+side_length/2),
-                     3*pitch-i*pitch/2]))
+                           3*pitch-i*pitch/2]))
     for i in range(1, 3):
         coordinates.append(np.array([3*(side_length+side_length/2),
-                     3*pitch-3*pitch/2-i*pitch]))
+                           3*pitch-3*pitch/2-i*pitch]))
     # Assemblies 7 - 14
     for i in range(5):
         coordinates.append(np.array([i*(side_length+side_length/2),
-                     4*pitch-i*pitch/2]))
+                           4*pitch-i*pitch/2]))
     for i in range(1, 4):
         coordinates.append(np.array([4*(side_length+side_length/2),
-                     4*pitch-4*pitch/2-i*pitch]))
+                           4*pitch-4*pitch/2-i*pitch]))
     # Assemblies 15 - 22
     for i in range(1, 5):
         coordinates.append(np.array([i*(side_length+side_length/2),
-                     5*pitch-i*pitch/2]))
+                           5*pitch-i*pitch/2]))
     for i in range(1, 5):
         coordinates.append(np.array([5*(side_length+side_length/2),
-                     5*pitch-5*pitch/2-i*pitch]))
+                           5*pitch-5*pitch/2-i*pitch]))
     coordinates = np.array(coordinates)
     figname = '3D-fullcore26G-radialpower'
     plot_radial_power_distribution(coordinates, pitch, power, figname)
