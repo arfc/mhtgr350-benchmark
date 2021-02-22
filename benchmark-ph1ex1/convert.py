@@ -8,6 +8,8 @@ How to create the XS:
 """
 import numpy as np
 import os
+from os import path
+import shutil
 
 
 def get_xs(filename, index):
@@ -27,7 +29,7 @@ def get_xs(filename, index):
         contains main parameters
     '''
 
-    with open(inFile, 'r') as i:
+    with open(filename, 'r') as i:
         data = i.readlines()
     lines = list()
     for line in data:
@@ -58,7 +60,7 @@ def get_xs(filename, index):
             XS['SP0'][gp+sp0s, g] = float(lines[i+g+26][gp])
 
         sp1s = int(lines[i+g][2])-1
-        sp1s = int(lines[i+g][3])-1
+        sp1e = int(lines[i+g][3])-1
         for gp in range(0, sp1e-sp1s+1):
             XS['SP1'][gp+sp1s, g] = float(lines[i+g+26+26][gp])
 
@@ -73,89 +75,49 @@ def get_xs(filename, index):
         XS['SP0'] = weight*np.array(XS['SP0'])
         XS['SP1'] = weight*np.array(XS['SP1'])
 
+    # process XS
+    toti = XS['ST']
+    scatii = XS['SP0'].diagonal()
+    XS['REMXS'] = toti-scatii
+    XS['SP0'].reshape(26*26, 1)
+    XS['SP1'].reshape(26*26, 1)
+    XS['KAPPA'] = 200*np.ones(26)
+    XS['INVV'] = np.zeros(26)
+    XS['CHID'] = np.zeros(26)
+    XS['BETA_EFF'] = np.zeros(8)
+    XS['LAMBDA'] = np.zeros(8)
+
     return XS
 
 
-def tomoltresformat(name, XS, index):
+def output_xs(root, temperature, constants):
     '''
-    Creates moltres format cross sections and prints
-    them in their .txt file.
+    This function outputs the dictionary with the material cross-sections
+    into the Cerberus and moltres readable text files.
 
     Parameters:
     -----------
-    name: string
-        name of the folder where to store the cross section files
-    XS: dictionary
-        contains main parameters
-    index: string
-        name of the material
+    root: [string]
+        root of the path that will hold the cross-section files
+    temperature: [float]
+        temperature at which the cross-sections were obtained
+    constants: [dictionary]
+        contains the cross-sections
+    Return:
+    -------
+    None
     '''
 
-    base = name + '/mhtgr_' + str(index) + '_'
+    for data in constants.keys():
+        with open(root + '_' + data + '.txt', 'a') as fh:
+            strData = constants[data]
+            strData = ' '.join(
+                [str(dat) for dat in strData]) if isinstance(
+                strData, np.ndarray) else str(strData)
+            fh.write(str(temperature) + ' ' + strData)
+            fh.write('\n')
 
-    T = 750
-    G = len(XS['NSF'])
-
-    data = ['NSF', 'DIFFCOEF', 'FISS', 'CHIT']
-    for param in data:
-        f = open(base + param + '.txt', "w+")
-        f.write(str(T))
-        for dg in XS[param]:
-            f.write(' ' + str(dg))
-        f.write('\n')
-        f.close()
-
-    # SP0 in Moltres for 2 groups:
-    # TEMP S11 S12 S21 S22
-    f = open(base + 'SP0' + '.txt', "w+")
-    f.write(str(T))
-    for i in range(len(XS['SP0'])):
-        for dg in XS['SP0'][i]:
-            f.write(' ' + str(dg))
-    f.write('\n')
-    f.close()
-
-    f = open(base + 'REMXS' + '.txt', "w+")
-    f.write(str(T))
-    for i in range(len(XS['SP0'])):
-        scatii = float(XS['SP0'][i, i])
-        toti = float(XS['ST'][i])
-        f.write(' ' + str(toti-scatii))
-    f.write('\n')
-    f.close()
-
-    # MeV/fission: 200 MeV/fission
-    f = open(base + 'KAPPA' + '.txt', "w+")
-    f.write(str(T))
-    for i in range(G):
-        if index == 'fuel':
-            f.write(' 200.0')
-        else:
-            f.write(' 0.0')
-    f.write('\n')
-    f.close()
-
-    # The remaining constants can be all 0
-    data = ['INVV', 'CHID']
-    for param in data:
-        f = open(base + param + '.txt', "w+")
-        f.write(str(T))
-        for i in range(G):
-            f.write(' 0.0')
-        f.write('\n')
-        f.close()
-
-    # 8 is the number of precursor groups
-    data = ['BETA_EFF', 'LAMBDA']
-    for param in data:
-        f = open(base + param + '.txt', "w+")
-        f.write(str(T))
-        for i in range(8):
-            f.write(' 0.0')
-        f.write('\n')
-        f.close()
-
-    print(index + ' done')
+    return None
 
 
 def homogenize(XS, vi):
@@ -313,6 +275,9 @@ def homogenize_collapse(G):
     -----------
     G: [int]
         number of groups to collapse the xs sections
+    Returns:
+    --------
+    None
     '''
 
     AT = np.pi/3 * 300**2
@@ -386,18 +351,25 @@ def homogenize_collapse(G):
         lim = lim12
         directory = 'oecdxsA-12G'
 
+    if os.path.exists(directory):
+        shutil.rmtree(directory)
     os.mkdir(directory)
+
     CFXS = collapse(FXS, lim)
     CBRXS = collapse(BRXS, lim)
     CIRXS = collapse(IRXS, lim)
     CORXS = collapse(ORXS, lim)
     CTRXS = collapse(TRXS, lim)
 
-    tomoltresformat(directory, FXS, 'fuel')
-    tomoltresformat(directory, BRXS, 'breflector')
-    tomoltresformat(directory, IRXS, 'ireflector')
-    tomoltresformat(directory, ORXS, 'oreflector')
-    tomoltresformat(directory, TRXS, 'treflector')
+    temperature = 750
+    root = directory + '/mhtgr_'
+    output_xs(root + 'fuel', temperature, FXS)
+    output_xs(root + 'breflector', temperature, BRXS)
+    output_xs(root + 'ireflector', temperature, IRXS)
+    output_xs(root + 'oreflector', temperature, ORXS)
+    output_xs(root + 'treflector', temperature, TRXS)
+
+    return None
 
 
 def only_collapse(G):
@@ -441,7 +413,7 @@ def straight():
         tomoltresformat(directory, mat, 'M'+str(index))
 
 
-def main():
+if __name__ == "__main__":
     '''
     Option 1: Necessary for running the 2D-model
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
@@ -457,7 +429,7 @@ def main():
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     and saves them in Moltres format.
     '''
-    straight()
+    # straight()
 
     '''
     Option 3: Necessary for running the 3D-model w/ periodic and reflective
@@ -466,9 +438,5 @@ def main():
     collapses the cross sections to another energy group structure,
     and saves the parameters in Moltres format.
     '''
-    G = 6  # 3 or 6
-    only_collapse(G)
-
-
-if __name__ == "__main__":
-    main()
+    # G = 6  # 3 or 6
+    # only_collapse(G)
