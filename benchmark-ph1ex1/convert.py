@@ -64,21 +64,18 @@ def get_xs(filename, index):
         for gp in range(0, sp1e-sp1s+1):
             XS['SP1'][gp+sp1s, g] = float(lines[i+g+26+26][gp])
 
+    for param in ['FLX', 'ST', 'DIFFCOEF', 'NSF', 'FISS', 'CHIT', 'SP0', 'SP1']:
+        XS[param] = np.array(XS[param])
+
     if index == 232:
         # weight is a weighing factor for the crontrol rod
         # it is specified in the benchmark definition
         weight = 0.9278
-        XS['ST'] = weight*np.array(XS['ST'])
-        XS['DIFFCOEF'] = weight*np.array(XS['DIFFCOEF'])
-        XS['NSF'] = weight*np.array(XS['NSF'])
-        XS['FISS'] = weight*np.array(XS['FISS'])
-        XS['SP0'] = weight*np.array(XS['SP0'])
-        XS['SP1'] = weight*np.array(XS['SP1'])
+        for param in ['ST', 'DIFFCOEF', 'NSF', 'FISS', 'SP0', 'SP1']:
+            XS[param] *= weight
 
     # process XS
-    toti = XS['ST']
-    scatii = XS['SP0'].diagonal()
-    XS['REMXS'] = toti-scatii
+    XS['REMXS'] = XS['ST'] - XS['SP0'].diagonal()
     XS['SP0'].reshape(26*26, 1)
     XS['SP1'].reshape(26*26, 1)
     XS['KAPPA'] = 200*np.ones(26)
@@ -90,32 +87,36 @@ def get_xs(filename, index):
     return XS
 
 
-def output_xs(root, temperature, constants):
+def output_xs(outdir, temperature, constants):
     '''
     This function outputs the dictionary with the material cross-sections
     into the Cerberus and moltres readable text files.
 
     Parameters:
     -----------
-    root: [string]
-        root of the path that will hold the cross-section files
+    outdir: [string]
+        folder that will hold the cross-section files
     temperature: [float]
         temperature at which the cross-sections were obtained
     constants: [dictionary]
         contains the cross-sections
+        primary keys: name of the material
+        secondary keys: constants
     Return:
     -------
     None
     '''
 
-    for data in constants.keys():
-        with open(root + '_' + data + '.txt', 'a') as fh:
-            strData = constants[data]
-            strData = ' '.join(
-                [str(dat) for dat in strData]) if isinstance(
-                strData, np.ndarray) else str(strData)
-            fh.write(str(temperature) + ' ' + strData)
-            fh.write('\n')
+    for currentMat in constants.keys():
+        for data in constants[currentMat].keys():
+            with open(outdir + '/' + currentMat +
+                      '_' + data + '.txt', 'a') as fh:
+                strData = constants[currentMat][data]
+                strData = ' '.join(
+                    [str(dat) for dat in strData]) if isinstance(
+                    strData, np.ndarray) else str(strData)
+                fh.write(str(temperature) + ' ' + strData)
+                fh.write('\n')
 
     return None
 
@@ -333,41 +334,32 @@ def homogenize_collapse(G):
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     TRXS = homogenize(XS, vi)
 
-    lim2 = [18, 26]  # 2G
-    lim3 = [4, 18, 26]  # 3G
-    lim6 = [4, 10, 16, 18, 24, 26]  # 6G
-    lim12 = [2, 4, 5, 8, 9, 10, 13, 14, 16, 18, 24, 26]  # 12G
-
     if G == 2:
-        lim = lim2
+        lim = [18, 26]
         directory = 'oecdxsA-2G'
     elif G == 3:
-        lim = lim3
+        lim = [4, 18, 26]
         directory = 'oecdxsA-3G'
     elif G == 6:
-        lim = lim6
+        lim = [4, 10, 16, 18, 24, 26]
         directory = 'oecdxsA-6G'
     else:
-        lim = lim12
+        lim = [2, 4, 5, 8, 9, 10, 13, 14, 16, 18, 24, 26]
         directory = 'oecdxsA-12G'
 
     if os.path.exists(directory):
         shutil.rmtree(directory)
     os.mkdir(directory)
 
-    CFXS = collapse(FXS, lim)
-    CBRXS = collapse(BRXS, lim)
-    CIRXS = collapse(IRXS, lim)
-    CORXS = collapse(ORXS, lim)
-    CTRXS = collapse(TRXS, lim)
+    HCXS = {}
+    HCXS['fuel'] = collapse(FXS, lim)
+    HCXS['breflector'] = collapse(BRXS, lim)
+    HCXS['ireflector'] = collapse(IRXS, lim)
+    HCXS['oreflector'] = collapse(ORXS, lim)
+    HCXS['treflector'] = collapse(TRXS, lim)
 
     temperature = 750
-    root = directory + '/mhtgr_'
-    output_xs(root + 'fuel', temperature, FXS)
-    output_xs(root + 'breflector', temperature, BRXS)
-    output_xs(root + 'ireflector', temperature, IRXS)
-    output_xs(root + 'oreflector', temperature, ORXS)
-    output_xs(root + 'treflector', temperature, TRXS)
+    output_xs(directory, temperature, HCXS)
 
     return None
 
@@ -406,11 +398,17 @@ def straight():
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     and saves them into Moltres format.
     '''
+    temperature = 750
+
     directory = 'oecdxsC-26G'
+    if os.path.exists(directory):
+        shutil.rmtree(directory)
     os.mkdir(directory)
+
     for index in range(1, 233):
-        mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
-        tomoltresformat(directory, mat, 'M'+str(index))
+        xsecs = {}
+        xsecs['M'+str(index)] = get_xs('OECD-MHTGR350_Simplified.xs', index)
+        output_xs(directory, temperature, xsecs)
 
 
 if __name__ == "__main__":
@@ -421,15 +419,15 @@ if __name__ == "__main__":
     to another energy group structure, and saves the parameters in Moltres
     format.
     '''
-    G = 2  # 2, 3, 6, or 12
-    homogenize_collapse(G)
+    # G = 2  # 2, 3, 6, or 12
+    # homogenize_collapse(G)
 
     '''
     Option 2: Necessary for running the 3D-model
     This function reads the cross sections in 'OECD-MHTGR350_Simplified.xs',
     and saves them in Moltres format.
     '''
-    # straight()
+    straight()
 
     '''
     Option 3: Necessary for running the 3D-model w/ periodic and reflective
