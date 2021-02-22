@@ -10,19 +10,20 @@ import numpy as np
 import os
 
 
-def getxs(inFile, index):
+def get_xs(filename, index):
     '''
-    Reads 'OECD-MHTGR350_Simplified.xs' and saves the data into a dictionary
+    Reads a file with cross-sections data and saves the data of the material
+    <index> into a dictionary.
 
     Parameters:
     -----------
-    inFile: file
-        path and name of the file
-    index: int
+    filename: [string]
+        name of the file that contains the cross-sections data
+    index: [int]
         material number [1-232]
     Returns:
     --------
-    XS: dictionary
+    XS: [dictionary]
         contains main parameters
     '''
 
@@ -51,25 +52,26 @@ def getxs(inFile, index):
     i += 28
     for g in range(0, 26):
         sp0s = int(lines[i+g][0])-1
-        spes = int(lines[i+g][1])-1
-        for gp in range(0, spes-sp0s+1):
+        sp0e = int(lines[i+g][1])-1
+
+        for gp in range(0, sp0e-sp0s+1):
             XS['SP0'][gp+sp0s, g] = float(lines[i+g+26][gp])
 
-    for g in range(0, 26):
-        sp0s = int(lines[i+g][2])-1
-        spes = int(lines[i+g][3])-1
-        for gp in range(0, spes-sp0s+1):
-            XS['SP1'][gp+sp0s, g] = float(lines[i+g+26+26][gp])
+        sp1s = int(lines[i+g][2])-1
+        sp1s = int(lines[i+g][3])-1
+        for gp in range(0, sp1e-sp1s+1):
+            XS['SP1'][gp+sp1s, g] = float(lines[i+g+26+26][gp])
 
     if index == 232:
-        # the 0.9278 is a weighing factor for the crontrol rod
+        # weight is a weighing factor for the crontrol rod
         # it is specified in the benchmark definition
-        XS['ST'] = 0.9278*np.array(XS['ST'])
-        XS['DIFFCOEF'] = 0.9278*np.array(XS['DIFFCOEF'])
-        XS['NSF'] = 0.9278*np.array(XS['NSF'])
-        XS['FISS'] = 0.9278*np.array(XS['FISS'])
-        XS['SP0'] = 0.9278*np.array(XS['SP0'])
-        XS['SP1'] = 0.9278*np.array(XS['SP1'])
+        weight = 0.9278
+        XS['ST'] = weight*np.array(XS['ST'])
+        XS['DIFFCOEF'] = weight*np.array(XS['DIFFCOEF'])
+        XS['NSF'] = weight*np.array(XS['NSF'])
+        XS['FISS'] = weight*np.array(XS['FISS'])
+        XS['SP0'] = weight*np.array(XS['SP0'])
+        XS['SP1'] = weight*np.array(XS['SP1'])
 
     return XS
 
@@ -323,7 +325,7 @@ def homogenize_collapse(G):
     # Fuel
     XS = []
     for index in range(1, 221):
-        mat = getxs('OECD-MHTGR350_Simplified.xs', index)
+        mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
         XS.append(mat)
     vi = 1/220 * np.ones(220)
     FXS = homogenize(XS, vi)
@@ -331,7 +333,7 @@ def homogenize_collapse(G):
     # Bottom Reflector
     XS = []
     for index in range(221, 225):
-        mat = getxs('OECD-MHTGR350_Simplified.xs', index)
+        mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
         XS.append(mat)
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     BRXS = homogenize(XS, vi)
@@ -339,12 +341,12 @@ def homogenize_collapse(G):
     # Inner Reflector
     # IRXS = []
     # index = 225
-    # mat = getxs('OECD-MHTGR350_Simplified.xs', index)
+    # mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
     # IRXS = mat
 
     XS = []
     index = 225
-    mat = getxs('OECD-MHTGR350_Simplified.xs', index)
+    mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
     XS.append(mat)
     vi = [1]
     IRXS = homogenize(XS, vi)
@@ -352,7 +354,7 @@ def homogenize_collapse(G):
     # Outer Reflector
     XS = []
     for index in range(226, 228):
-        mat = getxs('OECD-MHTGR350_Simplified.xs', index)
+        mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
         XS.append(mat)
     BT = A3 + A4
     vi = [A3/BT, A4/BT]
@@ -361,7 +363,7 @@ def homogenize_collapse(G):
     # Top Reflector
     XS = []
     for index in range(228, 231):
-        mat = getxs('OECD-MHTGR350_Simplified.xs', index)
+        mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
         XS.append(mat)
     vi = [A1/AT, A2/AT, A3/AT, A4/AT]
     TRXS = homogenize(XS, vi)
@@ -422,7 +424,7 @@ def only_collapse(G):
 
     os.mkdir(directory)
     for index in range(1, 233):
-        mat = getxs('OECD-MHTGR350_Simplified.xs', index)
+        mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
         CXS = collapse(mat, lim)
         tomoltresformat(directory, CXS, 'M'+str(index))
 
@@ -435,7 +437,7 @@ def straight():
     directory = 'oecdxsC-26G'
     os.mkdir(directory)
     for index in range(1, 233):
-        mat = getxs('OECD-MHTGR350_Simplified.xs', index)
+        mat = get_xs('OECD-MHTGR350_Simplified.xs', index)
         tomoltresformat(directory, mat, 'M'+str(index))
 
 
