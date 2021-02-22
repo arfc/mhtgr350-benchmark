@@ -1,4 +1,5 @@
-This study compares the results obtained for 3 and 6G with periodic and reflective boundary conditions.
+This study compares the results obtained for 3 and 6G with periodic and
+reflective boundary conditions.
 The results were obtained running 'postprocessing.py'.
 The results are summarized in this same file.
 
@@ -124,8 +125,9 @@ time-kout(128 cores)(s): 263.999
 		* h = 40
 	- Periodic BCs
 	- oecdxsC-6G
-	- keff = 1.0635445048 (recombination) time = 593.798 memory: 2.558100e+04 
-	- keff = 1.0635600911 (no recombination) time = 950.194 memory: 2.733000e+04
+	- keff = 1.0635445048 (recombination) time = 593.798 memory: 2.558100e+04
+	- keff = 1.0635600911 (no recombination) time = 950.194 memory:
+	2.733000e+04
 
 kout: 1.0718165381197
 kin: 1.0635600911226
@@ -174,7 +176,8 @@ time-kout(128 cores)(s): 540.409
 time-kout(128 cores)(s): 847.455
 
 
-More debugging was done unsuccesfully, the following list summarizes those efforts.
+More debugging was done unsuccesfully, the following list summarizes those
+efforts.
 
 More debugging:
 ---------------
@@ -203,9 +206,11 @@ More debugging:
   - Periodic BCs
   - NEWTON, petsc: asm lu, it didn't work
   - PJFNK, pre: false, petsc: asm lu, it didn't work
-  - layers had no recombination, PJFNK, pre: false, petsc: asm lu, it didn't work
+  - layers had no recombination, PJFNK, pre: false, petsc: asm lu, it didn't
+  work
   - layers had no recombination, JFNK, no pre, petsc: asm lu, it didn't work
-  - layers had no recombination, PJFNK, pre: false, petsc: lu superlu_dist, it didn't work
+  - layers had no recombination, PJFNK, pre: false, petsc: lu superlu_dist, it
+  didn't work
 
 lu superlu_dist
 petsc_options_iname = '-pc_type -pc_factor_mat_solver_package'
