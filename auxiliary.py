@@ -27,7 +27,7 @@ def add_label_to_geometry(infigure, outfigure, handles, limit, pixels):
         Dimensions of the objecte represented in the figure in the x- and
         y-directions. Expressed in meters.
     pixels: [tuple]
-        Dimensions of the figure in the x- and y-directions. Expressed in 
+        Dimensions of the figure in the x- and y-directions. Expressed in
         pixels.
     Returns:
     --------
@@ -47,7 +47,7 @@ def add_label_to_geometry(infigure, outfigure, handles, limit, pixels):
     xticks = np.arange(0, np.floor(xlength)+1)/scalex
     ax.set_xticks(xticks)
     ax.tick_params(axis="x", labelsize=12)
-    
+
     ylength = limit[1]
     scaley = ylength/pixels[1]
     ticks_y = ticker.FuncFormatter(lambda x, pos: '{0:g}'.format(x*scaley))
